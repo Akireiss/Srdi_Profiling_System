@@ -35,7 +35,10 @@ if(!isset($_SESSION['user_id'])) {
     $position= $_POST['position'];
     $date= $_POST['date'];
     
-    $result = $db->addSite($location, $producer_id, $topography, $region, $province, $municipality, $barangay, $addres, $land, $tenancy, $area, $crops, $share, $irrigation, $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks, $name, $position, $date);
+    $result = $db->addSite($location, $producer_id, $topography, $region, $province, 
+    $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, 
+    $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
+     $name, $position, $date);
     if ($result != 0) {
       $message = "Site Successfully Added!";
     } else {
@@ -169,12 +172,14 @@ if (isset($message)) {
                 </div>
 
                 <div class="col-md-12 position-relative">
-                  <label class="form-label">Address (Zip Code/Street no.)</label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "address" required>
-                  <div class="invalid-tooltip">
-                    The Address field is required.
-                  </div>
-                </div>
+    <label class="form-label">Address (Zip Code/Street no.)</label>
+    <input type="text" class="form-control" id="validationTooltip01"
+        name="address" required>
+    <div class="invalid-tooltip">
+        The Address field is required.
+    </div>
+</div>
+
 
   
                 

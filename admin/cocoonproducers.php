@@ -36,18 +36,16 @@ if (!isset($_SESSION['user_id'])) {
        $id_pic =$_POST ['id_pic'];
        $bypic =$_POST ['bypic'];
 
-       //json 
-       $selectedFarmTools = isset($_POST['farm_tool']) ? $_POST['farm_tool'] : [];
-
+       $selectedFarmTools = isset($_POST['farm_tools']) ? $_POST['farm_tools'] : [];
        // Convert the array into JSON
-       $jsonFarmTools = json_encode($selectedFarmTools);
+       $selectedFarmToolsJSON = json_encode($selectedFarmTools);
        //end
         $result = $db->addProducer($name, $birthdate,
          $age, $type, $sex, $region, $province, $municipality, 
          $barangay, $address, $education, $religion, $civil_status, 
          $name_spouse, $farm_participate, $cannot_participate, $male,
           $female, $source_income, $years_in_farming, $available_workers,
-           $farm_tool, $intent, $signature, $id_pic, $bypic,$selectedFarmToolsJSON);
+          $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic,);
         if ($result != 0) {
             $message = "Cocoon Producer Successfully Added!";
         } else {

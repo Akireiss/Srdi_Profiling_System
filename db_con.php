@@ -814,11 +814,12 @@ class db
         }
     }
        
-    public function addProducer( $name, $birthdate, $age, $type, $sex,
-    $region, $province, $municipality, $barangay, $address, $education,
-     $religion, $civil_status, $name_spouse, $farm_participate, $cannot_participate, $male, $female, $source_income, 
-     $years_in_farming, $available_workers, $farm_tools, $intent,
-      $signature, $id_pic, $bypic)
+    public function addProducer($name, $birthdate,
+    $age, $type, $sex, $region, $province, $municipality, 
+    $barangay, $address, $education, $religion, $civil_status, 
+    $name_spouse, $farm_participate, $cannot_participate, $male,
+     $female, $source_income, $years_in_farming, $available_workers,
+     $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic)
     {
         $check = "SELECT * FROM cocoon
 						WHERE name = '$name'";
@@ -853,7 +854,7 @@ class db
                                 '$source_income',
                                 '$years_in_farming',
                                 '$available_workers',
-                                '$farm_tools',
+                                '$selectedFarmToolsJSON',
                                 '$intent',
                                 '$signature',
                                 '$id_pic',
@@ -864,7 +865,10 @@ class db
         }
     }
   
-    public function addSite($location, $producer_id, $topography, $region, $municipality, $province, $barangay, $addres, $land, $tenancy, $area, $crops, $share, $irrigation,  $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks, $name, $position, $date)
+    public function addSite($location, $producer_id, $topography, $region, $province, 
+    $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, 
+    $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
+     $name, $position, $date)
     {
         $check = "SELECT * FROM site
 						WHERE location = '$location'";
@@ -874,7 +878,9 @@ class db
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO site (location, producer_id, topography, region, province,
-             municipality, barangay, address, land, tenancy, area, crops, share, irrigation,  water, source, soil, market, distance, land_area, agency, charge, adopters, remarks, name, position, date )
+            municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
+            water, source,market, distance, land_area, agency, charge, adopters,
+            remarks, name, position, date,  soil)
 						VALUES ('$location',					
 								'$producer_id',
                                 '$topography',
@@ -882,7 +888,7 @@ class db
                                 '$province',
                                 '$municipality',
                                 '$barangay',
-                                '$addres',
+                                '$address',
                                 '$land',
                                 '$tenancy',
                                 '$area',
@@ -891,7 +897,6 @@ class db
                                 '$irrigation',
                                 '$water',
                                 '$source',
-                                '$soil',
                                 '$market',
                                 '$distance',
                                 '$land_area',
@@ -901,7 +906,8 @@ class db
                                 '$remarks', 
                                 '$name', 
                                 '$position', 
-                                '$date')";
+                                '$date', 
+                                '$soil')";
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }
