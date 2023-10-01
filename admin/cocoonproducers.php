@@ -48,8 +48,6 @@ if (!isset($_SESSION['user_id'])) {
           $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic,);
         if ($result != 0) {
             $message = "Cocoon Producer Successfully Added!";
-        } else {
-            $message = "Cocoon Producer Already Exist!";
         }
     }
 }

@@ -866,9 +866,9 @@ class db
     }
   
     public function addSite($location, $producer_id, $topography, $region, $province, 
-    $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, 
+    $municipality, $barangay, $address, $landJson,$tenancyJson, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
-     $name, $position, $date)
+    $name, $position, $date)
     {
         $check = "SELECT * FROM site
 						WHERE location = '$location'";
@@ -889,8 +889,8 @@ class db
                                 '$municipality',
                                 '$barangay',
                                 '$address',
-                                '$land',
-                                '$tenancy',
+                                '$landJson',
+                                '$tenancyJson',
                                 '$area',
                                 '$crops',
                                 '$share',
