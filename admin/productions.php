@@ -53,7 +53,7 @@
                       </thead>
         
                       <?php
-$result = $db->getProduction();
+$result = $db->getAllProduction();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['total_production'] . '</a></td>';
@@ -66,9 +66,14 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square"></i></a>';
     echo '</td>';
     echo '</tr>';
+
+      $totalPIncome += $row['p_income'];
+      // Net Income
+      $totalNIncome += $row['n_income'];
+
+  
 }
 ?>
-
 
                       <tbody>
                        
@@ -78,10 +83,31 @@ while ($row = mysqli_fetch_array($result)) {
           
                       </tbody>
                     </table>
+                    <div class="mx-2 fw-bold">
+    <?php 
+    echo '<td class="text-uppercase">Total Production Income: </td>';
+    echo '<td colspan="2">PHP ' . number_format($totalPIncome, 2, '.', ',') . '</td>';
+    ?>  
+</div>
+
+
+<!-- Net Income -->
+
+<div class="mx-2 fw-bold">
+<?php 
+    echo '<td class="text-uppercase">Total Net Income: </td>';
+    echo '<td colspan="2">PHP ' . number_format($totalNIncome, 2, '.', ',') . '</td>';
+    ?>  
+</div>
+
                   </div>
                 </div>
               </div>
             </div>
+
+
+            <!-- Another Table -->
+            
          
      
              

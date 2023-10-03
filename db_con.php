@@ -319,7 +319,9 @@ class db
 
     public function getProducer()
     {
-        $sql = "SELECT * FROM cocoon";
+        $sql = "SELECT * FROM cocoon
+            LEFT JOIN barangay
+                ON cocoon.barangay = barangay.barangay_id";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
@@ -348,6 +350,11 @@ class db
         return $result;
     }
 
+    public function getSelectedSite()
+    {
+     
+    }
+
    
     public function getSite($cocoonID)
     {
@@ -370,10 +377,11 @@ class db
     }
     
     
-    
     public function getSiteID($site_id)
     {
         $sql = "SELECT * FROM site
+                LEFT JOIN cocoon
+                ON site.producer_id = cocoon.cocoon_id 
                 LEFT JOIN region
                 ON site.region = region.regCode
                 LEFT JOIN province
@@ -383,19 +391,22 @@ class db
         return $result;
 
     }
-    public function getProduction()
+    public function getAllProduction()
     {
         $sql = "SELECT * FROM production";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-    public function getProductions($siteID)
+   
+
+    public function getProduction($siteID)
     {
         $sql = "SELECT * FROM production
-                WHERE production.site_id = $siteID";
+        WHERE site_id = '$siteID'";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+   
     public function getProductionID($production_id)
     {
         $sql = "SELECT * FROM production
@@ -912,7 +923,7 @@ class db
             return $resultsql = 1;
         }
     }
-     public function addProduction($site_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
+     public function addProduction( $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id)
     {
         $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
@@ -921,13 +932,14 @@ class db
         if($num_rows > 0) {
             return $resultsql = 0;
         } else {
-            $sql = "INSERT INTO production (site_id, production_date, total_production, p_income, p_cost, n_income)
-						VALUES ('$site_id',	
+            $sql = "INSERT INTO production ( production_date, total_production, p_income, p_cost, n_income, site_id)
+						VALUES (
                                 '$production_date',					
 								'$total_production',
                                 '$p_income',
                                 '$p_cost',
-                                $n_income)";
+                                $n_income,
+                                '$site_id')";
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }

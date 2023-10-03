@@ -377,7 +377,7 @@ if (isset($message)) {
                   </div>
                 </div>
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-12 position-relative">
                   <label class="form-label">Site Adopters<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name = "adopters" >
                   <div class="invalid-tooltip">
@@ -412,32 +412,25 @@ if (isset($message)) {
             <div class="col-md-12">
               <label for="validationCustom04" class="form-label">Herewith the Monitoring and Evaluation Team, declares to have visited the proposed location for mulberry plantation field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
             </div>
-            <div class="row mt-3">
-              <div class="col-md-3 ">
-                <label for="validationCustom04" name="name" class="form-label">Name<font color = "red">*</font></label>
-                <select class="form-select" aria-label="Default select example" name="name">
-                  <option selected>Select Name</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
+         
+            <div class="col-md-4 position-relative">
+                  <label class="form-label">Name<font color = "red">*</font></label>
+                  <input type="text" class="form-control" id="validationTooltip01" name = "name" >
+                 
+                </div>
 
-              <div class="col-md-3 ">
-                <label for="validationCustom04" name="position" class="form-label">Position<font color = "red">*</font></label>
-                <select class="form-select" aria-label="Default select example" name="position">
-                  <option selected>Select Position</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                
+                <div class="col-md-4 position-relative">
+                  <label class="form-label">Position<font color = "red">*</font></label>
+                  <input type="text" class="form-control" id="validationTooltip01" name = "position" >
+                  <div class="invalid-tooltip">
+                    The Project In-Charge field is required.
+                  </div>
+                </div>
 
-              </div>
-
-
-              <div class="col-md-3 ">
+              <div class="col-md-4 ">
                 <label for="validationCustom04" name="date" class="form-label">Date<font color = "red">*</font></label>
-                <input type="text" class="form-control" id="validationCustom05" name="date">
+                <input type="date" class="form-control" id="validationCustom05" name="date">
 
               </div>
 
@@ -449,7 +442,7 @@ if (isset($message)) {
                 <div class="col-12 d-flex align-items-end justify-content-end gap-2">
                     <button type="submit" class="btn btn-warning" name="submit">Save</button>
                   <button type="reset" class="btn btn-primary">Clear</button>
-                  <a href="add_projectsite.php" class="btn btn-danger">Cancel</a>
+                  <a href="projectsite.php" class="btn btn-danger">Cancel</a>
                 </div>  
 </div>
 </section>

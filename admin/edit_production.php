@@ -153,7 +153,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <div class="col-12 d-flex align-items-end justify-content-end gap-2">
                                         <button type="submit" class="btn btn-warning" name="submit">Update</button>
                                         <button type="reset" class="btn btn-primary">Clear</button>
-                                        <a href="irrigation.php" class="btn btn-danger">Cancel</a>
+                                        <a href="productions.php" class="btn btn-danger">Cancel</a>
                                     </div>
 
                                 

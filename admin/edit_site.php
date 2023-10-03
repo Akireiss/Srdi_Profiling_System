@@ -28,7 +28,8 @@ if (!isset($_SESSION['user_id'])) {
             while($row=mysqli_fetch_object($result)){
                 $siteID     	  = $row->site_id;
                 $location   	  = $row->location;
-                $producer_name 	= $row->producer_name;
+                $producer_name 	= $row->name;
+                $producerName 	= $row->name;
                 $topography 	  = $row->topography;
                 $region 	      = $row->region;
                 $regName        =$row->regDesc;
@@ -396,7 +397,7 @@ if (!isset($_SESSION['user_id'])) {
 
                  <button type="submit" class="btn btn-warning" name="update">Update </button>
                  <button type="reset" class="btn btn-primary">Clear</button>
-                 <a href="add_projectsite.php" class="btn btn-danger">Cancel</a>
+                 <a href="projectsite.php" class="btn btn-danger">Cancel</a>
            </div>
         </form><!-- End Custom Styled Validation with Tooltips -->
         </div>
@@ -406,9 +407,12 @@ if (!isset($_SESSION['user_id'])) {
         <!--       <h1>Beekeepers</h1><br> -->
                     <div class="row">
                       <div class="col-lg-8">
-                        <a href = "add_production.php">
-                          <button type="button" class="btn btn-warning">Add Production</button>
-                        </a>
+                    
+                      <a href="addSiteProduction.php?siteID=<?php echo $siteID; ?>" class="btn btn-warning">Add Production</a>
+
+
+                    
+
                       </div>
                     </div>
                   </div><!-- End Page Title -->
@@ -433,7 +437,7 @@ if (!isset($_SESSION['user_id'])) {
                       </thead>
                       
                       <?php
-$result = $db->getProduction();
+$result = $db->getProduction($siteID);
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['total_production'] . '</a></td>';
@@ -447,9 +451,32 @@ while ($row = mysqli_fetch_array($result)) {
     echo '</td>';
     echo '</tr>';
 }
+
+$totalProductionIncome += $row['p_income'];
+$totalNetIncome += $row['n_income']
 ?>
                                
                               </table>
+
+
+                              <!-- Addtional Information -->
+                              <div class="mx-2 fw-bold">
+    <?php 
+    echo '<td class="text-uppercase">Total Production Income: </td>';
+    echo '<td colspan="2">PHP ' . number_format($totalProductionIncome, 2, '.', ',') . '</td>';
+    ?>  
+</div>
+
+
+<!-- Net Income -->
+
+<div class="mx-2 fw-bold">
+<?php 
+    echo '<td class="text-uppercase">Total Net Income: </td>';
+    echo '<td colspan="2">PHP ' . number_format($totalNetIncome, 2, '.', ',') . '</td>';
+    ?>  
+</div>
+
                             
                           </div>
                         </div>

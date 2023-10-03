@@ -73,30 +73,26 @@ if (!isset($_SESSION['user_id'])) {
            
           <div class="card">
             <div class="card-body">
-              
+         
               <h5 class="card-title"></h5>
 
                             <!-- Custom Styled Validation with Tooltips -->
                             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
 
+
+
                             <div class="col-md-12 position-relative">
-                  <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                 <select name="site_id" class="form-select" id="validationCustom04" required>
-                    <option selected>Select Project Site Location</option>
-                    <?php
-                        $resultType = $db->getSiteLocationActive();
-                        while ($row = mysqli_fetch_array($resultType)) {
-                            $site_id = $row['site_id'];
-                            $location = $row['location'];
-                            $selected = ($site_id == $site) ? 'selected' : '';
-                            echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
-            }
-            ?>
-    </select>
+                            <label class="form-label">Project Site Location<font color="red">*</font></label>
+                        <input type="text" class="form-control" 
+                        id="selectedSiteID" name="selectedSiteID" value="">
+
                   <div class="invalid-tooltip">
                     The Project Site Location field is required.
                   </div>
                 </div>
+
+
+
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 
