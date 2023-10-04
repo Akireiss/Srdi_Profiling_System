@@ -39,14 +39,10 @@
         <i class="bi bi-gear" style="color: white;"></i><span>System Settings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
       <li>
-          <a href="system_user.php">
-            <i class="bi bi-circle" ></i><span>System User</span>
-          </a>
-        </li>
-        <li>
-          <a href="user_type.php">
-            <i class="bi bi-circle" ></i><span>User Type</span>
+          <a href="agency.php">
+            <i class="bi bi-circle" ></i><span>Funding Agency</span>
           </a>
         </li>
         <li>
@@ -127,6 +123,30 @@
 </ul>
    
   </li><!-- End Settings Nav -->
+  <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-gear" style="color: white;"></i><span>User Settings</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+          <a href="system_user.php">
+            <i class="bi bi-circle" ></i><span>System User</span>
+          </a>
+        </li>
+        <li>
+          <a href="user_type.php">
+            <i class="bi bi-circle" ></i><span>User Type</span>
+          </a>
+        </li>
+        <li>
+          <a href="monitoring_team.php">
+            <i class="bi bi-circle" ></i><span>Monitoring Team</span>
+          </a>
+        </li>
+        
+</ul>
+   
+  </li><!-- End Settings Nav -->
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="report.php">
@@ -136,12 +156,7 @@
   
 </li><!-- End Reports Nav -->
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="../auth/logout.php">
-      <i class="bi bi-box-arrow-in-right" style="color: white;"></i>
-      <span>Log out</span>
-    </a>
-  </li><!-- End Blank Page Nav -->
+<!-- End Blank Page Nav -->
 
 </ul>
 

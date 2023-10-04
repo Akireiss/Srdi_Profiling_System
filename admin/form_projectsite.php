@@ -223,6 +223,7 @@ if (isset($message)) {
                 }
                 ?>
             </div>
+
             <div class="col-md-2 mb-3">
     <label for="validationCustom01" class="form-label fw-bold">Area (Ha)</label>
     <input type="number" class="form-control" id="validationCustom01" step="0.01" name="area">
@@ -360,13 +361,20 @@ if (isset($message)) {
 
 
 
-                <div class="col-md-12 position-relative">
-                  <label class="form-label">Funding Agency<font color = "red">*</font></label>
-                  <input type="text" name="agency" class="form-control" id="validationTooltip01" >
-                  <div class="invalid-tooltip">
-                    The Funding Agency field is required.
-                  </div>
+                  <div class="col-md-3 ">
+                <div class="col-md-12">
+                    <label for="validationCustom04" class="form-label fw-bold">Funding Agency</label>
                 </div>
+                <?php
+                $resultType = $db->getAgencyActive();
+                while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<div class="form-check form-check-inline col-md-12 ">';
+                    echo '<input name="agency[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
+                    echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
 
                 
                 <div class="col-md-12 position-relative">

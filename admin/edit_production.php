@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
+        $site_id = $_POST['site_id'];
         $production_id = $_POST['production_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
@@ -25,7 +26,7 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $p_income - $p_cost;
 
         // Add the production record to the database
-        $result = $db->updateProduction($production_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
+        $result = $db->updateProduction(  $site_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -68,7 +69,7 @@ if (!isset($_SESSION['user_id'])) {
              $result=$db->getProductionID($_GET['production_id']);
             while($row=mysqli_fetch_object($result)){
                 $productionID     	= $row->production_id;
-                $siteID     	    = $row->site_id;
+                $siteID     	    = $row->location;
                 $production_date   	= $row->production_date;
                 $total_production 	= $row->total_production;
                 $p_income 	        = $row->p_income;
@@ -88,20 +89,10 @@ if (!isset($_SESSION['user_id'])) {
                             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
                             <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                 <select name="location" class="form-select" id="validationCustom04" required>
-                    <option selected>Select Project Site Location</option>
-                    <?php
-                        $resultType = $db->getSiteLocationActive();
-                        while ($row = mysqli_fetch_array($resultType)) {
-                            $site_id = $row['site_id'];
-                            $location = $row['location'];
-                            $selected = ($site_id == $site) ? 'selected' : '';
-                            echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
-            }
-            ?>
-    </select>
+                  <input type="text" class="form-control" id="validationTooltip01" name="siteID"
+                                        value = "<?php echo $siteID;?>" required>
                   <div class="invalid-tooltip">
-                    The Project Site Location field is required.
+                    The Producer Name field is required.
                   </div>
                 </div>
                 <!-- Species -->

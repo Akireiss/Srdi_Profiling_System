@@ -295,7 +295,7 @@ if (isset($message)) {
         <?php
         $resultType = $db->getSource_IncomeActive();
         while ($row = mysqli_fetch_array($resultType)) {
-            echo '<div class="form-check form-check-inline col-md-4">';
+            echo '<div class="form-check form-check-inline col-md-3">';
             echo '<input class="form-check-input" name="form_income" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_name'] . '">';
             echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
             echo '</div>';
@@ -329,7 +329,7 @@ if (isset($message)) {
     <?php
     $resultType = $db->getFarmToolsActive();
     while ($row = mysqli_fetch_array($resultType)) {
-        echo '<div class="form-check form-check-inline col-md-4">';
+        echo '<div class="form-check form-check-inline col-md-3">';
         echo '<input class="form-check-input" name="farm_tools[]" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '">';
         echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
         echo '</div>';

@@ -36,6 +36,7 @@ if (!isset($_SESSION['user_id'])) {
                 $province 	    = $row->province;
                 $provName       =$row->provDesc;
                 $municipality 	= $row->municipality;
+                $citymunName	= $row->citymunDesc;
                 $barangay 	    = $row->barangay;
                 $address	      = $row->address;
                 $land	          = $row->land;
@@ -151,8 +152,9 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-md-3 position-relative">
                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "province" id="province" >
-                      <option value="" selected disabled>Select City/Municipality</option>
+               
+                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
+                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
                     </select>
                   </div>
                 </div>
@@ -179,17 +181,31 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-md-12">
                     <label for="validationCustom04" class="form-label fw-bold">Land Types</label>
                 </div>
-                <input type="text" class="form-control" id="validationTooltip01" name="land"
-                                        value = "<?php echo $land;?>" required>
+                <?php
+                $resultType = $db->getLandActive();
+                while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<div class="form-check form-check-inline col-md-6 ">';
+                    echo '<input name="land[]" class="form-check-input" type="checkbox" id="' . $row['land_id'] . '" value="' . $row['land_id'] . '">';
+                    echo '<label class="form-check-label" for="' . $row['land_id'] . '">' . $row['land_name'] . '</label>';
+                    echo '</div>';
+                }
+                ?>
             </div>
 
             <div class="col-md-3 ">
-            <div class="col-md-12">
-                <label for="validationCustom04" class="form-label fw-bold">Tenancy</label>
+                <div class="col-md-12">
+                    <label for="validationCustom04" class="form-label fw-bold">Tenancy</label>
+                </div>
+                <?php
+                $resultType = $db->getTenancyActive();
+                while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<div class="form-check form-check-inline col-md-6 ">';
+                    echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '">';
+                    echo '<label class="form-check-label" for="' . $row['tenancy_id'] . '">' . $row['tenancy_name'] . '</label>';
+                    echo '</div>';
+                }
+                ?>
             </div>
-            <input type="text" class="form-control" id="validationTooltip01" name="tenancy"
-                                        value = "<?php echo $tenancy;?>" required>
-        </div>
          
         <div class="col-md-2 mb-3">
             <label for="validationCustom01" class="form-label fw-bold">Area (Ha)</label>

@@ -47,7 +47,7 @@ $productionCount = $db->countProduction();
             <div class="col-xxl-3 col-md-4">
               <div class="card info-card Cocoon Producers-card">
                 <div class="card-body">
-                <h5 class="card-title">Cocoon Producers </h5>
+                <h5 class="card-title">Cocoon Producers Active </h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="box-shadow: 0 0 9px rgba(0, 0, 255, 1);">
                       <i class="bi bi-people" style="color: blue;"></i>
@@ -63,8 +63,23 @@ $productionCount = $db->countProduction();
               </div>
             </div>
 
+            <div class="col-xxl-3 col-md-4">
+              <div class="card info-card Cocoon Producers-card">
+                <div class="card-body">
+                <h5 class="card-title">Cocoon Producers Inactive </h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="box-shadow: 0 0 9px rgba(0, 0, 255, 1);">
+                      <i class="bi bi-people" style="color: blue;"></i>
+                    </div>
+                  
+                  </div>
+                </div>
+</a>
+              </div>
+            </div>
 
- <div class="col-xxl-2 col-xl-6">
+
+ <div class="col-xxl-3 col-xl-4">
  
   <div class="card info-card production-card">
 
@@ -85,7 +100,7 @@ $productionCount = $db->countProduction();
 </a>
 </div>
 
-<div class="col-xxl-2 col-xl-6">
+<div class="col-xxl-3 col-xl-4">
 
   <div class="card info-card systemuser-card">
     <div class="card-body">
@@ -104,10 +119,28 @@ $productionCount = $db->countProduction();
 
 </div>
 
+<div class="col-xxl-3 col-xl-4">
+              <div class="card info-card production-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total Production </h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="box-shadow: 0 0 10px rgba(70, 130,180,1);">
+                      <i class="bi bi-tools" style="color: steelblue;"></i>
+                    </div>
+                   
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+
             <div class="col-xxl-3 col-xl-4">
               <div class="card info-card production-card">
                 <div class="card-body">
-                  <h5 class="card-title">Production Income</h5>
+                  <h5 class="card-title">Income</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="box-shadow: 0 0 10px rgba(70, 130,180,1);">
@@ -123,7 +156,7 @@ $productionCount = $db->countProduction();
 
             </div><!-- End Production Card -->
 
-  <div class="col-xxl-2 col-md-6">
+  <div class="col-xxl-3 col-md-4">
               <div class="card info-card numberofcocoonproducers-card">
 
                 <div class="card-body">

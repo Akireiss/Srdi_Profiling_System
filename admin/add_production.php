@@ -13,22 +13,19 @@ if (!isset($_SESSION['user_id'])) {
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
         
-        // Calculate net income
+     
 
         $total = $p_income - $p_cost;
         $n_income = $total;
 
-        // Format p_income and p_cost with commas
+      
         $p_income_formatted = number_format($p_income, 2);
         $p_cost_formatted = number_format($p_cost, 2);
 
         $n_income = $p_income - $p_cost;
 
 
-        //Additional Column
 
-
-        // Add the production record to the database
         $result = $db->addProduction($production_date, $total_production, $p_income, $p_cost, $n_income, $site_id);
 
         if ($result != 0) {
@@ -119,7 +116,7 @@ if (!isset($_SESSION['user_id'])) {
                                 </div>
 
                                 <div class="col-md-3 position-relative">
-                                    <label class="form-label">Production Income<font color="red">*</font></label>
+                                    <label class="form-label">Gross Income<font color="red">*</font></label>
                                     <input type="number" class="form-control" id="validationTooltip03" name="p_income" >
                                     <div class="invalid-tooltip">
                                     The Production Income field is required.

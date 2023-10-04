@@ -320,8 +320,14 @@ class db
     public function getProducer()
     {
         $sql = "SELECT * FROM cocoon
-            LEFT JOIN barangay
-                ON cocoon.barangay = barangay.barangay_id";
+                LEFT JOIN region
+                ON cocoon.region = region.regCode
+                LEFT JOIN province
+                ON cocoon.province = province.provCode
+                LEFT JOIN municipality
+                ON cocoon.municipality = municipality.citymunCode";
+        // echo $sql;
+        // echo die();
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
@@ -407,13 +413,52 @@ class db
         return $result;
     }
    
+   
     public function getProductionID($production_id)
     {
         $sql = "SELECT * FROM production
+                LEFT JOIN site
+                ON production.site_id = site.site_id 
 				 WHERE production_id='$production_id'";
         $result = mysqli_query($this->$con, $sql);
         return $result;
 
+    }
+
+    public function getMonitoring()
+    {
+        $sql = "SELECT * FROM monitoring";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+    }
+    public function getMonitoringID($monitoring_id)
+    {
+        $sql = "SELECT * FROM monitoring
+				 WHERE monitoring_id='$monitoring_id'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+
+    }
+    public function getAgency()
+    {
+        $sql = "SELECT * FROM agency";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+    }
+    public function getAgencyID($agency_id)
+    {
+        $sql = "SELECT * FROM agency
+				 WHERE agency_id='$agency_id'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+
+    }
+    public function getAgencyActive()
+    {
+        $sql = "SELECT * FROM agency
+				WHERE status = 'Active'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
     }
     
 
@@ -569,14 +614,15 @@ class db
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }
-        public function updateProduction($production_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
+        public function updateProduction( $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id,)
 {
     $sql = "UPDATE production
             SET production_date = '$production_date',
                 total_production = '$total_production',
                 p_income = '$p_income',
                 p_cost = '$p_cost',
-                n_income = '$n_income'
+                n_income = '$n_income',
+                site_id ='$site_id',
             WHERE production_id = '$production_id'";
     $result = mysqli_query($this->con, $sql);
     
@@ -586,7 +632,27 @@ class db
         return 0; // Update failed
     }
 }
+public function updateAgency($agency_id, $agency_name, $status)
+{
+    $sql = "UPDATE agency
+            SET agency_name = '$agency_name',
+                status	    ='$status'
+            WHERE agency_id	= '$agency_id'";
+            
+    $result = mysqli_query($this->$con, $sql);
+    return $result = 1;
+}
 
+public function updateMonitoring($monitoring_id, $monitoring_name, $position, $status)
+    {
+        $sql = "UPDATE monitoring
+				SET monitoring_name = '$monitoring_name',
+                    position = '$position',
+					status	='$status'
+				WHERE monitoring_id	= '$monitoring_id'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result = 1;
+    }
     
 
 
@@ -923,7 +989,7 @@ class db
             return $resultsql = 1;
         }
     }
-     public function addProduction( $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id)
+    public function addProduction($production_date, $total_production, $p_income, $p_cost, $n_income, $site_id)
     {
         $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
@@ -932,14 +998,47 @@ class db
         if($num_rows > 0) {
             return $resultsql = 0;
         } else {
-            $sql = "INSERT INTO production ( production_date, total_production, p_income, p_cost, n_income, site_id)
-						VALUES (
-                                '$production_date',					
+            $sql = "INSERT INTO production (production_date, total_production, p_income, p_cost, n_income, site_id)
+						VALUES ('$production_date',					
 								'$total_production',
                                 '$p_income',
                                 '$p_cost',
-                                $n_income,
+                                $n_income',
                                 '$site_id')";
+            $resultsql = mysqli_query($this->$con, $sql);
+            return $resultsql = 1;
+        }
+    }
+   
+    public function addAgency($funding_agency, $status)
+    {
+        $check = "SELECT * FROM agency
+						WHERE agency_name = '$funding_agency'";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $num_rows = mysqli_num_rows($resultCheck);
+        if($num_rows > 0) {
+            return $resultsql = 0;
+        } else {
+            $sql = "INSERT INTO agency (agency_name, status)
+						VALUES ('$funding_agency',					
+								'$status')";
+            $resultsql = mysqli_query($this->$con, $sql);
+            return $resultsql = 1;
+        }
+    }
+    public function addMonitoring($name, $position, $status)
+    {
+        $check = "SELECT * FROM monitoring
+						WHERE monitoring_name = '$name'";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $num_rows = mysqli_num_rows($resultCheck);
+        if($num_rows > 0) {
+            return $resultsql = 0;
+        } else {
+            $sql = "INSERT INTO monitoring (monitoring_name, position, status)
+						VALUES ('$name',
+                                '$position',					
+								'$status')";
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }

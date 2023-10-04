@@ -74,7 +74,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="edit_systemuser.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -84,24 +84,16 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="../auth/logout.php">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>Log out</span>
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          
 
 
           </ul><!-- End Profile Dropdown Items -->

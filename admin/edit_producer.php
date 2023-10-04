@@ -31,6 +31,7 @@ if(!isset($_SESSION['user_id'])) {
                 $cocoonID             = $row->cocoon_id;
                 $date_validation      = $row->date_validation ;
                 $name                 = $row->name;
+                $status                = $row->status;
                 $age                  = $row->age;
                 $birthdate            = $row->birthdate;
                 $type                 = $row->type;
@@ -109,7 +110,7 @@ if(!isset($_SESSION['user_id'])) {
 
                       <!-- Producer Name -->
                       <div class="row g-3  needs-validation md:w-full" novalidate>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                         <label for="validationCustom01" class="form-label">Name<font color = "red">*</font></label>
                        
                         <input type="hidden" class="form-control" id="validationTooltip01" name="cocoon_id"
@@ -121,7 +122,28 @@ if(!isset($_SESSION['user_id'])) {
                         </div>
                       </div>
 
+                      <div class="col-md-6 position-relative">
+                                        <label class="form-label">Status<font color="red">*</font></label>
+                                        <div class="col-sm-12">
+                                            <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
+                                            <?php
+                                                if($status == 'Active'){
+                                                    echo '<option value="Active" selected>' . $status . '</option>';
+                                                    echo '<option value="Inactive">Inactive</option>';
+                                                }else{
+                                                    echo '<option value="Active">Active</option>';
+                                                    echo '<option value="Inactive" selected>' . $status . '</option>';
+                                                }
+                                            ?>
+                                            </select>
+                                            <div class="invalid-tooltip">
+                                                The Status field is required.
+                                            </div>
+                                        </div>
+                                    </div>
                     </div>
+
+                    
                       <!-- Beekeeper Gender -->
                       <div class="row g-3  needs-validation md:w-full" novalidate>
                 <div class="col-md-3">
@@ -132,6 +154,7 @@ if(!isset($_SESSION['user_id'])) {
                     Looks good!
                   </div>
                 </div>
+
                 <div class="col-md-3">
                   <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
                   <input type="date" class="form-control" id="validationTooltip01" name="birthdate"
