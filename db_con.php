@@ -399,15 +399,14 @@ class db
         return $result;
 
     }
+ 
     public function getAllProduction()
     {
         $sql = "SELECT * FROM production
                 LEFT JOIN site
                 ON production.site_id = site.site_id
                 LEFT JOIN cocoon
-                ON production.producer_id = cocoon.cocoon_id";
-                // echo $sql;
-                // echo die();
+                ON site.producer_id = cocoon.cocoon_id";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }

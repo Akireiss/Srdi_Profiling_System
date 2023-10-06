@@ -59,7 +59,7 @@ $result = $db->getAllProduction();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['location'] . '</a></td>';
-    echo '<td>' . 'PHP ' . $row['name']. '</td>';
+    echo '<td>'  . $row['name']. '</td>';
     echo '<td>' . 'PHP ' . $row['total_production']. '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
