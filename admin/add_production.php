@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     if (isset($_POST['submit'])) {
         $site_id = $_POST['site_id'];
+        $producer_id = $_POST['producer_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
@@ -26,7 +27,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-        $result = $db->addProduction($production_date, $total_production, $p_income, $p_cost, $n_income, $site_id);
+        $result = $db->addProduction($site_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";

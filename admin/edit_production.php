@@ -69,6 +69,7 @@ if (!isset($_SESSION['user_id'])) {
              $result=$db->getProductionID($_GET['production_id']);
             while($row=mysqli_fetch_object($result)){
                 $productionID     	= $row->production_id;
+                $siteID     	    = $row->site_id;
                 $siteID     	    = $row->location;
                 $production_date   	= $row->production_date;
                 $total_production 	= $row->total_production;
@@ -89,7 +90,7 @@ if (!isset($_SESSION['user_id'])) {
                             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
                             <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name="siteID"
+                  <input type="text" class="form-control" id="validationTooltip01" name="site_id"
                                         value = "<?php echo $siteID;?>" required>
                   <div class="invalid-tooltip">
                     The Producer Name field is required.
@@ -120,7 +121,7 @@ if (!isset($_SESSION['user_id'])) {
                                 </div>
 
                                 <div class="col-md-3 position-relative">
-                                    <label class="form-label">Production Income<font color="red">*</font></label>
+                                    <label class="form-label">Gross Income<font color="red">*</font></label>
                                     <input type="number" class="form-control" id="validationTooltip03" name="p_income" 
                                         value = "<?php echo $p_income;?>" required>
                    

@@ -18,9 +18,7 @@ if (!isset($_SESSION['user_id'])) {
 <?php include '../includes/sidebar.php' ?>
   
 <main id="main" class="main">
-        <div class="pagetitle">
-      <h1>Edit Project Site | <?php echo $location?></h1>
-          </div><!-- End Page Title -->
+       <!-- End Page Title -->
 
     <section class="section">
     <?php
@@ -61,6 +59,9 @@ if (!isset($_SESSION['user_id'])) {
                 $date 	        = $row->date;
             }
         ?>
+         <div class="pagetitle">
+        <h1>Edit Project Site | <?php echo $location?></h1>
+          </div>
       <div class="row">
         <div class="col-lg-12">
            
@@ -422,14 +423,7 @@ if (!isset($_SESSION['user_id'])) {
              <div class="pagetitle">
         <!--       <h1>Beekeepers</h1><br> -->
                     <div class="row">
-                      <div class="col-lg-8">
-                    
-                      <a href="addSiteProduction.php?siteID=<?php echo $siteID; ?>" class="btn btn-warning">Add Production</a>
-
-
-                    
-
-                      </div>
+                      
                     </div>
                   </div><!-- End Page Title -->
 

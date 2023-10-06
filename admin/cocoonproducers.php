@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
+        $date_validation = $_POST['date_validation'];
         $name = $_POST['name'];
       //  $status = $_POST['status'];
         //Birthdate
@@ -45,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
          $barangay, $address, $education, $religion, $civil_status, 
          $name_spouse, $farm_participate, $cannot_participate, $male,
           $female, $source_income, $years_in_farming, $available_workers,
-          $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic,);
+          $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic, $date_validation);
         if ($result != 0) {
             $message = "Cocoon Producer Successfully Added!";
         }
@@ -92,7 +93,7 @@ if (isset($message)) {
 
         <div class="col-md-4">
             <label for="validationCustom02" class="form-label">Date of Validation<font color = "red">*</font></label>
-            <input type="date" class="form-control" id="validationCustom02" name="date" required>
+            <input type="date" class="form-control" id="validationCustom02" name="date_validation" required>
             <div class="valid-feedback">
               Looks good!
             </div>
@@ -236,7 +237,15 @@ if (isset($message)) {
 
           <div class="col-md-6">
             <label for="validationCustom05" class="form-label">Civil Status<font color = "red">*</font></label>
-            <input type="text" class="form-control" name="civil_status" id="validationCustom05" required>
+           <select class="form-select" id="validationCustom04" name="civil_status" required>
+            <option  selected>Select Civil Status</option>
+                <?php
+                      $resultType=$db->getCivilActive();
+                      while($row=mysqli_fetch_array($resultType)){
+                        echo '<option value="'.$row['civil_id'].'">' . $row['civil_name'] . '</option>';
+                      }
+                      ?>
+              </select>
             <div class="invalid-feedback">
               Please provide a civil status.
             </div>

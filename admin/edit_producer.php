@@ -423,11 +423,7 @@ if(!isset($_SESSION['user_id'])) {
                   <div class="pagetitle">
         <!--       <h1>Beekeepers</h1><br> -->
                     <div class="row">
-                      <div class="col-lg-8">
-                        <a href = "form_projectsite.php">
-                          <button type="button" class="btn btn-warning">Add Project Site</button>
-                        </a>
-                      </div>
+                      
                     </div>
                   </div><!-- End Page Title -->
 
@@ -455,7 +451,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td><a href="edit_site.php?site_id=' . $row['site_id'] . '">' . $row['location'] . '</a></td>';
     // Assuming 'name' is a field from the 'cocoon' table
-    echo '<td>' . $row['name'] . '</td>';
+    echo '<td>' . $row['area'] . '</td>';
     echo '<td>' . $row['topography_name'] . '</td>'; // Display topography_name
     echo '<td>';
     // Fix the view link, replace href with the correct URL

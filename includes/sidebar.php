@@ -46,6 +46,11 @@
           </a>
         </li>
         <li>
+          <a href="civil_status.php">
+            <i class="bi bi-circle" ></i><span>Civil Status</span>
+          </a>
+        </li>
+        <li>
           <a href="religion.php">
             <i class="bi bi-circle" ></i><span>Religion</span>
           </a>
