@@ -993,7 +993,39 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
         if($num_rows > 0) {
-            return $resultsql = 0;
+            $sql = "INSERT INTO site (location, producer_id, topography, region, province,
+            municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
+            water, source,market, distance, land_area, agency, charge, adopters,
+            remarks, name, position, date,  soil)
+						VALUES ('$location',					
+								'$producer_id',
+                                '$topography',
+                                '$region',
+                                '$province',
+                                '$municipality',
+                                '$barangay',
+                                '$address',
+                                '$landJson',
+                                '$tenancyJson',
+                                '$area',
+                                '$crops',
+                                '$share',
+                                '$irrigation',
+                                '$water',
+                                '$source',
+                                '$market',
+                                '$distance',
+                                '$land_area',
+                                '$agency',
+                                '$charge',
+                                '$adopters', 
+                                '$remarks', 
+                                '$name', 
+                                '$position', 
+                                '$date', 
+                                '$soil')";
+            $resultsql = mysqli_query($this->$con, $sql);
+            return $resultsql = 1;
         } else {
             $sql = "INSERT INTO site (location, producer_id, topography, region, province,
             municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 

@@ -28,7 +28,7 @@ if (!isset($_SESSION['user_id'])) {
        $cannot_participate =$_POST['cannot_participate'];
        $male =$_POST['male'];
        $female =$_POST['female'];
-       $source_income =$_POST ['source_income'];
+
        $years_in_farming =$_POST ['years_in_farming'];
        $available_workers =$_POST ['available_workers'];
       //  $farm_tool =$_POST ['farm_tool'];
@@ -36,6 +36,10 @@ if (!isset($_SESSION['user_id'])) {
        $signature =$_POST ['signature'];
        $id_pic =$_POST ['id_pic'];
        $bypic =$_POST ['bypic'];
+
+       $source_incomes = isset($_POST['source_incomes']) ? $_POST['source_incomes'] : [];
+
+       $source_income = json_encode($source_incomes);
 
        $selectedFarmTools = isset($_POST['farm_tools']) ? $_POST['farm_tools'] : [];
        // Convert the array into JSON
@@ -49,6 +53,8 @@ if (!isset($_SESSION['user_id'])) {
           $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic, $date_validation);
         if ($result != 0) {
             $message = "Cocoon Producer Successfully Added!";
+        } else {
+          $message = "Produer Already Exist";
         }
     }
 }
@@ -234,30 +240,31 @@ if (isset($message)) {
             </div>
           </div>
           
-
           <div class="col-md-6">
-            <label for="validationCustom05" class="form-label">Civil Status<font color = "red">*</font></label>
-           <select class="form-select" id="validationCustom04" name="civil_status" required>
-            <option  selected>Select Civil Status</option>
-                <?php
-                      $resultType=$db->getCivilActive();
-                      while($row=mysqli_fetch_array($resultType)){
-                        echo '<option value="'.$row['civil_id'].'">' . $row['civil_name'] . '</option>';
-                      }
-                      ?>
-              </select>
-            <div class="invalid-feedback">
-              Please provide a civil status.
-            </div>
-            </div>
+  <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
+  <select class="form-select" id="civil_status" name="civil_status" required>
+    <option selected>Select Civil Status</option>
+    <?php
+    $resultType = $db->getCivilActive();
+    while ($row = mysqli_fetch_array($resultType)) {
+      echo '<option value="' . $row['civil_id'] . '" data-civil-status="' . $row['civil_name'] . '">' . $row['civil_name'] . '</option>';
+    }
+    ?>
+  </select>
+  <div class="invalid-feedback">
+    Please provide a civil status.
+  </div>
+</div>
 
-            <div class="col-md-6">
-              <label for="validationCustom04" class="form-label">If married, name of spouse<font color = "red">*</font></label>
-              <input type="text" class="form-control" name="name_spouse" id="validationCustom05" >
-              <div class="invalid-feedback">
-                Please provide a name of spouse.
-              </div>
-          </div>
+<div class="col-md-6">
+  <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
+  <input type="text" class="form-control" name="name_spouse" id="spouse" disabled>
+  <div class="invalid-feedback">
+    Please provide a name of spouse.
+  </div>
+</div>
+
+
 
           
        
@@ -305,7 +312,7 @@ if (isset($message)) {
         $resultType = $db->getSource_IncomeActive();
         while ($row = mysqli_fetch_array($resultType)) {
             echo '<div class="form-check form-check-inline col-md-3">';
-            echo '<input class="form-check-input" name="form_income" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_name'] . '">';
+            echo '<input class="form-check-input" name="source_incomes[]" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_id'] . '">';
             echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
             echo '</div>';
         }
@@ -462,6 +469,31 @@ $(document).ready(function(){
     });
 });
 </script>
+
+<script>
+  // Get a reference to the select element
+  var selectElement = document.getElementById("civil_status");
+  
+  // Get a reference to the spouse input element
+  var spouseInput = document.getElementById("spouse");
+  
+  // Add an event listener to the select element
+  selectElement.addEventListener("change", function() {
+    // Get the selected option's data attribute
+    var selectedOption = selectElement.options[selectElement.selectedIndex];
+    var civilStatus = selectedOption.getAttribute("data-civil-status");
+
+    // Check if the selected civil status is "Married"
+    if (civilStatus === "Married") {
+      // If "Married" is selected, enable the spouse input
+      spouseInput.removeAttribute("disabled");
+    } else {
+      // If any other civil status is selected, disable the spouse input
+      spouseInput.setAttribute("disabled", "disabled");
+    }
+  });
+</script>
+
 
     </body>
 </html>

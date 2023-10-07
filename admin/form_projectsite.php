@@ -49,7 +49,7 @@ if(!isset($_SESSION['user_id'])) {
     $municipality, $barangay, $address, $landJson, $tenancyJson, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
     $name, $position, $date);
-    if ($result != 0) {
+    if ($result) {
       $message = "Site Successfully Added!";
     } 
   }
@@ -269,7 +269,6 @@ if (isset($message)) {
         <label class="form-check-label" for="not_available">Not Available</label>
     </div>
 </div>
-
 <div class="col-md-4">
     <label for="validationCustom04" class="form-label">Water source:<font color="red">*</font></label>
 </div>
@@ -296,7 +295,7 @@ if (isset($message)) {
         $resultType = $db->getIrrigationActive();
         while ($row = mysqli_fetch_array($resultType)) {
             echo '<div class="form-check col-md-3">';
-            echo '<input class="form-check-input" type="checkbox" id="' . $row['irrigation_id'] . '" value="' . $row['irrigation_name'] . '"
+            echo '<input class="form-check-input source-checkbox" type="checkbox" disabled id="source" value="' . $row['irrigation_name'] . '"
             name="source">';
             echo '<label class="form-check-label" for="' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</label>';
             echo '</div>';
@@ -304,6 +303,8 @@ if (isset($message)) {
         ?>
     </div>
 </div>
+
+
 
             <div class="col-md-4">
     <label for="validationCustom04" name="soil" class="form-label">Soil Type:<font color="red">*</font></label>
@@ -566,6 +567,24 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<script>
+  // Get references to the checkboxes
+  var irrigatedCheckbox = document.getElementById("irrigated");
+  var sourceCheckboxes = document.querySelectorAll(".source-checkbox");
+
+  // Add an event listener to the "Irrigated" checkbox
+  irrigatedCheckbox.addEventListener("change", function() {
+    // Enable or disable the source checkboxes based on the state of the "Irrigated" checkbox
+    var isIrrigated = irrigatedCheckbox.checked;
+    sourceCheckboxes.forEach(function(checkbox) {
+      checkbox.disabled = !isIrrigated;
+      // If "Irrigated" is unchecked, uncheck the source checkboxes
+      if (!isIrrigated) {
+        checkbox.checked = false;
+      }
+    });
+  });
+</script>
 
 
   </body>
