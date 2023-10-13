@@ -160,6 +160,142 @@
 
             </tbody>
         </table>
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td widt="10%"></td>
+                    <td width="50%">
+                        can participate in farm work
+                    </td>
+                    <td width="40%">cannot do farm work</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td width="20%">male</td>
+                    <td width="70%">female</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="10%"></td>
+                    <td class="bold">
+                        Source of income
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+        <table width="100%">
+            <tbody>
+                <tr>
+     
+                <td width="5%"></td>
+                    <td width="10%">
+                        <div class="checkbox"></div>
+                        <label class="label">Sale of agricultura product</label>
+                    </td>
+
+                    <td width="15%">
+                        <div class="checkbox"></div>
+                        <label class="label">Sale of agricultura product</label>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+     
+                <td width="5%"></td>
+                    <td width="10%">
+                        <div class="checkbox"></div>
+                        <label class="label">Employment</label>
+                    </td>
+
+                    <td width="15%">
+                        <div class="checkbox"></div>
+                        <label class="label">Agricultural Wage</label>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+     
+                <td width="5%"></td>
+                    <td width="10%">
+                        <div class="checkbox"></div>
+                        <label class="label">Business</label>
+                    </td>
+
+                    <td width="15%">
+                        <div class="checkbox"></div>
+                        <label class="label">others (specify)</label>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="10%"></td>
+                    <td>
+                Number of years in
+                </td>
+
+                </tr>
+                <tr>
+                    <td width="10%"></td>
+                    <td>
+                Number of available workers
+                </td>
+
+                </tr>
+                <tr>
+                    <td width="10%"></td>
+                    <td>
+                Available farm tools and implements
+                </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
+        
+
     </body>
 
     </html>
