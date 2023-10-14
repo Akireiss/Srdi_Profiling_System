@@ -18,6 +18,13 @@ if(!isset($_SESSION['user_id'])) {
     $land = isset($_POST['land']) ? $_POST['land'] : []; // Initialize as an empty array
     $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : []; // Initialize as an empty array
     
+    $agencys = isset($_POST['agencys']) ? $_POST['agencys'] : [];
+
+    $soils = isset($_POST['soils']) ? $_POST['soils'] : []; 
+
+    $soil = json_encode($soils);
+
+    $agency = json_encode($agencys);
     $landJson = json_encode($land);
     $tenancyJson = json_encode($tenancy);
     
@@ -30,25 +37,26 @@ if(!isset($_SESSION['user_id'])) {
     $water = isset($_POST['water_source']) ? $_POST['water_source'] : '';
 
     $source = $_POST['source'];
-    $soil= $_POST['soil'];
     $market = isset($_POST['market']) ? $_POST['market'] : '';
 
     $distance= $_POST['distance'];
     $land_area= $_POST['land_area'];
 
-    $agency= $_POST['agency'];
+
+
+
     $charge= $_POST['charge'];
     $adopters= $_POST['adopters'];
 
     $remarks= $_POST['remarks'];
-    $name= $_POST['name'];
+    $names= $_POST['names'];
     $position= $_POST['position'];
     $date = $_POST['date'];
     
     $result = $db->addSite($location, $producer_id, $topography, $region, $province, 
     $municipality, $barangay, $address, $landJson, $tenancyJson, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
-    $name, $position, $date);
+    $names, $position, $date);
     if ($result) {
       $message = "Site Successfully Added!";
     } 
@@ -315,7 +323,7 @@ if (isset($message)) {
         $resultType = $db->getSoilActive();
         while ($row = mysqli_fetch_array($resultType)) {
             echo '<div class="form-check col-md-3">';
-            echo '<input name="soil" class="form-check-input" type="checkbox" id="' . $row['soil_id'] . '" value="' . $row['soil_name'] . '">';
+            echo '<input name="soils[]" class="form-check-input" type="checkbox" id="' . $row['soil_id'] . '" value="' . $row['soil_id'] . '">';
             echo '<label class="form-check-label" for="' . $row['soil_id'] . '">' . $row['soil_name'] . '</label>';
             echo '</div>';
         }
@@ -370,7 +378,7 @@ if (isset($message)) {
                 $resultType = $db->getAgencyActive();
                 while ($row = mysqli_fetch_array($resultType)) {
                     echo '<div class="form-check form-check-inline col-md-12 ">';
-                    echo '<input name="agency[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
+                    echo '<input name="agencys[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agemcy_id'] . '">';
                     echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
                     echo '</div>';
                 }
@@ -419,12 +427,13 @@ if (isset($message)) {
 
             <div class="row mt-5">
             <div class="col-md-12">
-              <label for="validationCustom04" class="form-label">Herewith the Monitoring and Evaluation Team, declares to have visited the proposed location for mulberry plantation field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
+              <label for="validationCustom04" class="form-label">Herewith the Monitoring and Evaluation Team, declares to have visited the proposed location for mulberry plantation 
+                field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
             </div>
          
             <div class="col-md-4 position-relative">
                   <label class="form-label">Name<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "name" >
+                  <input type="text" class="form-control" id="validationTooltip01" name = "names" >
                  
                 </div>
 
@@ -550,6 +559,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </script>
 
+<!-- NEed more adjustmetn -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const checkboxes = document.querySelectorAll('input[name="soil"]');

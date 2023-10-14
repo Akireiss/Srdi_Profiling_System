@@ -350,7 +350,11 @@ class db
                 ON cocoon.municipality = municipality.citymunCode
                 LEFT JOIN barangay
                 ON cocoon.barangay = barangay.brgyCode
-				 WHERE cocoon_id='$cocoon_id'";
+                LEFT JOIN site
+                ON cocoon.cocoon_id = site.producer_id
+                LEFT JOIN production 
+                ON cocoon.cocoon_id = production.producer_id
+				WHERE cocoon_id='$cocoon_id'";
         //          echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
@@ -1023,7 +1027,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
     public function addSite($location, $producer_id, $topography, $region, $province, 
     $municipality, $barangay, $address, $landJson,$tenancyJson, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
-    $name, $position, $date)
+    $names, $position, $date)
     {
         $check = "SELECT * FROM site
 						WHERE location = '$location'";
@@ -1033,7 +1037,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
             $sql = "INSERT INTO site (location, producer_id, topography, region, province,
             municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
             water, source,market, distance, land_area, agency, charge, adopters,
-            remarks, name, position, date,  soil)
+            remarks, names, position, date,  soil)
 						VALUES ('$location',					
 								'$producer_id',
                                 '$topography',
@@ -1057,7 +1061,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
                                 '$charge',
                                 '$adopters', 
                                 '$remarks', 
-                                '$name', 
+                                '$names', 
                                 '$position', 
                                 '$date', 
                                 '$soil')";
@@ -1067,7 +1071,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
             $sql = "INSERT INTO site (location, producer_id, topography, region, province,
             municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
             water, source,market, distance, land_area, agency, charge, adopters,
-            remarks, name, position, date,  soil)
+            remarks, names, position, date,  soil)
 						VALUES ('$location',					
 								'$producer_id',
                                 '$topography',
@@ -1091,7 +1095,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
                                 '$charge',
                                 '$adopters', 
                                 '$remarks', 
-                                '$name', 
+                                '$names', 
                                 '$position', 
                                 '$date', 
                                 '$soil')";

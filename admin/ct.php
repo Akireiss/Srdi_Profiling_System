@@ -60,6 +60,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<a href=""id=' . $row['cocoon_id'] . '"><i class="ri-eye-line"></i></a>';
     // Fix the edit link
     echo '<a href="edit_producer.php?cocoon_id=' . $row['cocoon_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+    echo '<a target="_blank" href="../pdf/index.php?cocoon_id=' . $row['cocoon_id'] . '" id=' . $row['cocoon_id'] . '"><i class="bi bi-file-pdf-fill"></i></a>';
     echo '</td>';
     echo '</tr>';
 }

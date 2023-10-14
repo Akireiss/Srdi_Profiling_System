@@ -1,6 +1,7 @@
 <?php
 
 require '../vendor/autoload.php';
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -10,7 +11,7 @@ $options->set('isPhpEnabled', true);
 $dompdf = new Dompdf($options);
 
 ob_start();
-include 'pdf.php';
+include '../admin/pdf/pdf.php';
 
 $html = ob_get_clean();
 
