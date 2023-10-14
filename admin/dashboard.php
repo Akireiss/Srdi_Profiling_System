@@ -1,11 +1,12 @@
 <?php
-  session_start();
-  include '../db_con.php';
-  $db = new db;
-  if(!isset($_SESSION['user_id'])){
+session_start();
+include '../db_con.php';
+$db = new db();
+if(!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-  }
-  $cocoonCount = $db->countCocoon();
+}
+$cocoonCount = $db->countCocoon();
+$cocoonCountInactive = $db->countCocoonInactive();
 $usersCount = $db->countUsers();
 $siteCount = $db->countSite();
 $productionCount = $db->countProduction();
@@ -45,60 +46,53 @@ $productionCount = $db->countProduction();
 
             <!--  Cocoon Producers Card -->
             <div class="col-xxl-3 col-md-4">
-              <div class="card info-card Cocoon Producers-card">
-                <div class="card-body">
-                <h5 class="card-title">Cocoon Producers Active </h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="box-shadow: 0 0 9px rgba(0, 0, 255, 1);">
-                      <i class="bi bi-people" style="color: blue;"></i>
-                    </div>
-                    
-                    <div class="ps-3">
-                    <h6 class="display-4" ><?php echo $cocoonCount; ?></h6>
-
-                    </div>
-                  </div>
+    <div class="card info-card Cocoon Producers-card">
+        <div class="card-body">
+            <h5 class="card-title">Cocoon Producers Active</h5>
+            <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #F6F6FE;">
+                    <i class="bi bi-people" style="color: blue; font-size: 32px;"></i>
                 </div>
-</a>
-              </div>
-            </div>
-
-            <div class="col-xxl-3 col-md-4">
-              <div class="card info-card Cocoon Producers-card">
-                <div class="card-body">
-                <h5 class="card-title">Cocoon Producers Inactive </h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="box-shadow: 0 0 9px rgba(0, 0, 255, 1);">
-                      <i class="bi bi-people" style="color: blue;"></i>
-                    </div>
-                  
-                  </div>
+                <div class="ps-3">
+                    <h6 class="display-4"><?php echo $cocoonCount; ?></h6>
                 </div>
-</a>
-              </div>
             </div>
-
-
- <div class="col-xxl-3 col-xl-4">
- 
-  <div class="card info-card production-card">
-
-
-    <div class="card-body">
-      <h5 class="card-title">Project Site </h5>
-
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="box-shadow: 0 0 10px rgba(255, 0, 0, 1);">
-          <i class="bi bi-house" style="color: red;"></i>
         </div>
-        <div class="ps-3">
-        <h6 class="display-4" ><?php echo $siteCount; ?></h6>
-        </div>
-      </div>
     </div>
-  </div>
-</a>
 </div>
+
+<div class="col-xxl-3 col-md-4">
+    <div class="card info-card Cocoon Producers-card">
+        <div class="card-body">
+            <h5 class="card-title">Cocoon Producers Inactive</h5>
+            <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #F6F6FE;">
+                    <i class="bi bi-person-fill-x" style="color: blue; font-size: 32px;"></i>
+                </div>
+                <div class="ps-3">
+                    <h6 class="display-4"><?php echo $cocoonCountInactive; ?></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xxl-3 col-xl-4">
+    <div class="card info-card production-card">
+        <div class="card-body">
+            <h5 class="card-title">Project Site</h5>
+            <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #F6F6FE;">
+                    <i class="bi bi-house" style="color: black; font-size: 28px;"></i>
+                </div>
+                <div class="ps-3">
+                    <h6 class="display-4"><?php echo $siteCount; ?></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="col-xxl-3 col-xl-4">
 
@@ -106,7 +100,7 @@ $productionCount = $db->countProduction();
     <div class="card-body">
       <h5 class="card-title">System User</h5>
       <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="box-shadow: 0 0 10px rgba(0, 0, 0, 1);">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #F6F6FE;">
           <i class="bi bi-person-workspace" style="color: black;"></i>
         </div>
         <div class="ps-3">
@@ -118,36 +112,89 @@ $productionCount = $db->countProduction();
 </a>
 
 </div>
-
 <div class="col-xxl-3 col-xl-4">
-              <div class="card info-card production-card">
-                <div class="card-body">
-                  <h5 class="card-title">Total Production </h5>
+  <div class="card info-card production-card">
+    <div class="card-body">
+      <h5 class="card-title">Total Production(kg)</h5>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="box-shadow: 0 0 10px rgba(70, 130,180,1);">
-                      <i class="bi bi-tools" style="color: steelblue;"></i>
-                    </div>
-                   
-                  </div>
+      <div class="d-flex align-items-center">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="box-shadow: 0 0 10px rgba(70, 130, 180, 1);">
+          <i class="bi bi-tools" style="color: steelblue;"></i>
+        </div>
 
-                </div>
-              </div>
+        <?php
+        // Your PHP code to fetch and display the total production here
+        $db_host = "localhost";
+$db_user = "root";
+$db_password = "";
+$db_name = "profiling_system";
 
-            </div>
+$con = new mysqli($db_host, $db_user, $db_password, $db_name);
+
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
+
+
+$query = "SELECT SUM(total_production) AS total_production_sum FROM production";
+$result = $con->query($query);
+
+if (!$result) {
+    die("Query failed: " . $con->error);
+}
+
+$row = $result->fetch_assoc();
+$totalProductionSum = $row['total_production_sum'];
+
+echo '
+        <div class="ps-3">
+        <h6 class="display-5">' . $totalProductionSum . '</h6>
+        </div>';
+
+?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 
 
             <div class="col-xxl-3 col-xl-4">
               <div class="card info-card production-card">
                 <div class="card-body">
-                  <h5 class="card-title">Income</h5>
+                  <h5 class="card-title" >Gross Income</h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="box-shadow: 0 0 10px rgba(70, 130,180,1);">
-                      <i class="bi bi-tools" style="color: steelblue;"></i>
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="background-color:#F6F6FE;">
+                      <i class="bi bi-cash-coin" style="color:green; font-size:28px;"></i>
                     </div>
                     <div class="ps-3">
-                    <h6 class="display-4" > <?php echo $productionCount; ?></h6>
+                    <h6 class="display-4" > 
+             
+      <?php
+      $query = "SELECT SUM(p_income) AS total_income_sum FROM production";
+$result = $con->query($query);
+
+if (!$result) {
+    die("Query failed: " . $con->error);
+}
+
+$row = $result->fetch_assoc();
+$totalncome = $row['total_income_sum'];
+
+echo '
+      <div class="ps-3">
+      <h6 class="display-6">' . $totalncome . '</h6>
+      </div>';
+
+?>
+
+
+
+                  </h6>
                     </div>
                   </div>
 
@@ -163,11 +210,35 @@ $productionCount = $db->countProduction();
                   <h5 class="card-title">Net Income </h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style="box-shadow: 0 0 10px rgba(0, 128, 128, 1);">
-                      <i class="bi bi-cash" style=" color: teal"></i>
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"  style ="background-color:aliceblue;">
+                      <i class="bi bi-cash" style=" color: green; font-size: 27px; "></i>
                     </div>
                     <div class="ps-3">
-                    <h6 class="display-4" > <?php echo $netCount; ?></h6>
+                    <h6 class="display-4" >
+                      
+                 
+<?php
+ $query = "SELECT SUM(n_income) AS total_n_income FROM production";
+$result = $con->query($query);
+
+if (!$result) {
+    die("Query failed: " . $con->error);
+}
+
+$row = $result->fetch_assoc();
+$totaln_Income = $row['total_n_income'];
+
+echo '
+ <div class="ps-3">
+ <h6 class="display-6">' . $totaln_Income . '</h6>
+ </div>';
+
+?>
+
+                  
+                  
+                  
+                  </h6>
                     </div>
                   </div>
                 </div>

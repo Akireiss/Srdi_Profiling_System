@@ -42,9 +42,8 @@
                     <table class="table table-striped datatable">
               
                       <thead>
-                      <tr>
+                      <tr>          <th scope="col">Producer Name</th>
                                     <th scope="col">Project Site Location</th>
-                                    <th scope="col">Producer Name</th>
                                     <th scope="col">Total Production (in kg)</th>
                                     <th scope="col">Gross Income</th>
                                     <th scope="col">Production Cost</th>
@@ -58,8 +57,8 @@
 $result = $db->getAllProduction();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['location'] . '</a></td>';
-    echo '<td>'  . $row['name']. '</td>';
+    echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['name'] . '</a></td>';
+    echo '<td>'  . $row['location']. '</td>';
     echo '<td>' . 'PHP ' . $row['total_production']. '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';

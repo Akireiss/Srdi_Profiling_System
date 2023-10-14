@@ -29,13 +29,14 @@ if (!isset($_SESSION['user_id'])) {
                 $producer_name 	= $row->name;
                 $producerName 	= $row->name;
                 $topography 	  = $row->topography;
-                $region 	      = $row->region;
-                $regName        =$row->regDesc;
-                $province 	    = $row->province;
-                $provName       =$row->provDesc;
-                $municipality 	= $row->municipality;
-                $citymunName	= $row->citymunDesc;
-                $barangay 	    = $row->barangay;
+                $region 	            = $row->region;
+                $regName              =$row->regDesc;
+                $province             = $row->province;
+                $provName             = $row->provDesc;
+                $municipality         = $row->municipality;
+                $citymunName          = $row->citymunDesc;
+                $barangay             = $row->barangay;
+                $barangayName         = $row->brgyDesc;
                 $address	      = $row->address;
                 $land	          = $row->land;
                 $tenancy	      = $row->tenancy;
@@ -140,34 +141,36 @@ if (!isset($_SESSION['user_id'])) {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div class="col-md-3 position-relative">
                   <label class="form-label">Province<font color = "red">*</font></label>
                   <div class="col-sm-12">
                   <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" required>
                             <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
-                           
+                            
                           </select>
                   </div>
                 </div>
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-               
-                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
-                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
-                    </select>
-                  </div>
-                </div>
 
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">Barangay<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "province" id="province" >
-                      <option value="" selected disabled>Select Barangay</option>
-                    </select>
-                  </div>
-                </div>
+                                <div class="col-md-3 position-relative">
+                                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
+                                  <div class="col-sm-12">
+                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
+                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
+                            
+                          </select>
+                                  </div>
+                                </div>
+
+                                <div class="col-md-3 position-relative">
+                                  <label class="form-label">Barangay<font color = "red">*</font></label>
+                                  <div class="col-sm-12">
+                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" required>
+                            <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
+                            
+                          </select>
+                                </div>
+                          </div>
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Address (Zip Code/Street no.)</label>
@@ -340,13 +343,19 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             </div>
 
-            <div class="col-md-12 position-relative">
-            <label class="form-label">Funding Agency<font color = "red">*</font></label>
-            <input type="text" class="form-control" id="validationTooltip01" name="agency"
-                                        value = "<?php echo $agency;?>" required>
-            <div class="invalid-tooltip">
-                The Funding Agency field is required.
-            </div>
+           <div class="col-md-3 ">
+                <div class="col-md-12">
+                    <label for="validationCustom04" class="form-label fw-bold">Funding Agency</label>
+                </div>
+                <?php
+                $resultType = $db->getAgencyActive();
+                while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<div class="form-check form-check-inline col-md-12 ">';
+                    echo '<input name="agency[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
+                    echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
+                    echo '</div>';
+                }
+                ?>
             </div>
 
             <div class="col-md-12 position-relative">

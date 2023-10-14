@@ -12,7 +12,13 @@ class db
     // function __construct(){
     // 	$this->$con = mysqli_connect('localhost', 'root', '', 'srdi_profile') or die(mysqli_error());
     // }
-
+    public function getTotalProduction() {
+        $query = "SELECT SUM(total_production) as total FROM production";
+        $result = mysqli_query($this->con, $query);
+        $row = mysqli_fetch_assoc($result);
+        return $row['total'];
+    }
+    
 
     public function getUser()
     {
@@ -336,7 +342,17 @@ class db
     public function getProducerID($cocoon_id)
     {
         $sql = "SELECT * FROM cocoon
+                LEFT JOIN region
+                ON cocoon.region = region.regCode
+                LEFT JOIN province
+                ON cocoon.province = province.provCode
+                LEFT JOIN municipality
+                ON cocoon.municipality = municipality.citymunCode
+                LEFT JOIN barangay
+                ON cocoon.barangay = barangay.brgyCode
 				 WHERE cocoon_id='$cocoon_id'";
+        //          echo $sql;
+        // echo die();
         $result = mysqli_query($this->$con, $sql);
         return $result;
 
@@ -354,11 +370,6 @@ class db
 				WHERE status = 'Active'";
         $result = mysqli_query($this->$con, $sql);
         return $result;
-    }
-
-    public function getSelectedSite()
-    {
-     
     }
 
    
@@ -394,19 +405,33 @@ class db
                 ON site.region = region.regCode
                 LEFT JOIN province
                 ON site.province = province.provCode
+                LEFT JOIN municipality
+                ON site.municipality = municipality.citymunCode
+                LEFT JOIN barangay
+                ON site.barangay = barangay.brgyCode
 				WHERE site_id='$site_id'";
         $result = mysqli_query($this->$con, $sql);
         return $result;
 
     }
  
+    // public function getAllProduction()
+    // {
+    //     $sql = "SELECT * FROM production
+    //             LEFT JOIN site
+    //             ON production.site_id = site.site_id
+    //             LEFT JOIN cocoon
+    //             ON site.producer_id = cocoon.cocoon_id";
+    //             echo $sql;
+    //             echo die();
+    //     $result = mysqli_query($this->$con, $sql);
+    //     return $result;
+    // }
     public function getAllProduction()
     {
         $sql = "SELECT * FROM production
-                LEFT JOIN site
-                ON production.site_id = site.site_id
                 LEFT JOIN cocoon
-                ON site.producer_id = cocoon.cocoon_id";
+                ON production.producer_id = cocoon.cocoon_id";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
@@ -420,12 +445,22 @@ class db
         return $result;
     }
    
-   
+   ///true//
+    // public function getProductionID($production_id)
+    // {
+    //     $sql = "SELECT * FROM production
+    //             LEFT JOIN site
+    //             ON production.site_id = site.site_id 
+	// 			 WHERE production_id='$production_id'";
+    //     $result = mysqli_query($this->$con, $sql);
+    //     return $result;
+
+    // }
     public function getProductionID($production_id)
     {
         $sql = "SELECT * FROM production
-                LEFT JOIN site
-                ON production.site_id = site.site_id 
+                LEFT JOIN cocoon
+                ON production.producer_id = cocoon.cocoon_id 
 				 WHERE production_id='$production_id'";
         $result = mysqli_query($this->$con, $sql);
         return $result;
@@ -642,10 +677,10 @@ class db
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }
-        public function updateProduction($site_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
+        public function updateProduction($producer_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
 {
     $sql = "UPDATE production
-            SET site_id = '$site_id',
+            SET producer_id = '$producer_id',
                 production_date = '$production_date',
                 total_production = '$total_production',
                 p_income = '$p_income',
@@ -982,6 +1017,8 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
             return $resultsql = 1;
         }
     }
+
+
   
     public function addSite($location, $producer_id, $topography, $region, $province, 
     $municipality, $barangay, $address, $landJson,$tenancyJson, $area, $crops, $share, $irrigation, 
@@ -1062,7 +1099,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
             return $resultsql = 1;
         }
     }
-    public function addProduction($site_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
+    public function addProduction($producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
     {
         $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
@@ -1072,9 +1109,8 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
         if($num_rows > 0) {
             return $resultsql = 0;
         } else {
-            $sql = "INSERT INTO production ( site_id, producer_id, production_date, total_production, p_income, p_cost, n_income)
-						VALUES ('$site_id',
-                                '$producer_id',
+            $sql = "INSERT INTO production (producer_id,production_date, total_production, p_income, p_cost, n_income)
+						VALUES ('$producer_id',     
                                 '$production_date',					
 								'$total_production',
                                 '$p_income',
@@ -1085,7 +1121,6 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
             return $resultsql = 1;
         }
     }
-   
     public function addAgency($funding_agency, $status)
     {
         $check = "SELECT * FROM agency
@@ -1138,6 +1173,22 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
 
 
    // Function to count Cocoon Producers
+
+
+       //Count Total Production
+    public function countTotalProduction() {
+        $sql = "SELECT SUM(total_production) AS total_production_count FROM production";
+        $result = $this->con->query($sql);
+    
+        if (!$result) {
+            die("Query failed: " . $this->con->error);
+        }
+    
+        $row = $result->fetch_assoc();
+        return $row['total_production_count'];
+    }
+
+
 public function countCocoon()
 {
     $check = "SELECT COUNT(*) AS count FROM cocoon";
@@ -1145,6 +1196,15 @@ public function countCocoon()
     $row = mysqli_fetch_assoc($resultCheck);
     return $row['count'];
 }
+public function countCocoonInactive()
+{
+    $check = "SELECT COUNT(*) AS count FROM cocoon WHERE status = 'Inactive'";
+    $resultCheck = mysqli_query($this->$con, $check);
+    $row = mysqli_fetch_assoc($resultCheck);
+    return $row['count'];
+}
+
+
 
 // Function to count System Users// Function to count System Users
 public function countUsers()

@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
-        $site_id = $_POST['site_id'];
         $producer_id = $_POST['producer_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
@@ -27,7 +26,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-        $result = $db->addProduction($site_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
+        $result = $db->addProduction($producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -77,7 +76,7 @@ if (!isset($_SESSION['user_id'])) {
                             <!-- Custom Styled Validation with Tooltips -->
                             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
 
-                            <div class="col-md-12 position-relative">
+                            <!-- <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
                  <select name="site_id" class="form-select" id="validationCustom04" required>
                     <option selected>Select Project Site Location</option>
@@ -94,7 +93,22 @@ if (!isset($_SESSION['user_id'])) {
                   <div class="invalid-tooltip">
                     The Project Site Location field is required.
                   </div>
-                </div>
+                </div> -->
+                <div class="col-md-12 position-relative">
+    <label class="form-label">Producer Name<font color="red">*</font></label>
+    <select name="producer_id" class="form-select" id="validationCustom04" >
+        <option selected>Select Producer Name</option>
+        <?php
+            $resultType = $db->getProducersActive();
+            while ($row = mysqli_fetch_array($resultType)) {
+                $cocoon_id = $row['cocoon_id'];
+                $name = $row['name'];
+                $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
+                echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
+            }
+            ?>
+    </select>
+</div>
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 

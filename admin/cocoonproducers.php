@@ -119,14 +119,14 @@ if (isset($message)) {
         <div class="row g-3  needs-validation md:w-full" novalidate>
           <div class="col-md-3">
             <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
-            <input type="text" class="form-control" id="validationCustom02" name="age" required>
+            <input type="text" class="form-control" id="validationCustom02" name="age" >
             <div class="valid-feedback">
               Looks good!
             </div>
           </div>
           <div class="col-md-3">
             <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
-            <input type="date" class="form-control" id="validationCustom02" name="birthdate" required>
+            <input type="date" class="form-control" id="validationCustom02" name="birthdate" >
             <div class="valid-feedback">
               Looks good!
             </div>
@@ -134,7 +134,7 @@ if (isset($message)) {
           <div class="col-md-3 ">
                   <label class="form-label">Type of Producer<font color="red">*</font></label>
                  
-                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" required>
+                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" >
                       <option value="" selected disabled>Select Status</option>
                       <option value="Seed Cocoon">Seed Cocoon</option>
                       <option value="Commercial">Commercial</option>
@@ -148,7 +148,7 @@ if (isset($message)) {
           
           <div class="col-md-3 ">
             <label for="validationCustom04" class="form-label">Gender<font color = "red">*</font></label>
-            <select class="form-select" name="sex"  aria-label="Default select example" required>
+            <select class="form-select" name="sex"  aria-label="Default select example" >
               <option selected>Select Sex</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -198,8 +198,8 @@ if (isset($message)) {
                 </div>
           </div>
           <div class="col-md-12">
-            <label for="validationCustom03" class="form-label">Permanent Address<font color = "red">*</font></label>
-            <input type="text" name="address" class="form-control" id="validationCustom03" required>
+            <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
+            <input type="text" name="address" class="form-control" id="validationCustom03" >
             <div class="invalid-feedback">
               Please provide a valid city.
             </div>
@@ -208,7 +208,7 @@ if (isset($message)) {
           <div class="row g-3  needs-validation md:w-full" novalidate>
           <div class="col-md-6">
             <label for="validationCustom04" class="form-label">Educational Attainment<font color = "red">*</font></label>
-            <select name="education" class="form-select" id="validationCustom04" required>
+            <select name="education" class="form-select" id="validationCustom04" >
                 <option  selected>Select Educational Attainment</option>
                 <?php
                       $resultType=$db->getEducationActive();
@@ -226,7 +226,7 @@ if (isset($message)) {
             
           <div class="col-md-6">
             <label for="validationCustom05" class="form-label">Religion<font color = "red">*</font></label>
-            <select class="form-select" id="validationCustom04" name="religion" required>
+            <select class="form-select" id="validationCustom04" name="religion" >
             <option  selected>Select Religion</option>
                 <?php
                       $resultType=$db->getReligionActive();
@@ -242,7 +242,7 @@ if (isset($message)) {
           
           <div class="col-md-6">
   <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
-  <select class="form-select" id="civil_status" name="civil_status" required>
+  <select class="form-select" id="civil_status" name="civil_status" >
     <option selected>Select Civil Status</option>
     <?php
     $resultType = $db->getCivilActive();
@@ -287,14 +287,14 @@ if (isset($message)) {
     </div>
     <div class="col-md-3 mt-1">
         <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
-        <input type="text" class="form-control" name="male" id="male" required>
+        <input type="text" class="form-control" name="male" id="male" >
         <div class="invalid-feedback">
             Please provide the number of male family members.
         </div>
     </div>
     <div class="col-md-3 mt-1">
         <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
-        <input type="text" class="form-control" name="female" id="female" required>
+        <input type="text" class="form-control" name="female" id="female" >
         <div class="invalid-feedback">
             Please provide the number of female family members.
         </div>
@@ -323,14 +323,14 @@ if (isset($message)) {
 
 <div class="col-md-6 ">
   <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
-  <input type="text" class="form-control" name="years_in_farming" id="validationCustom05" required>
+  <input type="text" class="form-control" name="years_in_farming" id="validationCustom05">
   <div class="invalid-feedback">
     Please provide a number of years in farming.
   </div>
 </div>
 <div class="col-md-6 ">
 <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
-<input type="text" class="form-control" name="available_workers" id="validationCustom05" required>
+<input type="text" class="form-control" name="available_workers" id="validationCustom05" >
 <div class="invalid-feedback">
   Please provide a Number of available workers.
 </div>

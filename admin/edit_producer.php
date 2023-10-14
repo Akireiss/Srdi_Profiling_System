@@ -36,10 +36,14 @@ if(!isset($_SESSION['user_id'])) {
                 $birthdate            = $row->birthdate;
                 $type                 = $row->type;
                 $sex                  = $row->sex;
-                $region               = $row->region;
+                $region 	            = $row->region;
+                $regName              =$row->regDesc;
                 $province             = $row->province;
+                $provName             = $row->provDesc;
                 $municipality         = $row->municipality;
+                $citymunName          = $row->citymunDesc;
                 $barangay             = $row->barangay;
+                $barangayName         = $row->brgyDesc;
                 $address              = $row->address;
                 $education            = $row->education;
                 $religion             = $row->religion;
@@ -56,6 +60,8 @@ if(!isset($_SESSION['user_id'])) {
                 $intent               = $row->intent;
                 $signature            = $row->signature;
                 $id_pic               = $row->id_pic;
+                $intent               = $row->intent;
+                $signature            = $row->signature;
                 $bypic                = $row->bypic;
             }
         ?>
@@ -166,12 +172,15 @@ if(!isset($_SESSION['user_id'])) {
 
                 <div class="col-md-3">
                   <label class="form-label">Type of Producer<font color="red">*</font></label>
-                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" >
-                      <option value="" disabled>Select Type</option>
+                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" 
+                  
+                      <option value="" >Select Type</option>
                       <option value="Seed Cocoon" <?php if ($type === "Seed Cocoon") echo "selected"; ?>>Seed Cocoon</option>
                       <option value="Commercial" <?php if ($type === "Commercial") echo "selected"; ?>>Commercial</option>
                   </select>
               </div>
+               
+                                                
 
                     <div class="col-md-3">
                   <label class="form-label">Sex<font color="red">*</font></label>
@@ -182,37 +191,52 @@ if(!isset($_SESSION['user_id'])) {
                   </select>
               </div>
 
-                    <div class="col-md-3 position-relative">
-                    <div class="col-sm-12">
-                            <label class="form-label">Region<font color = "red">*</font></label>
-                            
-                            <input type="text" class="form-control" id="validationTooltip01" name="region"
-                                                        value = "<?php echo $region;?>" >
-                            </div>
+              <div class="col-md-3 position-relative">
+                        <label class="form-label">Region<font color = "red">*</font></label>
+                        <div class="col-sm-12">
+                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>" required>
+                          <select class="form-select" aria-label="Default select example" name = "region" id="region" value = "<?php echo $regCode;?>" required>
+                            <option value="<?php echo $regCode;?>" selected disabled><?php echo $regName;?></option>
+                            <?php
+                            $resultType=$db->getRegion($regCode);
+                            while($row=mysqli_fetch_array($resultType)){
+                              echo '<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>';
+                            }
+                            ?>
+                          </select>
+                          <div class="invalid-tooltip">
+                            The Region field is required.
                           </div>
+                        </div>
+                      </div>
 
-                          <div class="col-md-3 position-relative">
-                            <label class="form-label">Province<font color = "red">*</font></label>
-                            <div class="col-sm-12">
-                            <input type="text" class="form-control" id="validationTooltip01" name="province"
-                                                        value = "<?php echo $province;?>" >
-                            </div>
-                          </div>
+                      <div class="col-md-3 position-relative">
+                  <label class="form-label">Province<font color = "red">*</font></label>
+                  <div class="col-sm-12">
+                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" required>
+                            <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
+                            
+                          </select>
+                  </div>
+                </div>
 
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="validationTooltip01" name="municipality"
-                                                              value = "<?php echo $municipality;?>" >
+                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
+                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
+                            
+                          </select>
                                   </div>
                                 </div>
 
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">Barangay<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <input type="text" class="form-control" id="validationTooltip01" name="barangay"
-                                                              value = "<?php echo $barangay;?>" >
-                                  </div>
+                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" required>
+                            <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
+                            
+                          </select>
                                 </div>
                           </div>
                           <div class="col-md-12">
@@ -378,38 +402,38 @@ if(!isset($_SESSION['user_id'])) {
 
                       <div class="my-4"></div>
 
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                          <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05"
-                                              value = "<?php echo $id_pic;?>" >
-                            <label for="validationCustom04" class="form-label">ID Picture</label>
-                          </div>
-                        </div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05"
+            <label for="validationCustom04" class="form-label">ID Picture</label>
+        </div>
+    </div>
 
-                        <div class="col-md-6 d-flex justify-content-end">
-                          <div class="form-group">
-                            <input type="file" class="form-control w-100" name="intent" id="validationCustom05">
-                            <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
-                          </div>
-                        </div>
-                      </div>
+    <div class="col-md-6 d-flex justify-content-end">
+        <div class="form-group">
+            <input type="file" class="form-control w-100" name="intent" id="validationCustom05">
+            <label for="validationCustom04" class="form-label">Letter of Intent</label>
+        </div>
+    </div>
+</div>
 
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <input type="file" class="form-control w-50" name="bypic" id="validationCustom05">
-                            <label for="validationCustom04" class="form-label">2x2 Picture</label>
-                          </div>
-                        </div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <input type="file" class="form-control w-50" name="bypic" id="validationCustom05">
+            <label for="validationCustom04" class="form-label">2x2 Picture</label>
+        </div>
+    </div>
 
-                        <div class="col-md-6 d-flex justify-content-end">
-                          <div class="form-group">
-                            <input type="file" class="form-control w-100" name="signature" id="validationCustom05">
-                            <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
-                          </div>
-                        </div>
-                      </div>
+    <div class="col-md-6 d-flex justify-content-end">
+        <div class="form-group">
+            <input type="file" class="form-control w-100" name="signature" id="validationCustom05">
+            <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
+        </div>
+    </div>
+</div>
+
 
                       <div class="col-12 d-flex align-items-end justify-content-end gap-2">
                         <button type="submit" class="btn btn-warning" name="update">Update</button>

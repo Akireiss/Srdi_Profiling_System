@@ -94,7 +94,7 @@ if (isset($message)) {
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "location" required autofocus="autofocus">
+                  <input type="text" class="form-control" id="validationTooltip01" name = "location"  autofocus="autofocus">
                   <div class="invalid-tooltip">
                     The Project Site Location field is required.
                   </div>
@@ -102,7 +102,7 @@ if (isset($message)) {
 
                 <div class="col-md-12 position-relative">
     <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="validationCustom04" required>
+    <select name="producer_id" class="form-select" id="validationCustom04" >
         <option selected>Select Producer Name</option>
         <?php
             $resultType = $db->getProducersActive();
@@ -121,7 +121,7 @@ if (isset($message)) {
                 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Topography<font color = "red">*</font></label>
-                  <select class="form-select" aria-label="Default select example" name = "topography" id="validationTooltip03" required>
+                  <select class="form-select" aria-label="Default select example" name = "topography" id="validationTooltip03" >
                       <option selected>Select Topography</option>
                 <?php
                       $resultType=$db->getTopographyActive();
@@ -140,7 +140,7 @@ if (isset($message)) {
                 <div class="col-md-3 position-relative">
                   <label class="form-label">Region<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "region" id="region" required >
+                    <select class="form-select" aria-label="Default select example" name = "region" id="region"  >
                       <option value="" selected disabled>Select Region</option>
                       <?php
                       $regionResult=$db->getRegion();
@@ -155,7 +155,7 @@ if (isset($message)) {
                 <div class="col-md-3 position-relative">
                   <label class="form-label">Province<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "province" id="province" required >
+                    <select class="form-select" aria-label="Default select example" name = "province" id="province"  >
                       <option value="" selected disabled>Select Province</option>
                     </select>
                   </div>
@@ -164,7 +164,7 @@ if (isset($message)) {
                 <div class="col-md-3 position-relative">
                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "municipality" id="city" required>
+                    <select class="form-select" aria-label="Default select example" name = "municipality" id="city" >
                       <option value="" selected disabled>Select City</option>
                     </select>
                   </div>
@@ -180,9 +180,9 @@ if (isset($message)) {
                 </div>
 
                 <div class="col-md-12 position-relative">
-    <label class="form-label">Address (Zip Code/Street no.)</label>
+    <label class="form-label">House no./House Street</label>
     <input type="text" class="form-control" id="validationTooltip01"
-        name="address" required>
+        name="address" xa>
     <div class="invalid-tooltip">
         The Address field is required.
     </div>
@@ -251,7 +251,7 @@ if (isset($message)) {
               
 
 
-                <div class="col-md-4">
+  <div class="col-md-4">
     <label for="validationCustom04" class="form-label">
         Availability of reliable irrigation:<font color="red">*</font>
     </label>

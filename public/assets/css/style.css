@@ -232,13 +232,14 @@ h6 {
   padding: 15px;
 }
 
+
 .card-title {
   padding: 20px 0 15px 0;
   font-size: 18px;
   font-weight: 500;
   color: #FFC000 ;
   font-family: "Poppins", sans-serif;
-}
+} 
 
 .card-title span {
   color:  black;

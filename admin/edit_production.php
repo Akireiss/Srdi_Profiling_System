@@ -5,9 +5,9 @@ $db = new db();
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-} else {
+} else  {
     if (isset($_POST['submit'])) {
-        $site_id = $_POST['site_id'];
+        $producer_id = $_POST['producer_id'];
         $production_id = $_POST['production_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
@@ -26,7 +26,7 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $p_income - $p_cost;
 
         // Add the production record to the database
-        $result = $db->updateProduction(  $site_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
+        $result = $db->updateProduction(  $producer_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -36,7 +36,6 @@ if (!isset($_SESSION['user_id'])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,15 +68,14 @@ if (!isset($_SESSION['user_id'])) {
              $result=$db->getProductionID($_GET['production_id']);
             while($row=mysqli_fetch_object($result)){
                 $productionID     	= $row->production_id;
-                $siteID     	    = $row->site_id;
-                $siteID     	    = $row->location;
+                $producerID     	    = $row->producer_id;
+                $producerName      	    = $row->name;
                 $production_date   	= $row->production_date;
                 $total_production 	= $row->total_production;
                 $p_income 	        = $row->p_income;
                 $p_cost 	        = $row->p_cost;
             }
         ?>
-        <div
       <div class="row">
         <div class="col-lg-12">
            
@@ -88,78 +86,105 @@ if (!isset($_SESSION['user_id'])) {
 
                             <!-- Custom Styled Validation with Tooltips -->
                             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
-                            <div class="col-md-12 position-relative">
+
+                            <!-- <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name="site_id"
-                                        value = "<?php echo $siteID;?>" required>
+                 <select name="site_id" class="form-select" id="validationCustom04" required>
+                    <option selected>Select Project Site Location</option>
+                    <?php
+                        $resultType = $db->getSiteLocationActive();
+                        while ($row = mysqli_fetch_array($resultType)) {
+                            $site_id = $row['site_id'];
+                            $location = $row['location'];
+                            $selected = ($site_id == $site) ? 'selected' : '';
+                            echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
+            }
+            ?>
+    </select>
                   <div class="invalid-tooltip">
-                    The Producer Name field is required.
+                    The Project Site Location field is required.
                   </div>
-                </div>
+                </div> -->
+                <div class="col-md-12 position-relative">
+    <label class="form-label">Producer Name<font color="red">*</font></label>
+    <select name="producer_id" class="form-select" id="validationCustom04">
+    <option selected>Select Producer Name</option>
+    <?php
+    $resultType = $db->getProducersActive();
+    while ($row = mysqli_fetch_array($resultType)) {
+        $producer_id = $row['producer_id'];
+        $name = $row['name'];
+        $selected = ($producer_id == $producerID) ? 'selected' : '';
+        echo '<option value="' . $producer_id . '" ' . $selected . '>' . $name . '</option>';
+    }
+    ?>
+</select>
+
+</div>
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 
-                                    <label class="form-label">Production Date<font color="red">*</font></label>
-                                    <input type="hidden" class="form-control" id="validationTooltip01" name="production_id"
-                                         value = "<?php echo $productionID;?>" required>
-                                         <input type="date" class="form-control" id="validationTooltip01" name="production_date"
-                                        value = "<?php echo $production_date;?>" required>
-                                    <div class="invalid-tooltip">
-                                        The Production Date field is required.
-                                    </div>
-                                </div>
-
-                                
-
-                                <div class="col-md-3 position-relative">
-                                    <label class="form-label">Total Production (in kg)<font color="red">*</font></label>
-                                    <input type="text" class="form-control" id="validationTooltip03" name="total_production" 
-                                        value = "<?php echo $total_production;?>" required>
-                                    <div class="invalid-tooltip">
-                                        Please enter a valid decimal number with up to two decimal places.
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 position-relative">
-                                    <label class="form-label">Gross Income<font color="red">*</font></label>
-                                    <input type="number" class="form-control" id="validationTooltip03" name="p_income" 
-                                        value = "<?php echo $p_income;?>" required>
-                   
-                                    <div class="invalid-tooltip">
-                                        Please enter a valid decimal number with up to two decimal places.
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 position-relative">
-                                    <label class="form-label">Production Cost<font color="red">*</font></label>
-                                    <input type="number" class="form-control" id="validationTooltip03" name="p_cost" 
-                                        value = "<?php echo $p_cost;?>" required>
-                                
-                                    <div class="invalid-tooltip">
-                                        Please enter a valid decimal number with up to two decimal places.
-                                    </div>
-                                </div>
+<label class="form-label">Production Date<font color="red">*</font></label>
+<input type="hidden" class="form-control" id="validationTooltip01" name="production_id"
+     value = "<?php echo $productionID;?>" required>
+     <input type="date" class="form-control" id="validationTooltip01" name="production_date"
+    value = "<?php echo $production_date;?>" required>
+<div class="invalid-tooltip">
+    The Production Date field is required.
+</div>
+</div>
 
 
 
-                                <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-                                        <button type="submit" class="btn btn-warning" name="submit">Update</button>
-                                        <button type="reset" class="btn btn-primary">Clear</button>
-                                        <a href="productions.php" class="btn btn-danger">Cancel</a>
-                                    </div>
+<div class="col-md-3 position-relative">
+<label class="form-label">Total Production (in kg)<font color="red">*</font></label>
+<input type="text" class="form-control" id="validationTooltip03" name="total_production" 
+    value = "<?php echo $total_production;?>" required>
+<div class="invalid-tooltip">
+    Please enter a valid decimal number with up to two decimal places.
+</div>
+</div>
 
-                                
-                            </form><!-- End Custom Styled Validation with Tooltips -->
+<div class="col-md-3 position-relative">
+<label class="form-label">Gross Income<font color="red">*</font></label>
+<input type="number" class="form-control" id="validationTooltip03" name="p_income" 
+    value = "<?php echo $p_income;?>" required>
 
-                        </div>
-                    </div>
+<div class="invalid-tooltip">
+    Please enter a valid decimal number with up to two decimal places.
+</div>
+</div>
 
-                </div>
+<div class="col-md-3 position-relative">
+<label class="form-label">Production Cost<font color="red">*</font></label>
+<input type="number" class="form-control" id="validationTooltip03" name="p_cost" 
+    value = "<?php echo $p_cost;?>" required>
 
-        </section>
-    </main><!-- END MAIN -->
+<div class="invalid-tooltip">
+    Please enter a valid decimal number with up to two decimal places.
+</div>
+</div>
 
-    <?php include '../includes/footer.php' ?>
+
+
+<div class="col-12 d-flex align-items-end justify-content-end gap-2">
+    <button type="submit" class="btn btn-warning" name="submit">Update</button>
+    <button type="reset" class="btn btn-primary">Clear</button>
+    <a href="productions.php" class="btn btn-danger">Cancel</a>
+</div>
+
+
+</form><!-- End Custom Styled Validation with Tooltips -->
+
+</div>
+</div>
+
+</div>
+
+</section>
+</main><!-- END MAIN -->
+
+<?php include '../includes/footer.php' ?>
 </body>
 
 </html>
