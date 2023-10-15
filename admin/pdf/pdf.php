@@ -62,7 +62,8 @@
             //Site Table
                 $location             = $row->location; 
                 $distance             = $row->distance; 
-                $land_area             = $row->land_area; 
+                $land_area             = $row->land_area;
+                $area                   = $row->area;
             //Production Table
                 $production_date      = $row->production_date;
                 $total_production     = $row->total_production;
@@ -191,7 +192,7 @@
                     <td width="20%">Sex: <span class="underline"> <?php echo $sex?> </span></td>
                 </tr>
                 <tr>
-                    <td width="100%">Permanent Address: <span class="underline"> <?php echo $name?> </span></td>
+                    <td width="100%">Permanent Address: <span class="underline">  </span></td>
                 </tr>
             </tbody>
         </table>
@@ -200,7 +201,7 @@
             <tbody>
                 <tr>
                     <td width="5%"></td>
-                    <td width="50%">Educational Attainment:<span class="underline"> <?php echo $education_name?> </span></td>
+                    <td width="50%">Educational Attainment:<span class="underline"> <?php echo $education?> </span></td>
                     <td width="25%">Religion:</td>
                 </tr>
 
@@ -383,7 +384,7 @@
                     <td class="bold" widt="5%"></td>
                     <td>Land Types:</td>
                     <td>Tenancy Status:</td>
-                    <td>Area(Ha):</td>
+                    <td>Area(Ha):<span class="underline"> <?php echo $area;?> </span></td>
                     <td>Crops Grown:</td>
                     <td>%Share:</td>
                 </tr>

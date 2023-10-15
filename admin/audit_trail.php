@@ -38,13 +38,25 @@
 
     <table>
         <tr>
-            <th>ID</th>
+           
             <th>Date and Time</th>
             <th>User ID</th>
             <th>Action</th>
-            <th>Description</th>
+            <th>View</th>
         </tr>
-        
+        <?php
+$result = $db->getAuditTrail();
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    echo '<td>'  . $row['date'] . '</td>';
+    echo '<td>' . $row['fullname'] . '</td>';
+    echo '<td>' . $row['action'] . '</td>';
+    echo '<td>';
+    echo '<a href="view_audit.php?id=' . $row['id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '</td>';
+    echo '</tr>';
+}
+?>
     </table>
     </main>
     <?php include '../includes/footer.php' ?>

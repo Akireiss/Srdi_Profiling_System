@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
+        $user_id = $_SESSION['user_id'];
         $date_validation = $_POST['date_validation'];
         $name = $_POST['name'];
       //  $status = $_POST['status'];
@@ -45,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
        // Convert the array into JSON
        $selectedFarmToolsJSON = json_encode($selectedFarmTools);
        //end
-        $result = $db->addProducer($name, $birthdate,
+        $result = $db->addProducer($user_id, $name, $birthdate,
          $age, $type, $sex, $region, $province, $municipality, 
          $barangay, $address, $education, $religion, $civil_status, 
          $name_spouse, $farm_participate, $cannot_participate, $male,

@@ -2,18 +2,21 @@
 session_start();
 include "../db_con.php";
 $db = new db;
-if(!isset($_SESSION['user_id'])) {
+
+if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
-  if (isset($_POST['submit'])) {
-    $funding_agency = $_POST['funding_agency'];
-    $status   = $_POST['status'];
-    $result = $db->addAgency($funding_agency, $status);
-    if ($result != 0) {
-      $message = "Funding Agency Successfully Added!";
-    } else {
-      $message = "Funding Agency  Already Exist!";
-    }
+} elseif (isset($_POST['submit'])) {
+  $funding_agency = $_POST['funding_agency'];
+  $status = $_POST['status'];
+  $user_id = $_SESSION['user_id']; // Get the user's ID from the session
+
+  $result = $db->addAgency($funding_agency, $status, $user_id);
+  if ($result == 1) {
+    $message = "Funding Agency Successfully Added!";
+  } elseif ($result == 0) {
+    $message = "Funding Agency Already Exists!";
+  } else {
+    $message = "Error: Failed to add Funding Agency.";
   }
 }
 ?>

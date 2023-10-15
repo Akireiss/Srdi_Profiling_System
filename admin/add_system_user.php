@@ -11,7 +11,8 @@ if (!isset($_SESSION['user_id'])) {
     $password = md5($_POST['password']);
     $type_id = $_POST['user_type_id'];
     $status   = $_POST['status'];
-    $resultUser = $db->addUser($fullname, $username, $password, $type_id, $status);
+   $user_id = $_SESSION['user_id'];
+    $resultUser = $db->addUser($fullname, $username, $password, $type_id, $status, $user_id);
     if ($resultUser != 0) {
       $message = "User Successfully Added!";
     } else {

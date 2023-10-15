@@ -527,6 +527,14 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+    public function getAuditTrail()
+    {
+        $sql = "SELECT * FROM audit_logs
+                LEFT JOIN users
+                ON audit_logs.user_id =users.user_id ";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+    }
     
 
     public function updateEducation($education_id, $education_name, $education_status)
@@ -736,25 +744,36 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
     
 
 
-    public function addUser($fullname, $username, $password, $type_id, $status)
+    public function addUser($fullname, $username, $password, $type_id, $status, $user_id)
     {
-        $checkUser = "SELECT * FROM users
+    $checkUser = "SELECT * FROM users
 						WHERE fullname = '$fullname'";
-        $resultCheckUser = mysqli_query($this->$con, $checkUser);
-        $num_rows = mysqli_num_rows($resultCheckUser);
-        if($num_rows > 0) {
-            return $resultsql = 0;
-        } else {
-            $sqlUser = "INSERT INTO users (fullname, username, password, type_id, user_status)
+    $resultCheckUser = mysqli_query($this->$con, $checkUser);
+    $num_rows = mysqli_num_rows($resultCheckUser);
+    if($num_rows > 0) {
+        return $resultsql = 0;
+    } else {
+        $sqlUser = "INSERT INTO users (fullname, username, password, type_id, user_status)
 						VALUES ('$fullname',
 								'$username',
 								'$password',
 								'$type_id',
 								'$status')";
-            $resultsql = mysqli_query($this->$con, $sqlUser);
+        $resultsql = mysqli_query($this->$con, $sqlUser);
+
+        if ($resultsql) {
+            // Log the action in the audit_logs table
+            $action = "New User Added: " . $funding_agency;
+            $data = json_encode(['user_name' => $username, 'fullname' => $fullname, 'status' => $status]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+
+
             return $resultsql = 1;
         }
     }
+}
     public function addUserType($user_type, $status)
     {
         $checkUser = "SELECT * FROM user_type
@@ -971,7 +990,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
         }
     }
        
-    public function addProducer($name, $birthdate,
+    public function addProducer($user_id, $name, $birthdate,
     $age, $type, $sex, $region, $province, $municipality, 
     $barangay, $address, $education, $religion, $civil_status, 
     $name_spouse, $farm_participate, $cannot_participate, $male,
@@ -985,7 +1004,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
         if($num_rows > 0) {
             return $resultsql = 0;
         } else {
-            $sql = "INSERT INTO cocoon (name, birthdate, 
+    $sql = "INSERT INTO cocoon (name, birthdate, 
              age, type, sex, region, province, municipality, barangay,
               address, education, religion, civil_status, name_spouse, farm_participate,
                cannot_participate, male, female, source_income, years_in_farming, 
@@ -1017,9 +1036,23 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
                                 '$id_pic',
                                 '$bypic',
                                 '$date_validation')";
-            $resultsql = mysqli_query($this->$con, $sql);
-            return $resultsql = 1;
-        }
+    $resultsql = mysqli_query($this->$con, $sql);
+
+    if ($resultsql) {
+        // Log the action in the audit_logs table
+        $action = "Added Cocoon: ";
+        $data = json_encode(['name' => $name, 'birthdate' => $birthdate, 'age'  => $age, 'type' =>$type, 'sex' => $sex, 'region' => $region,
+                            'province'  => $province, 'municipality' => $municipality,  'barangay' => $barangay, 'address' => $address,
+                             'education' => $education, 'religion' => $religion, 'civil_status' => $civil_status, 'name_spouse' => $name_spouse,
+                            'farm_participate' => $farm_participate, 'cannot_participate' => $cannot_participate, 'male' => $male, 'female' => $female,
+                        'source_income' => $source_income, 'years_in_farming' => $years_in_farming, 'available_workers' => $available_workers,
+                    'selectedFarmToolsJSON' => $selectedFarmToolsJSON]);
+
+        $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+        $auditResult = mysqli_query($this->$con, $auditSql);
+        return $resultsql = 1;
+    }
+}
     }
 
 
@@ -1125,22 +1158,8 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
             return $resultsql = 1;
         }
     }
-    public function addAgency($funding_agency, $status)
-    {
-        $check = "SELECT * FROM agency
-						WHERE agency_name = '$funding_agency'";
-        $resultCheck = mysqli_query($this->$con, $check);
-        $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
-            return $resultsql = 0;
-        } else {
-            $sql = "INSERT INTO agency (agency_name, status)
-						VALUES ('$funding_agency',					
-								'$status')";
-            $resultsql = mysqli_query($this->$con, $sql);
-            return $resultsql = 1;
-        }
-    }
+
+
     public function addMonitoring($name, $position, $status)
     {
         $check = "SELECT * FROM monitoring
@@ -1237,7 +1256,36 @@ public function countProduction()
 
 
 
+public function addAgency($funding_agency, $status, $user_id)
+{
+    $check = "SELECT * FROM agency WHERE agency_name = '$funding_agency'";
+    $resultCheck = mysqli_query($this->$con, $check);
+    $num_rows = mysqli_num_rows($resultCheck);
 
+    if ($num_rows > 0) {
+        return $resultsql = 0; // Agency already exists
+    } else {
+        $sql = "INSERT INTO agency (agency_name, status) VALUES ('$funding_agency', '$status')";
+        $resultsql = mysqli_query($this->$con, $sql);
+
+        if ($resultsql) {
+            // Log the action in the audit_logs table
+            $action = "Added agency: " . $funding_agency;
+            $data = json_encode(['agency_name' => $funding_agency, 'status' => $status]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+
+            if ($auditResult) {
+                return 1; // Agency added and logged in audit_logs
+            } else {
+                return -1; // Agency added, but audit logging failed
+            }
+        } else {
+            return -1; // Agency insertion failed
+        }
+    }
+}
     public function checkLogin($username, $password)
     {
         $checkLogin = "SELECT * FROM users as a
@@ -1249,18 +1297,51 @@ public function countProduction()
         // echo $checkLogin; die();
         $resultCheckLogin = mysqli_query($this->$con, $checkLogin);
         $num_rows = mysqli_num_rows($resultCheckLogin);
-        if($num_rows > 0) {
-            while($row = mysqli_fetch_array($resultCheckLogin)) {
-                $_SESSION['user_id'] = $row['user_id'];
-                $_SESSION['fullname'] = $row['fullname'];
-                $_SESSION['type_id'] = $row['type_id'];
-                $_SESSION['user_type'] = $row['user_type_name'];
-                return $resultCheckLogin = 1;
-            }
-        } else {
-            return $resultCheckLogin = 0;
+
+if ($checkLogin) {
+    // Log the action in the audit_logs table
+    $action = "User Login";
+    $data = json_encode(['name' => $username]);
+
+    $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+    $auditResult = mysqli_query($this->$con, $auditSql);
+
+    if($num_rows > 0) {
+        while($row = mysqli_fetch_array($resultCheckLogin)) {
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['fullname'] = $row['fullname'];
+            $_SESSION['type_id'] = $row['type_id'];
+            $_SESSION['user_type'] = $row['user_type_name'];
+            return $resultCheckLogin = 1;
         }
+    } else {
+        return $resultCheckLogin = 0;
     }
+
+
+}
+    }
+
+
+
+    // public function getUserID($user_id)
+    // {
+    //     $sql = "SELECT * FROM users
+	// 			 WHERE user_id='$user_id'";
+    //     $result = mysqli_query($this->$con, $sql);
+    //     return $result;
+
+    // }
+
+    public function getAuditID($id)
+    {
+        $sql = "SELECT * FROM audit_logs
+				 WHERE audit_logs.id ='$id'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+
+    }
+
 
     public function closeCon()
     {
