@@ -54,7 +54,7 @@ $date = $row->date;
                 </div>
 
                 <div class="col-md-6 position-relative">
-                  <label class="form-label">Data<font color="red">*</font></label>
+                  <label class="form-label">Date<font color="red">*</font></label>
                   <input type="text" class="form-control" id="password" name="password" disabled
                         value="<?php echo $date;?>" aria-disabled="">
               </div>

@@ -640,8 +640,10 @@ class db
         // echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
+ 
         return $result = 1;
     }
+    
     public function updateRegion($region_id, $regDesc, $psgcCode, $regCode)
     {
         $sql = "UPDATE region
@@ -1040,7 +1042,7 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
 
     if ($resultsql) {
         // Log the action in the audit_logs table
-        $action = "Added Cocoon: ";
+        $action = "Add Cocoon Producer: ";
         $data = json_encode(['name' => $name, 'birthdate' => $birthdate, 'age'  => $age, 'type' =>$type, 'sex' => $sex, 'region' => $region,
                             'province'  => $province, 'municipality' => $municipality,  'barangay' => $barangay, 'address' => $address,
                              'education' => $education, 'religion' => $religion, 'civil_status' => $civil_status, 'name_spouse' => $name_spouse,
@@ -1133,7 +1135,21 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
                                 '$date', 
                                 '$soil')";
             $resultsql = mysqli_query($this->$con, $sql);
-            return $resultsql = 1;
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "Added project site location: ";
+                $data = json_encode(['location' => $location, 'producer_id' => $producer_id, 'topography'  => $topography,  'region' => $region,
+                                    'province'  => $province, 'municipality' => $municipality,  'barangay' => $barangay, 'address' => $address,
+                                     'landJson' => $landJson, 'tenancyJson' => $tenancyJson, 'area' => $area, 'crops' => $crops,
+                                    'share' => $share, 'irrigation' => $irrigation, 'water' => $water, 'source' => $source,
+                                'market' => $market, 'distance' => $distance, 'land_area' => $land_area, 'agency' => $agency, 'charge' => $charge,
+                                'adopters' => $adopters, 'remarks' => $remarks, 'names' => $names, 'position' => $position, 'date' => $date, 'soil' => $soil]);
+        
+                                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                                $auditResult = mysqli_query($this->$con, $auditSql);
+                                return $resultsql = 1;
+            }
+           
         }
     }
     public function addProduction($producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
@@ -1155,7 +1171,17 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
                                 '$n_income')";
                             
             $resultsql = mysqli_query($this->$con, $sql);
-            return $resultsql = 1;
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "Add production: ";
+                $data = json_encode(['producer_id' => $producer_id, 'production_date' => $production_date, 'total_production'  => $total_production,  'p_income' => $p_income,
+                                    'p_cost'  => $p_cost, 'n_income' => $n_income]);
+        
+                                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                                $auditResult = mysqli_query($this->$con, $auditSql);
+                                return $resultsql = 1;
+            }
+      
         }
     }
 

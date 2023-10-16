@@ -258,41 +258,37 @@ if (isset($message)) {
                 </div>
               
 
-
-  <div class="col-md-4">
+  
+                <div class="col-md-4">
     <label for="validationCustom04" class="form-label">
         Availability of reliable irrigation:<font color="red">*</font>
     </label>
-</div>
-<div class="col-md-4">
+    
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="available" value="Available" name="irrigation">
         <label class="form-check-label" for="available">Available</label>
     </div>
-</div>
 
-<div class="col-md-4">
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="not_available" value="Not Available" name="irrigation">
         <label class="form-check-label" for="not_available">Not Available</label>
     </div>
 </div>
+
 <div class="col-md-4">
     <label for="validationCustom04" class="form-label">Water source:<font color="red">*</font></label>
-</div>
-<div class="col-md-4">
+
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="irrigated" value="Irrigated" name="water_source">
         <label class="form-check-label" for="irrigated">Irrigated</label>
     </div>
-</div>
 
-<div class="col-md-4">
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="rainfed" value="Rainfed" name="water_source">
         <label class="form-check-label" for="rainfed">Rainfed</label>
     </div>
 </div>
+
 
 <div class="col-md-4">
     <label for="validationCustom04" name="source" class="form-label">If irrigated, source of irrigation:<font color="red">*</font></label>
@@ -311,6 +307,7 @@ if (isset($message)) {
         ?>
     </div>
 </div>
+
 
 
 
@@ -386,21 +383,24 @@ if (isset($message)) {
             </div>
 
                 
-                <div class="col-md-12 position-relative">
-                  <label class="form-label">Project in-charge<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "charge" >
-                  <div class="invalid-tooltip">
-                    The Project In-Charge field is required.
-                  </div>
-                </div>
+            <div class="row mt-4">
+    <div class="col-md-6 position-relative">
+        <label class="form-label">Project in-charge<font color="red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="charge">
+        <div class="invalid-tooltip">
+            The Project In-Charge field is required.
+        </div>
+    </div>
 
-                <div class="col-md-12 position-relative">
-                  <label class="form-label">Site Adopters<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "adopters" >
-                  <div class="invalid-tooltip">
-                    The Project In-Charge field is required.
-                  </div>
-                </div>
+    <div class="col-md-6 position-relative">
+        <label class="form-label">Site Adopters<font color="red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="adopters">
+        <div class="invalid-tooltip">
+            The Site Adopters field is required.
+        </div>
+    </div>
+</div>
+
 
                 <!-- <div class="col-md-6 position-relative">
                   <label class="form-label">Site Status<font color = "red">*</font></label>

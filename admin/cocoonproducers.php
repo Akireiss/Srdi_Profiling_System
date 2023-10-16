@@ -98,7 +98,7 @@ if (isset($message)) {
   
         <h5 class="card-title">A. Personal Information</h5>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
             <label for="validationCustom02" class="form-label">Date of Validation<font color = "red">*</font></label>
             <input type="date" class="form-control" id="validationCustom02" name="date_validation" required>
             <div class="valid-feedback">
@@ -106,7 +106,7 @@ if (isset($message)) {
             </div>
           </div> 
 
-        <div class="row g-3  needs-validation md:w-full" novalidate>
+        <div class="row mt-3 needs-validation md:w-full" novalidate>
           <div class="col-md-12">
             <label for="validationCustom01" class="form-label">Name<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationCustom01" name="name" required>
@@ -117,7 +117,7 @@ if (isset($message)) {
 
         </div>
           
-        <div class="row g-3  needs-validation md:w-full" novalidate>
+        <div class="row mt-3  needs-validation md:w-full" novalidate>
           <div class="col-md-3">
             <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationCustom02" name="age" >
@@ -155,7 +155,9 @@ if (isset($message)) {
               <option value="Female">Female</option>
             </select>
           </div>
+          </div>
           
+          <div class="row mt-4 needs-validation md:w-full" novalidate>
           <div class="col-md-3 position-relative">
                   <label class="form-label">Region<font color = "red">*</font></label>
                   <div class="col-sm-12">
@@ -197,17 +199,21 @@ if (isset($message)) {
                     </select>
                   </div>
                 </div>
+                
           </div>
-          <div class="col-md-12">
+         
+          <div class="row mt-3  needs-validation md:w-full" novalidate>
+          <div class="col-md-4">
             <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
+            
             <input type="text" name="address" class="form-control" id="validationCustom03" >
             <div class="invalid-feedback">
               Please provide a valid city.
             </div>
           </div>
 
-          <div class="row g-3  needs-validation md:w-full" novalidate>
-          <div class="col-md-6">
+        
+          <div class="col-md-4">
             <label for="validationCustom04" class="form-label">Educational Attainment<font color = "red">*</font></label>
             <select name="education" class="form-select" id="validationCustom04" >
                 <option  selected>Select Educational Attainment</option>
@@ -225,7 +231,7 @@ if (isset($message)) {
             </div>
             </div>
             
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="validationCustom05" class="form-label">Religion<font color = "red">*</font></label>
             <select class="form-select" id="validationCustom04" name="religion" >
             <option  selected>Select Religion</option>
@@ -241,7 +247,8 @@ if (isset($message)) {
             </div>
           </div>
           
-          <div class="col-md-6">
+          
+          <div class="col-md-6 mt-3">
   <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
   <select class="form-select" id="civil_status" name="civil_status" >
     <option selected>Select Civil Status</option>
@@ -256,8 +263,9 @@ if (isset($message)) {
     Please provide a civil status.
   </div>
 </div>
+   
 
-<div class="col-md-6">
+<div class="col-md-6 mt-3">
   <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
   <input type="text" class="form-control" name="name_spouse" id="spouse" disabled>
   <div class="invalid-feedback">
@@ -269,31 +277,31 @@ if (isset($message)) {
 
           
        
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
         <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
     </div>
-    <div class="col-md-3 mt-1">
+    <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
         <input type="text" class="form-control" name="farm_participate" id="farm_participate">
         <div class="invalid-feedback">
             Please provide the number of family members who can participate in farm work.
         </div>
     </div>
-    <div class="col-md-3 mt-1">
+    <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
         <input type="text" class="form-control" name="cannot_participate" id="cannot_participate">
         <div class="invalid-feedback">
             Please provide the number of family members who cannot do farm work.
         </div>
     </div>
-    <div class="col-md-3 mt-1">
+    <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
         <input type="text" class="form-control" name="male" id="male" >
         <div class="invalid-feedback">
             Please provide the number of male family members.
         </div>
     </div>
-    <div class="col-md-3 mt-1">
+    <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
         <input type="text" class="form-control" name="female" id="female" >
         <div class="invalid-feedback">
@@ -322,14 +330,14 @@ if (isset($message)) {
 </div>
 
 
-<div class="col-md-6 ">
+<div class="col-md-6 mt-3 ">
   <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
   <input type="text" class="form-control" name="years_in_farming" id="validationCustom05">
   <div class="invalid-feedback">
     Please provide a number of years in farming.
   </div>
 </div>
-<div class="col-md-6 ">
+<div class="col-md-6 mt-3 ">
 <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
 <input type="text" class="form-control" name="available_workers" id="validationCustom05" >
 <div class="invalid-feedback">

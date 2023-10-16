@@ -125,9 +125,9 @@
             <i class="bi bi-circle"></i><span>Back up Data</span>
           </a>
         </li>
-</ul>
-   
-  </li><!-- End Settings Nav -->
+</ul> 
+  </li>
+  <!-- End Settings Nav -->
   <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-person-workspace" style="color: white;"></i><span>User Settings</span><i class="bi bi-chevron-down ms-auto"></i>
