@@ -2,6 +2,6 @@
  $dbhost = "localhost";
  $dbuser = "root";
  $dbpass = "";
- $db = "srdi_profiling";
+ $db = "profiling_system";
  $con = mysqli_connect($dbhost, $dbuser, $dbpass , $db) or die($con);
 ?>

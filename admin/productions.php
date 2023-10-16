@@ -57,7 +57,7 @@
 $result = $db->getAllProduction();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['name'] . '</a></td>';
+    echo '<td>'. $row['name'] . '</td>';
     echo '<td>'  . $row['location']. '</td>';
     echo '<td>' . 'PHP ' . $row['total_production']. '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
     echo '<td>' . $row['production_date'] . '</td>';
     echo '<td>';
-    echo '<a href="view_land.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line"></i></a>';
     echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square"></i></a>';
     echo '</td>';
     echo '</tr>';

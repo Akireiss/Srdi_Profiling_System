@@ -69,8 +69,8 @@ while ($row = mysqli_fetch_array($result)) {
     </section>
 
   </main><!--END MAIN-->
-  
-  ======= Footer =======
+<!--   
+  ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>SRDI</span></strong>. All Rights Reserved 2023

@@ -124,6 +124,55 @@
  <!--END MAIN-->
    
  <?php include '../includes/footer.php' ?>
+ <script>
+$(document).ready(function(){
+  $("#region").on('change',function(){
+    var regionId = $(this).val();
+    if(regionId){
+            $.ajax({
+                type:'POST',
+                url:'ajaxData.php',
+                data:'regionId='+regionId,
+                success:function(html){
+                    $('#province').html(html);
+                    $('#city').html('<option value="">Select City</option>'); 
+                }
+            }); 
+        }
+  });
+
+  $('#province').on('change', function(){ 
+        var provinceId = $(this).val();
+        if(provinceId){
+            $.ajax({
+                type:'POST',
+                url:'ajaxData.php',
+                data:'provinceId='+provinceId,
+                success:function(html){
+                    $('#city').html(html);
+                    $('#barangay').html('<option value="">Select Barangay</option>');
+                }
+            }); 
+        }else{
+            $('#barangay').html('<option value="">Select Barangay</option>'); 
+        }
+    });
+
+  $('#city').on('change', function(){
+        var cityId = $(this).val();
+        if(cityId){
+            $.ajax({
+                type:'POST',
+                url:'ajaxData.php',
+                data:'cityId='+cityId,
+                success:function(html){
+                    $('#barangay').html(html);
+                }
+            }); 
+        }
+    });
+});
+</script>
   </body>
 </html>
   

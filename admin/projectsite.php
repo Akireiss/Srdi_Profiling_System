@@ -47,7 +47,7 @@
 $result = $db->getSites();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_site.php?site_id=' . $row['site_id'] . '">' . $row['location'] . '</a></td>';
+    echo '<td>'.  $row['location'] . '</td>';
     echo '<td>' . $row['name'] . '</td>';
     echo '<td>' . $row['area'] . '</td>';
     echo '<td>' . $row['topography_name'] . '</td>'; // Display topography_name

@@ -20,26 +20,34 @@
 <!--Project Site-->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" href="add_projectsite.php">
+    <a class="nav-link collapsed" href="projectsite.php">
       <i class="bi bi-house" style="color: white;"></i>
       <span>Project Site</span>
+    </a>
+    
+  </li><!-- Project Site Nav -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="productions.php">
+      <i class="bi bi-house" style="color: white;"></i>
+      <span>Production</span>
     </a>
     
   </li><!-- Project Site Nav -->
 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-gear" style="color: white;"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
+        <i class="bi bi-gear" style="color: white;"></i><span>System Settings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
       <li>
-          <a href="system_user.php">
-            <i class="bi bi-circle" ></i><span>System User</span>
+          <a href="agency.php">
+            <i class="bi bi-circle" ></i><span>Funding Agency</span>
           </a>
         </li>
         <li>
-          <a href="user_type.php">
-            <i class="bi bi-circle" ></i><span>User Type</span>
+          <a href="civil_status.php">
+            <i class="bi bi-circle" ></i><span>Civil Status</span>
           </a>
         </li>
         <li>
@@ -93,7 +101,7 @@
           </a>
         </li>
         <li>
-          <a href="barangay.php">
+          <a href="province.php">
             <i class="bi bi-circle" ></i><span>Province</span>
           </a>
         </li>
@@ -107,23 +115,14 @@
             <i class="bi bi-circle" ></i><span>Barangay</span>
           </a>
         </li>
-        <li>
-          <a href="charts-apexcharts.php">
-            <i class="bi bi-circle"></i><span>Back up Data</span>
-          </a>
-        </li>
-</ul>
-   
-  </li><!-- End Settings Nav -->
+       
+</ul> 
+  </li>
+<!-- End Settings Nav -->
 
  <!-- End Reports Nav -->
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="../auth/logout.php">
-      <i class="bi bi-box-arrow-in-right" style="color: white;"></i>
-      <span>Log out</span>
-    </a>
-  </li><!-- End Blank Page Nav -->
+<!-- End Blank Page Nav -->
 
 </ul>
 

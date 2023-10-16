@@ -116,6 +116,11 @@
           </a>
         </li>
         <li>
+          <a href="year.php">
+            <i class="bi bi-circle" ></i><span>Year</span>
+          </a>
+        </li>
+        <li>
           <a href="audit_trail.php">
             <i class="bi bi-circle"></i><span>Audit Trail</span>
           </a>

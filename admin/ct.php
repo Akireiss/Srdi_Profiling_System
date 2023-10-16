@@ -53,7 +53,7 @@
 $result = $db->getProducer();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_producer.php?cocoon_id=' . $row['cocoon_id'] . '">' . $row['name'] . '</a></td>';
+    echo '<td>' . $row['name'] . '</a></td>';
     echo '<td>' . $row['citymunDesc'] . ', ' . $row['provDesc'] . ', ' . $row['regDesc'] . '</td>';
     echo '<td>' . $row['status'] . '</td>';
     echo '<td>';

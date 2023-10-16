@@ -86,9 +86,11 @@ if(!isset($_SESSION['user_id'])) {
 
                     
 
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-warning" name="submit">Update Land Type</button>
-                                        <button type="reset" class="btn btn-primary">Cancel</button>
+                                    
+                <div class="col-12 d-flex align-items-end justify-content-end gap-2">
+                                        <button type="submit" class="btn btn-warning" name="submit">Update</button>
+                                        <button type="reset" class="btn btn-primary">Clear</button>
+                                        <a href="land_type.php" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -99,32 +101,7 @@ if(!isset($_SESSION['user_id'])) {
 </main>
 
     
-
-
-    <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>SRDI</span></strong>. All Rights Reserved 2023
-        </div>
-        <div class="credits">
-            Developed by DMMMSU-SRDI</a>
-        </div>
-    </footer><!-- End Footer -->
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="../public/assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="../public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../public/assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="../public/assets/vendor/echarts/echarts.min.js"></script>
-    <script src="../public/assets/vendor/quill/quill.min.js"></script>
-    <script src="../public/assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="../public/assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="../public/assets/vendor/php-email-form/validate.js"></script>
-
-    <link href="../public/assets/vendor/simple-datatables/style.css" rel="stylesheet">
-    <script src="../public/assets/js/main.js"></script>
+<?php include '../includes/footer.php' ?>
 </body>
 
 </html>

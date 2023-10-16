@@ -535,6 +535,20 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+    public function getYear()
+    {
+        $sql = "SELECT * FROM year";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+    }
+     public function getYearID($year_id)
+    {
+        $sql = "SELECT * FROM year
+				 WHERE year_id='$year_id'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+
+    }
     
 
     public function updateEducation($education_id, $education_name, $education_status)
@@ -743,7 +757,15 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
     $result = mysqli_query($this->$con, $sql);
     return $result = 1;
 }
-    
+public function updateYear($year_id, $year_name, $year_status)
+{
+    $sql = "UPDATE year
+            SET year_name = '$year_name',
+                year_status	='$year_status'
+            WHERE year_id	= '$year_id'";
+    $result = mysqli_query($this->$con, $sql);
+    return $result = 1;
+} 
 
 
     public function addUser($fullname, $username, $password, $type_id, $status, $user_id)
@@ -1310,6 +1332,22 @@ public function addAgency($funding_agency, $status, $user_id)
         } else {
             return -1; // Agency insertion failed
         }
+    }
+}
+public function addYear($year, $year_status)
+{
+    $check = "SELECT * FROM year
+                    WHERE year_name = '$year'";
+    $resultCheck = mysqli_query($this->$con, $check);
+    $num_rows = mysqli_num_rows($resultCheck);
+    if($num_rows > 0) {
+        return $resultsql = 0;
+    } else {
+        $sql = "INSERT INTO year (year_name, year_status)
+                    VALUES ('$year',					
+                            '$year_status')";
+        $resultsql = mysqli_query($this->$con, $sql);
+        return $resultsql = 1;
     }
 }
     public function checkLogin($username, $password)
