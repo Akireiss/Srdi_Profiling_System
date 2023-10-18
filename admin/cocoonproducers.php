@@ -118,13 +118,13 @@ if (isset($message)) {
         </div>
           
         <div class="row mt-3  needs-validation md:w-full" novalidate>
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationCustom02" name="age" >
             <div class="valid-feedback">
               Looks good!
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3">
             <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
             <input type="date" class="form-control" id="validationCustom02" name="birthdate" >
@@ -502,6 +502,20 @@ $(document).ready(function(){
     }
   });
 </script>
+
+<script>
+  document.getElementById("birthdate").addEventListener("change", function () {
+    var birthdate = new Date(this.value);
+    var today = new Date();
+    var age = today.getFullYear() - birthdate.getFullYear();
+    // Check if the birthday has occurred this year already
+    if (today.getMonth() < birthdate.getMonth() || (today.getMonth() === birthdate.getMonth() && today.getDate() < birthdate.getDate())) {
+      age--;
+    }
+    document.getElementById("age").value = age;
+  });
+</script>
+
 
 
     </body>
