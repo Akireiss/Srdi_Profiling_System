@@ -28,7 +28,7 @@
   </li><!-- Project Site Nav -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="productions.php">
-      <i class="bi bi-house" style="color: white;"></i>
+    <i class="bi bi-tools" style="color: white;"></i>
       <span>Production</span>
     </a>
     
