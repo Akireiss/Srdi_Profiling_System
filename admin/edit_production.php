@@ -19,14 +19,6 @@ if (!isset($_SESSION['user_id'])) {
         $total = $p_income - $p_cost;
         $n_income = $total;
 
-        // Format p_income and p_cost with commas
-        $p_income_formatted = number_format($p_income, 2);
-        $p_cost_formatted = number_format($p_cost, 2);
-
-
-        $p_income = $p_income_formatted;
-        $p_cost = $p_cost_formatted;
-
         // Add the production record to the database
         $result = $db->updateProduction($production_id, $production_date, 
         $total_production, $p_income, $p_cost, $n_income, $producer_id);
