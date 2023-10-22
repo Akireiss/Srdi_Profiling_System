@@ -371,30 +371,25 @@ if(!isset($_SESSION['user_id'])) {
                           </div>
                           <div class="form-row mt-1">
 
+                          <?php
 
-                             <?php
 
-$data = $db->getProducerID($cocoon_id);
+$response = array('success' => false);
 
-if (!empty($data)) {
-    foreach ($data as $row) {
-        $source_income = json_decode($row['source_income']); // Decode the JSON string
+$tools = $db->getFarmToolsActive();
+$sourceIncome = json_decode($row['source_income']);
 
-        if ($source_income) {
-            $source_income = array_map('intval', $source_income); // Convert values to integers
+if ($tools && $sourceIncome) {
+    $response['success'] = true;
+    $response['tools'] = $tools;
+    $response['sourceIncome'] = $sourceIncome;
+}
 
-                              $resultType = $db->getFarmToolsActive();
-                              while ($row = mysqli_fetch_array($resultType)) {
-                                  echo '<div class="form-check form-check-inline col-md-4">';
-                                  echo '<input class="form-check-input" name"farm_tools" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_name'] . '">';
-                                echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
-                                echo '</div>';
-                              }
-                            }
-                          }
+header('Content-Type: application/json');
+echo json_encode($response);
+?>
 
-                            }
-                              ?>
+                          <div id="farm-tools-checkboxes" class="form-check form-check-inline col-md-4"></div>
 
 
                           </div>
@@ -514,6 +509,41 @@ $(document).ready(function(){
         }
     });
 });
+</script>
+
+<script>
+  $(document).ready(function() {
+    // Fetch the farm tools
+    $.ajax({
+        type: 'GET',
+        url: 'edit_producer.php', // Create a PHP file to fetch farm tools
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                var tools = response.tools;
+                var sourceIncome = response.sourceIncome;
+
+                var checkboxes = '';
+                for (var i = 0; i < tools.length; i++) {
+                    var tool = tools[i];
+                    var isChecked = sourceIncome.includes(tool.tool_id) ? 'checked' : '';
+                    checkboxes += '<div class="form-check">';
+                    checkboxes += '<input class="form-check-input" name="farm_tools[]" type="checkbox" id="' + tool.tool_id + '" value="' + tool.tool_id + '" ' + isChecked + '>';
+                    checkboxes += '<label class="form-check-label" for="' + tool.tool_id + '">' + tool.tool_name + '</label>';
+                    checkboxes += '</div>';
+                }
+
+                $('#farm-tools-checkboxes').html(checkboxes);
+            } else {
+                console.error('Error fetching farm tools');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ' + status + ' - ' + error);
+        }
+    });
+});
+
 </script>
     </body>
 </html>
