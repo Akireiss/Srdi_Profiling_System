@@ -52,17 +52,19 @@
                                     <th scope="col">Action</th>
                                   </tr>
                       </thead>
-        
                       <?php
 $result = $db->getAllProduction();
+$totalPIncome = 0;
+$totalNIncome = 0;
+
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td>'. $row['name'] . '</td>';
-    echo '<td>'  . $row['location']. '</td>';
-    echo '<td>' . 'PHP ' . $row['total_production']. '</td>';
-    echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
-    echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
-    echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
+    echo '<td>' . $row['name'] . '</td>';
+    echo '<td>' . $row['location'] . '</td>';
+    echo '<td>PHP ' . $row['total_production'] . '</td>';
+    echo '<td>PHP ' . $row['p_income'] . '</td>';
+    echo '<td>PHP ' . $row['p_cost'] . '</td>';
+    echo '<td>PHP ' . $row['n_income'] . '</td>';
     echo '<td>' . $row['production_date'] . '</td>';
     echo '<td>';
     echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line"></i></a>';
@@ -70,13 +72,12 @@ while ($row = mysqli_fetch_array($result)) {
     echo '</td>';
     echo '</tr>';
 
-      $totalPIncome += $row['p_income'];
-      // Net Income
-      $totalNIncome += $row['n_income'];
-
-  
+    $totalPIncome += $row['p_income'];
+    // Net Income
+    $totalNIncome += $row['n_income'];
 }
 ?>
+
 
                       <tbody>
                        

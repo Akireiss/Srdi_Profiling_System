@@ -53,7 +53,7 @@ if(!isset($_SESSION['user_id'])) {
                 $cannot_participate   = $row->cannot_participate;
                 $male                 = $row->male;
                 $female               = $row->female;
-                $source_income        = $row->source_income;
+                $source_income        = $row->source_income;//decode this
                 $years_in_farming     = $row->years_in_farming;
                 $available_workers    = $row->available_workers;
                 $farm_tool            = $row->farm_tool;
@@ -221,8 +221,10 @@ if(!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
-                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
+                                  <select class="form-select" aria-label="Default select example" 
+                                  name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" >
+                                  <option selected>Select from municipality</option>
+                                 <option value="<?php echo $citymunCode;?>"><?php echo $citymunName;?></option>
                             
                           </select>
                                   </div>
@@ -231,8 +233,11 @@ if(!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">Barangay<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" required>
-                            <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
+                                  <select class="form-select" aria-label="Default select example" name = "barangay" 
+                                  id="barangay" value = "<?php echo $brgyCode;?>" required>
+                                  <option selected>Select from barangay</option>
+                                  <option value="<?php echo $brgyCode;?>" ><?php echo $barangayName;?></option>
+                                  
                             
                           </select>
                                 </div>
@@ -340,25 +345,34 @@ if(!isset($_SESSION['user_id'])) {
                           </div>
                       </div>
 
-                      <!--Source of Income-->
-                      <div class="row">
-                          <div class="col-md-12">
-                              <div class="form-group mt-3">
-                                  <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
-                              </div>
-                          </div>
-                          <div class="form-row mt-1">
-                              <?php
-                              $resultType = $db->getSource_IncomeActive();
-                              while ($row = mysqli_fetch_array($resultType)) {
-                                  echo '<div class="form-check form-check-inline col-md-4">';
-                                  echo '<input class="form-check-input" name="form_income" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_name'] . '">';
-                                  echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
-                                  echo '</div>';
-                              }
-                              ?>
-                          </div>
-                      </div>
+                   
+                     <div class="form-row mt-1">
+    <?php
+    
+    if (!empty($data)) {
+        foreach ($data as $row) {
+            $source_income = $row['source_income'];
+            $sources = explode(',', $source_income);
+            
+            $resultType = $db->getSource_IncomeActive();
+            
+            while ($rowType = mysqli_fetch_array($resultType)) {
+                $source_id = $rowType['source_id'];
+                $source_name = $rowType['source_name'];
+                
+                // Check if the source_id is in the array of sources
+                $isChecked = in_array($source_id, $sources) ? 'checked' : '';
+                
+                echo '<div class="form-check form-check-inline col-md-4">';
+                echo '<input class="form-check-input" name="form_income[]" type="checkbox" id="source_income' . 
+                $source_id . '" value="' . $source_id . '" ' . $isChecked . '>';
+                echo '<label class="form-check-label" for="source_income' . $source_id . '">' . $source_name . '</label>';
+                echo '</div>';
+            }
+        }
+    }
+    ?>
+</div>
 
                       <div class="col-md-6 ">
                         <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>

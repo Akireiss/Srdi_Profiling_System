@@ -12,13 +12,14 @@ class db
     // function __construct(){
     // 	$this->$con = mysqli_connect('localhost', 'root', '', 'srdi_profile') or die(mysqli_error());
     // }
-    public function getTotalProduction() {
+    public function getTotalProduction()
+    {
         $query = "SELECT SUM(total_production) as total FROM production";
         $result = mysqli_query($this->con, $query);
         $row = mysqli_fetch_assoc($result);
         return $row['total'];
     }
-    
+
 
     public function getUser()
     {
@@ -269,7 +270,7 @@ class db
         return $result;
 
     }
-    
+
     public function getProvince()
     {
         $sql = "SELECT p.province_id, p.provDesc, p.provCode, r.regCode, r.regDesc
@@ -287,7 +288,7 @@ class db
         return $result;
 
     }
-   
+
     public function getMunicipality()
     {
         $sql = "SELECT m.*, p.province_id, p.provDesc, p.regCode AS provRegCode,
@@ -317,9 +318,9 @@ class db
                 JOIN province p ON b.provCode = p.provCode
                 JOIN region r ON p.regCode = r.regCode
                 LEFT JOIN municipality m ON b.citymunCode = m.municipality_id";
-        
+
         $result = mysqli_query($this->$con, $sql);
-        
+
         return $result;
     }
 
@@ -337,8 +338,8 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-    
-    
+
+
     public function getProducerID($cocoon_id)
     {
         $sql = "SELECT * FROM cocoon
@@ -376,7 +377,7 @@ class db
         return $result;
     }
 
-   
+
     public function getSite($cocoonID)
     {
         $sql = "SELECT * FROM site
@@ -398,8 +399,8 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-    
-    
+
+
     public function getSiteID($site_id)
     {
         $sql = "SELECT * FROM site
@@ -418,7 +419,7 @@ class db
         return $result;
 
     }
- 
+
     // public function getAllProduction()
     // {
     //     $sql = "SELECT * FROM production
@@ -435,11 +436,13 @@ class db
     {
         $sql = "SELECT * FROM production
                 LEFT JOIN cocoon
-                ON production.producer_id = cocoon.cocoon_id";
+                ON production.producer_id = cocoon.cocoon_id
+                LEFT JOIN site
+                ON cocoon.cocoon_id = site.producer_id";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-   
+
 
     public function getProduction($siteID)
     {
@@ -448,14 +451,14 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-   
-   ///true//
+
+    ///true//
     // public function getProductionID($production_id)
     // {
     //     $sql = "SELECT * FROM production
     //             LEFT JOIN site
     //             ON production.site_id = site.site_id 
-	// 			 WHERE production_id='$production_id'";
+    // 			 WHERE production_id='$production_id'";
     //     $result = mysqli_query($this->$con, $sql);
     //     return $result;
 
@@ -541,7 +544,7 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-     public function getYearID($year_id)
+    public function getYearID($year_id)
     {
         $sql = "SELECT * FROM year
 				 WHERE year_id='$year_id'";
@@ -549,7 +552,7 @@ class db
         return $result;
 
     }
-    
+
 
     public function updateEducation($education_id, $education_name, $education_status)
     {
@@ -654,10 +657,10 @@ class db
         // echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
- 
+
         return $result = 1;
     }
-    
+
     public function updateRegion($region_id, $regDesc, $psgcCode, $regCode)
     {
         $sql = "UPDATE region
@@ -699,15 +702,17 @@ class db
     }
     public function updateProducer($cocoon_id, $name)
     {
-         $sql = "UPDATE cocoon 
+        $sql = "UPDATE cocoon 
                 SET name                 ='$name',						
                 WHERE cocoon_id          ='$cocoon_id'";
-            $resultsql = mysqli_query($this->$con, $sql);
-            return $resultsql = 1;
-        }
-        public function updateProduction($production_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $producer_id)
-        {
-            $sql = "UPDATE production
+        $resultsql = mysqli_query($this->$con, $sql);
+        return $resultsql = 1;
+    }
+    
+    public function updateProduction($production_id, $production_date,
+     $total_production, $p_income, $p_cost, $n_income, $producer_id)
+    {
+        $sql = "UPDATE production
                     SET production_date = '$production_date',
                         total_production = '$total_production',
                         p_income = '$p_income',
@@ -715,25 +720,25 @@ class db
                         n_income = '$n_income',
                         producer_id = '$producer_id' 
                     WHERE production_id = '$production_id'";
-            
-            $result = mysqli_query($this->con, $sql);
-            
-            return $result; // Return the actual result of the query
-        }
-        
 
-public function updateAgency($agency_id, $agency_name, $status)
-{
-    $sql = "UPDATE agency
+        $result = mysqli_query($this->$con, $sql);
+
+        return $result; // Return the actual result of the query
+    }
+
+
+    public function updateAgency($agency_id, $agency_name, $status)
+    {
+        $sql = "UPDATE agency
             SET agency_name = '$agency_name',
                 status	    ='$status'
             WHERE agency_id	= '$agency_id'";
-            
-    $result = mysqli_query($this->$con, $sql);
-    return $result = 1;
-}
 
-public function updateMonitoring($monitoring_id, $monitoring_name, $position, $status)
+        $result = mysqli_query($this->$con, $sql);
+        return $result = 1;
+    }
+
+    public function updateMonitoring($monitoring_id, $monitoring_name, $position, $status)
     {
         $sql = "UPDATE monitoring
 				SET monitoring_name = '$monitoring_name',
@@ -744,63 +749,63 @@ public function updateMonitoring($monitoring_id, $monitoring_name, $position, $s
         return $result = 1;
     }
     public function updateCivil($civil_id, $civil_name, $status)
-{
-    $sql = "UPDATE civil
+    {
+        $sql = "UPDATE civil
             SET civil_name = '$civil_name',
                 status	    ='$status'
             WHERE civil_id	= '$civil_id'";
-            
-    $result = mysqli_query($this->$con, $sql);
-    return $result = 1;
-}
-public function updateYear($year_id, $year_name, $year_status)
-{
-    $sql = "UPDATE year
+
+        $result = mysqli_query($this->$con, $sql);
+        return $result = 1;
+    }
+    public function updateYear($year_id, $year_name, $year_status)
+    {
+        $sql = "UPDATE year
             SET year_name = '$year_name',
                 year_status	='$year_status'
             WHERE year_id	= '$year_id'";
-    $result = mysqli_query($this->$con, $sql);
-    return $result = 1;
-} 
+        $result = mysqli_query($this->$con, $sql);
+        return $result = 1;
+    }
 
 
     public function addUser($fullname, $username, $password, $type_id, $status, $user_id)
     {
-    $checkUser = "SELECT * FROM users
+        $checkUser = "SELECT * FROM users
 						WHERE fullname = '$fullname'";
-    $resultCheckUser = mysqli_query($this->$con, $checkUser);
-    $num_rows = mysqli_num_rows($resultCheckUser);
-    if($num_rows > 0) {
-        return $resultsql = 0;
-    } else {
-        $sqlUser = "INSERT INTO users (fullname, username, password, type_id, user_status)
+        $resultCheckUser = mysqli_query($this->$con, $checkUser);
+        $num_rows = mysqli_num_rows($resultCheckUser);
+        if ($num_rows > 0) {
+            return $resultsql = 0;
+        } else {
+            $sqlUser = "INSERT INTO users (fullname, username, password, type_id, user_status)
 						VALUES ('$fullname',
 								'$username',
 								'$password',
 								'$type_id',
 								'$status')";
-        $resultsql = mysqli_query($this->$con, $sqlUser);
+            $resultsql = mysqli_query($this->$con, $sqlUser);
 
-        if ($resultsql) {
-            // Log the action in the audit_logs table
-            $action = "New User Added: " . $funding_agency;
-            $data = json_encode(['user_name' => $username, 'fullname' => $fullname, 'status' => $status]);
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "New User Added: " . $funding_agency;
+                $data = json_encode(['user_name' => $username, 'fullname' => $fullname, 'status' => $status]);
 
-            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-            $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
 
 
-            return $resultsql = 1;
+                return $resultsql = 1;
+            }
         }
     }
-}
     public function addUserType($user_type, $status)
     {
         $checkUser = "SELECT * FROM user_type
 						WHERE user_type_name = '$user_type'";
         $resultCheckUser = mysqli_query($this->$con, $checkUser);
         $num_rows = mysqli_num_rows($resultCheckUser);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sqlUser = "INSERT INTO user_type (user_type_name, user_type_status)
@@ -816,7 +821,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE education_name = '$education'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO education (education_name, education_status)
@@ -832,7 +837,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE municipality_name = '$municipality'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO municipality (municipality_name, municipality_status)
@@ -848,7 +853,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE source_name = '$source_of_income'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO source_income (source_name, source_status)
@@ -864,7 +869,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE religion_name = '$religion'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO religion (religion_name, religion_status)
@@ -880,7 +885,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE tenancy_name = '$tenancy_status'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO tenancy (tenancy_name, tenancy_status)
@@ -897,7 +902,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE tool_name = '$farm_tools'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO farm_tool (tool_name, tool_status)
@@ -913,7 +918,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE land_name = '$land_type'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO land (land_name, land_status)
@@ -929,7 +934,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE topography_name = '$topography'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO topography (topography_name, topography_status)
@@ -945,7 +950,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE irrigation_name = '$source_of_irrigation'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO irrigation (irrigation_name, irrigation_status)
@@ -961,7 +966,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE soil_name = '$soil_type'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO soil (soil_name, soil_status)
@@ -977,7 +982,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE regDesc = '$regDesc' OR regCode = '$regCode'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $psgCode = $regCode . '0000000';
@@ -996,7 +1001,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE provDesc = '$provDesc' OR provCode = '$provCode'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $psgCode = $provCode . '0000000';
@@ -1009,22 +1014,45 @@ public function updateYear($year_id, $year_name, $year_status)
             return $resultsql = 1;
         }
     }
-       
-    public function addProducer($user_id, $name, $birthdate,
-    $age, $type, $sex, $region, $province, $municipality, 
-    $barangay, $address, $education, $religion, $civil_status, 
-    $name_spouse, $farm_participate, $cannot_participate, $male,
-     $female, $source_income, $years_in_farming, $available_workers,
-     $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic, $date_validation)
-    {
+
+    public function addProducer(
+        $user_id,
+        $name,
+        $birthdate,
+        $age,
+        $type,
+        $sex,
+        $region,
+        $province,
+        $municipality,
+        $barangay,
+        $address,
+        $education,
+        $religion,
+        $civil_status,
+        $name_spouse,
+        $farm_participate,
+        $cannot_participate,
+        $male,
+        $female,
+        $source_income,
+        $years_in_farming,
+        $available_workers,
+        $selectedFarmToolsJSON,
+        $intent,
+        $signature,
+        $id_pic,
+        $bypic,
+        $date_validation
+    ) {
         $check = "SELECT * FROM cocoon
 						WHERE name = '$name'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
-    $sql = "INSERT INTO cocoon (name, birthdate, 
+            $sql = "INSERT INTO cocoon (name, birthdate, 
              age, type, sex, region, province, municipality, barangay,
               address, education, religion, civil_status, name_spouse, farm_participate,
                cannot_participate, male, female, source_income, years_in_farming, 
@@ -1056,37 +1084,79 @@ public function updateYear($year_id, $year_name, $year_status)
                                 '$id_pic',
                                 '$bypic',
                                 '$date_validation')";
-    $resultsql = mysqli_query($this->$con, $sql);
+            $resultsql = mysqli_query($this->$con, $sql);
 
-    if ($resultsql) {
-        // Log the action in the audit_logs table
-        $action = "Add Cocoon Producer: ";
-        $data = json_encode(['name' => $name, 'birthdate' => $birthdate, 'age'  => $age, 'type' =>$type, 'sex' => $sex, 'region' => $region,
-                            'province'  => $province, 'municipality' => $municipality,  'barangay' => $barangay, 'address' => $address,
-                             'education' => $education, 'religion' => $religion, 'civil_status' => $civil_status, 'name_spouse' => $name_spouse,
-                            'farm_participate' => $farm_participate, 'cannot_participate' => $cannot_participate, 'male' => $male, 'female' => $female,
-                        'source_income' => $source_income, 'years_in_farming' => $years_in_farming, 'available_workers' => $available_workers,
-                    'selectedFarmToolsJSON' => $selectedFarmToolsJSON]);
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "Add Cocoon Producer: ";
+                $data = json_encode([
+                    'name' => $name,
+                    'birthdate' => $birthdate,
+                    'age' => $age,
+                    'type' => $type,
+                    'sex' => $sex,
+                    'region' => $region,
+                    'province' => $province,
+                    'municipality' => $municipality,
+                    'barangay' => $barangay,
+                    'address' => $address,
+                    'education' => $education,
+                    'religion' => $religion,
+                    'civil_status' => $civil_status,
+                    'name_spouse' => $name_spouse,
+                    'farm_participate' => $farm_participate,
+                    'cannot_participate' => $cannot_participate,
+                    'male' => $male,
+                    'female' => $female,
+                    'source_income' => $source_income,
+                    'years_in_farming' => $years_in_farming,
+                    'available_workers' => $available_workers,
+                    'selectedFarmToolsJSON' => $selectedFarmToolsJSON
+                ]);
 
-        $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-        $auditResult = mysqli_query($this->$con, $auditSql);
-        return $resultsql = 1;
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
+                return $resultsql = 1;
+            }
+        }
     }
-}
-    }
 
 
-  
-    public function addSite($location, $producer_id, $topography, $region, $province, 
-    $municipality, $barangay, $address, $landJson,$tenancyJson, $area, $crops, $share, $irrigation, 
-    $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
-    $names, $position, $date)
-    {
+
+    public function addSite(
+        $location,
+        $producer_id,
+        $topography,
+        $region,
+        $province,
+        $municipality,
+        $barangay,
+        $address,
+        $landJson,
+        $tenancyJson,
+        $area,
+        $crops,
+        $share,
+        $irrigation,
+        $water,
+        $source,
+        $soil,
+        $market,
+        $distance,
+        $land_area,
+        $agency,
+        $charge,
+        $adopters,
+        $remarks,
+        $names,
+        $position,
+        $date
+    ) {
         $check = "SELECT * FROM site
 						WHERE location = '$location'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             $sql = "INSERT INTO site (location, producer_id, topography, region, province,
             municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
             water, source,market, distance, land_area, agency, charge, adopters,
@@ -1156,28 +1226,51 @@ public function updateYear($year_id, $year_name, $year_status)
             if ($resultsql) {
                 // Log the action in the audit_logs table
                 $action = "Added project site location: ";
-                $data = json_encode(['location' => $location, 'producer_id' => $producer_id, 'topography'  => $topography,  'region' => $region,
-                                    'province'  => $province, 'municipality' => $municipality,  'barangay' => $barangay, 'address' => $address,
-                                     'landJson' => $landJson, 'tenancyJson' => $tenancyJson, 'area' => $area, 'crops' => $crops,
-                                    'share' => $share, 'irrigation' => $irrigation, 'water' => $water, 'source' => $source,
-                                'market' => $market, 'distance' => $distance, 'land_area' => $land_area, 'agency' => $agency, 'charge' => $charge,
-                                'adopters' => $adopters, 'remarks' => $remarks, 'names' => $names, 'position' => $position, 'date' => $date, 'soil' => $soil]);
-        
-                                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-                                $auditResult = mysqli_query($this->$con, $auditSql);
-                                return $resultsql = 1;
+                $data = json_encode([
+                    'location' => $location,
+                    'producer_id' => $producer_id,
+                    'topography' => $topography,
+                    'region' => $region,
+                    'province' => $province,
+                    'municipality' => $municipality,
+                    'barangay' => $barangay,
+                    'address' => $address,
+                    'landJson' => $landJson,
+                    'tenancyJson' => $tenancyJson,
+                    'area' => $area,
+                    'crops' => $crops,
+                    'share' => $share,
+                    'irrigation' => $irrigation,
+                    'water' => $water,
+                    'source' => $source,
+                    'market' => $market,
+                    'distance' => $distance,
+                    'land_area' => $land_area,
+                    'agency' => $agency,
+                    'charge' => $charge,
+                    'adopters' => $adopters,
+                    'remarks' => $remarks,
+                    'names' => $names,
+                    'position' => $position,
+                    'date' => $date,
+                    'soil' => $soil
+                ]);
+
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
+                return $resultsql = 1;
             }
-           
+
         }
     }
     public function addProduction($producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
     {
         $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
-                       
+
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO production (producer_id,production_date, total_production, p_income, p_cost, n_income)
@@ -1187,19 +1280,25 @@ public function updateYear($year_id, $year_name, $year_status)
                                 '$p_income',
                                 '$p_cost',
                                 '$n_income')";
-                            
+
             $resultsql = mysqli_query($this->$con, $sql);
             if ($resultsql) {
                 // Log the action in the audit_logs table
                 $action = "Add production: ";
-                $data = json_encode(['producer_id' => $producer_id, 'production_date' => $production_date, 'total_production'  => $total_production,  'p_income' => $p_income,
-                                    'p_cost'  => $p_cost, 'n_income' => $n_income]);
-        
-                                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-                                $auditResult = mysqli_query($this->$con, $auditSql);
-                                return $resultsql = 1;
+                $data = json_encode([
+                    'producer_id' => $producer_id,
+                    'production_date' => $production_date,
+                    'total_production' => $total_production,
+                    'p_income' => $p_income,
+                    'p_cost' => $p_cost,
+                    'n_income' => $n_income
+                ]);
+
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
+                return $resultsql = 1;
             }
-      
+
         }
     }
 
@@ -1210,7 +1309,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE monitoring_name = '$name'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO monitoring (monitoring_name, position, status)
@@ -1227,7 +1326,7 @@ public function updateYear($year_id, $year_name, $year_status)
 						WHERE civil_name = '$civil_status'";
         $resultCheck = mysqli_query($this->$con, $check);
         $num_rows = mysqli_num_rows($resultCheck);
-        if($num_rows > 0) {
+        if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
             $sql = "INSERT INTO civil (civil_name, status)
@@ -1239,113 +1338,114 @@ public function updateYear($year_id, $year_name, $year_status)
     }
 
 
-   // Function to count Cocoon Producers
+    // Function to count Cocoon Producers
 
 
-       //Count Total Production
-    public function countTotalProduction() {
+    //Count Total Production
+    public function countTotalProduction()
+    {
         $sql = "SELECT SUM(total_production) AS total_production_count FROM production";
         $result = $this->con->query($sql);
-    
+
         if (!$result) {
             die("Query failed: " . $this->con->error);
         }
-    
+
         $row = $result->fetch_assoc();
         return $row['total_production_count'];
     }
 
 
-public function countCocoon()
-{
-    $check = "SELECT COUNT(*) AS count FROM cocoon";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $row = mysqli_fetch_assoc($resultCheck);
-    return $row['count'];
-}
-public function countCocoonInactive()
-{
-    $check = "SELECT COUNT(*) AS count FROM cocoon WHERE status = 'Inactive'";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $row = mysqli_fetch_assoc($resultCheck);
-    return $row['count'];
-}
+    public function countCocoon()
+    {
+        $check = "SELECT COUNT(*) AS count FROM cocoon";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        return $row['count'];
+    }
+    public function countCocoonInactive()
+    {
+        $check = "SELECT COUNT(*) AS count FROM cocoon WHERE status = 'Inactive'";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        return $row['count'];
+    }
 
 
 
-// Function to count System Users// Function to count System Users
-public function countUsers()
-{
-    $check = "SELECT COUNT(*) AS count FROM users";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $row = mysqli_fetch_assoc($resultCheck);
-     // I-output ang resulta para sa debugging
-    return $row['count'];
-}
-public function countSite()
-{
-    $check = "SELECT COUNT(*) AS count FROM site";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $row = mysqli_fetch_assoc($resultCheck);
-     // I-output ang resulta para sa debugging
-    return $row['count'];
-}
-public function countProduction()
-{
-    $check = "SELECT COUNT(*) AS count FROM production";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $row = mysqli_fetch_assoc($resultCheck);
-    return $row['count'];
-}
+    // Function to count System Users// Function to count System Users
+    public function countUsers()
+    {
+        $check = "SELECT COUNT(*) AS count FROM users";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        // I-output ang resulta para sa debugging
+        return $row['count'];
+    }
+    public function countSite()
+    {
+        $check = "SELECT COUNT(*) AS count FROM site";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        // I-output ang resulta para sa debugging
+        return $row['count'];
+    }
+    public function countProduction()
+    {
+        $check = "SELECT COUNT(*) AS count FROM production";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        return $row['count'];
+    }
 
 
 
-public function addAgency($funding_agency, $status, $user_id)
-{
-    $check = "SELECT * FROM agency WHERE agency_name = '$funding_agency'";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $num_rows = mysqli_num_rows($resultCheck);
+    public function addAgency($funding_agency, $status, $user_id)
+    {
+        $check = "SELECT * FROM agency WHERE agency_name = '$funding_agency'";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $num_rows = mysqli_num_rows($resultCheck);
 
-    if ($num_rows > 0) {
-        return $resultsql = 0; // Agency already exists
-    } else {
-        $sql = "INSERT INTO agency (agency_name, status) VALUES ('$funding_agency', '$status')";
-        $resultsql = mysqli_query($this->$con, $sql);
-
-        if ($resultsql) {
-            // Log the action in the audit_logs table
-            $action = "Added agency: " . $funding_agency;
-            $data = json_encode(['agency_name' => $funding_agency, 'status' => $status]);
-
-            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-            $auditResult = mysqli_query($this->$con, $auditSql);
-
-            if ($auditResult) {
-                return 1; // Agency added and logged in audit_logs
-            } else {
-                return -1; // Agency added, but audit logging failed
-            }
+        if ($num_rows > 0) {
+            return $resultsql = 0; // Agency already exists
         } else {
-            return -1; // Agency insertion failed
+            $sql = "INSERT INTO agency (agency_name, status) VALUES ('$funding_agency', '$status')";
+            $resultsql = mysqli_query($this->$con, $sql);
+
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "Added agency: " . $funding_agency;
+                $data = json_encode(['agency_name' => $funding_agency, 'status' => $status]);
+
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
+
+                if ($auditResult) {
+                    return 1; // Agency added and logged in audit_logs
+                } else {
+                    return -1; // Agency added, but audit logging failed
+                }
+            } else {
+                return -1; // Agency insertion failed
+            }
         }
     }
-}
-public function addYear($year, $year_status)
-{
-    $check = "SELECT * FROM year
+    public function addYear($year, $year_status)
+    {
+        $check = "SELECT * FROM year
                     WHERE year_name = '$year'";
-    $resultCheck = mysqli_query($this->$con, $check);
-    $num_rows = mysqli_num_rows($resultCheck);
-    if($num_rows > 0) {
-        return $resultsql = 0;
-    } else {
-        $sql = "INSERT INTO year (year_name, year_status)
+        $resultCheck = mysqli_query($this->$con, $check);
+        $num_rows = mysqli_num_rows($resultCheck);
+        if ($num_rows > 0) {
+            return $resultsql = 0;
+        } else {
+            $sql = "INSERT INTO year (year_name, year_status)
                     VALUES ('$year',					
                             '$year_status')";
-        $resultsql = mysqli_query($this->$con, $sql);
-        return $resultsql = 1;
+            $resultsql = mysqli_query($this->$con, $sql);
+            return $resultsql = 1;
+        }
     }
-}
     public function checkLogin($username, $password)
     {
         $checkLogin = "SELECT * FROM users as a
@@ -1358,28 +1458,28 @@ public function addYear($year, $year_status)
         $resultCheckLogin = mysqli_query($this->$con, $checkLogin);
         $num_rows = mysqli_num_rows($resultCheckLogin);
 
-if ($checkLogin) {
-    // Log the action in the audit_logs table
-    $action = "User Login";
-    $data = json_encode(['name' => $username]);
+        if ($checkLogin) {
+            // Log the action in the audit_logs table
+            $action = "User Login";
+            $data = json_encode(['name' => $username]);
 
-    $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-    $auditResult = mysqli_query($this->$con, $auditSql);
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
 
-    if($num_rows > 0) {
-        while($row = mysqli_fetch_array($resultCheckLogin)) {
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['fullname'] = $row['fullname'];
-            $_SESSION['type_id'] = $row['type_id'];
-            $_SESSION['user_type'] = $row['user_type_name'];
-            return $resultCheckLogin = 1;
+            if ($num_rows > 0) {
+                while ($row = mysqli_fetch_array($resultCheckLogin)) {
+                    $_SESSION['user_id'] = $row['user_id'];
+                    $_SESSION['fullname'] = $row['fullname'];
+                    $_SESSION['type_id'] = $row['type_id'];
+                    $_SESSION['user_type'] = $row['user_type_name'];
+                    return $resultCheckLogin = 1;
+                }
+            } else {
+                return $resultCheckLogin = 0;
+            }
+
+
         }
-    } else {
-        return $resultCheckLogin = 0;
-    }
-
-
-}
     }
 
 
@@ -1387,7 +1487,7 @@ if ($checkLogin) {
     // public function getUserID($user_id)
     // {
     //     $sql = "SELECT * FROM users
-	// 			 WHERE user_id='$user_id'";
+    // 			 WHERE user_id='$user_id'";
     //     $result = mysqli_query($this->$con, $sql);
     //     return $result;
 
@@ -1415,4 +1515,3 @@ if ($checkLogin) {
 
 
 
-	
