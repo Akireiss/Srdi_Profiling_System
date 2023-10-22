@@ -705,26 +705,22 @@ class db
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }
-        public function updateProduction($producer_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
-{
-    $sql = "UPDATE production
-            SET producer_id = '$producer_id',
-                production_date = '$production_date',
-                total_production = '$total_production',
-                p_income = '$p_income',
-                p_cost = '$p_cost',
-                n_income = '$n_income'  
-            WHERE production_id = '$production_id'";
-//   echo $sql;
-//         echo die();
-    $result = mysqli_query($this->con, $sql);
-
-    if ($result) {
-        return 1; // Update successful
-    } else {
-        return 0; // Update failed
-    }
-}
+        public function updateProduction($production_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $producer_id)
+        {
+            $sql = "UPDATE production
+                    SET production_date = '$production_date',
+                        total_production = '$total_production',
+                        p_income = '$p_income',
+                        p_cost = '$p_cost',
+                        n_income = '$n_income',
+                        producer_id = '$producer_id' 
+                    WHERE production_id = '$production_id'";
+            
+            $result = mysqli_query($this->con, $sql);
+            
+            return $result; // Return the actual result of the query
+        }
+        
 
 public function updateAgency($agency_id, $agency_name, $status)
 {

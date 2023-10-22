@@ -7,12 +7,13 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else  {
     if (isset($_POST['submit'])) {
-        $producer_id = $_POST['producer_id'];
         $production_id = $_POST['production_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
+        $n_income = $_POST['n_income'];
+        $producer_id = $_POST['producer_id'];
         
         // Calculate net income
 
@@ -26,7 +27,7 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $p_income - $p_cost;
 
         // Add the production record to the database
-        $result = $db->updateProduction(  $producer_id, $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
+        $result = $db->updateProduction(  $production_id, $production_date, $total_production, $p_income, $p_cost, $n_income,  $producer_id);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -107,20 +108,15 @@ if (!isset($_SESSION['user_id'])) {
                 </div> -->
                 <div class="col-md-12 position-relative">
     <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="validationCustom04">
-    <option selected>Select Producer Name</option>
-    <?php
-    $resultType = $db->getProducersActive();
-    while ($row = mysqli_fetch_array($resultType)) {
-        $producer_id = $row['producer_id'];
-        $name = $row['name'];
-        $selected = ($producer_id == $producerID) ? 'selected' : '';
-        echo '<option value="' . $producer_id . '" ' . $selected . '>' . $name . '</option>';
-    }
-    ?>
-</select>
-
+    <input type="text" class="form-control" id="validationTooltip01" name="name" value="<?php echo $producerName;?>" required>
+    <input type="hidden" class="form-control" id="validationTooltip01" name="producer_id" value="<?php echo $producerID;?>" required>
+    <div class="invalid-tooltip">
+        The Production Date field is required.
+    </div>
 </div>
+
+
+
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 
