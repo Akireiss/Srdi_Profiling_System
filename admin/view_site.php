@@ -75,7 +75,9 @@ if (!isset($_SESSION['user_id'])) {
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">Project Site Information</button>
                 </li>
-               
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Production</button>
+                </li>
               </ul>
               <div class="tab-content pt-2" id="borderedTabContent">
                 <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
@@ -85,9 +87,9 @@ if (!isset($_SESSION['user_id'])) {
                       <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
                   <input type="hidden" class="form-control" id="validationTooltip01" name="site_id"
-                                         value = "<?php echo $siteID;?>" required>
+                                         value = "<?php echo $siteID;?>" disabled>
                                          <input type="text" class="form-control" id="validationTooltip01" name="location"
-                                        value = "<?php echo $location;?>" required>
+                                        value = "<?php echo $location;?>" disabled>
                   <div class="invalid-tooltip">
                     The Project Site Location field is required.
                   </div>
@@ -97,7 +99,7 @@ if (!isset($_SESSION['user_id'])) {
                       <div class="col-md-12 position-relative">
                   <label class="form-label">Producer Name<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="producer_name"
-                                        value = "<?php echo $producer_name;?>" required>
+                                        value = "<?php echo $producer_name;?>" disabled>
                   <div class="invalid-tooltip">
                     The Producer Name field is required.
                   </div>
@@ -105,7 +107,7 @@ if (!isset($_SESSION['user_id'])) {
 
                 <div class="col-md-12 position-relative">
                     <label class="form-label">Topography<font color="red">*</font></label>
-                    <select class="form-select" id="validationTooltip01" name="topography" required>
+                    <select class="form-select" id="validationTooltip01" name="topography" disabled>
                         <?php
                         $resultType = $db->getTopographyActive();
                         while ($row = mysqli_fetch_array($resultType)) {
@@ -124,8 +126,8 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-md-3 position-relative">
                         <label class="form-label">Region<font color = "red">*</font></label>
                         <div class="col-sm-12">
-                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>" required>
-                          <select class="form-select" aria-label="Default select example" name = "region" id="region" value = "<?php echo $regCode;?>" required>
+                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>" disabled>
+                          <select class="form-select" aria-label="Default select example" name = "region" id="region" value = "<?php echo $regCode;?>" disabled>
                             <option value="<?php echo $regCode;?>" selected disabled><?php echo $regName;?></option>
                             <?php
                             $resultType=$db->getRegion($regCode);
@@ -143,7 +145,7 @@ if (!isset($_SESSION['user_id'])) {
                       <div class="col-md-3 position-relative">
                   <label class="form-label">Province<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" required>
+                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" disabled>
                             <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
                             
                           </select>
@@ -153,7 +155,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
+                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" disabled>
                             <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
                             
                           </select>
@@ -163,7 +165,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">Barangay<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" required>
+                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" disabled>
                             <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
                             
                           </select>
@@ -212,7 +214,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="col-md-2 mb-3">
             <label for="validationCustom01" class="form-label fw-bold">Area (Ha)</label>
             <input type="text" class="form-control" id="validationTooltip01" name="area"
-                                        value = "<?php echo $area;?>" required>
+                                        value = "<?php echo $area;?>" disabled>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -221,7 +223,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="col-md-2 mb-3">
             <label for="validationCustom02" class="form-label fw-bold">Crops Grown</label>
             <input type="text" class="form-control" id="validationTooltip01" name="crops"
-                                        value = "<?php echo $crops;?>" required>
+                                        value = "<?php echo $crops;?>" disabled>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -230,7 +232,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="col-md-2 mb-3">
             <label for="validationCustom03" class="form-label fw-bold">%Share</label>
             <input type="text" class="form-control" id="validationTooltip01" name="share"
-                                        value = "<?php echo $share;?>" required>
+                                        value = "<?php echo $share;?>" disabled>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -333,7 +335,7 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="nameInput" class="mr-2">Distance from the main road<font color = "red">*</font></label>
                 <div class="d-inline-flex">
                 <input type="text" class="form-control" id="validationTooltip01" name="distance"
-                                        value = "<?php echo $distance;?>" required>
+                                        value = "<?php echo $distance;?>" disabled>
                 <span class="form-text-inline mt-2" style="margin-left: 5px;">meters</span>
                 </div>
             </div>
@@ -345,13 +347,13 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="nameInput" class="mr-2">Available land area for planting mulberry<font color = "red">*</font></label>
                 <div class="d-inline-flex align-items-center">
                 <input type="text" class="form-control" id="validationTooltip01" name="land_area"
-                                        value = "<?php echo $land_area;?>" required>
+                                        value = "<?php echo $land_area;?>" disabled>
                 <span class="form-text-inline mt-2 my-3" style="vertical-align: middle;">ha</span>
                 </div>
             </div>
             </div>
 
-           <div class="col-md-12 ">
+           <div class="col-md-3 ">
                 <div class="col-md-12">
                     <label for="validationCustom04" class="form-label fw-bold">Funding Agency</label>
                 </div>
@@ -369,7 +371,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="col-md-12 position-relative">
             <label class="form-label">Project in-charge<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationTooltip01" name="charge"
-                                        value = "<?php echo $charge;?>" required>
+                                        value = "<?php echo $charge;?>" disabled>
             <div class="invalid-tooltip">
                 The Project In-Charge field is required.
             </div>
@@ -378,7 +380,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="col-md-6 position-relative">
             <label class="form-label">Site Adopters<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationTooltip01" name="adopters"
-                                        value = "<?php echo $adopters;?>" required>
+                                        value = "<?php echo $adopters;?>" disabled>
             <div class="invalid-tooltip">
                 The Project In-Charge field is required.
             </div>
@@ -388,7 +390,7 @@ if (!isset($_SESSION['user_id'])) {
             <label class="form-label">Site Status<font color = "red">*</font></label>
             <div class="col-sm-12">
             <input type="text" class="form-control" id="validationTooltip01" name="status"
-                                        value = "<?php echo $status;?>" required>
+                                        value = "<?php echo $status;?>" disabled>
                 <div class="invalid-tooltip">
                 The Active field is required.
                 </div>
@@ -398,7 +400,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="col-md-12">
         <label for="validationCustom04" class="form-label">Remarks<font color = "red">*</font></label>
         <input type="text" class="form-control" id="validationTooltip01" name="remarks"
-                                        value = "<?php echo $remarks;?>" required>
+                                        value = "<?php echo $remarks;?>" disabled>
        
         <div class="invalid-feedback">
             Error
@@ -411,19 +413,19 @@ if (!isset($_SESSION['user_id'])) {
         <div class="col-md-3 ">
             <label for="validationCustom04" class="form-label">Name<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationTooltip01" name="name"
-                                        value = "<?php echo $name;?>" required>
+                                        value = "<?php echo $name;?>" disabled>
         </div>
 
         <div class="col-md-3 ">
             <label for="validationCustom04" class="form-label">Position<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationTooltip01" name="position"
-                                        value = "<?php echo $position;?>" required>
+                                        value = "<?php echo $position;?>" disabled>
         </div>    
 
         <div class="col-md-3 ">
         <label for="validationCustom04" class="form-label">Date<font color = "red">*</font></label>
         <input type="text" class="form-control" id="validationTooltip01" name="date"
-                                        value = "<?php echo $date;?>" required>
+                                        value = "<?php echo $date;?>" disabled>
 
     </div>
 
@@ -444,6 +446,73 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                   </div><!-- End Page Title -->
 
+                  <section class="section">
+
+                    <div class="row">
+                      <div class="col-lg-12">
+                         
+                        <div class="card">
+                          <div class="card-body">
+                              <table class="table table-striped datatable">
+                              <thead>
+                              <tr>
+                                    <th scope="col">Total Production (in kg)</th>
+                                    <th scope="col">Production Income</th>
+                                    <th scope="col">Production Cost</th>
+                                    <th scope="col">Net Income</th>
+                                    <th scope="col">Production Date</th>
+                                    <th scope="col">Action</th>
+                                  </tr>
+                      </thead>
+                      
+                      <?php
+$result = $db->getProduction($siteID);
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    echo '<td><a href="edit_production.php?production_id=' . $row['production_id'] . '">' . $row['total_production'] . '</a></td>';
+    echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
+    echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
+    echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
+    echo '<td>' . $row['production_date'] . '</td>';
+    echo '<td>';
+    echo '<a href="view_land.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+    echo '</td>';
+    echo '</tr>';
+}
+
+$totalProductionIncome += $row['p_income'];
+$totalNetIncome += $row['n_income']
+?>
+                               
+                              </table>
+
+
+                              <!-- Addtional Information -->
+                              <div class="mx-2 fw-bold">
+    <?php 
+    echo '<td class="text-uppercase">Total Production Income: </td>';
+    echo '<td colspan="2">PHP ' . number_format($totalProductionIncome, 2, '.', ',') . '</td>';
+    ?>  
+</div>
+
+
+<!-- Net Income -->
+
+<div class="mx-2 fw-bold">
+<?php 
+    echo '<td class="text-uppercase">Total Net Income: </td>';
+    echo '<td colspan="2">PHP ' . number_format($totalNetIncome, 2, '.', ',') . '</td>';
+    ?>  
+</div>
+
+                            
+                          </div>
+                        </div>
+
+                      </div>
+
+                  </section>
                 </div>
               </div>
             </div>

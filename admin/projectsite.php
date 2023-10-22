@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['area'] . '</td>';
     echo '<td>' . $row['topography_name'] . '</td>'; // Display topography_name
     echo '<td>';
-    echo '<a href="" id=' . $row['site_id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '<a href="view_site.php?site_id=' . $row['site_id'] . '"><i class="ri-eye-line"></i></a>';
     // Fix the edit link
     echo '<a href="edit_site.php?site_id=' . $row['site_id'] . '"><i class="bi bi-pencil-square"></i></a>';
     echo '</td>';
