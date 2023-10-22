@@ -100,6 +100,15 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+    
+    public function getFarmToolActive()
+    {
+        $sql = "SELECT * FROM farm_tool
+				WHERE tool_status = 'Active'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+    }
+
     public function getSource_IncomeID($source_id)
     {
         $sql = "SELECT * FROM source_income

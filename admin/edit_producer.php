@@ -151,7 +151,7 @@ if(!isset($_SESSION['user_id'])) {
                       <!-- Beekeeper Gender -->
                       <div class="row g-3  needs-validation md:w-full" novalidate>
                 <div class="col-md-3">
-                  <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
+                  <label for="validationCustom02" class="form-label">Age <font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="age"
                                               value = "<?php echo $age;?>" >
                   <div class="valid-feedback">
@@ -341,37 +341,47 @@ if(!isset($_SESSION['user_id'])) {
                           <input type="text" class="form-control" id="validationTooltip01" name="female"
                                               value = "<?php echo $female;?>" >
                           <div class="invalid-feedback">
-                            Please provide a name of spouse.
+                            Please provide a name of spouse
                           </div>
                       </div>
 
                    
                      <div class="form-row mt-1">
-    <?php
-    
-    if (!empty($data)) {
-        foreach ($data as $row) {
-            $source_income = $row['source_income'];
-            $sources = explode(',', $source_income);
-            
-            $resultType = $db->getSource_IncomeActive();
-            
+                     <?php
+$data = $db->getProducerID($cocoon_id);
+
+if (!empty($data)) {
+    foreach ($data as $row) {
+        $source_income_json = $row['source_income']; // Get the JSON string
+
+        if ($source_income_json) {
+            $source_income = json_decode($source_income_json); // Decode the JSON string into an array
+
+            $resultType = $db->getFarmToolActive();
+
+            echo '<div class="form-check form-check-inline col-md-4">';
+
             while ($rowType = mysqli_fetch_array($resultType)) {
-                $source_id = $rowType['source_id'];
-                $source_name = $rowType['source_name'];
-                
-                // Check if the source_id is in the array of sources
-                $isChecked = in_array($source_id, $sources) ? 'checked' : '';
-                
-                echo '<div class="form-check form-check-inline col-md-4">';
-                echo '<input class="form-check-input" name="form_income[]" type="checkbox" id="source_income' . 
-                $source_id . '" value="' . $source_id . '" ' . $isChecked . '>';
-                echo '<label class="form-check-label" for="source_income' . $source_id . '">' . $source_name . '</label>';
-                echo '</div>';
+                $tool_id = $rowType['tool_id'];
+                $tool_name = $rowType['tool_name'];
+
+                // Check if the tool_id is in the array of source_income
+                $isChecked = in_array($tool_id, $source_income) ? 'checked' : '';
+
+                echo '<input class="form-check-input" name="source_income[]" type="checkbox" 
+                id="source_income' . $tool_id . '" value="' . $tool_id . '" ' . $isChecked . '>';
+                echo '<label class="form-check-label" for="source_income' . $tool_id . '">' .  $tool_name . '</label>';
             }
+
+            echo ' </div>';
         }
     }
-    ?>
+}
+?>
+
+
+
+
 </div>
 
                       <div class="col-md-6 ">
