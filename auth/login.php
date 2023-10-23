@@ -65,11 +65,11 @@ if (isset($_POST['submit'])) {
               ?>
 
               </div><!-- End Page Title -->
-               <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
+               <form class="row g-3 " action = "#" enctype="multipart/form-data" method="POST">
                   <div class="form-outline mb-4">  
                     <label class="form-label" for="form2Example17">Username</label>
-                    <input type="text" id="form2Example17" name = "username" class="form-control" required autofocus="autofocus">
-                    <div class="invalid-feedback">Please enter your username.</div>
+                    <input type="text" id="validationTooltip03" name = "username" class="form-control" required autofocus="autofocus" >
+             
                   </div>
 
                   <div class="form-outline mb-4">

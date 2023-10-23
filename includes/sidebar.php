@@ -35,10 +35,10 @@
   </li><!-- Project Site Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+      <a class="nav-link collapsed" data-bs-target="#system-settings" data-bs-toggle="collapse" href="#">
         <i class="bi bi-gear" style="color: white;"></i><span>System Settings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <ul id="system-settings" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
       <li>
           <a href="agency.php">

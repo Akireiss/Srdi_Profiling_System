@@ -98,11 +98,11 @@ if (isset($message)) {
             <h5 class="card-title">Project Site Information</h5>
 
              <!-- Custom Styled Validation with Tooltips -->
-             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
+             <form class="row g-3 needs-validation" enctype="multipart/form-data" method="POST">
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "location"  autofocus="autofocus">
+                  <input type="text" class="form-control" id="validationTooltip01" name = "location"  autofocus="autofocus" required>
                   <div class="invalid-tooltip">
                     The Project Site Location field is required.
                   </div>
@@ -110,7 +110,7 @@ if (isset($message)) {
 
                 <div class="col-md-12 position-relative">
     <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="validationCustom04" >
+    <select name="producer_id" class="form-select" id="validationCustom04" required>
         <option selected>Select Producer Name</option>
         <?php
             $resultType = $db->getProducersActive();
@@ -129,7 +129,7 @@ if (isset($message)) {
                 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Topography<font color = "red">*</font></label>
-                  <select class="form-select" aria-label="Default select example" name = "topography" id="validationTooltip03" >
+                  <select  required  class="form-select" aria-label="Default select example" name = "topography" id="invalid-tooltip" required>
                       <option selected>Select Topography</option>
                 <?php
                       $resultType=$db->getTopographyActive();

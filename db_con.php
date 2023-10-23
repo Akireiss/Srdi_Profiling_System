@@ -1367,7 +1367,7 @@ class db
 
     public function countCocoon()
     {
-        $check = "SELECT COUNT(*) AS count FROM cocoon";
+        $check = "SELECT COUNT(*) AS count FROM cocoon where status = 'Active'";
         $resultCheck = mysqli_query($this->$con, $check);
         $row = mysqli_fetch_assoc($resultCheck);
         return $row['count'];
@@ -1455,42 +1455,40 @@ class db
             return $resultsql = 1;
         }
     }
-    public function checkLogin($username, $password)
-    {
-        $checkLogin = "SELECT * FROM users as a
-					LEFT JOIN user_type as b
-					ON a.type_id = b.user_type_id
-					WHERE username = '$username'
-					AND password = '$password'
-					AND user_status = 'Active'";
-        // echo $checkLogin; die();
-        $resultCheckLogin = mysqli_query($this->$con, $checkLogin);
-        $num_rows = mysqli_num_rows($resultCheckLogin);
 
-        if ($checkLogin) {
-            // Log the action in the audit_logs table
-            $action = "User Login";
-            $data = json_encode(['name' => $username]);
+   public function checkLogin($username, $password)
+{
+    $checkLogin = "SELECT * FROM users as a
+                    LEFT JOIN user_type as b
+                    ON a.type_id = b.user_type_id
+                    WHERE username = '$username'
+                    AND password = '$password'
+                    AND user_status = 'Active'";
+    $resultCheckLogin = mysqli_query($this->$con, $checkLogin);
+    $num_rows = mysqli_num_rows($resultCheckLogin);
 
-            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-            $auditResult = mysqli_query($this->$con, $auditSql);
+    if ($num_rows > 0) {
+        $row = mysqli_fetch_array($resultCheckLogin);
+        $user_id = $row['user_id'];
 
-            if ($num_rows > 0) {
-                while ($row = mysqli_fetch_array($resultCheckLogin)) {
-                    $_SESSION['user_id'] = $row['user_id'];
-                    $_SESSION['fullname'] = $row['fullname'];
-                    $_SESSION['type_id'] = $row['type_id'];
-                    $_SESSION['user_type'] = $row['user_type_name'];
-                    return $resultCheckLogin = 1;
-                }
-            } else {
-                return $resultCheckLogin = 0;
-            }
+        // Log the login action in the audit_logs table
+        $action = "User Login";
+        $data = json_encode(['user_id' => $user_id, 'username' => $username]);
 
+        $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+        $auditResult = mysqli_query($this->$con, $auditSql);
 
-        }
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['fullname'] = $row['fullname'];
+        $_SESSION['type_id'] = $row['type_id'];
+        $_SESSION['user_type'] = $row['user_type_name'];
+        return 1;
+    } else {
+        return 0;
     }
+}
 
+    
 
 
     // public function getUserID($user_id)

@@ -118,20 +118,24 @@ if (isset($message)) {
         </div>
           
         <div class="row mt-3  needs-validation md:w-full" novalidate>
-          <div class="col-md-3">
-            <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
-            <input type="text" class="form-control" id="validationCustom02" name="age" >
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-          </div>
-          <div class="col-md-3">
-            <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
-            <input type="date" class="form-control" id="validationCustom02" name="birthdate" >
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-          </div>
+        <div class="col-md-3">
+    <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
+    <input type="text" class="form-control" id="age" name="age" value="">
+    <div class="valid-feedback">
+        Looks good!
+    </div>
+</div>
+<div class="col-md-3">
+    <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
+    <input type="date" class="form-control" id="birthdateInput" name="birthdate">
+    <div class="valid-feedback">
+        Looks good!
+    </div>
+</div>
+
+
+
+
           <div class="col-md-3 ">
                   <label class="form-label">Type of Producer<font color="red">*</font></label>
                  
@@ -502,7 +506,7 @@ $(document).ready(function(){
     }
   });
 </script>
-
+<!-- 
 <script>
   document.getElementById("birthdate").addEventListener("change", function () {
     var birthdate = new Date(this.value);
@@ -514,9 +518,28 @@ $(document).ready(function(){
     }
     document.getElementById("age").value = age;
   });
+</script> -->
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const birthdateInput = document.getElementById('birthdateInput');
+        const ageInput = document.getElementById('age');
+
+        // Add an event listener to the birthdate input
+        birthdateInput.addEventListener('input', calculateAge);
+
+        function calculateAge() {
+            const birthdate = new Date(birthdateInput.value);
+            const currentDate = new Date();
+
+            const age = currentDate.getFullYear() - birthdate.getFullYear();
+
+            // Update the age input field with the calculated age
+            ageInput.value = age;
+        }
+    });
 </script>
-
-
-
     </body>
 </html>

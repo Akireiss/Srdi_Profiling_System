@@ -49,7 +49,9 @@
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
-                      <?php
+                    
+
+<?php
 $result = $db->getProducer();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
@@ -57,14 +59,15 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['citymunDesc'] . ', ' . $row['provDesc'] . ', ' . $row['regDesc'] . '</td>';
     echo '<td>' . $row['status'] . '</td>';
     echo '<td>';
-    echo '<a href="view_producer.php?cocoon_id=' . $row['cocoon_id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '<a href="view_producer.php?cocoon_id=' . $row['cocoon_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
     // Fix the edit link
-    echo '<a href="edit_producer.php?cocoon_id=' . $row['cocoon_id'] . '"><i class="bi bi-pencil-square"></i></a>';
-    echo '<a target="_blank" href="../pdf/index.php?cocoon_id=' . $row['cocoon_id'] . '" id=' . $row['cocoon_id'] . '"><i class="bi bi-file-pdf-fill"></i></a>';
+    echo '<a href="edit_producer.php?cocoon_id=' . $row['cocoon_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
+    echo '<a target="_blank" href="../pdf/index.php?cocoon_id=' . $row['cocoon_id'] . '" id=' . $row['cocoon_id'] . '"><i class="bi bi-file-pdf-fill bigger-icon red"></i></a>';
     echo '</td>';
     echo '</tr>';
 }
 ?>
+
                       <tbody>
                        
                            
@@ -88,3 +91,15 @@ while ($row = mysqli_fetch_array($result)) {
 </body>
 
 </html>
+
+<style>
+    .bigger-icon {
+        font-size: 24px; /* Adjust the font size as needed */
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    
+    .red {
+        color: red; /* Set the text color to red */
+    }
+</style>

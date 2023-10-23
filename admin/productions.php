@@ -65,8 +65,8 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
     echo '<td>' . $row['production_date'] . '</td>';
     echo '<td>';
-    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line"></i></a>';
-    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
+    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
     echo '</td>';
     echo '</tr>';
 
@@ -122,3 +122,14 @@ while ($row = mysqli_fetch_array($result)) {
 </body>
 
 </html>
+<style>
+    .bigger-icon {
+        font-size: 24px; /* Adjust the font size as needed */
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    
+    .red {
+        color: red; /* Set the text color to red */
+    }
+</style>

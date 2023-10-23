@@ -52,9 +52,9 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['area'] . '</td>';
     echo '<td>' . $row['topography_name'] . '</td>'; // Display topography_name
     echo '<td>';
-    echo '<a href="view_site.php?site_id=' . $row['site_id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '<a href="view_site.php?site_id=' . $row['site_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
     // Fix the edit link
-    echo '<a href="edit_site.php?site_id=' . $row['site_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+    echo '<a href="edit_site.php?site_id=' . $row['site_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
     echo '</td>';
     echo '</tr>';
 }
@@ -74,3 +74,14 @@ while ($row = mysqli_fetch_array($result)) {
 </body>
 
 </html>
+<style>
+    .bigger-icon {
+        font-size: 24px; /* Adjust the font size as needed */
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    
+    .red {
+        color: red; /* Set the text color to red */
+    }
+</style>
