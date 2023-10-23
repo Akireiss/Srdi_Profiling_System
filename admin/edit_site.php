@@ -5,7 +5,13 @@ $db = new db;
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
-    
+    if(isset($_POST['update'])){
+        $site_id = $_POST['site_id'];
+        $producer_name = $_POST['producer_name'];
+        $region = $_POST['region'];
+        echo $region;
+        echo die();
+    }
 }
 ?>
 
@@ -80,7 +86,7 @@ if (!isset($_SESSION['user_id'])) {
               <div class="tab-content pt-2" id="borderedTabContent">
                 <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
                   <!-- Custom Styled Validation with Tooltips -->
-                    <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
+                    <form class="row g-3 needs-validation" novalidate action = "<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" method="POST">
                       <!-- Date Validation -->
                       <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
@@ -124,8 +130,8 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-md-3 position-relative">
                         <label class="form-label">Region<font color = "red">*</font></label>
                         <div class="col-sm-12">
-                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>" required>
-                          <select class="form-select" aria-label="Default select example" name = "region" id="region" value = "<?php echo $regCode;?>" required>
+                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $region;?>" required>
+                          <select class="form-select" aria-label="Default select example" id="region" name="region" value = "<?php echo $regCode;?>" >
                             <option value="<?php echo $regCode;?>" selected disabled><?php echo $regName;?></option>
                             <?php
                             $resultType=$db->getRegion($regCode);
@@ -143,7 +149,7 @@ if (!isset($_SESSION['user_id'])) {
                       <div class="col-md-3 position-relative">
                   <label class="form-label">Province<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" required>
+                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>">
                             <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
                             
                           </select>
@@ -153,7 +159,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" required>
+                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="city" value = "<?php echo $citymunCode;?>" >
                             <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
                             
                           </select>
@@ -163,7 +169,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">Barangay<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" required>
+                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" >
                             <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
                             
                           </select>
