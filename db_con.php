@@ -1265,7 +1265,7 @@ class db
                     'soil' => $soil
                 ]);
 
-                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditSql = "INSERT INTO audit_logs ( action, data) VALUES ( '$action', '$data')";
                 $auditResult = mysqli_query($this->$con, $auditSql);
                 return $resultsql = 1;
             }
@@ -1282,7 +1282,7 @@ class db
         if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
-            $sql = "INSERT INTO production (producer_id,production_date, total_production, p_income, p_cost, n_income)
+            $sql = "INSERT INTO production (producer_id, production_date, total_production, p_income, p_cost, n_income)
 						VALUES ('$producer_id',     
                                 '$production_date',					
 								'$total_production',
@@ -1303,7 +1303,7 @@ class db
                     'n_income' => $n_income
                 ]);
 
-                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditSql = "INSERT INTO audit_logs (action, data) VALUES ('$action', '$data')";
                 $auditResult = mysqli_query($this->$con, $auditSql);
                 return $resultsql = 1;
             }
