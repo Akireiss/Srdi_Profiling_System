@@ -383,7 +383,7 @@ if (isset($message)) {
                 <div class="col-md-6 d-flex justify-content-end">
                   <div class="form-group">
                     <input type="file" class="form-control w-100" name="intent" id="validationCustom05">
-                    <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
+                    <label for="validationCustom04" class="form-label">Letter of Intent</label>
                   </div>
                 </div>
               </div>

@@ -1383,14 +1383,7 @@ class db
 
 
     // Function to count System Users// Function to count System Users
-    public function countUsers()
-    {
-        $check = "SELECT COUNT(*) AS count FROM users";
-        $resultCheck = mysqli_query($this->$con, $check);
-        $row = mysqli_fetch_assoc($resultCheck);
-        // I-output ang resulta para sa debugging
-        return $row['count'];
-    }
+   
     public function countSite()
     {
         $check = "SELECT COUNT(*) AS count FROM site";
@@ -1402,6 +1395,20 @@ class db
     public function countProduction()
     {
         $check = "SELECT COUNT(*) AS count FROM production";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        return $row['count'];
+    }
+    public function countSeed()
+    {
+        $check = "SELECT COUNT(*) AS count FROM cocoon";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $row = mysqli_fetch_assoc($resultCheck);
+        return $row['count'];
+    }
+    public function countCommercial()
+    {
+        $check = "SELECT COUNT(*) AS count FROM cocoon";
         $resultCheck = mysqli_query($this->$con, $check);
         $row = mysqli_fetch_assoc($resultCheck);
         return $row['count'];

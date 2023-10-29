@@ -81,7 +81,7 @@ if (!isset($_SESSION['user_id'])) {
                   <input type="password" minlength="8" class="form-control" id="password" name="password" required>
                   <input type="checkbox" onclick="myFunction()">Show Password
                   <div class="invalid-tooltip">
-                    The Password field is required.
+                    The Password must be minimum of 8 characters.
                   </div>
                 </div>
 

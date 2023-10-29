@@ -59,7 +59,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td>'. $row['name'] . '</td>';
     echo '<td>'  . $row['location']. '</td>';
-    echo '<td>' . 'PHP ' . $row['total_production']. '</td>';
+    echo '<td>' . $row['total_production']. '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
     echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';

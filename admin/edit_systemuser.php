@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
     $type_id = $_POST['user_type_id'];
     $user_status   = $_POST['user_status'];
     $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status);
-    $message = ($resultUser != 0) ? "Education Successfully Updated" : "Education Already Exist!";
+    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
   }
 }
   
@@ -96,7 +96,7 @@ if (!isset($_SESSION['user_id'])) {
                   value = "<?php echo $password;?>" required>
                   <input type="checkbox" onclick="myFunction()">Show Password
                   <div class="invalid-tooltip">
-                    The Password field is required.
+                    The Password must be minimum of 8 characters.
                   </div>
                 </div>
 

@@ -7,9 +7,10 @@ if(!isset($_SESSION['user_id'])) {
 }
 $cocoonCount = $db->countCocoon();
 $cocoonCountInactive = $db->countCocoonInactive();
-$usersCount = $db->countUsers();
 $siteCount = $db->countSite();
 $productionCount = $db->countProduction();
+$seedCount = $db->countSeed();
+$commercialCount = $db->countCommercial();
 ?>
 
 <!DOCTYPE html>
@@ -96,15 +97,15 @@ $productionCount = $db->countProduction();
 
 <div class="col-xxl-3 col-xl-4">
 
-  <div class="card info-card systemuser-card">
+  <div class="card info-card seed-card">
     <div class="card-body">
-      <h5 class="card-title">System User</h5>
+      <h5 class="card-title">Seed Cocoon</h5>
       <div class="d-flex align-items-center">
         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #F6F6FE;">
           <i class="bi bi-person-workspace" style="color: black;"></i>
         </div>
         <div class="ps-3">
-        <h6 class="display-4" > <?php echo $usersCount; ?></h6>
+        <h6 class="display-4" > <?php echo $seedCount; ?></h6>
         </div>
       </div>
     </div>
@@ -112,6 +113,26 @@ $productionCount = $db->countProduction();
 </a>
 
 </div>
+
+<div class="col-xxl-3 col-xl-4">
+
+  <div class="card info-card commercial-card">
+    <div class="card-body">
+      <h5 class="card-title">Commercial</h5>
+      <div class="d-flex align-items-center">
+        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #F6F6FE;">
+          <i class="bi bi-person-workspace" style="color: black;"></i>
+        </div>
+        <div class="ps-3">
+        <h6 class="display-4" > <?php echo $commercialCount; ?></h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+
+</div>
+
 <div class="col-xxl-3 col-xl-4">
   <div class="card info-card production-card">
     <div class="card-body">

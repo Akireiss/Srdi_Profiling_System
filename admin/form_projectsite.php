@@ -233,7 +233,7 @@ if (isset($message)) {
             </div>
 
             <div class="col-md-2 mb-3">
-    <label for="validationCustom01" class="form-label fw-bold">Area (Ha)</label>
+    <label for="validationCustom01" class="form-label fw-bold">Area (Hectares)</label>
     <input type="number" class="form-control" id="validationCustom01" step="0.01" name="area">
     <div class="valid-feedback">
         Looks good!
@@ -360,7 +360,7 @@ if (isset($message)) {
                 <label for="nameInput" name="land_area" class="mr-2">Available land area for planting mulberry<font color = "red">*</font></label>
                 <div class="d-inline-flex align-items-center">
                   <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="land_area"> 
-                  <span class="form-text-inline mt-2 my-3" style="vertical-align: middle;">ha</span>
+                  <span class="form-text-inline mt-2 my-3" style="vertical-align: middle;">hectares</span>
                 </div>
               </div>
             </div>
@@ -393,7 +393,7 @@ if (isset($message)) {
     </div>
 
     <div class="col-md-6 position-relative">
-        <label class="form-label">Site Adopters<font color="red">*</font></label>
+        <label class="form-label">Number of site Adopters<font color="red">*</font></label>
         <input type="text" class="form-control" id="validationTooltip01" name="adopters">
         <div class="invalid-tooltip">
             The Site Adopters field is required.
