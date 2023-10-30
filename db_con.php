@@ -1401,14 +1401,16 @@ class db
     }
     public function countSeed()
     {
-        $check = "SELECT COUNT(*) AS count FROM cocoon";
+        $check = "SELECT COUNT(*) as count FROM cocoon
+        WHERE type = 'Seed Cocoon'";
         $resultCheck = mysqli_query($this->$con, $check);
         $row = mysqli_fetch_assoc($resultCheck);
         return $row['count'];
     }
     public function countCommercial()
     {
-        $check = "SELECT COUNT(*) AS count FROM cocoon";
+        $check = "SELECT COUNT(*) as count FROM cocoon
+        WHERE type = 'Commercial'";;
         $resultCheck = mysqli_query($this->$con, $check);
         $row = mysqli_fetch_assoc($resultCheck);
         return $row['count'];
