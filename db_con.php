@@ -632,7 +632,7 @@ class db
         $sql = "UPDATE irrigation
 				SET irrigation_name = '$irrigation_name',
 					irrigation_status	='$irrigation_status'
-				WHERE tenancy_id	='$irrigation_id'";
+				WHERE irrigation_id	='$irrigation_id'";
         $result = mysqli_query($this->$con, $sql);
         return $result = 1;
     }

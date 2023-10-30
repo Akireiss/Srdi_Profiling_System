@@ -479,8 +479,7 @@ $(document).ready(function(){
                 data:'regionId='+regionId,
                 success:function(html){
                     $('#province').html(html);
-                    $('#city').html('<option value="">Select City</option>');
-                    $('#barangay').html('<option value="">Select Barangay</option>');
+                    $('#city').html('<option value="">Select City</option>'); 
                 }
             }); 
         }
@@ -496,7 +495,6 @@ $(document).ready(function(){
                 success:function(html){
                     $('#city').html(html);
                     $('#barangay').html('<option value="">Select Barangay</option>');
-                   
                 }
             }); 
         }else{

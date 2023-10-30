@@ -469,7 +469,6 @@ $(document).ready(function(){
                 success:function(html){
                     $('#province').html(html);
                     $('#city').html('<option value="">Select City</option>'); 
-                    $('#barangay').html('<option value="">Select Barangay</option>');
                 }
             }); 
         }
