@@ -281,11 +281,8 @@ if (isset($message)) {
 
           
        
-    <div class="col-md-6 mt-3">
+    <div class="col-md-12 mt-3">
         <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
-    </div>
-    <div class="col-md-6 mt-3">
-        <label for="validationCustom04" class="form-label">Number of family can participate in farm work<font color="red">*</font></label>
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
@@ -376,41 +373,36 @@ if (isset($message)) {
               <div class="my-4"></div>
 
               <div class="row">
-  <div class="col-md-6 ">
-    <div class="form-group">
-      <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg">
-      <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
-    </div>
-  </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05">
+                    <label for="validationCustom04" class="form-label">ID Picture</label>
+                  </div>
+                </div>
 
-
-
-  <div class="col-md-6 d-flex justify-content-end">
-  <div class="form-group">
-    <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
-    <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
-  </div>
-</div>
-
+                <div class="col-md-6 d-flex justify-content-end">
+                  <div class="form-group">
+                    <input type="file" class="form-control w-100" name="intent" id="validationCustom05">
+                    <label for="validationCustom04" class="form-label">Letter of Intent</label>
+                  </div>
+                </div>
               </div>
-              
 
               <div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg">
-      <label for="validationCustom04" class="form-label">2x2 Picture (JPEG only)</label>
-    </div>
-  </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="file" class="form-control w-50" name="bypic" id="validationCustom05">
+                    <label for="validationCustom04" class="form-label">2x2 Picture</label>
+                  </div>
+                </div>
 
-  <div class="col-md-6 d-flex justify-content-end">
-    <div class="form-group">
-      <input type="file" class="form-control w-100" name="signature" id="validationCustom06" accept=".jpeg, .jpg">
-      <label for="validationCustom05" class="form-label">Signature of Farmer Cooperator (JPEG only)</label>
-    </div>
-  </div>
-</div>
-
+                <div class="col-md-6 d-flex justify-content-end">
+                  <div class="form-group">
+                    <input type="file" class="form-control w-100" name="signature" id="validationCustom05">
+                    <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
+                  </div>
+                </div>
+              </div>
 
 
 
@@ -453,7 +445,6 @@ $(document).ready(function(){
                 success:function(html){
                     $('#province').html(html);
                     $('#city').html('<option value="">Select City</option>'); 
-                    $('#barangay').html('<option value="">Select Barangay</option>');
                 }
             }); 
         }

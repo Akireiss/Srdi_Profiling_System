@@ -317,23 +317,22 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <label for="validationCustom04" class="form-label">Accessibility to farm-to-market road:<font color="red">*</font></label>
-  </div>
-  <div class="col-md-3">
-    <div class="form-check">
-      <input class="form-check-input" type="radio" id="accessible" name="accessibility" value="Accessible" checked>
-      <label class="form-check-label" for="accessible">Accessible</label>
+    <div class="col-md-6">
+        <label for="validationCustom04" class="form-label">Accessibility to farm-to-market road:<font color="red">*</font></label>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="form-check">
-      <input class="form-check-input" type="radio" id="not_accessible" name="accessibility" value="Not Accessible">
-      <label class="form-check-label" for="not_accessible">Not Accessible</label>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="accessible" value="Accessible">
+            <label class="form-check-label" for="accessible">Accessible</label>
+        </div>
     </div>
-  </div>
+    <div class="col-md-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="not_accessible" value="Not Accessible">
+            <label class="form-check-label" for="not_accessible">Not Accessible</label>
+        </div>
+    </div>
 </div>
-
 
             <div class="col-md-12 mt-6" style="margin-left: -25px;">    
             <div class="form-check form-check-inline">
@@ -415,37 +414,24 @@ if (!isset($_SESSION['user_id'])) {
         <div class="col-md-12">
         <label for="validationCustom04" class="form-label">Herewith the Monitoring and Evaluation Team, declares to have visited the proposed location for mulberry plantation field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
         </div>
-        <div class="col-md-4 position-relative">
-            <div class="form-group">
-              <label class="form-label">Name<font color="red">*</font></label>
-              <input type="text" class="form-control" id="validationTooltip01" name="names">
-              <div class="mt-2"></div> 
-              <input type="text" class="form-control" id="validationTooltip02" name="names">
-              <div class="mt-2"></div> 
-              <input type="text" class="form-control" id="validationTooltip03" name="names">
-            </div>
-          </div>
+        <div class="col-md-3 ">
+            <label for="validationCustom04" class="form-label">Name<font color = "red">*</font></label>
+            <input type="text" class="form-control" id="validationTooltip01" name="name"
+                                        value = "<?php echo $name;?>" required>
+        </div>
 
-                
-                <div class="col-md-4 position-relative">
-                  <label class="form-label">Position<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" >
-                  <div class="mt-2"></div>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" >
-                  <div class="mt-2"></div>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" > 
-                </div>
+        <div class="col-md-3 ">
+            <label for="validationCustom04" class="form-label">Position<font color = "red">*</font></label>
+            <input type="text" class="form-control" id="validationTooltip01" name="position"
+                                        value = "<?php echo $position;?>" required>
+        </div>    
 
-              <div class="col-md-4 ">
-                <label for="validationCustom04" name="date" class="form-label">Date<font color = "red">*</font></label>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-                <div class="mt-2"></div>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-                <div class="mt-2"></div>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-              </div>
+        <div class="col-md-3 ">
+        <label for="validationCustom04" class="form-label">Date<font color = "red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="date"
+                                        value = "<?php echo $date;?>" required>
 
-            </div>
+    </div>
 
             <div class="col-12 d-flex align-items-end justify-content-end gap-2">
 
@@ -487,7 +473,6 @@ $(document).ready(function(){
                 success:function(html){
                     $('#province').html(html);
                     $('#city').html('<option value="">Select City</option>'); 
-                    $('#barangay').html('<option value="">Select Barangay</option>');
                 }
             }); 
         }

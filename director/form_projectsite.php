@@ -425,40 +425,31 @@ if (isset($message)) {
               </div>
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-5">
             <div class="col-md-12">
               <label for="validationCustom04" class="form-label">Herewith the Monitoring and Evaluation Team, declares to have visited the proposed location for mulberry plantation 
                 field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
             </div>
          
             <div class="col-md-4 position-relative">
-            <div class="form-group">
-              <label class="form-label">Name<font color="red">*</font></label>
-              <input type="text" class="form-control" id="validationTooltip01" name="names">
-              <div class="mt-2"></div> 
-              <input type="text" class="form-control" id="validationTooltip02" name="names">
-              <div class="mt-2"></div> 
-              <input type="text" class="form-control" id="validationTooltip03" name="names">
-            </div>
-          </div>
+                  <label class="form-label">Name<font color = "red">*</font></label>
+                  <input type="text" class="form-control" id="validationTooltip01" name = "names" >
+                 
+                </div>
 
                 
                 <div class="col-md-4 position-relative">
                   <label class="form-label">Position<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name = "position" >
-                  <div class="mt-2"></div>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" >
-                  <div class="mt-2"></div>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" > 
+                  <div class="invalid-tooltip">
+                    The Project In-Charge field is required.
+                  </div>
                 </div>
 
               <div class="col-md-4 ">
                 <label for="validationCustom04" name="date" class="form-label">Date<font color = "red">*</font></label>
                 <input type="date" class="form-control" id="validationCustom05" name="date">
-                <div class="mt-2"></div>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-                <div class="mt-2"></div>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
+
               </div>
 
             </div>
@@ -488,8 +479,7 @@ $(document).ready(function(){
                 data:'regionId='+regionId,
                 success:function(html){
                     $('#province').html(html);
-                    $('#city').html('<option value="">Select City</option>');
-                    $('#barangay').html('<option value="">Select Barangay</option>');
+                    $('#city').html('<option value="">Select City</option>'); 
                 }
             }); 
         }
@@ -505,7 +495,6 @@ $(document).ready(function(){
                 success:function(html){
                     $('#city').html(html);
                     $('#barangay').html('<option value="">Select Barangay</option>');
-                   
                 }
             }); 
         }else{

@@ -18,6 +18,7 @@ if (isset($_POST['submit'])) {
             header("Location: ../staff/dashboard.php");
             exit(); 
         }
+        
     } else {
         $message = "Invalid Credentials!";
     }
