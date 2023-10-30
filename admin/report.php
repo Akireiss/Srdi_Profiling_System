@@ -11,7 +11,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-<?php include '../includes/testside.php' ?>
+<?php include '../includes/sidebar.php' ?>
 
 
 

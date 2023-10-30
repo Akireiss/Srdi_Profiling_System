@@ -32,8 +32,21 @@
       <span>Production</span>
     </a>
     
-  </li><!-- Project Site Nav -->
-
+  </li>
+  
+  
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="settings.php">
+    <i class="bi bi-tools" style="color: white;"></i>
+      <span>Settings</span>
+    </a>
+    
+  </li>
+  
+  
+  
+  <!-- Project Site Nav -->
+<!-- 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#system-settings" data-bs-toggle="collapse" href="#">
         <i class="bi bi-gear" style="color: white;"></i><span>System Settings</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -131,7 +144,7 @@
           </a>
         </li>
 </ul> 
-  </li>
+  </li> -->
   <!-- End Settings Nav -->
   <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
