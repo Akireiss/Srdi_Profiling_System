@@ -28,13 +28,26 @@ if(!isset($_SESSION['user_id'])) {
 
 
         <div class="col-md-4 ">
-          <div class="card px-4 pt-2 pb-5">
-            <div class="card-block">
-              <h4 class="card-title">Location</h4>
-              
-              <li class="card-text my-1">Province</li>
-              <li class="card-text my-1">Municipality</li>
-              <li class="card-text my-1">Barangay</li>
+          <div class="card pb-5 ">
+            <div class="card-block ">
+              <div class="card-title bg-success px-2">
+                Location
+              </div>
+              <div class="mx-2">
+
+                <li class="card-text my-1">
+                <a href="province.php">
+                  Province
+                </a>
+                </li>
+                <li class="card-text my-1">
+                      <a href="municipality.php">
+                Municipality
+                      </a>
+                </li>
+                <li class="card-text my-1">
+                <a href="barangay.php">Barangay</a></li>
+              </div>
              
             </div>
           </div>
@@ -42,22 +55,27 @@ if(!isset($_SESSION['user_id'])) {
 
 
         <div class="col-md-4">
-          <div class="card px-4 pt-2 pb-5">
+          <div class="card pb-5">
             <div class="card-block">
-              <h4 class="card-title">Producers</h4>
+            <div class="card-title bg-success px-2">
+          Producers
+          </div>
+              <div class="mx-2">
               
               <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
-             
+              </div>
             </div>
           </div>
         </div>
 
 
         <div class="col-md-4">
-          <div class="card px-4 pt-2 pb-5">
+          <div class="card pb-5">
             <div class="card-block">
-              <h4 class="card-title">Production</h4>
-              
+            <div class="card-title bg-success px-2">
+          Production
+          </div>
+              <div class="mx-2">
               <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
              
             </div>
@@ -70,37 +88,44 @@ if(!isset($_SESSION['user_id'])) {
 
 
         <div class="col-md-4">
-          <div class="card px-4 pt-2 pb-5">
+          <div class="card pb-5">
             <div class="card-block">
-              <h4 class="card-title">News</h4>
+            <div class="card-title bg-success px-2">
+          News
+          </div>
+          <div class="mx-2">
               
               <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
-             
+          </div>
             </div>
           </div>
         </div>
 
         <div class="col-md-4">
-          <div class="card px-4 pt-2 pb-5">
+          <div class="card pb-5">
             <div class="card-block">
-              <h4 class="card-title">User</h4>
-              
+            <div class="card-title bg-success px-2">
+          User
+          </div>
+          <div class="mx-2">
               <li class="card-text my-1">User</li>
               <li class="card-text my-1">Profile</li>
-             
+          </div>
             </div>
           </div>
         </div>
 
         <div class="col-md-4">
-          <div class="card px-4 pt-2 pb-5">
+          <div class="card pb-5">
             <div class="card-block">
-              <h4 class="card-title">System</h4>
-              
+            <div class="card-title bg-success px-2">
+        System
+          </div>
+          <div class="mx-2">
               <li class="card-text my-1">Back Up Database</li>
               <li class="card-text my-1">Upload Database</li>
 
-             
+          </div>
             </div>
           </div>
         </div>
