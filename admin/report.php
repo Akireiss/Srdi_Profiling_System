@@ -5,7 +5,30 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
-?>
+// test code
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $reportType = $_POST['submit'];
+  
+  switch ($reportType) {
+      case 'REP01':
+          $sql = "SELECT * FROM cocoon";
+          break;
+  
+      case 'REP02':
+          $sql = "SELECT * FROM site ";
+          break;
+  
+      default:
+          die("Invalid report type.");
+  }
+  
+  // Execute the SQL query and fetch the data
+  $result = mysqli_query($db->con, $sql);
+  mysqli_close($db->con);
+
+}
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +53,8 @@
        
       <div class="card">
         <div class="card-body">
-            <form class="row g-3 needs-validation" novalidate action = "generate_report.php" enctype="multipart/form-data" method="POST">
+        <form class="row g-3 needs-validation" action="" enctype="multipart/form-data" method="POST" id="reportForm">
+
         
             <div class="col-md-12 position-relative">
               
@@ -38,13 +62,14 @@
 
             <div class="col-md-6 position-relative">
               <label class="form-label">Choose Report<font color = "red">*</font></label>
-              <select class="form-select" aria-label="Default select example" name = "report" id="report" required >
-                  <option value="" selected>Select Report</option>
-                  <option value = "REP01">REP01 - List of Cocoon Producers</option>
-                  <option value = "REP02">REP02 - List of Project Site</option>
-                  <option value = "REP03">REP03 - List of Project in-charge</option>
-                  <option value = "REP04">REP04 - List of Production for Province/Region</option>
-                </select>
+              <select class="form-select" aria-label="Default select example" name="submit" id="report" required>
+    <option value="" selected>Select Report</option>
+    <option value="REP01">REP01 - List of Cocoon Producers</option>
+    <option value="REP02">REP02 - List of Project Site</option>
+    <option value="REP03">REP03 - List of Project in-charge</option>
+    <option value="REP04">REP04 - List of Production for Province/Region</option>
+</select>
+
               <div class="invalid-tooltip">
                 The Choose Report field is required.
               </div>
@@ -82,15 +107,26 @@
               </div>
             </div>
 
-            <div class="col-md-4 position-relative">
-              <label class="form-label">Year</label>
-              <div class="col-sm-12">
-                <select class="form-select" aria-label="Default select example" name = "prodYear" id="prodYear" required>
-                  <option value="" selected disabled>Select Year</option>
-                </select>
-              </div>
-            </div>
+            
+            <div class="col-md-12 position-relative">
+                  <label class="form-label">Year<font color = "red">*</font></label>
+                  <select  required  class="form-select" aria-label="Default select example" name = "topography" id="invalid-tooltip" required>
+                      <option selected>Select Year</option>
+                <?php
+                      $resultType=$db->getYearActive();
+                      while($row=mysqli_fetch_array($resultType)){
+                        echo '<option value="'.$row['year_name'].'">' . $row['year_name'] . '</option>';
+                      }
+                      ?>
+                      </select>
+                  <div class="invalid-tooltip">
+                    The Year field is required.
+                  </div>
+                </div>
 
+
+
+        
             <div class="col-md-2 position-relative">
               <label class="form-label">Date from</label>
               <div class="col-sm-12">
@@ -107,7 +143,7 @@
             </div>
             
             <div class="col-12">
-              <button type="submit" class="btn btn-warning" name="submit">Generate Report</button>
+              <a href="../pdf/report.php" target="_blank" class="btn btn-warning" name="submit">Generate Report</a>
               <button type="reset" class="btn btn-primary">Cancel</button>
             </div>
           </form>
@@ -121,7 +157,15 @@
 
 </main>
 
- <!--END MAIN-->
+<script>
+ $(document).ready(function() {
+    $('#report').change(function() {
+        // Submit the form when the report selection changes
+        $('#reportForm').submit();
+    });
+});
+
+</script>
    
  <?php include '../includes/footer.php' ?>
  <script>

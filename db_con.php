@@ -553,6 +553,14 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+
+    public function getYearActive()
+    {
+        $sql = "SELECT * FROM year
+        where year_status = 'Active'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+    }
     public function getYearID($year_id)
     {
         $sql = "SELECT * FROM year
