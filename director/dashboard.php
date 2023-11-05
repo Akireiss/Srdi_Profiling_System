@@ -19,7 +19,7 @@ $commercialCount = $db->countCommercial();
 <body>
 
 <?php include '../includes/header.php' ?>
-<?php include '../includes/sidebar.director.php.php' ?>
+<?php include '../includes/sidebar.director.php' ?>
 
   <main id="main" class="main">
 

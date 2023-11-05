@@ -716,6 +716,7 @@ class db
                 WHERE cocoon_id          ='$cocoon_id'";
         $resultsql = mysqli_query($this->$con, $sql);
         return $resultsql = 1;
+        
     }
     
     public function updateProduction($production_id, $production_date,
@@ -733,6 +734,7 @@ class db
         $result = mysqli_query($this->$con, $sql);
 
         return $result; // Return the actual result of the query
+        
     }
 
 

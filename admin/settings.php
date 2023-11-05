@@ -25,81 +25,7 @@ if(!isset($_SESSION['user_id'])) {
 <div>
     <div>
     <div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        Location
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="province.php" class="card-link">Province</a>
-          </li>
-          <li class="list-group-item">
-            <a href="municipality.php" class="card-link">Municipality</a>
-          </li>
-          <li class="list-group-item">
-            <a href="barangay.php" class="card-link">Barangay</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        Producers
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="" class="card-link">Some quick example text t</a>
-          </li>
-          <li class="list-group-item">
-            <a href="" class="card-link">Some quick example text t</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        Production
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="" class="card-link">Some quick example text t</a>
-          </li>
-          <li class="list-group-item">
-            <a href="" class="card-link">Some quick example text t</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        News
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="" class="card-link">Some quick example text to bui.</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
+    <div class="col-md-4">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         User
@@ -108,9 +34,6 @@ if(!isset($_SESSION['user_id'])) {
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <a href="system_user.php" class="card-link">User</a>
-          </li>
-          <li class="list-group-item">
-            <a href="edit_systemuser.php" class="card-link">Profile</a>
           </li>
           <li class="list-group-item">
             <a href="user_type.php" class="card-link">User Type</a>
@@ -131,10 +54,94 @@ if(!isset($_SESSION['user_id'])) {
             <a href="backup_button.php" class="card-link">Back Up Database</a>
           </li>
           <li class="list-group-item">
-            <a href="" class="card-link">Upload Database</a>
+            <a href="audit_trail.php" class="card-link">Audit Trail</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-title bg-success text-white px-4">
+        Address
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <a href="region.php" class="card-link">Region</a>
           </li>
           <li class="list-group-item">
-            <a href="audit_trail.php" class="card-link">Audit Trail</a>
+            <a href="province.php" class="card-link">Province</a>
+          </li>
+          <li class="list-group-item">
+            <a href="municipality.php" class="card-link">Municipality</a>
+          </li>
+          <li class="list-group-item">
+            <a href="barangay.php" class="card-link">Barangay</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-title bg-success text-white px-4">
+        Producers
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="education.php" class="card-link">Educational Attainment</a>
+          </li>
+          <li class="list-group-item">
+            <a href="religion.php" class="card-link">Religion</a>
+          </li>
+          <li class="list-group-item">
+            <a href="source_of_income.php" class="card-link">Source of Income</a>
+          </li>
+          <li class="list-group-item">
+            <a href="farm_tools.php" class="card-link">Farm Tools</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+ 
+
+
+
+<div class="col-md-4">
+    <div class="card">
+      <div class="card-title bg-success text-white px-4">
+        Project Site
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="topography.php" class="card-link">Topography</a>
+          </li>
+          <li class="list-group-item">
+            <a href="land_type.php" class="card-link">Land Types</a>
+          </li>
+          <li class="list-group-item">
+            <a href="tenancy.php" class="card-link">Tenancy</a>
+          </li>
+          <li class="list-group-item">
+            <a href="irrigation.php" class="card-link">Souce of Irrigation</a>
+          </li>
+          <li class="list-group-item">
+            <a href="soil_type.php" class="card-link">Soil Type</a>
+          </li>
+          <li class="list-group-item">
+            <a href="agency.php" class="card-link">Funding Agency</a>
+          </li>
+          <li class="list-group-item">
+            <a href="monitoring_team.php" class="card-link">Monitoring Team</a>
           </li>
         </ul>
       </div>

@@ -20,13 +20,6 @@
   <main id="main" class="main">
   <div class="pagetitle">
     <h1>Production</h1><br>
-        <div class="row">
-          <div class="col-lg-8 mt-0">
-            <a href="add_production.php">
-              <button type="button" class="btn btn-warning">Add Production</button>
-            </a>
-          </div>
-        </div>
       </div>
    
 
@@ -66,7 +59,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['production_date'] . '</td>';
     echo '<td>';
     echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
-    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
+    
     echo '</td>';
     echo '</tr>';
 

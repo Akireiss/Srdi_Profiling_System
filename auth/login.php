@@ -11,19 +11,21 @@ if (isset($_POST['submit'])) {
 
     if ($resultCheckLogin != 0) {
         if ($_SESSION['type_id'] == 1) {
-          
             header("Location: ../admin/dashboard.php");
             exit(); 
         } elseif ($_SESSION['type_id'] == 2) {
             header("Location: ../staff/dashboard.php");
             exit(); 
+        } elseif ($_SESSION['type_id'] == 3) {
+            header("Location: ../director/dashboard.php"); 
+            exit();
         }
-        
     } else {
         $message = "Invalid Credentials!";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

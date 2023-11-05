@@ -7,7 +7,6 @@ if(!isset($_SESSION['user_id'])) {
 }
 $cocoonCount = $db->countCocoon();
 $cocoonCountInactive = $db->countCocoonInactive();
-$usersCount = $db->countUsers();
 $siteCount = $db->countSite();
 $productionCount = $db->countProduction();
 ?>

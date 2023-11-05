@@ -37,7 +37,7 @@
   
   <li class="nav-item">
     <a class="nav-link collapsed" href="settings.php">
-    <i class="bi bi-tools" style="color: white;"></i>
+    <i class="bi bi-gear" style="color: white;"></i>
       <span>Settings</span>
     </a>
     
@@ -146,7 +146,7 @@
 </ul> 
   </li> -->
   <!-- End Settings Nav -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-person-workspace" style="color: white;"></i><span>User Settings</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
@@ -169,7 +169,7 @@
         
 </ul>
    
-  </li><!-- End Settings Nav -->
+  </li>End Settings Nav -->
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="report.php">
