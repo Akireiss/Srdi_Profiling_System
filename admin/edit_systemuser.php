@@ -89,11 +89,10 @@ if (!isset($_SESSION['user_id'])) {
                     The Fullname field is required.
                   </div>
                 </div>
-
+                
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Password<font color="red">*</font></label>
-                  <input type="password" class="form-control" id="password" name="password" required
-                  value = "<?php echo $password;?>" required>
+                  <input type="password" minlength="8" class="form-control" id="password" name="password" required>
                   <input type="checkbox" onclick="myFunction()">Show Password
                   <div class="invalid-tooltip">
                     The Password must be minimum of 8 characters.

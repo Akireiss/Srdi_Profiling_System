@@ -364,6 +364,12 @@ class db
                 ON cocoon.cocoon_id = site.producer_id
                 LEFT JOIN production 
                 ON cocoon.cocoon_id = production.producer_id
+                LEFT JOIN education
+                ON cocoon.education = education.education_id
+                LEFT JOIN religion
+                ON cocoon.religion = religion.religion_id
+                LEFT JOIN civil
+                ON cocoon.civil_status = civil.civil_id
 				WHERE cocoon_id='$cocoon_id'";
         //          echo $sql;
         // echo die();
@@ -730,7 +736,7 @@ class db
     public function updateProduction($production_id, $production_date,
      $total_production, $p_income, $p_cost, $n_income, $producer_id)
     {
-        $sql = "UPDATE production
+    $sql = "UPDATE production
                     SET production_date = '$production_date',
                         total_production = '$total_production',
                         p_income = '$p_income',
@@ -739,12 +745,25 @@ class db
                         producer_id = '$producer_id' 
                     WHERE production_id = '$production_id'";
 
-        $result = mysqli_query($this->$con, $sql);
+    $result = mysqli_query($this->$con, $sql);
+    if ($sql) {
+        // Log the action in the audit_logs table
+        $action = "Update production: ";
+        $data = json_encode([
+            'producer_id' => $producer_id,
+            'production_date' => $production_date,
+            'total_production' => $total_production,
+            'p_income' => $p_income,
+            'p_cost' => $p_cost,
+            'n_income' => $n_income
+        ]);
 
-        return $result; // Return the actual result of the query
-        
+        $auditSql = "INSERT INTO audit_logs (action, data) VALUES ('$action', '$data')";
+        $auditResult = mysqli_query($this->$con, $auditSql);
+        return $resultsql = 1;
+
     }
-
+}
 
     public function updateAgency($agency_id, $agency_name, $status)
     {

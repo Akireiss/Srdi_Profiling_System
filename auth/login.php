@@ -29,6 +29,37 @@ if (isset($_POST['submit'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<style>
+   .title-container {
+       /* Background color for the section */
+      text-align: center;
+      padding: 100px 0; /* Reduce top and bottom padding to bring the title closer */
+    }
+    .title {
+      font-size: 3rem;
+      color: green; /* Text color */
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow */
+      -webkit-text-stroke: 2px black; 
+      margin-top: 90px; /* Remove default margins to move the title closer */
+    }
+
+    .subtitle {
+            font-size: 3rem;
+            color: green; /* Text color */
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow */
+            -webkit-text-stroke: 2px black;
+            margin-top: -10px; /* Adjust top margin to align with the main title */
+        }
+    
+  </style>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href="../public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -38,10 +69,17 @@ if (isset($_POST['submit'])) {
 
 <body>
   <main>
-  <section class="vh-100" style="background-color: f5f1fff2;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-8">
+  <section class="vh-50"
+   <div class="title-container">
+      <h1 class="title">Profiling System for DMMMSU-SRDI </h1>
+      <h1 class="subtitle">Cocoon Producers</h1>
+    </div>
+    <!-- <div class="title-container">
+      <h1 class ="title">Cocoon Producers</h1>
+    </div> -->
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-8">
         <div class="card" style="border-radius: 1rem;">
           <div class="row g-0">
             <div class="col-md-6 col-lg-5 d-none d-md-block my-auto">
@@ -106,6 +144,7 @@ if (isset($_POST['submit'])) {
 </section>
 </main>
 
+
 <script>
         function showPassword() {
             var passwordInput = document.getElementById("form2Example27");
@@ -118,6 +157,9 @@ if (isset($_POST['submit'])) {
             }
         }
     </script>
+
+    
+
 
 
 

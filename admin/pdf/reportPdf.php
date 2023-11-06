@@ -89,7 +89,7 @@
 
         <table width="100%">
             <tbody>
-                <td class="center main bold">LIST OF BOOKEEPERS </td>
+                <td class="center main bold">LIST OF COCOON PRODUCERS </td>
             </tbody>
         </table>
 <br>
@@ -98,11 +98,13 @@
             <tbody>
                 <td class="center padding">Name</td>
                 <td class="center padding">Complete Address </td>
+                <td class="center padding">Age</td>
+                <td class="center padding">Birthdate</td>
                 <td class="center padding">Gender </td>
-                <td class="center padding">Nationality </td>
+                <td class="center padding">Type</td>
                 <td class="center padding">Educational Attainment </td>
-                <td class="center padding">Association </td>
-                <td class="center padding">Contact Number </td>
+                
+                
             </tbody>
         </table>
 
