@@ -1547,6 +1547,25 @@ class db
 
     }
 
+    ///barchart
+    public function barChart() {
+        $sql = "SELECT MONTH(production_date) AS month, COUNT(production_id) AS count 
+        FROM production GROUP BY month";
+        $result = mysqli_query($this->$con, $sql);
+        $data = array_fill(1, 12, 0); // Initialize an array to store counts for each month
+    
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $month = $row['month'];
+                $count = $row['count'];
+                $data[$month - 1] = $count; // Store the count in the corresponding month (adjust for zero-based array)
+            }
+        }
+    
+        return $data; // Return the data as an array
+    }
+    
+
 
     public function closeCon()
     {

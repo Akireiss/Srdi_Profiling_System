@@ -42,8 +42,8 @@ if (isset($_POST['submit'])) {
       font-weight: bold;
       text-align: center;
       text-transform: uppercase;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow */
-      -webkit-text-stroke: 2px black; 
+      /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow 
+      /* -webkit-text-stroke: 2px black;  *//*  wag na lagyan ng ganto */
       margin-top: 90px; /* Remove default margins to move the title closer */
     }
 
@@ -53,8 +53,8 @@ if (isset($_POST['submit'])) {
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow */
-            -webkit-text-stroke: 2px black;
+            /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow 
+            -webkit-text-stroke: 2px black; */
             margin-top: -10px; /* Adjust top margin to align with the main title */
         }
     
@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-xl-8">
-        <div class="card" style="border-radius: 1rem;">
+        <div class="card shadow-sm" style="border-radius: 1rem;">
           <div class="row g-0">
             <div class="col-md-6 col-lg-5 d-none d-md-block my-auto">
               <img src="../public/assets/img/dmmmsu_srdi_logo.png"
@@ -106,14 +106,20 @@ if (isset($_POST['submit'])) {
               ?>
 
               </div><!-- End Page Title -->
+              <div class="mb-2">
+    <h6 class="text-lg">
+        Login
+    </h6>
+</div>
+
                <form class="row g-3 " action = "#" enctype="multipart/form-data" method="POST">
-                  <div class="form-outline mb-4">  
+                  <div class="form-outline mb-2">  
                     <label class="form-label" for="form2Example17">Username</label>
                     <input type="text" id="validationTooltip03" name = "username" class="form-control" required autofocus="autofocus" >
              
                   </div>
 
-                  <div class="form-outline mb-4">
+                  <div class="form-outline mb-2">
                     <label class="form-label" for="form2Example27">Password</label>
                     <input type="password" id="form2Example27" class="form-control" name = "password" required>
                     <div class="mt-1">

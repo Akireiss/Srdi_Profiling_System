@@ -94,17 +94,25 @@
         </table>
 <br>
 <!-- Main function all you need is loop --Aki -->
-        <table width="100%">
-            <tbody>
-                <td class="center padding">Name</td>
-                <td class="center padding">Complete Address </td>
-                <td class="center padding">Age</td>
-                <td class="center padding">Birthdate</td>
-                <td class="center padding">Gender </td>
-                <td class="center padding">Type</td>
-                <td class="center padding">Educational Attainment </td>
-                
-                
-            </tbody>
-        </table>
+     <php?
 
+
+$reportData = fetchReportData($reportType, $db);
+
+if ($reportType === 'REP01') {
+    echo '<table width="100%">';
+    echo '<tbody>';
+    echo '<tr>';
+    echo '<td class="center padding">Name</td>';
+    echo '<td class="center padding">Complete Address</td>';
+    echo '</tr>';
+    foreach ($reportData as $row) {
+        echo '<tr>';
+        echo '<td class="center padding">' . $row['name'] . '</td>';
+        echo '<td class="center padding">' . $row['complete_address'] . '</td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+}
+     ?>
