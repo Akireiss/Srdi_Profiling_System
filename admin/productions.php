@@ -39,7 +39,7 @@
               <div class="col-lg-12">
                 <div class="card">
                   <div class="card-body">
-                    <table class="table table-striped datatable">
+                    <table class="table table-striped datatable" id="datatable">
               
                       <thead>
                       <tr>          <th scope="col">Producer Name</th>
@@ -52,6 +52,7 @@
                                     <th scope="col">Action</th>
                                   </tr>
                       </thead>
+                      <tbody>
         
                       <?php
 $result = $db->getAllProduction();
@@ -77,14 +78,14 @@ while ($row = mysqli_fetch_array($result)) {
   
 }
 ?>
-
-                      <tbody>
-                       
-                           
-                          </td>
-                        </tr>
+</tbody>
           
-                      </tbody>
+          <!-- <tbody>
+            <tr>
+          
+                dsadsa
+            </tr>
+</tfoot> --WIP-->
                     </table>
                     <div class="mx-2 fw-bold">
     <?php 
@@ -117,7 +118,17 @@ while ($row = mysqli_fetch_array($result)) {
 </section>
 
 
-  </main><!-- End #main -->
+  </main>
+  <script>
+  $(document).ready(function () {
+  $('#datatable').DataTable({
+    "footer": true,
+    "dom": '<"top"i>rt<"bottom"flp><"clear">' // Customized table layout
+  });
+});
+
+
+  </script>
   <?php include '../includes/footer.php' ?>
 </body>
 
