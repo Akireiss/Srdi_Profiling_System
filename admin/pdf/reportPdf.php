@@ -1,7 +1,7 @@
 
 <!doctype html>
     <html lang="en">
-
+    <title><?= $reportType ?> - PDF Report</title>
     <head>
         <meta charset="UTF-8">
         <title>Pdf</title>
@@ -87,24 +87,107 @@
 
     <body>
 
-        <table width="100%">
-            <tbody>
-                <td class="center main bold">LIST OF COCOON PRODUCERS </td>
-            </tbody>
-        </table>
-<br>
-<!-- Main function all you need is loop --Aki -->
-        <table width="100%">
-            <tbody>
-                <td class="center padding">Name</td>
-                <td class="center padding">Complete Address </td>
-                <td class="center padding">Age</td>
-                <td class="center padding">Birthdate</td>
-                <td class="center padding">Gender </td>
-                <td class="center padding">Type</td>
-                <td class="center padding">Educational Attainment </td>
-                
-                
-            </tbody>
-        </table>
+
+    <h1><?= $reportType ?> - PDF Report</h1>
+
+    <table width="100%">
+        <tbody>
+            <td class="center main bold">
+                <?php
+                // Display the title based on the selected report type
+                switch ($reportType) {
+                    case 'REP01':
+                        echo 'LIST OF COCOON PRODUCERS';
+                        break;
+
+                    case 'REP02':
+                        echo 'LIST OF PROJECT SITES';
+                        break;
+
+                    case 'REP03':
+                        echo 'LIST OF PROJECT IN-CHARGE';
+                        break;
+
+                    default:
+                        echo 'UNKNOWN REPORT TYPE';
+                        break;
+                }
+                ?>
+            </td>
+        </tbody>
+    </table>
+    <br>
+
+    <!-- Main function, loop through the data -->
+    <table width="100%">
+        <tbody>
+            <tr>
+                <?php
+                // Display table headers based on the selected report type
+                switch ($reportType) {
+                    case 'REP01':
+                        echo '<td class="center padding">Name</td>';
+                        echo '<td class="center padding">Complete Address</td>';
+                        echo '<td class="center padding">Age</td>';
+                        echo '<td class="center padding">Birthdate</td>';
+                        echo '<td class="center padding">Gender</td>';
+                        echo '<td class="center padding">Type</td>';
+                        echo '<td class="center padding">Educational Attainment</td>';
+                        break;
+
+                    case 'REP02':
+                        echo '<td class="center padding">Producer</td>';
+                        echo '<td class="center padding">Location</td>';
+                        echo '<td class="center padding">Topography</td>';
+                        echo '<td class="center padding">Land</td>';
+                        break;
+
+                    case 'REP03':
+                        //Continue hereee --joshua
+
+                        break;
+
+                    default:
+                        die("Unknown report type");
+                        break;
+                }
+                ?>
+            </tr>
+
+            <?php foreach ($reportData as $row) : ?>
+                <tr>
+                    <?php
+                    //Same Concept again
+                    switch ($reportType) {
+                        case 'REP01':
+                            echo '<td class="center padding">' . htmlspecialchars($row['name']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['address']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['age']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['birthdate']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['sex']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['type']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['education']) . '</td>';
+                            break;
+
+                        case 'REP02':
+                           //Continue hereee --joshua --same concept sa una
+
+                            break;
+
+                        case 'REP03':
+                        //Continue hereee --joshua
+
+                            break;
+
+                        default:
+                            // Handle unknown report type
+                            die("Unknown report type");
+                            break;
+                    }
+                    ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</body>
 

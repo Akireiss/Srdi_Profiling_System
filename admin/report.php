@@ -70,7 +70,7 @@ if (isset($_GET['submit'])) {
 
           <div class="card">
             <div class="card-body">
-                <form class="row g-3 needs-validation" action="../pdf/report.php" method="GET" id="reportForm">
+                <form class="row g-3 needs-validation" action="../pdf/report.php" method="GET" id="reportForm" target="_blank">
   <div class="col-md-6 position-relative">
     <label class="form-label">Choose Report<font color="red">*</font></label>
     <select class="form-select" aria-label="Default select example" name="report_type" id="report" required>
