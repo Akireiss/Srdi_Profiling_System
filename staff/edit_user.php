@@ -11,7 +11,7 @@
       $password = md5($_POST['password']);
       $type_id = $_POST['user_type_id']; 
       $status   = $_POST['status'];
-      $resultUser=$db->UpdateUser($fullname, $username, $password, $type_id, $status);
+      $resultUser=$db->addUser($fullname, $username, $password, $type_id, $status);
       if($resultUser != 0){
         $message = "User Successfully Added!";
       }else{
@@ -25,7 +25,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-<?php include '../includes/sidebar.php' ?>
+<?php include '../includes/staff.sidebar.php' ?>
 
 
 <main id="main" class="main">

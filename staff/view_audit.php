@@ -21,7 +21,7 @@ $date = $row->date;
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/sidebar.php' ?>
+  <?php include '../includes/staff.sidebar.php' ?>
 
 
   <main id="main" class="main">

@@ -6,18 +6,20 @@ if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
-    $user_id = $_POST['user_id']; 
     $fullname = $_POST['fullname']; 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $type_id = $_POST['user_type_id'];
-    $user_status   = $_POST['user_status'];
-    $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status);
-    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
+    $status   = $_POST['status'];
+   $user_id = $_SESSION['user_id'];
+    $resultUser = $db->addUser($fullname, $username, $password, $type_id, $status, $user_id);
+    if ($resultUser != 0) {
+      $message = "User Successfully Added!";
+    } else {
+      $message = "User Already Exist!";
+    }
   }
 }
-  
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Edit User Type</h1>
+      <h1>Add User Type</h1>
       <?php
       if (isset($message)) {
         if ($resultUser != 0) {
@@ -46,17 +48,6 @@ if (!isset($_SESSION['user_id'])) {
     </div><!-- End Page Title -->
 
     <section class="section">
-    <?php
-             $result=$db->getUserID($_GET['user_id']);
-            while($row=mysqli_fetch_object($result)){
-                $userID =$row->user_id;
-                $fullname =$row->fullname; 
-                $username =$row->username;
-                $password =$row->password;
-                $type_id =$row->type_id;
-                $user_status   = $row->user_status;
-            }
-        ?>
       <div class="row">
         <div class="col-lg-12">
 
@@ -67,15 +58,11 @@ if (!isset($_SESSION['user_id'])) {
               <h5 class="card-title"></h5>
 
               <!-- Custom Styled Validation with Tooltips -->
-              <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
+              <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Fullname<font color="red">*</font></label>
-                 
-                  <input type="hidden" class="form-control" id="validationTooltip01" name="user_id"
-                                         value = "<?php echo $userID;?>" required>
-                                         <input type="text" class="form-control" id="validationTooltip01" name="fullname"
-                                        value = "<?php echo $fullname;?>" required>
+                  <input type="text" class="form-control" id="validationTooltip01" name="fullname" required autofocus="autofocus">
                   <div class="invalid-tooltip">
                     The Fullname field is required.
                   </div>
@@ -83,13 +70,12 @@ if (!isset($_SESSION['user_id'])) {
 
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Username<font color="red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name="username"
-                                        value = "<?php echo $username;?>" required>
+                  <input type="text" class="form-control" id="validationTooltip01" name="username" required>
                   <div class="invalid-tooltip">
                     The Fullname field is required.
                   </div>
                 </div>
-                
+
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Password<font color="red">*</font></label>
                   <input type="password" minlength="8" class="form-control" id="password" name="password" required>
@@ -100,16 +86,19 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
 
              
+
                 <div class="col-md-6 position-relative">
-                <label class="form-label">User Type<font color="red">*</font></label>
+                  <label class="form-label">User Type<font color="red">*</font></label>
                   <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="user_type_id" required>
+                    <select class="form-select" aria-label="Default select example" 
+                    name="user_type_id" id="validationTooltip03" required>
+                      <option value="" selected disabled>Select User Type</option>
                       <?php
-                      $resultType = $db->getUserTypeActive();
-                      while ($row = mysqli_fetch_array($resultType)) {
-                        $selected = ($type_id == $row['user_type_id']) ? 'selected' : '';
-                        echo '<option value="' . $row['user_type_id'] . '" ' . $selected . '>' . $row['user_type_name'] . '</option>';
+                      $resultType=$db->getUserTypeActive();
+                      while($row=mysqli_fetch_array($resultType)){
+                        echo '<option value="'.$row['user_type_id'].'">' . $row['user_type_name'] . '</option>';
                       }
+                      $db->closeCon();
                       ?>
                     </select>
                     <div class="invalid-tooltip">
@@ -118,37 +107,23 @@ if (!isset($_SESSION['user_id'])) {
                   </div>
                 </div>
 
-
-
-          
-
-            
-
                 <div class="col-md-6 position-relative">
-                <label class="form-label">Active<font color="red">*</font></label>
+                  <label class="form-label">Active<font color="red">*</font></label>
                   <div class="col-sm-12">
-                      <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="user_status" required>
-                          <option value="" selected disabled>Select Status</option>
-                          <?php
-                          if ($user_status == 'Active') {
-                              echo '<option value="Active" selected>' . $user_status . '</option>';
-                              echo '<option value="Inactive">Inactive</option>';
-                          } else {
-                              echo '<option value="Active">Active</option>';
-                              echo '<option value="Inactive" selected>' . $user_status . '</option>';
-                          }
-                          ?>
-                      </select>
-                      <div class="invalid-tooltip">
-                          The Active field is required.
-                      </div>
+                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
+                      <option value="" selected disabled>Select Status</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </select>
+                    <div class="invalid-tooltip">
+                      The Active field is required.
+                    </div>
                   </div>
                 </div>
 
-
-               
-            <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-                  <button type="submit" class="btn btn-warning" name="submit">Update</button>
+                
+                <div class="col-12 d-flex align-items-end justify-content-end gap-2">
+                  <button type="submit" class="btn btn-warning" name="submit">Save User</button>
                   <button type="reset" class="btn btn-primary">Clear</button>
                   <a href="system_user.php" class="btn btn-danger">Cancel</a>
                 </div>
@@ -174,8 +149,7 @@ if (!isset($_SESSION['user_id'])) {
         x.type = "password";
       }
     }
-  </script>
-  <?php include '../includes/footer.php' ?>
+  </script>  <?php include '../includes/footer.php' ?>
 </body>
 
 </html>

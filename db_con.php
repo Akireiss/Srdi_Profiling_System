@@ -488,6 +488,12 @@ class db
         return $result;
 
     }
+      public function getProductionByName($name) {
+         $sql = "SELECT * FROM production
+        WHERE name = '$name'";
+        $result = mysqli_query($this->$con, $sql);
+        return $result;
+}
 
     public function getMonitoring()
     {
@@ -980,8 +986,23 @@ class db
 								'$status')";
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "Add Topography: ";
+                $data = json_encode([
+                    'topography' => $topography,
+                    'status' => $status   
+                ]);
+
+                $auditSql = "INSERT INTO audit_logs (action, data) VALUES ('$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
+                return $resultsql = 1;
+            }
         }
     }
+        
+    
+
     public function addIrrigation($source_of_irrigation, $status)
     {
         $check = "SELECT * FROM irrigation
@@ -1294,7 +1315,7 @@ class db
                     'soil' => $soil
                 ]);
 
-                $auditSql = "INSERT INTO audit_logs ( action, data) VALUES ( '$action', '$data')";
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
                 $auditResult = mysqli_query($this->$con, $auditSql);
                 return $resultsql = 1;
             }
@@ -1374,6 +1395,52 @@ class db
             return $resultsql = 1;
         }
     }
+    public function addAgency($funding_agency, $status, $user_id)
+    {
+        $check = "SELECT * FROM agency WHERE agency_name = '$funding_agency'";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $num_rows = mysqli_num_rows($resultCheck);
+
+        if ($num_rows > 0) {
+            return $resultsql = 0; // Agency already exists
+        } else {
+            $sql = "INSERT INTO agency (agency_name, status) VALUES ('$funding_agency', '$status')";
+            $resultsql = mysqli_query($this->$con, $sql);
+
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $action = "Added agency: " . $funding_agency;
+                $data = json_encode(['agency_name' => $funding_agency, 'status' => $status]);
+
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
+                $auditResult = mysqli_query($this->$con, $auditSql);
+
+                if ($auditResult) {
+                    return 1; // Agency added and logged in audit_logs
+                } else {
+                    return -1; // Agency added, but audit logging failed
+                }
+            } else {
+                return -1; // Agency insertion failed
+            }
+        }
+    }
+    public function addYear($year, $year_status)
+    {
+        $check = "SELECT * FROM year
+                    WHERE year_name = '$year'";
+        $resultCheck = mysqli_query($this->$con, $check);
+        $num_rows = mysqli_num_rows($resultCheck);
+        if ($num_rows > 0) {
+            return $resultsql = 0;
+        } else {
+            $sql = "INSERT INTO year (year_name, year_status)
+                    VALUES ('$year',					
+                            '$year_status')";
+            $resultsql = mysqli_query($this->$con, $sql);
+            return $resultsql = 1;
+        }
+    }
 
 
     // Function to count Cocoon Producers
@@ -1447,52 +1514,7 @@ class db
 
 
 
-    public function addAgency($funding_agency, $status, $user_id)
-    {
-        $check = "SELECT * FROM agency WHERE agency_name = '$funding_agency'";
-        $resultCheck = mysqli_query($this->$con, $check);
-        $num_rows = mysqli_num_rows($resultCheck);
-
-        if ($num_rows > 0) {
-            return $resultsql = 0; // Agency already exists
-        } else {
-            $sql = "INSERT INTO agency (agency_name, status) VALUES ('$funding_agency', '$status')";
-            $resultsql = mysqli_query($this->$con, $sql);
-
-            if ($resultsql) {
-                // Log the action in the audit_logs table
-                $action = "Added agency: " . $funding_agency;
-                $data = json_encode(['agency_name' => $funding_agency, 'status' => $status]);
-
-                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
-
-                if ($auditResult) {
-                    return 1; // Agency added and logged in audit_logs
-                } else {
-                    return -1; // Agency added, but audit logging failed
-                }
-            } else {
-                return -1; // Agency insertion failed
-            }
-        }
-    }
-    public function addYear($year, $year_status)
-    {
-        $check = "SELECT * FROM year
-                    WHERE year_name = '$year'";
-        $resultCheck = mysqli_query($this->$con, $check);
-        $num_rows = mysqli_num_rows($resultCheck);
-        if ($num_rows > 0) {
-            return $resultsql = 0;
-        } else {
-            $sql = "INSERT INTO year (year_name, year_status)
-                    VALUES ('$year',					
-                            '$year_status')";
-            $resultsql = mysqli_query($this->$con, $sql);
-            return $resultsql = 1;
-        }
-    }
+    
 
    public function checkLogin($username, $password)
 {

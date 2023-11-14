@@ -78,16 +78,11 @@ while ($row = mysqli_fetch_array($result)) {
   
 }
 ?>
+
 </tbody>
           
-          <!-- <tbody>
-            <tr>
-          
-                dsadsa
-            </tr>
-</tfoot> --WIP-->
-                    </table>
-                    <div class="mx-2 fw-bold">
+    </table>
+    <div class="mx-2 fw-bold">
     <?php 
     echo '<td class="text-uppercase">Total Production Income: </td>';
     echo '<td colspan="2">PHP ' . number_format($totalPIncome, 2, '.', ',') . '</td>';
@@ -97,12 +92,13 @@ while ($row = mysqli_fetch_array($result)) {
 
 <!-- Net Income -->
 
-<div class="mx-2 fw-bold">
-<?php 
-    echo '<td class="text-uppercase">Total Net Income: </td>';
-    echo '<td colspan="2">PHP ' . number_format($totalNIncome, 2, '.', ',') . '</td>';
-    ?>  
-</div>
+            <div class="mx-2 fw-bold">
+            <?php 
+                echo '<td class="text-uppercase">Total Net Income: </td>';
+                echo '<td colspan="2">PHP ' . number_format($totalNIncome, 2, '.', ',') . '</td>';
+                ?>  
+            </div>
+
 
                   </div>
                 </div>
@@ -116,20 +112,18 @@ while ($row = mysqli_fetch_array($result)) {
      
              
 </section>
+</main>
+          <script>
+          $(document).ready(function () {
+          $('#datatable').DataTable({
+            "footer": true,
+            "dom": '<"top"i>rt<"bottom"flp><"clear">' // Customized table layout
+          });
+        });
 
 
-  </main>
-  <script>
-  $(document).ready(function () {
-  $('#datatable').DataTable({
-    "footer": true,
-    "dom": '<"top"i>rt<"bottom"flp><"clear">' // Customized table layout
-  });
-});
-
-
-  </script>
-  <?php include '../includes/footer.php' ?>
+          </script>
+<?php include '../includes/footer.php' ?>
 </body>
 
 </html>

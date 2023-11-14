@@ -31,7 +31,7 @@
                 $birthdate            = $row->birthdate;
                 $type                 = $row->type;
                 $sex                  = $row->sex;
-                $region 	            = $row->region;
+                $region 	          = $row->region;
                 $regName              =$row->regDesc;
                 $province             = $row->province;
                 $provName             = $row->provDesc;
@@ -41,9 +41,11 @@
                 $barangayName         = $row->brgyDesc;
                 $address              = $row->address;
                 $education            = $row->education;
-                $educationName            = $row->education_name;
+                $educationName        = $row->education_name;
                 $religion             = $row->religion;
+                $religionName         = $row->religion_name;
                 $civil_status         = $row->civil_status;
+                $civilName            = $row->civil_name;
                 $name_spouse          = $row->name_spouse;
                 $farm_participate     = $row->farm_participate;
                 $cannot_participate   = $row->cannot_participate;
@@ -161,7 +163,7 @@
 
         <table width="100%">
             <tbody>
-            <!-- <td><img src="data:image/jpeg;base64,Logo.jpg"></td> -->
+            <!-- <td><img src="admin/img/Logo.jpg"></td> -->
                 <td class="center bold">SERICULTURE RESEARCH DEVELOPMENT INSTITUTE <br />
                     FARMER COOPERATOR'S INFORMATION <br />
                     and SITE INSPECTON SHEET </td>
@@ -192,7 +194,7 @@
                     <td width="20%">Sex: <span class="underline"> <?php echo $sex?> </span></td>
                 </tr>
                 <tr>
-                    <td width="100%">Permanent Address: <span class="underline">  </span></td>
+                    <td width="100%">Permanent Address: <span class="underline"> <?php echo $regname?> </span></td>
                 </tr>
             </tbody>
         </table>
@@ -201,8 +203,8 @@
             <tbody>
                 <tr>
                     <td width="5%"></td>
-                    <td width="50%">Educational Attainment:<span class="underline"> <?php echo $education?> </span></td>
-                    <td width="25%">Religion:</td>
+                    <td width="50%">Educational Attainment:<span class="underline"> <?php echo $educationName?> </span></td>
+                    <td width="25%">Religion: <span class="underline"> <?php echo $religionName?> </td>
                 </tr>
 
 
@@ -212,7 +214,7 @@
             <tbody>
                 <tr>
                     <td width="6%"></td>
-                    <td width="25%">Civil Status:</td>
+                    <td width="25%">Civil Status:<span class="underline"> <?php echo $civilName?> </span></td>
                     <td width="80%">If married, name of spouse:<span class="underline"> <?php echo $name_spouse?> </span></td>
                 </tr>
 

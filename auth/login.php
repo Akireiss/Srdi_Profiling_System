@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
    .title-container {
        /* Background color for the section */
       text-align: center;
-      padding: 100px 0; /* Reduce top and bottom padding to bring the title closer */
+      padding: 100px 0; 
     }
     .title {
       font-size: 3rem;
@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
       text-transform: uppercase;
       /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow 
       /* -webkit-text-stroke: 2px black;  *//*  wag na lagyan ng ganto */
-      margin-top: 90px; /* Remove default margins to move the title closer */
+      margin-top: 90px; 
     }
 
     .subtitle {
@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
             text-transform: uppercase;
             /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Black text shadow 
             -webkit-text-stroke: 2px black; */
-            margin-top: -10px; /* Adjust top margin to align with the main title */
+            margin-top: -10px; 
         }
     
   </style>
@@ -107,9 +107,9 @@ if (isset($_POST['submit'])) {
 
               </div><!-- End Page Title -->
               <div class="mb-2">
-    <h6 class="text-lg">
+    <!-- <h6 class="text-lg">
         Login
-    </h6>
+    </h6> -->
 </div>
 
                <form class="row g-3 " action = "#" enctype="multipart/form-data" method="POST">

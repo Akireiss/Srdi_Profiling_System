@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
 } else {
   if (isset($_POST['submit'])) {
     // Get data from the form
-    $user_id = $_SESSION['user_id'];
     $location = $_POST['location'];
     $producer_name = $_POST['producer_name'];
     $topography = $_POST['topography'];

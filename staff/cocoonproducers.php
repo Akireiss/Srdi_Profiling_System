@@ -118,20 +118,24 @@ if (isset($message)) {
         </div>
           
         <div class="row mt-3  needs-validation md:w-full" novalidate>
-          <div class="col-md-3">
-            <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
-            <input type="text" class="form-control" id="validationCustom02" name="age" >
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-          </div>
-          <div class="col-md-3">
-            <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
-            <input type="date" class="form-control" id="validationCustom02" name="birthdate" >
-            <div class="valid-feedback">
-              Looks good!
-            </div>
-          </div>
+        <div class="col-md-3">
+    <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
+    <input type="text" class="form-control" id="age" name="age" value="">
+    <div class="valid-feedback">
+        Looks good!
+    </div>
+</div>
+<div class="col-md-3">
+    <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
+    <input type="date" class="form-control" id="birthdateInput" name="birthdate">
+    <div class="valid-feedback">
+        Looks good!
+    </div>
+</div>
+
+
+
+
           <div class="col-md-3 ">
                   <label class="form-label">Type of Producer<font color="red">*</font></label>
                  
@@ -277,8 +281,11 @@ if (isset($message)) {
 
           
        
-    <div class="col-md-12 mt-3">
+    <div class="col-md-6 mt-3">
         <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="validationCustom04" class="form-label">Number of family can participate in farm work<font color="red">*</font></label>
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
@@ -369,36 +376,41 @@ if (isset($message)) {
               <div class="my-4"></div>
 
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05">
-                    <label for="validationCustom04" class="form-label">ID Picture</label>
-                  </div>
-                </div>
+  <div class="col-md-6 ">
+    <div class="form-group">
+      <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg">
+      <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
+    </div>
+  </div>
 
-                <div class="col-md-6 d-flex justify-content-end">
-                  <div class="form-group">
-                    <input type="file" class="form-control w-100" name="intent" id="validationCustom05">
-                    <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
-                  </div>
-                </div>
+
+
+  <div class="col-md-6 d-flex justify-content-end">
+  <div class="form-group">
+    <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
+    <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
+  </div>
+</div>
+
               </div>
+              
 
               <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input type="file" class="form-control w-50" name="bypic" id="validationCustom05">
-                    <label for="validationCustom04" class="form-label">2x2 Picture</label>
-                  </div>
-                </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg">
+      <label for="validationCustom04" class="form-label">2x2 Picture (JPEG only)</label>
+    </div>
+  </div>
 
-                <div class="col-md-6 d-flex justify-content-end">
-                  <div class="form-group">
-                    <input type="file" class="form-control w-100" name="signature" id="validationCustom05">
-                    <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
-                  </div>
-                </div>
-              </div>
+  <div class="col-md-6 d-flex justify-content-end">
+    <div class="form-group">
+      <input type="file" class="form-control w-100" name="signature" id="validationCustom06" accept=".jpeg, .jpg">
+      <label for="validationCustom05" class="form-label">Signature of Farmer Cooperator (JPEG only)</label>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -441,6 +453,7 @@ $(document).ready(function(){
                 success:function(html){
                     $('#province').html(html);
                     $('#city').html('<option value="">Select City</option>'); 
+                    $('#barangay').html('<option value="">Select Barangay</option>');
                 }
             }); 
         }
@@ -502,7 +515,40 @@ $(document).ready(function(){
     }
   });
 </script>
+<!-- 
+<script>
+  document.getElementById("birthdate").addEventListener("change", function () {
+    var birthdate = new Date(this.value);
+    var today = new Date();
+    var age = today.getFullYear() - birthdate.getFullYear();
+    // Check if the birthday has occurred this year already
+    if (today.getMonth() < birthdate.getMonth() || (today.getMonth() === birthdate.getMonth() && today.getDate() < birthdate.getDate())) {
+      age--;
+    }
+    document.getElementById("age").value = age;
+  });
+</script> -->
 
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const birthdateInput = document.getElementById('birthdateInput');
+        const ageInput = document.getElementById('age');
+
+        // Add an event listener to the birthdate input
+        birthdateInput.addEventListener('input', calculateAge);
+
+        function calculateAge() {
+            const birthdate = new Date(birthdateInput.value);
+            const currentDate = new Date();
+
+            const age = currentDate.getFullYear() - birthdate.getFullYear();
+
+            // Update the age input field with the calculated age
+            ageInput.value = age;
+        }
+    });
+</script>
     </body>
 </html>

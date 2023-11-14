@@ -6,22 +6,21 @@
     header("Location: ../auth/login.php");
   }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+  <?php include '../includes/staff.sidebar.php' ?>>
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Province</h1><br>
+      <h1>Monitoring Team</h1><br>
       <div class="row">
         <div class="col-lg-8">
-          <a href = "add_province.php">
-            <button type="button" class="btn btn-warning">Add Province</button>
+          <a href = "add_monitoring.php">
+            <button type="button" class="btn btn-warning">Add Monitoring Team</button>
           </a>
         </div>
       </div>
@@ -37,23 +36,24 @@
         <table class="table table-striped datatable">
             <thead>
                 <tr>
-                    <th scope="col">Province</th>
-                    <th scope="col">Region</th>
-                    <th scope="col">Province Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
     <?php
-    $result = $db->getProvince();
+    $result = $db->getMonitoring();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_province.php?province_id=' . $row['province_id'] . '">' . $row['provDesc'] . '</a></td>';
-        echo '<td>' . $row['regDesc'] . '</td>';
-        echo '<td>' . $row['provCode'] . '</td>';
+        echo '<td><a href="edit_monitoring.php?monitoring_id=' . $row['monitoring_id'] . '">' . $row['monitoring_name'] . '</a></td>';
+        echo '<td>' . $row['position'] . '</td>';
+        echo '<td>' . $row['status'] . '</td>';
+
         echo '<td>';
-        echo '<a href="view_province.php?province_id=' . $row['province_id'] . '"><i class="ri-eye-line"></i></a>';
-        echo '<a href="edit_province.php?province_id=' . $row['province_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+        echo '<a href="view_systemuser.php?user_id=' . $row['monitoring_id'] . '"><i class="ri-eye-line"></i></a>';
+        echo '<a href="edit_monitoring.php?monitoring_id=' . $row['monitoring_id'] . '"><i class="bi bi-pencil-square"></i></a>';
         echo '</td>';
         echo '</tr>';
     }
@@ -70,7 +70,6 @@
     </section>
 
   </main><!--END MAIN-->
-  
   <?php include '../includes/footer.php' ?>
   </body>
 </html>

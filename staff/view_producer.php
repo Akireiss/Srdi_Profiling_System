@@ -4,17 +4,7 @@ include "../db_con.php";
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
-  if (isset($_POST['submit'])) {
-    $cocoon_id = $_POST['cocoon_id'];
-    $name = $_POST['name'];
-    $birthdate = $_POST['name'];
-    $type = $_POST['type'];
-    
-    $result = $db->updateProducer($cocoon_id, $name);
-    $message = ($result != 0) ? "Land Type Successfully Updated" : "Land Type Already Exist!";
-  }
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -31,13 +21,13 @@ if(!isset($_SESSION['user_id'])) {
                 $cocoonID             = $row->cocoon_id;
                 $date_validation      = $row->date_validation ;
                 $name                 = $row->name;
-                $status               = $row->status;
+                $status                = $row->status;
                 $age                  = $row->age;
                 $birthdate            = $row->birthdate;
                 $type                 = $row->type;
                 $sex                  = $row->sex;
                 $region 	            = $row->region;
-                $regName              = $row->regDesc;
+                $regName              =$row->regDesc;
                 $province             = $row->province;
                 $provName             = $row->provDesc;
                 $municipality         = $row->municipality;
@@ -53,7 +43,7 @@ if(!isset($_SESSION['user_id'])) {
                 $cannot_participate   = $row->cannot_participate;
                 $male                 = $row->male;
                 $female               = $row->female;
-                $source_income        = $row->source_income;//decode this
+                $source_income        = $row->source_income;
                 $years_in_farming     = $row->years_in_farming;
                 $available_workers    = $row->available_workers;
                 $farm_tool            = $row->farm_tool;
@@ -96,7 +86,9 @@ if(!isset($_SESSION['user_id'])) {
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">Personal Information</button>
                 </li>
-                
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Site</button>
+                </li>
               </ul>
               <div class="tab-content pt-2" id="borderedTabContent">
                 <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
@@ -106,7 +98,7 @@ if(!isset($_SESSION['user_id'])) {
                       <div class="col-md-4">
                       <label for="validationCustom02" class="form-label">Date of Validation<font color = "red">*</font></label>
                       <input type="date" class="form-control" id="validationTooltip01" name="date_validation"
-                                         value = "<?php echo $date_validation;?>" >
+                                         value = "<?php echo $date_validation;?>" disabled >
                       <div class="valid-feedback">
                         Looks good!
                       </div>
@@ -120,7 +112,7 @@ if(!isset($_SESSION['user_id'])) {
                         <input type="hidden" class="form-control" id="validationTooltip01" name="cocoon_id"
                                          value = "<?php echo $cocoonID;?>" >
                                          <input type="text" class="form-control" id="validationTooltip01" name="name"
-                                        value = "<?php echo $name;?>" >
+                                        value = "<?php echo $name;?>" disabled>
                         <div class="valid-feedback">
                           Looks good!
                         </div>
@@ -129,7 +121,7 @@ if(!isset($_SESSION['user_id'])) {
                       <div class="col-md-6 position-relative">
                                         <label class="form-label">Status<font color="red">*</font></label>
                                         <div class="col-sm-12">
-                                            <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
+                                            <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" disabled>
                                             <?php
                                                 if($status == 'Active'){
                                                     echo '<option value="Active" selected>' . $status . '</option>';
@@ -151,9 +143,9 @@ if(!isset($_SESSION['user_id'])) {
                       <!-- Beekeeper Gender -->
                       <div class="row g-3  needs-validation md:w-full" novalidate>
                 <div class="col-md-3">
-                  <label for="validationCustom02" class="form-label">Age <font color = "red">*</font></label>
+                  <label for="validationCustom02" class="form-label">Age<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="age"
-                                              value = "<?php echo $age;?>" >
+                                              value = "<?php echo $age;?>" disabled>
                   <div class="valid-feedback">
                     Looks good!
                   </div>
@@ -162,7 +154,7 @@ if(!isset($_SESSION['user_id'])) {
                 <div class="col-md-3">
                   <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
                   <input type="date" class="form-control" id="validationTooltip01" name="birthdate"
-                                              value = "<?php echo $birthdate;?>" >
+                                              value = "<?php echo $birthdate;?>"disabled >
                   <div class="valid-feedback">
                     Looks good!
                   </div>
@@ -170,7 +162,7 @@ if(!isset($_SESSION['user_id'])) {
 
                 <div class="col-md-3">
                   <label class="form-label">Type of Producer<font color="red">*</font></label>
-                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" 
+                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type"  disabled
                   
                       <option value="" >Select Type</option>
                       <option value="Seed Cocoon" <?php if ($type === "Seed Cocoon") echo "selected"; ?>>Seed Cocoon</option>
@@ -182,7 +174,7 @@ if(!isset($_SESSION['user_id'])) {
 
                     <div class="col-md-3">
                   <label class="form-label">Sex<font color="red">*</font></label>
-                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" >
+                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" disabled>
                       <option value="" disabled>Select Sex</option>
                       <option value="Male" <?php if ($type === "Male") echo "selected"; ?>>Male</option>
                       <option value="Female" <?php if ($type === "Female") echo "selected"; ?>>Female</option>
@@ -192,15 +184,15 @@ if(!isset($_SESSION['user_id'])) {
               <div class="col-md-3 position-relative">
                         <label class="form-label">Region<font color = "red">*</font></label>
                         <div class="col-sm-12">
-                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>">
-                          <select class="form-select" aria-label="Default select example" name = "region" id="region" value = "<?php echo $regCode;?>">
-                            <option value="<?php echo $regCode;?>" selected disabled="disabled"><?php echo $regName;?></option>
+                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>" disabled>
+                          <select class="form-select" aria-label="Default select example" name = "region" id="region" value = "<?php echo $regCode;?>" disabled>
+                            <option value="<?php echo $regCode;?>" selected disabled><?php echo $regName;?></option>
                             <?php
-                            $resultType=$db->getRegion();
+                            $resultType=$db->getRegion($regCode);
                             while($row=mysqli_fetch_array($resultType)){
                               echo '<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>';
                             }
-                            ?>    
+                            ?>
                           </select>
                           <div class="invalid-tooltip">
                             The Region field is required.
@@ -208,20 +200,21 @@ if(!isset($_SESSION['user_id'])) {
                         </div>
                       </div>
 
-                  <div class="col-md-3 position-relative">
+                      <div class="col-md-3 position-relative">
                   <label class="form-label">Province<font color = "red">*</font></label>
-                    <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" >
-                              <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
-                              
-                            </select>
-                    </div>
+                  <div class="col-sm-12">
+                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>" disabled>
+                            <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
+                            
+                          </select>
                   </div>
+                </div>
+
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="city" value = "<?php echo $citymunCode;?>" >
-                                 <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
+                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="municipality" value = "<?php echo $citymunCode;?>" disabled>
+                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
                             
                           </select>
                                   </div>
@@ -230,10 +223,8 @@ if(!isset($_SESSION['user_id'])) {
                                 <div class="col-md-3 position-relative">
                                   <label class="form-label">Barangay<font color = "red">*</font></label>
                                   <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "barangay" 
-                                  id="barangay" value = "<?php echo $brgyCode;?>">
-                                  <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
-                                  
+                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" disabled>
+                            <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
                             
                           </select>
                                 </div>
@@ -241,7 +232,7 @@ if(!isset($_SESSION['user_id'])) {
                           <div class="col-md-12">
                             <label for="validationCustom03" class="form-label">Permanent Address<font color = "red">*</font></label>
                             <input type="text" class="form-control" id="validationTooltip01" name="address"
-                                                              value = "<?php echo $address;?>" >
+                                                              value = "<?php echo $address;?>" disabled>
                             <div class="invalid-feedback">
                               Please provide a valid city.
                             </div>
@@ -250,7 +241,7 @@ if(!isset($_SESSION['user_id'])) {
                            <div class="row g-3  needs-validation md:w-full" novalidate>
                             <div class="col-md-6">
                               <label for="validationCustom04" class="form-label">Educational Attainment<font color = "red">*</font></label>
-                              <select name="education" class="form-select" id="validationCustom04" >
+                              <select name="education" class="form-select" id="validationCustom04" disabled>
                                   <option  selected>Select Educational Attainment</option>
                                   <?php
                                         $resultType=$db->getEducationActive();
@@ -267,7 +258,7 @@ if(!isset($_SESSION['user_id'])) {
 
                             <div class="col-md-6">
                               <label for="validationCustom05" class="form-label">Religion<font color = "red">*</font></label>
-                              <select class="form-select" id="validationCustom04" name="religion" >
+                              <select class="form-select" id="validationCustom04" name="religion" disabled>
                               <option  selected>Select Religion</option>
                                   <?php
                                         $resultType=$db->getReligionActive();
@@ -288,7 +279,7 @@ if(!isset($_SESSION['user_id'])) {
                           <div class="col-md-6">
                             <label for="validationCustom05" class="form-label">Civil Status<font color = "red">*</font></label>
                             <input type="text" class="form-control" id="validationTooltip01" name="civil_status"
-                                                              value = "<?php echo $civil_status;?>" >
+                                                              value = "<?php echo $civil_status;?>" disabled>
                             <div class="invalid-feedback">
                               Please provide a civil status.
                             </div>
@@ -297,7 +288,7 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="col-md-6">
                               <label for="validationCustom04" class="form-label">If married, name of spouse<font color = "red">*</font></label>
                               <input type="text" class="form-control" id="validationTooltip01" name="name_spouse"
-                                                              value = "<?php echo $name_spouse;?>" >
+                                                              value = "<?php echo $name_spouse;?>" disabled>
                               <div class="invalid-feedback">
                                 Please provide a name of spouse.
                               </div>
@@ -310,7 +301,7 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="col-md-3 mt-1">
                               <label for="validationCustom04" class="form-label">Can participate in farm work<font color = "red">*</font></label>
                               <input type="text" class="form-control" id="validationTooltip01" name="farm_participate"
-                                                              value = "<?php echo $farm_participate;?>" >
+                                                              value = "<?php echo $farm_participate;?>" disabled>
                               <div class="invalid-feedback">
                                 Please provide a name of spouse.
                               </div>
@@ -319,7 +310,7 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="col-md-3 mt-1">
                               <label for="validationCustom04" class="form-label">Cannot do farm work<font color = "red">*</font></label>
                               <input type="text" class="form-control" id="validationTooltip01" name="cannot_participate"
-                                              value = "<?php echo $cannot_participate;?>" >
+                                              value = "<?php echo $cannot_participate;?>" disabled>
                               <div class="invalid-feedback">
                                 Please provide a name of spouse.
                               </div>
@@ -327,7 +318,7 @@ if(!isset($_SESSION['user_id'])) {
                           <div class="col-md-3 mt-1">
                             <label for="validationCustom04" class="form-label">Male<font color = "red">*</font></label>
                             <input type="text" class="form-control" id="validationTooltip01" name="male"
-                                              value = "<?php echo $male;?>" >
+                                              value = "<?php echo $male;?>" disabled>
                             <div class="invalid-feedback">
                               Please provide a name of spouse.
                             </div>
@@ -335,18 +326,36 @@ if(!isset($_SESSION['user_id'])) {
                         <div class="col-md-3 mt-1">
                           <label for="validationCustom04" class="form-label">Female<font color = "red">*</font></label>
                           <input type="text" class="form-control" id="validationTooltip01" name="female"
-                                              value = "<?php echo $female;?>" >
+                                              value = "<?php echo $female;?>" disabled>
                           <div class="invalid-feedback">
-                            Please provide a name of spouse
+                            Please provide a name of spouse.
                           </div>
                       </div>
 
-                   
+                      <!--Source of Income-->
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="form-group mt-3">
+                                  <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
+                              </div>
+                          </div>
+                          <div class="form-row mt-1">
+                              <?php
+                              $resultType = $db->getSource_IncomeActive();
+                              while ($row = mysqli_fetch_array($resultType)) {
+                                  echo '<div class="form-check form-check-inline col-md-4">';
+                                  echo '<input class="form-check-input" name="form_income" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_name'] . '">';
+                                  echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label> ';
+                                  echo '</div>';
+                              }
+                              ?>
+                          </div>
+                      </div>
 
                       <div class="col-md-6 ">
                         <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
                         <input type="text" class="form-control" id="validationTooltip01" name="years_in_farming"
-                                              value = "<?php echo $years_in_farming;?>" >
+                                              value = "<?php echo $years_in_farming;?>" disabled>
                         <div class="invalid-feedback">
                           Please provide a number of years in farming.
                         </div>
@@ -354,7 +363,7 @@ if(!isset($_SESSION['user_id'])) {
                       <div class="col-md-6 ">
                       <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
                       <input type="text" class="form-control" id="validationTooltip01" name="available_workers"
-                                              value = "<?php echo $available_workers;?>" >
+                                              value = "<?php echo $available_workers;?>" disabled>
                       <div class="invalid-feedback">
                         Please provide a Number of available workers.
                       </div>
@@ -366,28 +375,15 @@ if(!isset($_SESSION['user_id'])) {
                           <label for="validationCustom04" name="farm_tool">Available Farm Tools and Implements<font color = "red">*</font></label>    
                           </div>
                           <div class="form-row mt-1">
-
-                          <?php
-
-
-$response = array('success' => false);
-
-$tools = $db->getFarmToolsActive();
-$sourceIncome = json_decode($row['source_income']);
-
-if ($tools && $sourceIncome) {
-    $response['success'] = true;
-    $response['tools'] = $tools;
-    $response['sourceIncome'] = $sourceIncome;
-}
-
-header('Content-Type: application/json');
-echo json_encode($response);
-?>
-
-                          <div id="farm-tools-checkboxes" class="form-check form-check-inline col-md-4"></div>
-
-
+                              <?php
+                              $resultType = $db->getFarmToolsActive();
+                              while ($row = mysqli_fetch_array($resultType)) {
+                                  echo '<div class="form-check form-check-inline col-md-4">';
+                                  echo '<input class="form-check-input" name"farm_tools" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_name'] . '">';
+                                echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
+                                echo '</div>';
+                              }
+                              ?>
                           </div>
                       </div>
                         </div>
@@ -399,14 +395,14 @@ echo json_encode($response);
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05"
+            <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" disabled
             <label for="validationCustom04" class="form-label">ID Picture</label>
         </div>
     </div>
 
     <div class="col-md-6 d-flex justify-content-end">
         <div class="form-group">
-            <input type="file" class="form-control w-100" name="intent" id="validationCustom05">
+            <input type="file" class="form-control w-100" name="intent" id="validationCustom05"disabled>
             <label for="validationCustom04" class="form-label">Letter of Intent</label>
         </div>
     </div>
@@ -415,14 +411,14 @@ echo json_encode($response);
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <input type="file" class="form-control w-50" name="bypic" id="validationCustom05">
+            <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" disabled>
             <label for="validationCustom04" class="form-label">2x2 Picture</label>
         </div>
     </div>
 
     <div class="col-md-6 d-flex justify-content-end">
         <div class="form-group">
-            <input type="file" class="form-control w-100" name="signature" id="validationCustom05">
+            <input type="file" class="form-control w-100" name="signature" id="validationCustom05" disabled>
             <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
         </div>
     </div>
@@ -445,7 +441,50 @@ echo json_encode($response);
                     </div>
                   </div><!-- End Page Title -->
 
-                  
+                  <section class="section">
+
+                    <div class="row">
+                      <div class="col-lg-12">
+                         
+                        <div class="card">
+                          <div class="card-body">
+                              <table class="table table-striped datatable">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Project Site Location</th>
+                                  <!-- <th scope="col">Producer</th> -->
+                                  <th scope="col">Area</th>
+                                  <th scope="col">Topography</th>
+                                  <th scope="col">Action</th>
+                                </tr>
+                              </thead>
+
+                              <?php
+$result = $db->getSite($cocoonID);
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    echo '<td><a href="edit_site.php?site_id=' . $row['site_id'] . '">' . $row['location'] . '</a></td>';
+    // Assuming 'name' is a field from the 'cocoon' table
+    echo '<td>' . $row['area'] . '</td>';
+    echo '<td>' . $row['topography_name'] . '</td>'; // Display topography_name
+    echo '<td>';
+    // Fix the view link, replace href with the correct URL
+    echo '<a href="view_site.php?site_id=' . $row['site_id'] . '"><i class="ri-eye-line"></i></a>';
+    // Fix the edit link
+    echo '<a href="edit_site.php?site_id=' . $row['site_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+    echo '</td>';
+    echo '</tr>';
+}
+?>
+
+                              </table>
+                            
+                          </div>
+                        </div>
+
+                      </div>
+
+                  </section>
                 </div>
               </div>
             </div>
@@ -469,7 +508,6 @@ $(document).ready(function(){
                 success:function(html){
                     $('#province').html(html);
                     $('#city').html('<option value="">Select City</option>'); 
-                    $('#barangay').html('<option value="">Select Barangay</option>');
                 }
             }); 
         }
@@ -506,41 +544,6 @@ $(document).ready(function(){
         }
     });
 });
-</script>
-
-<script>
-  $(document).ready(function() {
-    // Fetch the farm tools
-    $.ajax({
-        type: 'GET',
-        url: 'edit_producer.php', // Create a PHP file to fetch farm tools
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                var tools = response.tools;
-                var sourceIncome = response.sourceIncome;
-
-                var checkboxes = '';
-                for (var i = 0; i < tools.length; i++) {
-                    var tool = tools[i];
-                    var isChecked = sourceIncome.includes(tool.tool_id) ? 'checked' : '';
-                    checkboxes += '<div class="form-check">';
-                    checkboxes += '<input class="form-check-input" name="farm_tools[]" type="checkbox" id="' + tool.tool_id + '" value="' + tool.tool_id + '" ' + isChecked + '>';
-                    checkboxes += '<label class="form-check-label" for="' + tool.tool_id + '">' + tool.tool_name + '</label>';
-                    checkboxes += '</div>';
-                }
-
-                $('#farm-tools-checkboxes').html(checkboxes);
-            } else {
-                console.error('Error fetching farm tools');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error: ' + status + ' - ' + error);
-        }
-    });
-});
-
 </script>
     </body>
 </html>

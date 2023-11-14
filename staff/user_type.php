@@ -17,11 +17,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Province</h1><br>
+      <h1>User Type</h1><br>
       <div class="row">
         <div class="col-lg-8">
-          <a href = "add_province.php">
-            <button type="button" class="btn btn-warning">Add Province</button>
+          <a href = "add_user_type.php">
+            <button type="button" class="btn btn-warning">Add User Type</button>
           </a>
         </div>
       </div>
@@ -37,23 +37,21 @@
         <table class="table table-striped datatable">
             <thead>
                 <tr>
-                    <th scope="col">Province</th>
-                    <th scope="col">Region</th>
-                    <th scope="col">Province Code</th>
+                    <th scope="col">User Type</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
     <?php
-    $result = $db->getProvince();
+    $result = $db->getUserType();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_province.php?province_id=' . $row['province_id'] . '">' . $row['provDesc'] . '</a></td>';
-        echo '<td>' . $row['regDesc'] . '</td>';
-        echo '<td>' . $row['provCode'] . '</td>';
+        echo '<td><a href="edit_user_type.php?user_type_id=' . $row['user_type_id'] . '">' . $row['user_type_name'] . '</a></td>';
+        echo '<td>' . $row['user_type_status'] . '</td>';
         echo '<td>';
-        echo '<a href="view_province.php?province_id=' . $row['province_id'] . '"><i class="ri-eye-line"></i></a>';
-        echo '<a href="edit_province.php?province_id=' . $row['province_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+        echo '<a href="view_user_type.php?user_type_id=' . $row['user_type_id'] . '"><i class="ri-eye-line"></i></a>';
+        echo '<a href="edit_user_type.php?user_type_id=' . $row['user_type_id'] . '"><i class="bi bi-pencil-square"></i></a>';
         echo '</td>';
         echo '</tr>';
     }
@@ -70,7 +68,6 @@
     </section>
 
   </main><!--END MAIN-->
-  
   <?php include '../includes/footer.php' ?>
   </body>
 </html>

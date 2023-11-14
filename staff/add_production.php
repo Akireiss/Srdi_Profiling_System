@@ -7,9 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
-
-        $user_id = $_SESSION['user_id'];
-
         $producer_id = $_POST['producer_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
@@ -22,8 +19,8 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $total;
 
       
-        // $p_income_formatted = number_format($p_income, 2);
-        // $p_cost_formatted = number_format($p_cost, 2);
+        $p_income_formatted = number_format($p_income, 2);
+        $p_cost_formatted = number_format($p_cost, 2);
 
         $n_income = $p_income - $p_cost;
 
