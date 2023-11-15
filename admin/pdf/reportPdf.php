@@ -133,6 +133,7 @@
                         echo '<td class="center padding">Gender</td>';
                         echo '<td class="center padding">Type</td>';
                         echo '<td class="center padding">Educational Attainment</td>';
+                        echo '<td class="center padding">Religion</td>';
                         break;
 
                     case 'REP02':
@@ -162,12 +163,13 @@
                     switch ($reportType) {
                         case 'REP01':
                             echo '<td class="center padding">' . htmlspecialchars($row['name']) . '</td>';
-                            echo '<td class="center padding">' . htmlspecialchars($row['address']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['brgyDesc']. ', ' .$row['citymunDesc']) . ', ' . $row['provDesc'] . ', ' . $row['regDesc'] . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['age']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['birthdate']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['sex']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['type']) . '</td>';
-                            echo '<td class="center padding">' . htmlspecialchars($row['education']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['education_name']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['religion_name']) . '</td>';
                             break;
 
                         case 'REP02':

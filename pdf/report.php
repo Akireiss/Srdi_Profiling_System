@@ -31,7 +31,19 @@ if (isset($_GET['submit'])) {
     switch ($reportType) {
         case 'REP01':
     
-            $result = $conn->query('SELECT * FROM cocoon');
+            $result = $conn->query('SELECT * FROM cocoon
+            LEFT JOIN education
+            ON cocoon.education = education.education_id
+            LEFT JOIN region
+                ON cocoon.region = region.regCode
+                LEFT JOIN province
+                ON cocoon.province = province.provCode
+                LEFT JOIN municipality
+                ON cocoon.municipality = municipality.citymunCode
+                LEFT JOIN barangay
+                ON cocoon.barangay = barangay.brgyCode
+                LEFT JOIN religion
+                ON cocoon.religion = religion.religion_id');
             while ($row = $result->fetch_assoc()) {
                 $reportData[] = $row;
             }
