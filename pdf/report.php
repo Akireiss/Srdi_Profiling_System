@@ -13,7 +13,11 @@ if (isset($_GET['submit'])) {
     $reportType = $_GET['report_type'];
     $region = $_GET['region'];
     $province = $_GET['province'];
-    $city = $_GET['city'];
+    $municipality = $_GET['municipality'];
+    $year = $_GET['year'];
+    $date_from = $_GET['date_from'];
+    $date_to = $_GET['date_to'];
+    // $barangay = $_GET['barangay'];
 
     $reportData = [];
 
@@ -33,24 +37,37 @@ if (isset($_GET['submit'])) {
     switch ($reportType) {
         case 'REP01':
             $whereConditions = [];
-
+    
             if (!empty($region)) {
                 $whereConditions[] = "cocoon.region = '$region'";
             }
-
+    
             if (!empty($province)) {
                 $whereConditions[] = "cocoon.province = '$province'";
             }
-
+    
+            if (!empty($municipality)) {
+                $whereConditions[] = "cocoon.municipality = '$municipality'";
+            }
+    
             if (!empty($city)) {
                 $whereConditions[] = "cocoon.municipality = '$city'";
             }
-
+    
             if (!empty($year)) {
                 // Extract the year from the date_validation column
                 $whereConditions[] = "YEAR(cocoon.date_validation) = '$year'";
             }
-
+    
+            // Add date range filtering conditions
+            if (!empty($date_from)) {
+                $whereConditions[] = "cocoon.date_validation >= '$date_from'";
+            }
+    
+            if (!empty($date_to)) {
+                $whereConditions[] = "cocoon.date_validation <= '$date_to'";
+            }
+    
             $query = "
                 SELECT * FROM cocoon
                 LEFT JOIN education ON cocoon.education = education.education_id
@@ -60,17 +77,19 @@ if (isset($_GET['submit'])) {
                 LEFT JOIN barangay ON cocoon.barangay = barangay.brgyCode
                 LEFT JOIN religion ON cocoon.religion = religion.religion_id
             ";
-
+    
             if (!empty($whereConditions)) {
                 $query .= " WHERE " . implode(" AND ", $whereConditions);
             }
-
+    
             $result = $conn->query($query);
-
+    
             while ($row = $result->fetch_assoc()) {
                 $reportData[] = $row;
             }
             break;
+
+    
 
         case 'REP02':
 
