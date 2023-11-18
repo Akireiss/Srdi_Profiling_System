@@ -173,8 +173,11 @@
                             break;
 
                         case 'REP02':
-                           //Continue hereee --joshua --same concept sa una
-
+                            echo '<td class="center padding">' . htmlspecialchars($row['name']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['location']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['topography']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['land']) . '</td>';
+                       
                             break;
 
                         case 'REP03':
