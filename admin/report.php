@@ -67,7 +67,6 @@ if (isset($_GET['submit'])) {
 
       <div class="row">
         <div class="col-lg-12">
-
           <div class="card">
             <div class="card-body">
               <form class="row g-3 needs-validation" action="../pdf/report.php" method="GET" id="reportForm" target="_blank">
