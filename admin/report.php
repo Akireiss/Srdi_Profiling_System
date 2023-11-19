@@ -76,7 +76,7 @@ if (isset($_GET['submit'])) {
                     <option value="" selected>Select Report</option>
                     <option value="REP01">REP01 - List of Cocoon Producers</option>
                     <option value="REP02">REP02 - List of Project Site</option>
-                    <option value="REP03">REP03 - List of Project in-charge</option>
+                    <option value="REP03">REP03 - List of Production</option>
                   </select>
                 </div>
 

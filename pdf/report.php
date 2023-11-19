@@ -124,7 +124,7 @@ if (isset($_GET['submit'])) {
 
         case 'REP03':
 
-            $result = $conn->query('SELECT * FROM project_incharge');
+            $result = $conn->query('SELECT * FROM production');
             while ($row = $result->fetch_assoc()) {
                 $reportData[] = $row;
             }
