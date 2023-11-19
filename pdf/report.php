@@ -124,7 +124,11 @@ if (isset($_GET['submit'])) {
 
         case 'REP03':
 
-            $result = $conn->query('SELECT * FROM production');
+            $result = $conn->query('SELECT * FROM production
+            LEFT JOIN cocoon
+            ON cocoon.cocoon_id = production.producer_id
+            LEFT JOIN site
+            ON cocoon.cocoon_id = site.producer_id');
             while ($row = $result->fetch_assoc()) {
                 $reportData[] = $row;
             }

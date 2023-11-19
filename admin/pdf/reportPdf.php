@@ -149,6 +149,7 @@
 
                     case 'REP03':
                         echo '<td class="center padding">Farmers Cooperator</td>';
+                        echo '<td class="center padding">Project Site Location</td>';
                         echo '<td class="center padding">Production Date</td>';
                         echo '<td class="center padding">Total Production</td>';
                         
@@ -191,6 +192,7 @@
 
                         case 'REP03':
                             echo '<td class="center padding">' . htmlspecialchars($row['name']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['location']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['production_date']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['total_production']) . '</td>';
 
