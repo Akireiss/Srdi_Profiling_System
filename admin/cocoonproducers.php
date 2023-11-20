@@ -102,7 +102,7 @@ if (isset($message)) {
             <label for="validationCustom02" class="form-label">Date of Validation<font color = "red">*</font></label>
             <input type="date" class="form-control" id="validationCustom02" name="date_validation" required>
             <div class="valid-feedback">
-              Looks good!
+            The Date Validation field is required!
             </div>
           </div> 
 
@@ -111,7 +111,7 @@ if (isset($message)) {
             <label for="validationCustom01" class="form-label">Name<font color = "red">*</font></label>
             <input type="text" class="form-control" id="validationCustom01" name="name" required>
             <div class="valid-feedback">
-              Looks good!
+            The Name field is required!
             </div>
           </div>
 
@@ -122,19 +122,16 @@ if (isset($message)) {
     <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
     <input type="text" class="form-control" id="age" name="age" value="">
     <div class="valid-feedback">
-        Looks good!
+    The Age field is required!
     </div>
 </div>
 <div class="col-md-3">
     <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
     <input type="date" class="form-control" id="birthdateInput" name="birthdate">
     <div class="valid-feedback">
-        Looks good!
+    The Birthdate field is required!
     </div>
 </div>
-
-
-
 
           <div class="col-md-3 ">
                   <label class="form-label">Type of Producer<font color="red">*</font></label>
@@ -146,7 +143,7 @@ if (isset($message)) {
                     </select>
                     
                     <div class="invalid-tooltip">
-                      The Status field is required.
+                      The Type of Producer field is required.
                     </div>
                   </div>
                
@@ -158,6 +155,9 @@ if (isset($message)) {
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
+          </div>
+          <div class="invalid-feedback">
+          The Gender field is required
           </div>
           </div>
           
@@ -175,6 +175,9 @@ if (isset($message)) {
                       ?>
                     </select>
                   </div>
+                  <div class="invalid-feedback">
+                  The Region field is required
+                  </div>
                 </div>
 
                 <div class="col-md-3 position-relative">
@@ -184,6 +187,9 @@ if (isset($message)) {
                       <option value="" selected disabled>Select Province</option>
                     </select>
                   </div>
+                  <div class="invalid-feedback">
+                  The Province field is required
+                  </div>
                 </div>
 
                 <div class="col-md-3 position-relative">
@@ -192,6 +198,9 @@ if (isset($message)) {
                     <select class="form-select" aria-label="Default select example" name = "municipality" id="city" >
                       <option value="" selected disabled>Select City</option>
                     </select>
+                  </div>
+                  <div class="invalid-feedback">
+                  The City/Municiality field is required
                   </div>
                 </div>
 
@@ -203,7 +212,9 @@ if (isset($message)) {
                     </select>
                   </div>
                 </div>
-                
+                <div class="invalid-feedback">
+                The Barangay field is required
+                </div> 
           </div>
          
           <div class="row mt-3  needs-validation md:w-full" novalidate>
@@ -212,7 +223,7 @@ if (isset($message)) {
             
             <input type="text" name="address" class="form-control" id="validationCustom03" >
             <div class="invalid-feedback">
-              Please provide a valid city.
+            The House no. field is required
             </div>
           </div>
 
@@ -230,9 +241,9 @@ if (isset($message)) {
                       ?>
               </select>
             
-            <div class="invalid-feedback">
-              Please select a valid state.
-            </div>
+            <<div class="invalid-feedback">
+                The Educational Attainment field is required
+                </div> 
             </div>
             
           <div class="col-md-4">
@@ -246,9 +257,9 @@ if (isset($message)) {
                       }
                       ?>
               </select>
-            <div class="invalid-feedback">
-              Please provide a valid zip.
-            </div>
+              <div class="invalid-feedback">
+                The Religion field is required
+                </div> 
           </div>
           
           
@@ -264,8 +275,8 @@ if (isset($message)) {
     ?>
   </select>
   <div class="invalid-feedback">
-    Please provide a civil status.
-  </div>
+  The Civil Status field is required
+  </div> 
 </div>
    
 
@@ -273,13 +284,9 @@ if (isset($message)) {
   <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
   <input type="text" class="form-control" name="name_spouse" id="spouse" disabled>
   <div class="invalid-feedback">
-    Please provide a name of spouse.
-  </div>
-</div>
-
-
-
-          
+  The Name of spouse field is required
+  </div> 
+</div>      
        
     <div class="col-md-6 mt-3">
         <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
@@ -290,30 +297,30 @@ if (isset($message)) {
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
         <input type="text" class="form-control" name="farm_participate" id="farm_participate">
-        <div class="invalid-feedback">
-            Please provide the number of family members who can participate in farm work.
-        </div>
+      <div class="invalid-feedback">
+        The Number of Can participate in farm work field is required
+      </div> 
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
         <input type="text" class="form-control" name="cannot_participate" id="cannot_participate">
         <div class="invalid-feedback">
-            Please provide the number of family members who cannot do farm work.
-        </div>
+        The Number of Cannot participate in farm work field is required
+      </div>   
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
         <input type="text" class="form-control" name="male" id="male" >
         <div class="invalid-feedback">
-            Please provide the number of male family members.
-        </div>
+        The Number of male can participate in farm work field is required
+      </div>
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
         <input type="text" class="form-control" name="female" id="female" >
         <div class="invalid-feedback">
-            Please provide the number of female family members.
-        </div>
+        The Number of female can participate in farm work field is required
+      </div>
     </div>
 
 <!--Source of Income-->
@@ -334,6 +341,9 @@ if (isset($message)) {
         }
         ?>
     </div>
+    <div class="invalid-feedback">
+        The Source of Income field is required
+    </div>
 </div>
 
 
@@ -341,14 +351,14 @@ if (isset($message)) {
   <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
   <input type="text" class="form-control" name="years_in_farming" id="validationCustom05">
   <div class="invalid-feedback">
-    Please provide a number of years in farming.
-  </div>
+        The Number of years in farming field is required
+    </div>
 </div>
 <div class="col-md-6 mt-3 ">
 <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
 <input type="text" class="form-control" name="available_workers" id="validationCustom05" >
 <div class="invalid-feedback">
-  Please provide a Number of available workers.
+The Number of available workers field is required
 </div>
 </div>
 
@@ -370,6 +380,9 @@ if (isset($message)) {
 </div>
 
   </div>
+  <div>
+  The Available farm tools field is required
+  </div>
 </div>
 
 <!-- Add some spacing here -->
@@ -381,48 +394,53 @@ if (isset($message)) {
       <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg">
       <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
     </div>
+    <div>
+  The ID Picture field is required
+  </div>
   </div>
 
 
 
-  <div class="col-md-6 d-flex justify-content-end">
-  <div class="form-group">
-    <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
-    <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
-  </div>
-</div>
+          <div class="col-md-6 d-flex justify-content-end">
+          <div class="form-group">
+            <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
+            <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
+          </div>
+          <div>
+          The Letter of Intent is required
+          </div>
+        </div>
 
-              </div>
+        </div>
               
 
-              <div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg">
-      <label for="validationCustom04" class="form-label">2x2 Picture (JPEG only)</label>
-    </div>
-  </div>
+         <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg">
+              <label for="validationCustom04" class="form-label">2x2 Picture (JPEG only)</label>
+            </div>
+          <div>
+            The 2x2 Picture field is required
+          </div>
+          </div>
 
-  <div class="col-md-6 d-flex justify-content-end">
-    <div class="form-group">
-      <input type="file" class="form-control w-100" name="signature" id="validationCustom06" accept=".jpeg, .jpg">
-      <label for="validationCustom05" class="form-label">Signature of Farmer Cooperator (JPEG only)</label>
-    </div>
-  </div>
-</div>
+          <div class="col-md-6 d-flex justify-content-end">
+            <div class="form-group">
+              <input type="file" class="form-control w-100" name="signature" id="validationCustom06" accept=".jpeg, .jpg">
+              <label for="validationCustom05" class="form-label">Signature of Farmer Cooperator (JPEG only)</label>
+            </div>
+          </div>
+        <div>
+          The Signature field is required
+        </div>
+        </div>
 
-
-
-
-
-
-
-
-                <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-                  <button type="submit" class="btn btn-warning" name="submit">Save</button>
-                  <button type="reset" class="btn btn-primary">Clear</button>
-                  <a href ="ct.php" class="btn btn-danger">Cancel</a>
-                </div>
+        <div class="col-12 d-flex align-items-end justify-content-end gap-2">
+           <button type="submit" class="btn btn-warning" name="submit">Save</button>
+           <button type="reset" class="btn btn-primary">Clear</button>
+           <a href ="ct.php" class="btn btn-danger">Cancel</a>
+        </div>
     </div>
   </div>
   </form>
