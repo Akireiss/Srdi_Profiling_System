@@ -276,10 +276,21 @@ $barCount = $db->barChart();
        
           
           <div class="col-md-3">
-                <label for="categoryYear" class="form-label">Cocoon</label>
+                <label for="categoryYear" class="form-label">Year Filter</label>
 
                 <select id="categoryYear" class="form-select mb-3">
-                    <?php
+                  <option value="2023">2023</option>
+                  <option value="2023">2024</option>
+                  <option value="2023">2025</option>
+                  <option value="2023">2026</option>
+                  <option value="2023">2027</option>
+                  <option value="2023">2028</option>
+                  </select>
+
+                </select>
+            </div>
+
+            <!-- ?php
                     // Fetch categories from the database
                     $categorySql = "SELECT year_id, year_name FROM year";
                     $categoryResult = $con->query($categorySql);
@@ -290,18 +301,12 @@ $barCount = $db->barChart();
                         $yearName = $categoryRow['year_name'];
                         echo "<option value=\"$yearId\">$yearName</option>";
                     }
-                    ?>
-                </select>
-
-                </select>
-            </div>
-
-
+                    ?> -->
 
           <div class="row justify-content-center">
        
         
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <canvas id="myChart"></canvas>
@@ -321,10 +326,9 @@ $barCount = $db->barChart();
   </main>
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
-        // Declare the chart variable outside the functions to make it accessible
         var myChart;
 
         function updateChart(data) {
@@ -362,7 +366,7 @@ $barCount = $db->barChart();
                             display: false
                         },
                         title: {
-                            display: true,
+                            display: false,
                             text: ""
                         }
                     }
@@ -397,7 +401,6 @@ $barCount = $db->barChart();
             }
         });
     </script>
-
 
 
 

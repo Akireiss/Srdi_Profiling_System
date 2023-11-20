@@ -9,14 +9,14 @@ $con = new mysqli($servername, $username, $password, $dbname);
 if (isset($_GET['year'])) {
     $selectedYear = $_GET['year'];
 
-    $sql = "SELECT DATE_FORMAT(production_date, '%Y-%m') AS month, COUNT(production_id) AS production_count 
-            FROM production 
-            WHERE YEAR(production_date) = $selectedYear
-            GROUP BY DATE_FORMAT(production_date, '%Y-%m')";
+    $sql = "SELECT DATE_FORMAT(p.production_date, '%Y-%m') AS month, COUNT(p.production_id) AS production_count 
+            FROM production p
+            WHERE YEAR(p.production_date) = $selectedYear
+            GROUP BY DATE_FORMAT(p.production_date, '%Y-%m')";
 } else {
-    $sql = "SELECT DATE_FORMAT(production_date, '%Y-%m') AS month, COUNT(production_id) AS production_count 
+    $sql = "SELECT DATE_FORMAT(p.production_date, '%Y-%m') AS month, COUNT(p.production_id) AS production_count 
             FROM production 
-            GROUP BY DATE_FORMAT(production_date, '%Y-%m')";
+            GROUP BY DATE_FORMAT(p.production_date, '%Y-%m')";
 }
 
 $result = $con->query($sql);
