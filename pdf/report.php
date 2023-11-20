@@ -14,7 +14,7 @@ if (isset($_GET['submit'])) {
     $region = $_GET['region'];
     $province = $_GET['province'];
     $municipality = $_GET['municipality'];
-    $year = $_GET['year'];
+    // $year = $_GET['year'];
     $date_from = $_GET['date_from'];
     $date_to = $_GET['date_to'];
     // $barangay = $_GET['barangay'];
@@ -54,10 +54,10 @@ if (isset($_GET['submit'])) {
                 $whereConditions[] = "cocoon.municipality = '$city'";
             }
     
-            if (!empty($year)) {
-                // Extract the year from the date_validation column
-                $whereConditions[] = "YEAR(cocoon.date_validation) = '$year'";
-            }
+            // if (!empty($year)) {
+            //     // Extract the year from the date_validation column
+            //     $whereConditions[] = "YEAR(cocoon.date_validation) = '$year'";
+            // }
     
             // Add date range filtering conditions
             if (!empty($date_from)) {
@@ -71,6 +71,7 @@ if (isset($_GET['submit'])) {
             $query = "
                 SELECT * FROM cocoon
                 LEFT JOIN education ON cocoon.education = education.education_id
+                LEFT JOIN civil ON cocoon.civil_status = civil.civil_id
                 LEFT JOIN region ON cocoon.region = region.regCode
                 LEFT JOIN province ON cocoon.province = province.provCode
                 LEFT JOIN municipality ON cocoon.municipality = municipality.citymunCode

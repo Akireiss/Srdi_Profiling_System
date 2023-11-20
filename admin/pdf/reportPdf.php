@@ -171,7 +171,7 @@
                         case 'REP01':
                             echo '<td class="center padding">' . htmlspecialchars($row['name']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['brgyDesc']. ', ' .$row['citymunDesc']) . ', ' . $row['provDesc'] . ', ' . $row['regDesc'] . '</td>';
-                            echo '<td class="center padding">' . htmlspecialchars($row['civil_status']) . '</td>';
+                            echo '<td class="center padding">' . htmlspecialchars($row['civil_name']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['name_spouse']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['age']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['birthdate']) . '</td>';

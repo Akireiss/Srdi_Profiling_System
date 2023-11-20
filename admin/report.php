@@ -126,7 +126,7 @@ if (isset($_GET['submit'])) {
           </div>
 
 
-                <div class="col-md-6 position-relative">
+                <!-- <div class="col-md-6 position-relative">
                   <label class="form-label">Year<font color="red">*</font></label>
                   <select required class="form-select" aria-label="Default select example" name="year" id="invalid-tooltip" required>
                     <option selected>Select Year</option>
@@ -140,7 +140,7 @@ if (isset($_GET['submit'])) {
                   <div class="invalid-tooltip">
                     The Year field is required.
                   </div>
-                </div> 
+                </div>  -->
 
 
                 
