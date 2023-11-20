@@ -273,16 +273,44 @@ $barCount = $db->barChart();
 
           </div>
 
-          <div class="row">
-            <div class="col-lg-12 ">
-              <div class="card">
-                <canvas id="myChart" class="px-4" style="max-height: 600px;"></canvas>
-              </div>
-            </div>
-            <div class="col-lg-6">
-            </div>
-          </div>
+       
+          
+          <div class="col-md-3">
+                <label for="categoryYear" class="form-label">Cocoon</label>
 
+                <select id="categoryYear" class="form-select mb-3">
+                    <?php
+                    // Fetch categories from the database
+                    $categorySql = "SELECT year_id, year_name FROM year";
+                    $categoryResult = $con->query($categorySql);
+
+                    // Display category options
+                    while ($categoryRow = $categoryResult->fetch_assoc()) {
+                        $yearId = $categoryRow['year_id'];
+                        $yearName = $categoryRow['year_name'];
+                        echo "<option value=\"$yearId\">$yearName</option>";
+                    }
+                    ?>
+                </select>
+
+                </select>
+            </div>
+
+
+
+          <div class="row justify-content-center">
+       
+        
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
 
 
         </div>
@@ -292,75 +320,87 @@ $barCount = $db->barChart();
 
   </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<?php
-$host = "localhost"; // Replace with your database host (e.g., localhost)
-$dbname = "profiling_system"; // Replace with your database name
-$username = "root"; // Replace with your database username
-$password = ""; // Replace with your database password
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script>
+        // Declare the chart variable outside the functions to make it accessible
+        var myChart;
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // Additional PDO configuration options if needed
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
+        function updateChart(data) {
+            var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var yValues = data.map(item => item.production_count);
 
-// SQL query to count production_id by month
-$sql = "SELECT DATE_FORMAT(production_date, '%Y-%m') AS month, COUNT(production_id) AS count
-        FROM production
-        GROUP BY month
-        ORDER BY month";
+            var monthColors = [
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                //add ka additaonal color doty
+            ];
+            var barColors = xValues.map((month, index) => monthColors[index % monthColors.length]);
 
-$result = $pdo->query($sql);
+            var ctx = document.getElementById('myChart').getContext('2d');
 
-$data = array();
-
-// Fetch the data and format it
-while ($row = $result->fetch()) {
-    $data[$row['month']] = $row['count'];
-}
-
-// Create an array for each month, initializing the count to 0 if no data was found
-$xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-$yValues = array_fill(0, 12, 0);
-
-foreach ($data as $month => $count) {
-    $monthIndex = (int)explode('-', $month)[1] - 1;
-    $yValues[$monthIndex] = $count;
-}
-
-// Encode data to JSON
-$xValues = json_encode($xValues);
-$yValues = json_encode($yValues);
-?>
-
-<script>
-    var xValues = <?php echo $xValues; ?>;
-    var yValues = <?php echo $yValues; ?>;
-    var barColors = ["red", "green", "blue", "orange", "brown"];
-
-    new Chart("myChart", {
-        type: "bar",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            title: {
-                display: false,
-                text: "Productions"
+            if (myChart) {
+                // Update the existing chart's data
+                myChart.data.labels = xValues;
+                myChart.data.datasets[0].data = yValues;
+                myChart.data.datasets[0].backgroundColor = barColors;
+                myChart.update(); // Update the existing chart
+            } else {
+                myChart = new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: ""
+                        }
+                    }
+                });
             }
         }
-    });
-</script>
+
+        $(document).ready(function() {
+            fetchChartData();
+
+            $('#categoryYear').change(function() {
+                fetchChartData();
+            });
+
+            function fetchChartData() {
+                var selectedYear = $('#categoryYear').val();
+                $.ajax({
+                    url: 'barchar.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        year: selectedYear
+                    }, // Include the selected category and year as parameters
+                    success: function(data) {
+                        console.log('Data received:', data);
+                        updateChart(data);
+                    },
+                    error: function(error) {
+                        console.log('Error fetching data:', error);
+                    }
+                });
+            }
+        });
+    </script>
+
+
+
+
 
   <?php include '../includes/footer.php' ?>
 
