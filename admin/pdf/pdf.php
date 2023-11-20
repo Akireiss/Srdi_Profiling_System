@@ -259,108 +259,131 @@
             </tbody>
 
         </table>
+        <?php
+
+function generateCheckboxes($sourceIncome)
+{
+    $classMapping = [
+        4 => 'sale-of-agricultural-product',
+        5 => 'employment',
+        6 => 'business',
+        7 => 'contract-labor',
+        8 => 'agricultural-wage',
+        10 => 'pldt',
+        11 => 'cocoon-novelty',
+    ];
+
+    $isChecked = false;
+
+    foreach ($classMapping as $value => $class) {
+        // Check if the value exists in the sourceIncome array
+        if (in_array($value, $sourceIncome)) {
+            $isChecked = true;
+            $class = 'check ' . $class;
+        } else {
+            $class = 'checkbox ' . $class;
+        }
+
+        // Generate a single checkbox for each label
+        echo '<div class="' . $class . '"></div>';
+
+        // Break out of the loop after the first match
+        if ($isChecked) {
+            break;
+        }
+    }
+}
+
+// Sample sourceIncome array (replace with your actual data)
+$sourceIncome = [4, 7, 10];
+
+?>
+
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="10%"></td>
+            <td class="bold">
+                Source of income
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+                <?php generateCheckboxes($sourceIncome); ?>
+                <label class="label">Sale of agricultural product</label>
+            </td>
+
+            <td width="15%">
+                <?php generateCheckboxes($sourceIncome); ?>
+                <label class="label">Contract Labor</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+                <?php generateCheckboxes($sourceIncome); ?>
+                <label class="label">Employment</label>
+            </td>
+
+            <td width="15%">
+                <?php generateCheckboxes($sourceIncome); ?>
+                <label class="label">Agricultural Wage</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+                <?php generateCheckboxes($sourceIncome); ?>
+                <label class="label">Business</label>
+            </td>
+
+            <td width="15%">
+                <?php generateCheckboxes($sourceIncome); ?>
+                <label class="label">others (specify)</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 
 
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <td width="10%"></td>
-                    <td class="bold">
-                        Source of income
-                    </td>
 
-                </tr>
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="10%"></td>
+            <td>Number of years in farming:<span class="underline">  </span></td>
+        </tr>
+        <tr>
+            <td width="10%"></td>
+            <td>Number of available workers:<span class="underline"> </span></td>
+        </tr>
+        <tr>
+            <td width="10%"></td>
+            <td>
+                Available farm tools and implements:
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-            </tbody>
-        </table>
-        <table width="100%">
-            <tbody>
-
-      <tr>
-     
-                <td width="5%"></td>
-                    <td width="10%">
-                        <div class="checkbox"></div>
-                        <label class="label">Sale of agricultural product</label>
-                    </td>
-
-                    <td width="15%">
-                        <div class="checkbox"></div>
-                        <label class="label">Sale of agricultura product</label>
-                    </td>
-
-                </tr>
-
-            </tbody>
-        </table>
-
-
-        <table width="100%">
-            <tbody>
-                <tr>
-     
-                <td width="5%"></td>
-                    <td width="10%">
-                        <div class="checkbox"></div>
-                        <label class="label">Employment</label>
-                    </td>
-
-                    <td width="15%">
-                        <div class="checkbox"></div>
-                        <label class="label">Agricultural Wage</label>
-                    </td>
-
-                </tr>
-
-            </tbody>
-        </table>
-
-
-
-        <table width="100%">
-            <tbody>
-                <tr>
-     
-                <td width="5%"></td>
-                    <td width="10%">
-                        <div class="checkbox"></div>
-                        <label class="label">Business</label>
-                    </td>
-
-                    <td width="15%">
-                        <div class="checkbox"></div>
-                        <label class="label">others (specify)</label>
-                    </td>
-
-                </tr>
-
-            </tbody>
-        </table>
-
-
-        
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <td width="10%"></td>
-                    <td>Number of years in farming:<span class="underline"> <?php echo $years_in_farming;?> </span></td>
-
-                </tr>
-                <tr>
-                    <td width="10%"></td>
-                    <td>Number of available workers:<span class="underline"> <?php echo $available_workers;?> </span></td>
-
-                </tr>
-                <tr>
-                    <td width="10%"></td>
-                    <td>
-                Available farm tools and implements
-                </td>
-
-                </tr>
-            </tbody>
-        </table>
 
         <table width="100%">
             <tbody>
