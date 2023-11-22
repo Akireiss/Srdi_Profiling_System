@@ -764,7 +764,7 @@ class db
             'n_income' => $n_income
         ]);
 
-        $auditSql = "INSERT INTO audit_logs (action, data) VALUES ('$action', '$data')";
+        $auditSql = "INSERT INTO audit_logs (action, user_id, data) VALUES ('$action','$user_id', '$data')";
         $auditResult = mysqli_query($this->$con, $auditSql);
         return $resultsql = 1;
 
@@ -1318,7 +1318,7 @@ class db
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
                 $auditResult = mysqli_query($this->$con, $auditSql);
                 return $resultsql = 1;
-            }
+            } 
 
         }
     }

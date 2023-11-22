@@ -41,7 +41,7 @@ if (isset($_GET['submit'])) {
   // You can now use $reportData to display or further process the report data
   print_r($reportData); // Example: Display the data
 } else {
-  echo "Please select a report type.";
+ 
 }
 
 ?>
@@ -65,11 +65,11 @@ if (isset($_GET['submit'])) {
 
     <section class="section">
 
-      <div class="row">
+      <div class="row ">
         <div class="col-lg-12">
           <div class="card">
-            <div class="card-body">
-              <form class="row g-3 needs-validation" action="../pdf/report.php" method="GET" id="reportForm" target="_blank">
+            <div class="card-body ">
+              <form class="row mt-3 needs-validation md:w-full" novalidate action="../pdf/report.php" method="GET" id="reportForm" target="_blank">
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Choose Report<font color="red">*</font></label>
                   <select class="form-select" aria-label="Default select example" name="report_type" id="report" required>
@@ -80,7 +80,7 @@ if (isset($_GET['submit'])) {
                   </select>
                 </div>
 
-                <div class="row mt-4 needs-validation md:w-full" novalidate>
+                <div class="row mt-3 needs-validation md:w-full" novalidate>
           <div class="col-md-3 position-relative">
                   <label class="form-label">Region<font color = "red">*</font></label>
                   <div class="col-sm-12">
@@ -144,28 +144,33 @@ if (isset($_GET['submit'])) {
 
 
                 
-                <div class="col-md-2 position-relative">
+               
+                <div class="row mt-3 needs-validation md:w-full" novalidate>
+                <div class="col-md-3 position-relative">
                   <label class="form-label">Date from</label>
                   <div class="col-sm-12">
                     <input type="date" class="form-control" aria-label="Default select example" name="date_from" id="date_from" required>
                   </div>
                 </div>
 
-
-                <div class="col-md-2 position-relative">
+                
+                
+                
+                <div class="col-md-3 position-relative">
                   <label class="form-label">Date to</label>
                   <div class="col-sm-12">
                     <input type="date" class="form-control" aria-label="Default select example" name="date_to" id="date_to" required>
                   </div>
                 </div>
+                 </div>
 
-                
+                 <div class="row mt-3 needs-validation md:w-full" novalidate>
                 <div class="col-12">
                   <button type="submit" class="btn btn-warning" name="submit">Generate Report</button>
                   <button type="reset" class="btn btn-primary">Cancel</button>
                 </div>
               </form>
-
+              </div>
 
             </div>
           </div>

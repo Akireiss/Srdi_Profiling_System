@@ -241,7 +241,7 @@ if (isset($message)) {
                       ?>
               </select>
             
-            <<div class="invalid-feedback">
+            <div class="invalid-feedback">
                 The Educational Attainment field is required
                 </div> 
             </div>
@@ -380,49 +380,36 @@ The Number of available workers field is required
 </div>
 
   </div>
-  <div>
+  <div class="invalid-feedback">
   The Available farm tools field is required
   </div>
 </div>
 
 <!-- Add some spacing here -->
-              <div class="my-4"></div>
+        <div class="my-4"></div>
 
-              <div class="row">
-  <div class="col-md-6 ">
-    <div class="form-group">
-      <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg">
-      <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
-    </div>
-    <div>
-  The ID Picture field is required
-  </div>
-  </div>
-
-
+        <div class="row">
+          <div class="col-md-6 ">
+            <div class="form-group">
+              <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg">
+              <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
+            </div>
+          </div>
 
           <div class="col-md-6 d-flex justify-content-end">
-          <div class="form-group">
-            <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
-            <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
+            <div class="form-group">
+              <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
+              <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
+            </div>
           </div>
-          <div>
-          The Letter of Intent is required
-          </div>
-        </div>
-
         </div>
               
-
          <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg">
               <label for="validationCustom04" class="form-label">2x2 Picture (JPEG only)</label>
             </div>
-          <div>
-            The 2x2 Picture field is required
-          </div>
           </div>
 
           <div class="col-md-6 d-flex justify-content-end">
@@ -431,9 +418,6 @@ The Number of available workers field is required
               <label for="validationCustom05" class="form-label">Signature of Farmer Cooperator (JPEG only)</label>
             </div>
           </div>
-        <div>
-          The Signature field is required
-        </div>
         </div>
 
         <div class="col-12 d-flex align-items-end justify-content-end gap-2">

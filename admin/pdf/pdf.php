@@ -64,14 +64,19 @@
             //Site Table
                 $location             = $row->location; 
                 $distance             = $row->distance; 
-                $land_area             = $row->land_area;
-                $area                   = $row->area;
+                $land_area            = $row->land_area;
+                $area                 = $row->area;
+                $names                = $row->names;
+                $position             = $row->position;
+                $date                 = $row->date;
+                $birthdate            = $row->birthdate;
             //Production Table
                 $production_date      = $row->production_date;
                 $total_production     = $row->total_production;
                 $p_income    = $row->p_income;
                 $p_cost     = $row->p_cost;
                 $n_income     = $row->n_income;
+            
 
     
             }
@@ -102,8 +107,9 @@
             }
 
             table td {
-                /* border: 1px solid black; */
                 padding: 5px;
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-size: 16px;
             }
 
             table th {
@@ -143,6 +149,8 @@
 
             .label {
                 display: inline-block;
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+
             }
 
             .center {
@@ -156,24 +164,25 @@
             .margin{
                 margin: 4px;
             }
+            .line{
+                border-bottom: 1px solid black;
+            }
+            /* .mb{
+                margin-bottom: 70px;
+            } */
         </style>
     </head>
 
     <body>
-
-        <table width="100%">
-            <tbody>
-            <!-- <td><img src="admin/img/Logo.jpg"></td> -->
-                <td class="center bold">SERICULTURE RESEARCH DEVELOPMENT INSTITUTE <br />
-                    FARMER COOPERATOR'S INFORMATION <br />
-                    and SITE INSPECTON SHEET </td>
-
-
-            </tbody>
-        </table>
-
-        <br />
-        <table width="100%">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        
+        <table width="100%" style="margin-bottom: 5px">
             <tbody>
                 <tr>
 
@@ -181,20 +190,25 @@
                 </tr>
                 <tr>
 
-                    <td class="bold margin">A. Personal Information:</td>
+                    <td class="bold margin mb">A. Personal Information:</td>
+                    
                 </tr>
             </tbody>
         </table>
 
-        <table width="100%">
+        <table>
             <tbody>
                 <tr>
-                    <td width="55%">Name: <span class="underline"> <?php echo $name?> </span></td>
-                    <td width="25%">Age:<span class="underline"> <?php echo $age?> </span></td>
-                    <td width="20%">Sex: <span class="underline"> <?php echo $sex?> </span></td>
+                    <td width="15%">Name: <span class="underline"> <?php echo $name?> </span></td>
+                    <td width="15%">Birthdate: <span class="underline"> <?php echo $birthdate?> </span></td>
+                    <td width="15%">Age:<span class="underline"> <?php echo $age?> </span></td>
+                    <td width="15%">Sex: <span class="underline"> <?php echo $sex?> </span></td>
                 </tr>
+                </table>
+
+                <table>
                 <tr>
-                    <td width="100%">Permanent Address: <span class="underline"> <?php echo $regname?> </span></td>
+                    <td width="80%">Permanent Address: <span class="underline"> <?php echo $barangayName?>, <?php echo $citymunName?>, <?php echo $provName ?></span></td>
                 </tr>
             </tbody>
         </table>
@@ -214,8 +228,8 @@
             <tbody>
                 <tr>
                     <td width="6%"></td>
-                    <td width="25%">Civil Status:<span class="underline"> <?php echo $civilName?> </span></td>
-                    <td width="80%">If married, name of spouse:<span class="underline"> <?php echo $name_spouse?> </span></td>
+                    <td width="50%">Civil Status:<span class="underline"> <?php echo $civilName?> </span></td>
+                    <td width="50%">If married, name of spouse:<span class="underline"> <?php echo $name_spouse?> </span></td>
                 </tr>
 
 
@@ -300,10 +314,10 @@ $sourceIncome = [4, 7, 10];
 ?>
 
 
-<table width="100%">
+<table width="100%" style="margin-bottom: 10px">
     <tbody>
         <tr>
-            <td width="10%"></td>
+            <td width="6%"></td>
             <td class="bold">
                 Source of income
             </td>
@@ -316,12 +330,13 @@ $sourceIncome = [4, 7, 10];
         <tr>
             <td width="5%"></td>
             <td width="10%">
-                <?php generateCheckboxes($sourceIncome); ?>
+            <div class="checkbox"></div>
                 <label class="label">Sale of agricultural product</label>
             </td>
 
             <td width="15%">
-                <?php generateCheckboxes($sourceIncome); ?>
+            <div class="checkbox"></div>
+
                 <label class="label">Contract Labor</label>
             </td>
         </tr>
@@ -333,7 +348,7 @@ $sourceIncome = [4, 7, 10];
         <tr>
             <td width="5%"></td>
             <td width="10%">
-                <?php generateCheckboxes($sourceIncome); ?>
+            <div class="checkbox"></div>
                 <label class="label">Employment</label>
             </td>
 
@@ -345,7 +360,7 @@ $sourceIncome = [4, 7, 10];
     </tbody>
 </table>
 
-<table width="100%">
+<table width="100%" style="margin-bottom: 5px">
     <tbody>
         <tr>
             <td width="5%"></td>
@@ -355,7 +370,7 @@ $sourceIncome = [4, 7, 10];
             </td>
 
             <td width="15%">
-                <?php generateCheckboxes($sourceIncome); ?>
+            <div class="checkbox"></div>
                 <label class="label">others (specify)</label>
             </td>
         </tr>
@@ -365,17 +380,19 @@ $sourceIncome = [4, 7, 10];
 
 
 
-<table width="100%">
+<table width="75%">
     <tbody>
-        <tr>
-            <td width="10%"></td>
-            <td>Number of years in farming:<span class="underline">  </span></td>
+        <tr style="margin-bottom: 5px">
+ 
+            <td></td>
+            <td >Number of years in farming:<span class="underline"> <?php echo $years_in_farming;?>  </span></td>
+
         </tr>
-        <tr>
+        <tr  style="margin-bottom: 5px">
             <td width="10%"></td>
-            <td>Number of available workers:<span class="underline"> </span></td>
+            <td>Number of available workers:<span class="underline"><?php echo $available_workers;?>  </span></td>
         </tr>
-        <tr>
+        <tr  style="margin-bottom: 5px">
             <td width="10%"></td>
             <td>
                 Available farm tools and implements:
@@ -386,6 +403,93 @@ $sourceIncome = [4, 7, 10];
 
 
         <table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Water pump</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Knapsack sprayer</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Irrigation hose</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Thresher</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="checkbox"></div>
+                
+                <label class="label">Hand Tractor</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Farm Tools</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Draft animal</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Plow</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+        <table width="100%" style="margin-top: 10px">
             <tbody>
                 <tr>
         
@@ -401,25 +505,143 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-                    <td widt="5%"></td>
-                    <td>Farm Location/Address:<span class="underline"> <?php echo $location;?> </span></td>
+                    <td width="5%"></td>
+                    <td width="80%">Farm Location/Address:<span class="underline"> <?php echo $location;?> </span></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+
+        <tr>
+                    <td></td>
+                    <td class="bold" width="15%">Land Types:</td>
+                    <td class="bold" width="20%">Tenancy Status:</td>
+                    <td class="bold" width="15%">Area(Hectares):<span class="underline"> <?php echo $area;?> </span></td>
+                    <td class="bold" width="20%">Crops Grovwn:</td>
+                    <td class="bold" width="20%">%Share:</td>
                 </tr>
 
+
+                </tr>
+            </tbody>
+        </table>
+        <!-- Data here -->
+
+
+        
+        <table width="100%">
+            <tbody>
                 <tr>
-                    <td class="bold" widt="5%"></td>
-                    <td>Land Types:</td>
-                    <td>Tenancy Status:</td>
-                    <td>Area(Ha):<span class="underline"> <?php echo $area;?> </span></td>
-                    <td>Crops Grown:</td>
-                    <td>%Share:</td>
+
+        <tr>
+                    <td></td>
+
+                    <td  width="14%">
+                        <div class="checkbox"></div>
+                    <label for="Uplands">Uplands</label>
+                </td>
+
+                    <td width="20%"><div class="checkbox"></div>
+                    <label for="Uplands">Owned</label></td>
+
+                    <td  width="20%"><span class="underline"></span></td>
+
+                    <td width="20%"></td>
+
+                    <td  width="20%"></td>
+                </tr>
+
+
                 </tr>
             </tbody>
         </table>
 
         
+      
+  
+
+        <table width="100%">
+            <tbody>
+                <tr>
+
+        <tr>
+                    <td></td>
+
+                    <td width="14%">
+                        <div class="checkbox"></div>
+                    <label for="Uplands">Low</label>
+                </td>
+
+                    <td  width="20%"><div class="checkbox"></div>
+                    <label for="Uplands">Leased</label></td>
+
+                    <td  width="20%"><span class="underline"></span></td>
+
+                    <td  width="20%"></td>
+
+                    <td  width="20%"></td>
+                </tr>
+
+
+                </tr>
+            </tbody>
+        </table>
+    
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+
+        <tr>
+                    <td width=""></td>
+
+                    <td width="14%""><div class="checkbox"></div>
+                    <label for="Uplands">Hilly</label></td>
+
+                    <td" width="20%"><div class="checkbox"></div>
+                    <label for="Uplands">Tenancy</label></td>
+
+                    <td" width="20%"><span class="underline">  </span></td>
+
+                    <td" width="20%"></td>
+
+                    <td" width="20%"></td>
+                </tr>
+
+
+                </tr>
+            </tbody>
+        </table>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- NExt -->
         <div class="page-break"></div>
+
+        <br>
         <table width="100%">
+
+
             <tbody>
                 <tr>
                   <td>Availability of reliable irrigation:</td>
@@ -433,42 +655,60 @@ $sourceIncome = [4, 7, 10];
                     </td>
                 </tr>
             </tbody>
+
+
         </table>
+
+
+        <table width="100%">
+
+
+<tbody>
+    <tr>
+        <td width="10%">
+
+        </td>
+      <td  width="40%">Water Source:</td>
+      <td>
+            <div class="checkbox"></div>
+            <label class="label">Irrigated</label>
+        </td>
+        <td>
+            <div class="checkbox"></div>
+            <label class="label">Rainfed</label>
+        </td>
+    </tr>
+</tbody>
+
+
+</table>
+
+
+
+      
 
         <table width="100%">
             <tbody>
                 <tr>
-                    <td></td>
-                  <td >Water Source:</td>
-                  <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Irrigated</label>
-                    </td>
-                    <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Rainfed</label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <td></td>
-                  <td >If irrigated, source of irrigation:</td>
-                  <td>
+                <td ">
+                  <td>If irrigated, source of irrigation:</td>
+                  <td  >
                         <div class="checkbox"></div>
                         <label class="label">River</label>
                     </td>
+
+
                     <td>
                         <div class="checkbox"></div>
                         <label class="label">Deep well</label>
                     </td>
-                    <td>
+
+                    <td class="mb">
                         <div class="checkbox"></div>
                         <label class="label">NIA</label>
                     </td>
+
+
                 </tr>
             </tbody>
         </table>
@@ -520,15 +760,16 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-                  <td >Available land area for planting mulberry: <span class="underline"> <?php echo $land_area;?> </span>ha:</td>  
+                  <td >Available land area for planting mulberry: <span class="underline"> <?php echo $land_area;?> </span>hectares:</td>  
                 </tr>
             </tbody>
         </table>
-
+<br>
+<br>
         <table width="100%">
             <tbody>
                 <tr>
-                    <td width="50%"></td>
+                    <td width="60%"></td>
                   <td >Signature of Framer Cooperator:</td>  
                 </tr>
             </tbody>
@@ -550,14 +791,15 @@ $sourceIncome = [4, 7, 10];
                 </tr>
             </tbody>
         </table>
+<br>
 
         <table width="100%">
             <tbody>
                 <tr>
-                  <td >Name</td>
-                  <td >Position</td> 
+                  <td  width="25%">Name <div class="underline"> <?php echo $names;?> </div></td>
+                  <td width="25%">Position <div class="underline"> <?php echo $position;?> </d></td> 
                   <td >Signature</td>  
-                  <td >Date</td>  
+                  <td width="20%">Date <div class="underline"> <?php echo $date;?> </div></td>  
                 </tr>
             </tbody>
         </table>
@@ -565,8 +807,9 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-        
-                    <td class="bold">
+
+    <br>           
+    <td class="bold">
           B. Production
                 </td>
     
@@ -577,7 +820,7 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-                    <td >Production Date: <?php echo $production_date ?></td>
+                    <td >Production Date:<span class="underline"> <?php echo $production_date;?></td>
                 </tr>
             </tbody>
         </table>    
@@ -587,13 +830,15 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-                    <td >Production Cost: <?php echo $location ?>  </td>
-                    <td>Gross Income: <?php echo  $p_income  ?> </td>
-                    <td>Production Cost: <?php echo $p_cost  ?> </td>
-                    <td>Net Income: <?php echo $n_income  ?> </td>
+                    <td width ="30%">Project Site Location: <div class="underline"> <?php echo $location;?> </td>
+                    <td width ="15%">Gross Income: <div class="underline"> <?php echo $p_income;?> </td>
+                    <td width ="15%">Production Cost: <div class="underline"> <?php echo $p_cost;?> </td>
+                    <td width ="10%">Net Income: <div class="underline"> <?php echo $n_income;?> </td>
                 </tr>
             </tbody>
         </table>
+
+       
 
 
 

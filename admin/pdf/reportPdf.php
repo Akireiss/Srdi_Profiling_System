@@ -88,9 +88,14 @@
     <body>
 
 
-    <h1><?= $reportType ?> - PDF Report</h1>
+<!--     
+<br>
+<br>
+<br>
+<br>
+<br> -->
 
-    <table width="100%">
+    <table width="100%" style="margin-top:10rem;">
         <tbody>
             <td class="center main bold">
                 <?php
@@ -128,7 +133,7 @@
                     case 'REP01':
                         echo '<td class="center padding">Name</td>';
                         echo '<td class="center padding">Complete Address</td>';
-                        echo '<td class="center padding">Status</td>';
+                        echo '<td class="center padding">Civil Status</td>';
                         echo '<td class="center padding">Name of Spouse</td>';
                         echo '<td class="center padding">Age</td>';
                         echo '<td class="center padding">Birthdate</td>';

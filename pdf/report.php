@@ -129,7 +129,9 @@ if (isset($_GET['submit'])) {
             LEFT JOIN cocoon
             ON cocoon.cocoon_id = production.producer_id
             LEFT JOIN site
-            ON cocoon.cocoon_id = site.producer_id');
+            ON cocoon.cocoon_id = site.producer_id
+            ORDER BY cocoon.name ASC'   
+        );
             while ($row = $result->fetch_assoc()) {
                 $reportData[] = $row;
             }

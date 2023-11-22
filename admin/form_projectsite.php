@@ -49,6 +49,7 @@ if(!isset($_SESSION['user_id'])) {
     $adopters= $_POST['adopters'];
 
     $remarks= $_POST['remarks'];
+    
     $names= $_POST['names'];
     $position= $_POST['position'];
     $date = $_POST['date'];
@@ -421,38 +422,31 @@ if (isset($message)) {
                 field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
             </div>
          
-            <div class="col-md-4 position-relative">
+<div id="inputs-container">
+
+            <div class="input-set" style="display: none;">
+    <div class="row">
+        <div class="col-md-4 position-relative">
             <div class="form-group">
-              <label class="form-label">Name<font color="red">*</font></label>
-              <input type="text" class="form-control" id="validationTooltip01" name="names">
-              <div class="mt-2"></div> 
-              <input type="text" class="form-control" id="validationTooltip02" name="names">
-              <div class="mt-2"></div> 
-              <input type="text" class="form-control" id="validationTooltip03" name="names">
+                <label class="form-label">Name<font color="red">*</font></label>
+                <input type="text" class="form-control" name="names[]">
             </div>
-          </div>
+        </div>
+        <div class="col-md-4 position-relative">
+            <label class="form-label">Position<font color="red">*</font></label>
+            <input type="text" class="form-control" name="positions[]">
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustom04" class="form-label">Date<font color="red">*</font></label>
+            <input type="date" class="form-control" name="dates[]">
+        </div>
+    </div>
+</div>
 
-                
-                <div class="col-md-4 position-relative">
-                  <label class="form-label">Position<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" >
-                  <div class="mt-2"></div>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" >
-                  <div class="mt-2"></div>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "position" > 
-                </div>
+</div>
 
-              <div class="col-md-4 ">
-                <label for="validationCustom04" name="date" class="form-label">Date<font color = "red">*</font></label>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-                <div class="mt-2"></div>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-                <div class="mt-2"></div>
-                <input type="date" class="form-control" id="validationCustom05" name="date">
-              </div>
 
-            </div>
-            <!-- ends -->
+
 
 
 
@@ -597,6 +591,17 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 </script>
 
+<script>
+    $(document).ready(function () {
+        // Clone the input-set and append it three times
+        for (let i = 0; i < 3; i++) {
+            $('.input-set').clone().appendTo('#inputs-container').removeAttr('style');
+        }
+
+        // Remove extra input-sets beyond the third one
+        $('#inputs-container .input-set:gt(3)').remove();
+    });
+</script>
 
   </body>
   </html>

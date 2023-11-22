@@ -20,7 +20,7 @@ $barCount = $db->barChart();
 <body>
 
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/sidebar.director.php' ?>
+  <?php include '../includes/sidebar.php' ?>
 
   <main id="main" class="main">
 
