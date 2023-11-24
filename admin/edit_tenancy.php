@@ -2,14 +2,17 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $tenancy_id = $_POST['tenancy_id'];
     $tenancy_name = $_POST['tenancy_name'];
     $tenancy_status   = $_POST['tenancy_status'];
-    $result = $db->updateTenancy($tenancy_id, $tenancy_name, $tenancy_status);
+    $result = $db->updateTenancy($user_id, $tenancy_id, $tenancy_name, $tenancy_status);
     $message = ($result != 0) ? "Tenancy Status Successfully Updated" : "Tenancy Status Already Exist!";
   }
 }
@@ -52,6 +55,8 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Tenancy Status Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                                
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">Tenancy Status<font color="red">*</font></label>
                                         

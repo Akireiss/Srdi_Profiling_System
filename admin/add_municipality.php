@@ -45,7 +45,8 @@ if(!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
-
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+              
               <div class="col-md-6 position-relative">
                   <label class="form-label"> Municipality Description<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name = "region" required autofocus="autofocus">

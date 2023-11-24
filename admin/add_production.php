@@ -2,11 +2,13 @@
 session_start();
 include "../db_con.php";
 $db = new db();
+$user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
+        $user_id = $_POST['user_id'];
         $producer_id = $_POST['producer_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
@@ -26,7 +28,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-        $result = $db->addProduction($producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
+        $result = $db->addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -109,6 +111,7 @@ if (!isset($_SESSION['user_id'])) {
             ?>
     </select>
 </div>
+<input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 

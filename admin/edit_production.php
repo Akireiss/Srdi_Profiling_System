@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
         $producer_id = $_POST['producer_id'];
+        $user_id = $_POST['user_id'];
 
         // Calculate net income
 
@@ -20,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $total;
 
         // Add the production record to the database
-        $result = $db->updateProduction($production_id, $production_date, 
+        $result = $db->updateProduction($user_id, $production_id, $production_date, 
         $total_production, $p_income, $p_cost, $n_income, $producer_id);
 
         if ($result != 0) {

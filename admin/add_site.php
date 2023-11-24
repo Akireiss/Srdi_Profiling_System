@@ -1,11 +1,15 @@
+<?php
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
     // Get data from the form
+    $user_id = $_POST['user_id'];
     $location = $_POST['location'];
     $producer_name = $_POST['producer_name'];
     $topography = $_POST['topography'];
@@ -36,7 +40,7 @@ if (!isset($_SESSION['user_id'])) {
     $date = $_POST['date'];
 
     // Add the site to the database without checking for existing sites with the same name
-    $result = $db->addSite($location, $producer_name, $topography, $region, $province, $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, $water, $source, $soil, $market, $distance, $land_area, $agency, $charge, $adopters, $status, $remarks, $name, $position, $date);
+    $result = $db->addSite($user_id, $location, $producer_name, $topography, $region, $province, $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, $water, $source, $soil, $market, $distance, $land_area, $agency, $charge, $adopters, $status, $remarks, $name, $position, $date);
 
     if ($result != 0) {
       $message = "Site Successfully Added!";
@@ -92,8 +96,11 @@ if (isset($message)) {
                   </div>
                 </div>
 
+                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+
                 <div class="col-md-12 position-relative">
-    <label class="form-label">Producer Name<font color="red">*</font></label>
+    <label class="form-label">Producer Name  <?php echo $user_id ?>
+      <font color="red">*</font></label>
     <select name="producer_name" class="form-select" id="validationCustom04" required>
         <option selected>Select Producer Name</option>
         <?php

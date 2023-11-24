@@ -77,7 +77,7 @@ if (isset($_GET['submit'])) {
                 LEFT JOIN municipality ON cocoon.municipality = municipality.citymunCode
                 LEFT JOIN barangay ON cocoon.barangay = barangay.brgyCode
                 LEFT JOIN religion ON cocoon.religion = religion.religion_id
-            ";
+             ";
     
             if (!empty($whereConditions)) {
                 $query .= " WHERE " . implode(" AND ", $whereConditions);
@@ -110,7 +110,7 @@ if (isset($_GET['submit'])) {
 
             $query = "SELECT * FROM site
             LEFT JOIN cocoon ON cocoon.cocoon_id = site.producer_id
-  ";
+            ";
   
   if (!empty($whereConditions)) {
       $query .= " WHERE " . implode(" AND ", $whereConditions);

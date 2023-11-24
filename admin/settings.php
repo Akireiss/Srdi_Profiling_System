@@ -74,9 +74,9 @@ if(!isset($_SESSION['user_id'])) {
           <li class="list-group-item">
             <a href="farm_tools.php" class="card-link">Farm Tools</a>
           </li>
-          <li class="list-group-item">
+          <!-- <li class="list-group-item">
             <a href="year.php" class="card-link">Years</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
