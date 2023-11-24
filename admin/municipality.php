@@ -49,7 +49,7 @@
     $result = $db->getMunicipality();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_municipality.php?municiplaity_id=' . $row['municipality_id'] . '">' . $row['citymunDesc'] . '</a></td>';
+        echo '<td>' . $row['citymunDesc'] . '</a></td>';
         echo '<td>' . $row['provDesc'] . '</td>';
         echo '<td>' . $row['regDesc'] . '</td>';
         echo '<td>' . $row['citymunCode'] . '</td>';

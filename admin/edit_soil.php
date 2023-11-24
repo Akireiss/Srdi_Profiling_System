@@ -2,14 +2,17 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $soil_id = $_POST['soil_id'];
     $soil_name = $_POST['soil_name'];
     $soil_status   = $_POST['soil_status'];
-    $result = $db->updateSoil($soil_id, $soil_name, $soil_status);
+    $result = $db->updateSoil($user_id, $soil_id, $soil_name, $soil_status);
     $message = ($result != 0) ? "Soil Type Successfully Updated" : "Soil Type Already Exist!";
   }
 }
@@ -52,6 +55,8 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Soil Type Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                                
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">Soil Type<font color="red">*</font></label>
                                         

@@ -48,7 +48,7 @@
     $result = $db->getLand();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_land.php?land_id=' . $row['land_id'] . '">' . $row['land_name'] . '</a></td>';
+        echo '<td>' . $row['land_name'] . '</a></td>';
         echo '<td>' . $row['land_status'] . '</td>';
         echo '<td>';
         echo '<a href="view_land.php?land_id=' . $row['land_id'] . '"><i class="ri-eye-line"></i></a>';

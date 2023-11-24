@@ -47,7 +47,7 @@
 $result = $db->getTopography();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_topography.php?topography_id=' . $row['topography_id'] . '">' . $row['topography_name'] . '</a></td>';
+    echo '<td>' . $row['topography_name'] . '</a></td>';
     echo '<td>' . $row['topography_status'] . '</td>';
     echo '<td>';
     echo '<a href="view_topography.php?topography_id=' . $row['topography_id'] . '"><i class="ri-eye-line"></i></a>';

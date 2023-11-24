@@ -47,7 +47,7 @@
     $result = $db->getUserType();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_user_type.php?user_type_id=' . $row['user_type_id'] . '">' . $row['user_type_name'] . '</a></td>';
+        echo '<td>' . $row['user_type_name'] . '</a></td>';
         echo '<td>' . $row['user_type_status'] . '</td>';
         echo '<td>';
         echo '<a href="view_user_type.php?user_type_id=' . $row['user_type_id'] . '"><i class="ri-eye-line"></i></a>';

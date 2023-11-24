@@ -48,7 +48,7 @@
       $result = $db->getSource_Income();
       while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_income.php?source_id=' . $row['source_id'] . '">' . $row['source_name'] . '</a></td>';
+    echo '<td>' . $row['source_name'] . '</a></td>';
     echo '<td>' . $row['source_status'] . '</td>';
     echo '<td>';
     echo '<a href="view_income.php?source_id=' . $row['source_id'] . '"><i class="ri-eye-line"></i></a>';

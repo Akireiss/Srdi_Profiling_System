@@ -47,7 +47,7 @@
     $result = $db->getFarmTools();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_tools.php?tool_id=' . $row['tool_id'] . '">' . $row['tool_name'] . '</a></td>';
+        echo '<td>' . $row['tool_name'] . '</a></td>';
         echo '<td>' . $row['tool_status'] . '</td>';
         echo '<td>';
         echo '<a href="view_tools.php?tool_id=' . $row['tool_id'] . '"><i class="ri-eye-line"></i></a>';

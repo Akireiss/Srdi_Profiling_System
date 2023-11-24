@@ -47,7 +47,7 @@
     $result = $db->getEducation();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_education.php?education_id=' . $row['education_id'] . '">' . $row['education_name'] . '</a></td>';
+        echo '<td>' . $row['education_name'] . '</a></td>';
         echo '<td>' . $row['education_status'] . '</td>';
         echo '<td>';
         echo '<a href="view_education.php?education_id=' . $row['education_id'] . '"><i class="ri-eye-line"></i></a>';

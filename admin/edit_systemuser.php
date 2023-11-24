@@ -2,17 +2,19 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$users_id = $_SESSION['users_id'];
+
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
-    $user_id = $_POST['user_id']; 
+    $users_id = $_POST['users_id']; 
     $fullname = $_POST['fullname']; 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $type_id = $_POST['user_type_id'];
     $user_status   = $_POST['user_status'];
-    $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status);
+    $resultUser = $db->updateUser($users_id, $fullname, $username, $password, $type_id, $user_status, $user_id);
     $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
   }
 }
@@ -68,6 +70,7 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="users_id" value="<?php echo $users_id ?>">
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Fullname<font color="red">*</font></label>
@@ -92,7 +95,8 @@ if (!isset($_SESSION['user_id'])) {
                 
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Password<font color="red">*</font></label>
-                  <input type="password" minlength="8" class="form-control" id="password" name="password" required>
+                  <input type="password" minlength="8" class="form-control" id="password" name="password" 
+                  value = "<?php echo $password;?>" required>
                   <input type="checkbox" onclick="myFunction()">Show Password
                   <div class="invalid-tooltip">
                     The Password must be minimum of 8 characters.

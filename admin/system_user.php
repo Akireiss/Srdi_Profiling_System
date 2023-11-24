@@ -48,7 +48,7 @@
     $result = $db->getUser();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_systemuser.php?user_id=' . $row['user_id'] . '">' . $row['fullname'] . '</a></td>';
+        echo '<td>' . $row['fullname'] . '</a></td>';
         echo '<td>' . $row['username'] . '</td>';
         echo '<td>' . $row['user_type_name'] . '</td>';
         

@@ -50,7 +50,7 @@
     $result = $db->getBarangay();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_user.php?id=' . $row['barangay_id'] . '">' . $row['brgyCode'] . '</a></td>';
+        echo '<td>' . $row['brgyCode'] . '</a></td>';
         echo '<td>' . $row['brgyDesc'] . '</td>';
         echo '<td>' . $row['regCode'] . '</td>';
         echo '<td>' . $row['provCode'] . '</td>';

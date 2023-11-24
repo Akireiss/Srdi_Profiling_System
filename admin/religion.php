@@ -47,7 +47,7 @@
 $result = $db->getReligion();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_religion.php?religion_id=' . $row['religion_id'] . '">' . $row['religion_name'] . '</a></td>';
+    echo '<td>' . $row['religion_name'] . '</a></td>';
     echo '<td>' . $row['religion_status'] . '</td>';
     echo '<td>';
     echo '<a href="view_religion.php?religion_id=' . $row['religion_id'] . '"><i class="ri-eye-line"></i></a>';

@@ -47,7 +47,7 @@
     $result = $db->getTenancy();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_tenancy.php?tenancy_id=' . $row['tenancy_id'] . '">' . $row['tenancy_name'] . '</a></td>';
+        echo '<td>' . $row['tenancy_name'] . '</a></td>';
         echo '<td>' . $row['tenancy_status'] . '</td>';
         echo '<td>';
         echo '<a href="view_tenancy.php?tenancy_id=' . $row['tenancy_id'] . '"><i class="ri-eye-line"></i></a>';

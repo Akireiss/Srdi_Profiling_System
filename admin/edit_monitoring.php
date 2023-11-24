@@ -2,15 +2,18 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
-    $monitoring_id = $_POST['monitoring_id'];
+    $user_id  = $_POST['user_id'];
+    $m_id = $_POST['m_id'];
     $monitoring_name = $_POST['monitoring_name'];
     $position       = $_POST['position'];
     $status   = $_POST['status'];
-    $result = $db->updateMonitoring($monitoring_id, $monitoring_name, $position, $status);
+    $result = $db->updateMonitoring($user_id, $m_id, $monitoring_name, $position, $status);
     $message = ($result != 0) ? "Monitoring Team Successfully Updated" : "Monitoring Team Already Exist!";
   }
 }
@@ -37,12 +40,12 @@ if(!isset($_SESSION['user_id'])) {
 
     <section class="section"> 
         <?php
-             $result=$db->getMonitoringID($_GET['monitoring_id']);
+             $result=$db->getMonitoringID($_GET['m_id']);
             while($row=mysqli_fetch_object($result)){
-                $monitoringID     	= $row->monitoring_id;
+                $mID     	        = $row->m_id;
                 $monitoring_name   	= $row->monitoring_name;
-                $position   	= $row->position;
-                $status 	= $row->status;
+                $position   	    = $row->position;
+                $status 	        = $row->status;
             }
         ?>
          <div class="pagetitle">
@@ -54,11 +57,13 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Monitoring Team Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">Name<font color="red">*</font></label>
                                         
-                                         <input type="hidden" class="form-control" id="validationTooltip01" name="monitoring_id"
-                                         value = "<?php echo $mmonitoringID;?>" required>
+                                        <input type="hidden" class="form-control" id="validationTooltip01" name="m_id"
+                                         value = "<?php echo $mID;?>" required>
                                          <input type="text" class="form-control" id="validationTooltip01" name="monitoring_name"
                                         value = "<?php echo $monitoring_name;?>" required>
                                     </div>

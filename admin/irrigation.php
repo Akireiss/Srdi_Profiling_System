@@ -47,7 +47,7 @@
     $result = $db->getIrrigation();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_irrigation.php?irrigation_id=' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</a></td>';
+        echo '<td>' . $row['irrigation_name'] . '</a></td>';
         echo '<td>' . $row['irrigation_status'] . '</td>';
         echo '<td>';
         echo '<a href="view_irrigation.php?irrigation_id=' . $row['irrigation_id'] . '"><i class="ri-eye-line"></i></a>';

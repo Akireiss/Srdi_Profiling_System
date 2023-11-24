@@ -47,7 +47,7 @@
 $result = $db->getRegion();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_region.php?region_id=' . $row['region_id'] . '">'  . $row['regDesc']  .'</a></td>';
+    echo '<td>'  . $row['regDesc']  .'</a></td>';
     echo '<td>' . $row['psgcCode'] . '</td>';
     echo '<td>' . $row['regCode'] . '</td>';
     echo '<td>';

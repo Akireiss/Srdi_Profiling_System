@@ -501,10 +501,11 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-    public function getMonitoringID($monitoring_id)
+    public function getMonitoringID($m_id)
     {
-        $sql = "SELECT * FROM monitoring
-				 WHERE monitoring_id='$monitoring_id'";
+        $sql = "SELECT * FROM monitoring_team
+				 WHERE m_id='$m_id'";
+                 
         $result = mysqli_query($this->$con, $sql);
         return $result;
 
@@ -555,7 +556,7 @@ class db
     {
         $sql = "SELECT * FROM audit_logs
                 LEFT JOIN users
-                ON audit_logs.user_id =users.user_id ";
+                ON audit_logs.user_id = users.user_id ";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
@@ -738,34 +739,73 @@ class db
         }
     }
 
-    public function updateIrrigation($irrigation_id, $irrigation_name, $irrigation_status)
+    public function updateIrrigation($user_id, $irrigation_id, $irrigation_name, $irrigation_status)
     {
         $sql = "UPDATE irrigation
 				SET irrigation_name = '$irrigation_name',
 					irrigation_status	='$irrigation_status'
 				WHERE irrigation_id	='$irrigation_id'";
         $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Source of Irrigation: ";
+            $data = json_encode([
+                'irrigation_name' => $irrigation_name,
+                'irrigation_status' => $irrigation_status,
+                'irrigation_id' => $irrigation_id   
+            ]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
-    public function updateSoil($soil_id, $soil_name, $soil_status)
+    public function updateSoil($user_id, $soil_id, $soil_name, $soil_status)
     {
         $sql = "UPDATE soil
 				SET soil_name = '$soil_name',
 				soil_status	='$soil_status'
 				WHERE soil_id	= '$soil_id'";
         $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Soil Type: ";
+            $data = json_encode([
+                'soil_name' => $soil_name,
+                'soil_status' => $soil_status,
+                'soil_id' => $soil_id   
+            ]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
-    public function updateUserType($user_type_id, $user_type_name, $user_type_status)
+    public function updateUserType($user_id, $user_type_id, $user_type_name, $user_type_status)
     {
         $sql = "UPDATE user_type
 				SET user_type_name = '$user_type_name',
 				user_type_status	='$user_type_status'
 				WHERE user_type_id	= '$user_type_id'";
         $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update User Type: ";
+            $data = json_encode([
+                'user_type_name' => $user_type_name,
+                'user_type_status' => $user_type_status,
+                'user_type_id' => $user_type_id   
+            ]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
-    public function updateUser($user_id, $fullname, $username, $password, $type_id, $user_status)
+    public function updateUser($users_id, $fullname, $username, $password, $type_id, $user_status, $user_id)
     {
         $sql = "UPDATE users
 				SET fullname = '$fullname',
@@ -777,11 +817,27 @@ class db
         // echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
+        if ($result) {
+            // Log the action in the audit_logs table
+            $usersID = $users_id;
+            $action = "Update User : ";
+            $data = json_encode([
+                'fullname' => $fullname,
+                'username' => $username,
+                'password' => $password,
+                'type_id' => $type_id, 
+                'user_status' => $user_status,
+                'user_id' => $user_id,
+                  
+            ]);
 
-        return $result = 1;
+            $auditSql = "INSERT INTO audit_logs (users_id, action, data) VALUES ('$usersID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
 
-    public function updateRegion($region_id, $regDesc, $psgcCode, $regCode)
+    public function updateRegion($user_id, $region_id, $regDesc, $psgcCode, $regCode)
     {
         $sql = "UPDATE region
 				SET psgcCode = '$psgcCode',
@@ -790,21 +846,49 @@ class db
 				WHERE region_id = '$region_id'";
 
         $result = mysqli_query($this->con, $sql);
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Region: ";
+            $data = json_encode([
+                'psgcCode' => $psgcCode,
+                'regDesc' => $regDesc,
+                'regCode' => $regCode,
+                'region_id' => $region_id
+                  
+            ]);
 
-        return $result = 1;
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
-    public function updateProvince($province_id, $psgcCode, $provDesc, $regCode, $provCode)
+    public function updateProvince($user_id, $province_id, $psgcCode, $provDesc, $regCode, $provCode)
     {
         $sql = "UPDATE province
 				SET psgcCode = '$psgcCode',
 					provDesc = '$provDesc',
 					regCode = '$regCode'
 					provCode = '$provCode',
-				WHERE region_id = '$province_id'";
+				WHERE province_id = '$province_id'";
 
         $result = mysqli_query($this->con, $sql);
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update User Type: ";
+            $data = json_encode([
+                'psgcCode' => $psgcCode,
+                'provDesc' => $provDesc,
+                'provCode' => $provCode,
+                'province_id' => $province_id
+                  
+            ]);
 
-        return $result = 1;
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
     public function updateMunicipality($municipality_id, $citymunDesc, $psgcCode, $regCode, $provCode, $citymunCode)
     {
@@ -862,7 +946,7 @@ class db
     }
 }
 
-    public function updateAgency($agency_id, $agency_name, $status)
+    public function updateAgency($user_id, $agency_id, $agency_name, $status)
     {
         $sql = "UPDATE agency
             SET agency_name = '$agency_name',
@@ -870,20 +954,49 @@ class db
             WHERE agency_id	= '$agency_id'";
 
         $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Funding Agency: ";
+            $data = json_encode([
+                'agency_name' => $agency_name,
+                'status' => $status,
+                'agency_id' => $agency_id
+                  
+            ]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
 
-    public function updateMonitoring($monitoring_id, $monitoring_name, $position, $status)
+    public function updateMonitoring($user_id, $m_id, $monitoring_name, $position, $status)
     {
-        $sql = "UPDATE monitoring
+        $sql = "UPDATE monitoring_team
 				SET monitoring_name = '$monitoring_name',
                     position = '$position',
 					status	='$status'
-				WHERE monitoring_id	= '$monitoring_id'";
+				WHERE m_id	= '$m_id'";
+                
         $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Monitoring Team: ";
+            $data = json_encode([
+                'monitoring_name' => $monitoring_name,
+                'position' => $position,
+                'status' => $status
+                  
+            ]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
-    public function updateCivil($civil_id, $civil_name, $status)
+    public function updateCivil($user_id, $civil_id, $civil_name, $status)
     {
         $sql = "UPDATE civil
             SET civil_name = '$civil_name',
@@ -891,17 +1004,45 @@ class db
             WHERE civil_id	= '$civil_id'";
 
         $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Civil Status: ";
+            $data = json_encode([
+                'civil_name' => $civil_name,
+                'status' => $status,
+                'civil_id' => $civil_id
+                  
+            ]);
+
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
     }
-    public function updateYear($year_id, $year_name, $year_status)
-    {
-        $sql = "UPDATE year
-            SET year_name = '$year_name',
-                year_status	='$year_status'
-            WHERE year_id	= '$year_id'";
-        $result = mysqli_query($this->$con, $sql);
-        return $result = 1;
-    }
+    // public function updateYear($user_id, $year_id, $year_name, $year_status)
+    // {
+    //     $sql = "UPDATE year
+    //         SET year_name = '$year_name',
+    //             year_status	='$year_status'
+    //         WHERE year_id	= '$year_id'";
+    //     $result = mysqli_query($this->$con, $sql);
+    //     if ($result) {
+    //         // Log the action in the audit_logs table
+    //         $userID = $user_id;
+    //         $action = "Update Civil Status: ";
+    //         $data = json_encode([
+    //             'civil_name' => $civil_name,
+    //             'status' => $status,
+    //             'civil_id' => $civil_id
+                  
+    //         ]);
+
+    //         $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+    //         $auditResult = mysqli_query($this->$con, $auditSql);
+    //         return $result = 1;
+    //     }
+    // }
 
 
     public function addUser($user_id, $fullname, $username, $password, $type_id, $status)
@@ -928,7 +1069,6 @@ class db
                 $data = json_encode([
                     'fullname' => $fullname,
                     'username' => $username,  
-                    'password' => $password, 
                     'password' => $password,
                     'type_id' => $type_id,
                     'status' => $status 
