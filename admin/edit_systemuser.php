@@ -2,19 +2,21 @@
 session_start();
 include "../db_con.php";
 $db = new db;
-$users_id = $_SESSION['users_id'];
+
+$users_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
-    $users_id = $_POST['users_id']; 
+    $user_id = $_POST['user_id']; 
+    $userTargetID = $_POST['userTargetID']; 
     $fullname = $_POST['fullname']; 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $type_id = $_POST['user_type_id'];
     $user_status   = $_POST['user_status'];
-    $resultUser = $db->updateUser($users_id, $fullname, $username, $password, $type_id, $user_status, $user_id);
+    $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID);
     $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
   }
 }
@@ -51,7 +53,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php
              $result=$db->getUserID($_GET['user_id']);
             while($row=mysqli_fetch_object($result)){
-                $userID =$row->user_id;
+                $userTargetID =$row->user_id;
                 $fullname =$row->fullname; 
                 $username =$row->username;
                 $password =$row->password;
@@ -70,13 +72,13 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
-              <input type="hidden" name="users_id" value="<?php echo $users_id ?>">
+              <input type="hidden" name="user_id" value="<?php echo $users_id ?>">
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Fullname<font color="red">*</font></label>
                  
-                  <input type="hidden" class="form-control" id="validationTooltip01" name="user_id"
-                                         value = "<?php echo $userID;?>" required>
+                  <input type="hidden" class="form-control" id="validationTooltip01" name="userTargetID"
+                                         value = "<?php echo $userTargetID;?>" required>
                                          <input type="text" class="form-control" id="validationTooltip01" name="fullname"
                                         value = "<?php echo $fullname;?>" required>
                   <div class="invalid-tooltip">

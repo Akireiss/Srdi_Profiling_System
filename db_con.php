@@ -501,15 +501,15 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-    public function getMonitoringID($m_id)
+    public function getMonitoringID($monitoring_id)
     {
         $sql = "SELECT * FROM monitoring_team
-				 WHERE m_id='$m_id'";
-                 
+				 WHERE monitoring_id ='$monitoring_id '";
         $result = mysqli_query($this->$con, $sql);
         return $result;
 
     }
+    
     public function getAgency()
     {
         $sql = "SELECT * FROM agency";
@@ -805,7 +805,7 @@ class db
             return $result = 1;
         }
     }
-    public function updateUser($users_id, $fullname, $username, $password, $type_id, $user_status, $user_id)
+    public function updateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID)
     {
         $sql = "UPDATE users
 				SET fullname = '$fullname',
@@ -813,13 +813,13 @@ class db
 					password='$password',
 					type_id='$type_id',
 				   	user_status	='$user_status'
-				WHERE user_id	= '$user_id'";
+				WHERE user_id	= '$userTargetID'";
         // echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
         if ($result) {
             // Log the action in the audit_logs table
-            $usersID = $users_id;
+            $usersID = $user_id;
             $action = "Update User : ";
             $data = json_encode([
                 'fullname' => $fullname,
@@ -827,11 +827,11 @@ class db
                 'password' => $password,
                 'type_id' => $type_id, 
                 'user_status' => $user_status,
-                'user_id' => $user_id,
+                'user_id' => $userTargetID,
                   
             ]);
 
-            $auditSql = "INSERT INTO audit_logs (users_id, action, data) VALUES ('$usersID','$action', '$data')";
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$usersID','$action', '$data')";
             $auditResult = mysqli_query($this->$con, $auditSql);
             return $result = 1;
         }
@@ -1522,7 +1522,16 @@ class db
                                 '$bypic',
                                 '$date_validation')";
             $resultsql = mysqli_query($this->$con, $sql);
+            if ($resultsql) {
+            $sources = $source_income;
 
+                foreach ($sources as $income) {
+                    $sql = "INSERT INTO cocoon_source (cocoon_id)
+                            VALUES ('$income')";
+                }
+                $sql = mysqli_query($this->$con, $sql);
+
+            }
             if ($resultsql) {
                 // Log the action in the audit_logs table
                 $action = "Add Cocoon Producer: ";

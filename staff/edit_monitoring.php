@@ -2,15 +2,17 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $monitoring_id = $_POST['monitoring_id'];
     $monitoring_name = $_POST['monitoring_name'];
-    $position       = $_POST['position'];
     $status   = $_POST['status'];
-    $result = $db->updateMonitoring($monitoring_id, $monitoring_name, $position, $status);
+    $result = $db->updateLand($user_id, $monitoring_id, $monitoring_name, $position, $status);
     $message = ($result != 0) ? "Monitoring Team Successfully Updated" : "Monitoring Team Already Exist!";
   }
 }
@@ -39,10 +41,10 @@ if(!isset($_SESSION['user_id'])) {
         <?php
              $result=$db->getMonitoringID($_GET['monitoring_id']);
             while($row=mysqli_fetch_object($result)){
-                $monitoringID     	= $row->monitoring_id;
+                $monitoring_id     	= $row->monitoring_id;
                 $monitoring_name   	= $row->monitoring_name;
-                $position   	= $row->position;
-                $status 	= $row->status;
+                $position   	     = $row->position;
+                $status 	        = $row->status;
             }
         ?>
          <div class="pagetitle">
@@ -54,15 +56,20 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Monitoring Team Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                     <div class="col-md-6 position-relative">
-                                        <label class="form-label">Name<font color="red">*</font></label>
+                                        <label class="form-label">Monitoring Team<font color="red">*</font></label>
                                         
                                          <input type="hidden" class="form-control" id="validationTooltip01" name="monitoring_id"
-                                         value = "<?php echo $mmonitoringID;?>" required>
+                                         value = "<?php echo $monitoring_id;?>" required>
                                          <input type="text" class="form-control" id="validationTooltip01" name="monitoring_name"
                                         value = "<?php echo $monitoring_name;?>" required>
+                                        <div class="invalid-tooltip">
+                                            The Monitoring Team field is required.
+                                        </div>
                                     </div>
 
+                                    
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">Position<font color="red">*</font></label>
                                          <input type="text" class="form-control" id="validationTooltip01" name="position"
@@ -72,9 +79,9 @@ if(!isset($_SESSION['user_id'])) {
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">Status<font color="red">*</font></label>
                                         <div class="col-sm-12">
-                                            <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="land_status" required>
+                                            <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
                                             <?php
-                                                if($status == 'Active'){
+                                                if($land_status == 'Active'){
                                                     echo '<option value="Active" selected>' . $status . '</option>';
                                                     echo '<option value="Inactive">Inactive</option>';
                                                 }else{
@@ -95,7 +102,7 @@ if(!isset($_SESSION['user_id'])) {
                 <div class="col-12 d-flex align-items-end justify-content-end gap-2">
                                         <button type="submit" class="btn btn-warning" name="submit">Update</button>
                                         <button type="reset" class="btn btn-primary">Clear</button>
-                                        <a href="monitoring.php" class="btn btn-danger">Cancel</a>
+                                        <a href="land_type.php" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </form>
                             </div>

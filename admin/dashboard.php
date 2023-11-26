@@ -274,21 +274,18 @@ $barCount = $db->barChart();
           </div>
 
        
-          
           <div class="col-md-3">
-                <label for="categoryYear" class="form-label">Year Filter</label>
+    <label for="categoryYear" class="form-label">Year Filter</label>
+    <select id="categoryYear" class="form-select mb-3">
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+    </select>
+</div>
 
-                <select id="categoryYear" class="form-select mb-3">
-                  <option value="2023">2023</option>
-                  <option value="2023">2024</option>
-                  <option value="2023">2025</option>
-                  <option value="2023">2026</option>
-                  <option value="2023">2027</option>
-                  <option value="2023">2028</option>
-                  </select>
-
-                </select>
-            </div>
 
             <!-- ?php
                     // Fetch categories from the database
@@ -328,78 +325,93 @@ $barCount = $db->barChart();
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script>
-        var myChart;
+   
+   <script>
+       var myChart;
+var xValues = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
 
-        function updateChart(data) {
-            var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            var yValues = data.map(item => item.production_count);
+function updateChart(data) {
+    var yValues = data.map(item => item.production_count);
 
-            var monthColors = [
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(255, 205, 86, 0.2)',
-                //add ka additaonal color doty
-            ];
-            var barColors = xValues.map((month, index) => monthColors[index % monthColors.length]);
+    var monthColors = [
+        'rgba(70, 52, 235)',
+        'rgba(162, 52, 235)',
+        'rgba(52, 235, 89)',
+        'rgba(223, 235, 52)',
+        'rgba(0, 128, 0, 1)',
+        'rgba(255, 140, 0)',
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 215, 0, 1)',
+        'rgba(101, 67, 33, 1)',
+        'rgba(183, 65, 14, 1)',
+        'rgba(139, 0, 0, 1)',
+        'rgba(173, 216, 230, 1)'
 
-            var ctx = document.getElementById('myChart').getContext('2d');
+        // Add additional colors as needed
+    ];
+    var barColors = xValues.map((month, index) => monthColors[index % monthColors.length]);
 
-            if (myChart) {
-                // Update the existing chart's data
-                myChart.data.labels = xValues;
-                myChart.data.datasets[0].data = yValues;
-                myChart.data.datasets[0].backgroundColor = barColors;
-                myChart.update(); // Update the existing chart
-            } else {
-                myChart = new Chart(ctx, {
-                    type: "bar",
-                    data: {
-                        labels: xValues,
-                        datasets: [{
-                            backgroundColor: barColors,
-                            data: yValues
-                        }]
-                    },
-                    options: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: false,
-                            text: ""
-                        }
-                    }
-                });
-            }
-        }
+    var ctx = document.getElementById('myChart').getContext('2d');
 
-        $(document).ready(function() {
-            fetchChartData();
-
-            $('#categoryYear').change(function() {
-                fetchChartData();
-            });
-
-            function fetchChartData() {
-                var selectedYear = $('#categoryYear').val();
-                $.ajax({
-                    url: 'barchar.php',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {
-                        year: selectedYear
-                    }, // Include the selected category and year as parameters
-                    success: function(data) {
-                        console.log('Data received:', data);
-                        updateChart(data);
-                    },
-                    error: function(error) {
-                        console.log('Error fetching data:', error);
-                    }
-                });
+    if (myChart) {
+        // Update the existing chart's data
+        myChart.data.labels = xValues;
+        myChart.data.datasets[0].data = yValues;
+        myChart.data.datasets[0].backgroundColor = barColors;
+        myChart.update(); // Update the existing chart
+    } else {
+        myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Total Production"
+                }
             }
         });
+    }
+}
+
+$(document).ready(function() {
+    fetchChartData();
+
+    $('#categoryYear').change(function() {
+        fetchChartData();
+    });
+
+    function fetchChartData() {
+        var selectedYear = $('#categoryYear').val();
+        $.ajax({
+            url: 'barchar.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                year: selectedYear
+            },
+            success: function(data) {
+                console.log('Data received:', data);
+                updateChart(data);
+            },
+            error: function(error) {
+                console.log('Error fetching data:', error);
+            }
+        });
+    }
+});
+
     </script>
 
 
