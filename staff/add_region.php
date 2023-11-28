@@ -2,13 +2,16 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $regDesc = $_POST['region_description'];
     $regCode   = $_POST['region_code'];
-    $result = $db->addRegion($regDesc, $regCode);
+    $result = $db->addRegion($user_id, $regDesc, $regCode);
     if ($result != 0) {
       $message = "Region Successfully Added!";
     } else {
@@ -57,7 +60,8 @@ if(!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
-
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+              
               <div class="col-md-6 position-relative">
                   <label class="form-label">Region Description<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name = "region_description" required autofocus="autofocus">

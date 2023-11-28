@@ -12,7 +12,7 @@ if(!isset($_SESSION['user_id'])) {
     $monitoring_id = $_POST['monitoring_id'];
     $monitoring_name = $_POST['monitoring_name'];
     $status   = $_POST['status'];
-    $result = $db->updateLand($user_id, $monitoring_id, $monitoring_name, $position, $status);
+    $result = $db->updateMonitoring($user_id, $monitoring_id, $monitoring_name, $position, $status);
     $message = ($result != 0) ? "Monitoring Team Successfully Updated" : "Monitoring Team Already Exist!";
   }
 }
@@ -57,7 +57,7 @@ if(!isset($_SESSION['user_id'])) {
                                 <h5 class="card-title">Monitoring Team Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                    <div class="col-md-6 position-relative">
+                                    <div class="col-md-4 position-relative">
                                         <label class="form-label">Monitoring Team<font color="red">*</font></label>
                                         
                                          <input type="hidden" class="form-control" id="validationTooltip01" name="monitoring_id"
@@ -70,13 +70,13 @@ if(!isset($_SESSION['user_id'])) {
                                     </div>
 
                                     
-                                    <div class="col-md-6 position-relative">
+                                    <div class="col-md-4 position-relative">
                                         <label class="form-label">Position<font color="red">*</font></label>
                                          <input type="text" class="form-control" id="validationTooltip01" name="position"
                                         value = "<?php echo $position;?>" required>
                                     </div>
 
-                                    <div class="col-md-6 position-relative">
+                                    <div class="col-md-4 position-relative">
                                         <label class="form-label">Status<font color="red">*</font></label>
                                         <div class="col-sm-12">
                                             <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>

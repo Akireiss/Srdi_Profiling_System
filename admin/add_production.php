@@ -77,28 +77,11 @@ if (!isset($_SESSION['user_id'])) {
 
                             <!-- Custom Styled Validation with Tooltips -->
                             <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
-
-                            <!-- <div class="col-md-12 position-relative">
-                  <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                 <select name="site_id" class="form-select" id="validationCustom04" required>
-                    <option selected>Select Project Site Location</option>
-                    <?php
-                        $resultType = $db->getSiteLocationActive();
-                        while ($row = mysqli_fetch_array($resultType)) {
-                            $site_id = $row['site_id'];
-                            $location = $row['location'];
-                            $selected = ($site_id == $site) ? 'selected' : '';
-                            echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
-            }
-            ?>
-    </select>
-                  <div class="invalid-tooltip">
-                    The Project Site Location field is required.
-                  </div>
-                </div> -->
-                <div class="col-md-12 position-relative">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                            
+                            <div class="col-md-12 position-relative">
     <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="validationCustom04" >
+    <select name="producer_id" class="form-select" id="producerDropdown" >
         <option selected>Select Producer Name</option>
         <?php
             $resultType = $db->getProducersActive();
@@ -108,10 +91,22 @@ if (!isset($_SESSION['user_id'])) {
                 $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
                 echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
             }
-            ?>
+        ?>
     </select>
 </div>
-<input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+
+<div class="col-md-12 position-relative">
+    <label class="form-label">Project Site Location<font color="red">*</font></label>
+    <select name="site_id" class="form-select" id="siteDropdown" required>
+        <option selected>Select Project Site Location</option>
+        <!-- Options will be dynamically added here through AJAX -->
+    </select>
+    <div class="invalid-tooltip">
+        The Project Site Location field is required.
+    </div>
+</div>
+
+
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 
@@ -169,8 +164,25 @@ if (!isset($_SESSION['user_id'])) {
     </main><!-- END MAIN -->
 
     <?php include '../includes/footer.php' ?>
-</body>
+    <script>
+    document.getElementById('producerDropdown').addEventListener('change', function() {
+    var producerId = this.value;
 
+    // Make AJAX request
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'AjaxLocation.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Update the "Project Site Location" dropdown with the response
+            document.getElementById('siteDropdown').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send('producer_id=' + producerId);
+});
+</script>
+
+</body>
 </html>
 
 

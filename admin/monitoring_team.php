@@ -53,7 +53,7 @@
 
         echo '<td>';
         echo '<a href="view_systemuser.php?user_id=' . $row['m_id'] . '"><i class="ri-eye-line"></i></a>';
-        echo '<a href="edit_monitoring.php?monitoring_id=' . $row['m_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+        echo '<a href="edit_monitoring.php?monitoring_id=' . $row['monitoring_id'] . '"><i class="bi bi-pencil-square"></i></a>';
         echo '</td>';
         echo '</tr>';
     }

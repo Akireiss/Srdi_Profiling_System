@@ -2,13 +2,16 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $source_of_income = $_POST['source_of_income'];
     $status   = $_POST['status'];
-    $result = $db->addSource_Income($source_of_income, $status);
+    $result = $db->addSource_Income($user_id, $source_of_income, $status);
     if ($result != 0) {
       $message = "Source Income Successfully Added!";
     } else {
@@ -55,7 +58,8 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
-
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+              
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Source of Income<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="source_of_income" required>

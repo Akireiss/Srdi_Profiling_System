@@ -2,18 +2,20 @@
 session_start();
 include "../db_con.php";
 $db = new db();
+$user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
+        $user_id = $_POST['user_id'];
         $production_id = $_POST['production_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
         $producer_id = $_POST['producer_id'];
-        $user_id = $_POST['user_id'];
+        
 
         // Calculate net income
 
@@ -82,9 +84,8 @@ if (!isset($_SESSION['user_id'])) {
                             <h5 class="card-title"></h5>
 
                             <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data"
-                                method="POST">
-
+                            <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                 <!-- <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
                  <select name="site_id" class="form-select" id="validationCustom04" required>

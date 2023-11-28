@@ -2,15 +2,18 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} elseif (isset($_POST['submit'])) {
+} else
+if (isset($_POST['submit'])) {
+  $user_id  = $_POST['user_id'];
   $funding_agency = $_POST['funding_agency'];
   $status = $_POST['status'];
-  $user_id = $_SESSION['user_id']; // Get the user's ID from the session
+   // Get the user's ID from the session
 
-  $result = $db->addAgency($funding_agency, $status, $user_id);
+  $result = $db->addAgency($user_id, $funding_agency, $status);
   if ($result == 1) {
     $message = "Funding Agency Successfully Added!";
   } elseif ($result == 0) {
@@ -58,6 +61,7 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Funding Agency<font color="red">*</font></label>

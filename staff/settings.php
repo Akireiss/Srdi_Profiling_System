@@ -22,7 +22,7 @@ if(!isset($_SESSION['user_id'])) {
 <div>
     <div>
     <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         Project Site
@@ -55,7 +55,7 @@ if(!isset($_SESSION['user_id'])) {
     </div>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         Producers
@@ -80,7 +80,7 @@ if(!isset($_SESSION['user_id'])) {
   </div>
   
 
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         Address
@@ -103,7 +103,7 @@ if(!isset($_SESSION['user_id'])) {
       </div>
     </div>
   </div>
-
+<!-- 
   <div class="col-md-3">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
@@ -120,7 +120,7 @@ if(!isset($_SESSION['user_id'])) {
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
 
   </div>
 

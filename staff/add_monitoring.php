@@ -2,18 +2,21 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $name = $_POST['name'];
     $position = $_POST['position'];
     $status   = $_POST['status'];
-    $result = $db->addMonitoring($name, $position, $status);
+    $result = $db->addMonitoring($user_id, $name, $position, $status);
     if ($result != 0) {
-      $message = "Funding Agency Successfully Added!";
+      $message = "Monitoring Team Successfully Added!";
     } else {
-      $message = "Funding Agency  Already Exist!";
+      $message = "Monitoring Team  Already Exist!";
     }
   }
 }
@@ -56,18 +59,19 @@ if(!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Name<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="name" required>
                 </div>
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Position<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="position" required>
                 </div>
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Status<font color="red">*</font></label>
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>

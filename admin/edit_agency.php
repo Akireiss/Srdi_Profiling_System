@@ -43,7 +43,7 @@ if(!isset($_SESSION['user_id'])) {
             while($row=mysqli_fetch_object($result)){
                 $agencyID     	= $row->agency_id;
                 $agency_name   	= $row->agency_name;
-                $status 	= $row->status;
+                $status 	   = $row->status;
             }
         ?>
          <div class="pagetitle">

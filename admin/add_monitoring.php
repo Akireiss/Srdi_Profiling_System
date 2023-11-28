@@ -61,17 +61,17 @@ if(!isset($_SESSION['user_id'])) {
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
               <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Name<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="name" required>
                 </div>
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Position<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="position" required>
                 </div>
 
-                <div class="col-md-6 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Status<font color="red">*</font></label>
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>

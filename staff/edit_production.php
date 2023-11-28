@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $total;
 
         // Add the production record to the database
-        $result = $db->updateProduction($production_id, $production_date, 
+        $result = $db->updateProduction( $user_id, $production_id, $production_date, 
         $total_production, $p_income, $p_cost, $n_income, $producer_id);
 
         if ($result != 0) {
@@ -104,7 +104,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div> -->
                                 <div class="col-md-12 position-relative">
                                     <label class="form-label">Producer Name<font color="red">*</font></label>
-                                    <select name="producer_id" class="form-select" id="validationCustom04">
+                                    <select name="producerName" class="form-select" id="validationCustom04">
                                         <option>Select Producer Name</option>
 
                                         <?php

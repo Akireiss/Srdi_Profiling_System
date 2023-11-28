@@ -341,7 +341,8 @@ class db
                 LEFT JOIN province
                 ON cocoon.province = province.provCode
                 LEFT JOIN municipality
-                ON cocoon.municipality = municipality.citymunCode";
+                ON cocoon.municipality = municipality.citymunCode
+                ORDER BY cocoon.name ASC";
         // echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
@@ -384,6 +385,14 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+    public function getLocationsByProducer($producerId)
+{
+    $sql = "SELECT * FROM site
+     WHERE producer_id='$producerId'";
+    $result = mysqli_query($this->con, $sql);
+    return $result;
+}
+
     public function getSiteLocationActive()
     {
         $sql = "SELECT * FROM site
@@ -408,7 +417,8 @@ class db
                 LEFT JOIN topography
                 ON site.topography = topography.topography_id
                 LEFT JOIN cocoon
-                ON site.producer_id =cocoon.cocoon_id";
+                ON site.producer_id =cocoon.cocoon_id
+                ORDER BY site.location ASC";
         //           echo $sql;
         // echo die();
         $result = mysqli_query($this->$con, $sql);
@@ -453,7 +463,8 @@ class db
                 LEFT JOIN cocoon
                 ON production.producer_id = cocoon.cocoon_id
                 LEFT JOIN site
-                ON cocoon.cocoon_id = site.producer_id";
+                ON cocoon.cocoon_id = site.producer_id
+                ORDER BY cocoon.name ASC";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
@@ -914,8 +925,8 @@ class db
         
     }
     
-    public function updateProduction($production_id, $production_date,
-     $total_production, $p_income, $p_cost, $n_income, $producer_id, $user_id)
+    public function updateProduction($user_id, $production_id, $production_date,
+     $total_production, $p_income, $p_cost, $n_income, $producer_id)
     {
     $sql = "UPDATE production
                     SET production_date = '$production_date',
@@ -971,13 +982,13 @@ class db
         }
     }
 
-    public function updateMonitoring($user_id, $m_id, $monitoring_name, $position, $status)
+    public function updateMonitoring($user_id, $monitoring_id, $monitoring_name, $position, $status)
     {
         $sql = "UPDATE monitoring_team
 				SET monitoring_name = '$monitoring_name',
                     position = '$position',
 					status	='$status'
-				WHERE m_id	= '$m_id'";
+				WHERE monitoring_id	= '$monitoring_id'";
                 
         $result = mysqli_query($this->$con, $sql);
         if ($result) {
@@ -1020,29 +1031,29 @@ class db
             return $result = 1;
         }
     }
-    // public function updateYear($user_id, $year_id, $year_name, $year_status)
-    // {
-    //     $sql = "UPDATE year
-    //         SET year_name = '$year_name',
-    //             year_status	='$year_status'
-    //         WHERE year_id	= '$year_id'";
-    //     $result = mysqli_query($this->$con, $sql);
-    //     if ($result) {
-    //         // Log the action in the audit_logs table
-    //         $userID = $user_id;
-    //         $action = "Update Civil Status: ";
-    //         $data = json_encode([
-    //             'civil_name' => $civil_name,
-    //             'status' => $status,
-    //             'civil_id' => $civil_id
+    public function updateYear($user_id, $year_id, $year_name, $year_status)
+    {
+        $sql = "UPDATE year
+            SET year_name = '$year_name',
+                year_status	='$year_status'
+            WHERE year_id	= '$year_id'";
+        $result = mysqli_query($this->$con, $sql);
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Civil Status: ";
+            $data = json_encode([
+                'year_name' => $year_name,
+                'year_status' => $year_status,
+                'year_id' => $year_id
                   
-    //         ]);
+            ]);
 
-    //         $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-    //         $auditResult = mysqli_query($this->$con, $auditSql);
-    //         return $result = 1;
-    //     }
-    // }
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->$con, $auditSql);
+            return $result = 1;
+        }
+    }
 
 
     public function addUser($user_id, $fullname, $username, $password, $type_id, $status)

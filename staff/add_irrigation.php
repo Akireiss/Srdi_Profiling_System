@@ -2,13 +2,15 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $source_of_irrigation = $_POST['source_of_irrigation'];
     $status   = $_POST['status'];
-    $result= $db->addIrrigation($source_of_irrigation, $status);
+    $result= $db->addIrrigation($user_id, $source_of_irrigation, $status);
     if ($result != 0) {
       $message = "Irrigation Successfully Added!";
     } else {
@@ -55,6 +57,7 @@ if(!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Source of Irrigation<font color="red">*</font></label>

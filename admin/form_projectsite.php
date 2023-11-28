@@ -54,7 +54,7 @@ if(!isset($_SESSION['user_id'])) {
     $position= $_POST['position'];
     $date = $_POST['date'];
     
-    $result = $db->addSite($location, $producer_id, $topography, $region, $province, 
+    $result = $db->addSite($user_id, $location, $producer_id, $topography, $region, $province, 
     $municipality, $barangay, $address, $landJson, $tenancyJson, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
     $names, $position, $date);

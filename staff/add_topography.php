@@ -2,13 +2,16 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $topography = $_POST['topography'];
     $status   = $_POST['status'];
-    $result = $db->addTopography($topography, $status);
+    $result = $db->addTopography( $user_id,$topography, $status);
     if ($result != 0) {
       $message = "Topography Successfully Added!";
     } else {
@@ -55,6 +58,7 @@ if (!isset($_SESSION['user_id'])) {
 
            
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Topography<font color="red">*</font></label>
