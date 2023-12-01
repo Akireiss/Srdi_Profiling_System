@@ -68,6 +68,7 @@ if (!isset($_SESSION['user_id'])) {
                 $productionID = $row->production_id;
                 $producerID = $row->producer_id;
                 $producerName = $row->name;
+                $location = $row->location;
                 $production_date = $row->production_date;
                 $total_production = $row->total_production;
                 $p_income = $row->p_income;
@@ -104,22 +105,31 @@ if (!isset($_SESSION['user_id'])) {
                     The Project Site Location field is required.
                   </div>
                 </div> -->
-                                <div class="col-md-12 position-relative">
-                                    <label class="form-label">Producer Name<font color="red">*</font></label>
-                                    <select name="producer_id" class="form-select" id="validationCustom04">
-                                        <option>Select Producer Name</option>
-
-                                        <?php
-                                        $resultType = $db->getProducersActive();
-                                        while ($row = mysqli_fetch_array($resultType)) {
-                                            $cocoon_id = $row['cocoon_id'];
-                                            $name = $row['name'];
-                                            $selected = ($cocoon_id == $producerID) ? 'selected' : '';
-                                            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
+                <div class="col-md-12 position-relative">
+                      <label class="form-label">Producer Name<font color="red">*</font></label>
+                       <select name="producer_id" class="form-select" id="validationCustom04">
+                             <option>Select Producer Name</option>
+                                <?php
+                                    $resultType = $db->getProducersActive();
+                                    while ($row = mysqli_fetch_array($resultType)) {
+                                    $cocoon_id = $row['cocoon_id'];
+                                    $name = $row['name'];
+                                    $selected = ($cocoon_id == $producerID) ? 'selected' : '';
+                                    echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
                                         }
                                         ?>
-                                    </select>
-                                </div>
+                        </select>
+                </div>
+
+                <div class="col-md-12 position-relative">
+                    <label class="form-label">Project Site Location<font color="red">*</font></label>
+                    <select name="site_id" class="form-select" id="siteDropdown" required>
+                    <option value="<?php echo $site_id;?>" selected disabled><?php echo $location;?></option>
+                    </select>
+            <div class="invalid-tooltip">
+                The Project Site Location field is required.
+            </div>
+        </div>
 
 
 
@@ -199,6 +209,23 @@ if (!isset($_SESSION['user_id'])) {
     </main><!-- END MAIN -->
 
     <?php include '../includes/footer.php' ?>
+    <script>
+    document.getElementById('producerDropdown').addEventListener('change', function() {
+    var producerId = this.value;
+
+    // Make AJAX request
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'AjaxLocation.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Update the "Project Site Location" dropdown with the response
+            document.getElementById('siteDropdown').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send(' =' + producerId);
+});
+</script>
 </body>
 
 </html>

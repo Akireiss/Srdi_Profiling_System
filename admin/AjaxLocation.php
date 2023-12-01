@@ -1,18 +1,22 @@
 <?php
+include "../db_con.php";
+$db = new db();
 
-// Assuming you have a function to get locations by producer ID
-if (isset($_POST['producer_id'])) {
-    $producerId = $_POST['producer_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['producerId'])) {
+    $producerId = $_POST['producerId'];
 
-    $result = $db->getLocationsByProducer($producerId);
+    // Assuming you have a method to retrieve site locations based on producer ID from your database
+    // Adjust this query to match your database structure
+    $query = "SELECT site_id, location FROM site WHERE producer_id = $producerId";
+    $result = $db->$con->query($query);
 
-    // Return the options as HTML
-    while ($row = mysqli_fetch_array($result)) {
-        $site_id = $row['site_id'];
-        $location = $row['location'];
-        echo '<option value="' . $site_id . '">' . $location . '</option>';
+    if ($result) {
+        echo '<option selected>'.'Select Project Site Location'.'</option>';
+        while ($row = $result->fetch_assoc()) {
+            echo '<option value="' . $row['site_id'] . '">' . $row['location'] . '</option>';
+        }
+    } else {
+        echo '<option value="">No locations found</option>';
     }
-
-    die(); // Ensure nothing else interferes with the response
 }
 ?>

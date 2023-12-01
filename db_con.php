@@ -50,6 +50,12 @@ class db
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
+    public function getUserDetails($user_id) {
+        $sql = "SELECT * FROM users WHERE user_id = '$user_id'";
+        $result = mysqli_query($this->$con, $sql); // Assuming getConnection() returns the database connection
+    
+        return $result;
+    }
     public function getUserTypeActive()
     {
         $sql = "SELECT * FROM user_type

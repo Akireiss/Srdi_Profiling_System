@@ -127,7 +127,7 @@ if (!isset($_SESSION['user_id'])) {
 
                 
                 <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-                  <button type="submit" class="btn btn-warning" name="submit">Save User</button>
+                  <button type="submit" class="btn btn-warning" name="submit">Save</button>
                   <button type="reset" class="btn btn-primary">Clear</button>
                   <a href="system_user.php" class="btn btn-danger">Cancel</a>
                 </div>

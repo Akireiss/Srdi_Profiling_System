@@ -38,9 +38,10 @@ if (!isset($_SESSION['user_id'])) {
        $id_pic =$_POST ['id_pic'];
        $bypic =$_POST ['bypic'];
 
-       $source_incomes = isset($_POST['source_incomes']) ? $_POST['source_incomes'] : [];
+      //  $source_incomes = isset($_POST['source_incomes']) ? $_POST['source_incomes'] : [];
 
-       $source_income = json_encode($source_incomes);
+      //  $source_income = json_encode($source_incomes);
+      $source_income = isset($_POST['source_income']) ? $_POST['source_income'] : [];
 
        $selectedFarmTools = isset($_POST['farm_tools']) ? $_POST['farm_tools'] : [];
        // Convert the array into JSON
@@ -324,6 +325,7 @@ if (isset($message)) {
     </div>
 
 <!--Source of Income-->
+<!-- First Checkbox -->
 <div class="row">
     <div class="col-md-12">
         <div class="form-group mt-3">

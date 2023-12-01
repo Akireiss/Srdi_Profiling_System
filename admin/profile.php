@@ -50,17 +50,19 @@ if (!isset($_SESSION['user_id'])) {
     </div><!-- End Page Title -->
 
     <section class="section">
-    <?php
-             $result=$db->getUserID($_GET['user_id']);
-            while($row=mysqli_fetch_object($result)){
-                $userTargetID =$row->user_id;
-                $fullname =$row->fullname; 
-                $username =$row->username;
-                $password =$row->password;
-                $type_id =$row->type_id;
-                $user_status   = $row->user_status;
-            }
-        ?>
+          <?php
+      $result = $db->getUserDetails($_SESSION['user_id']); // Assuming $_SESSION['user_id'] contains the logged-in user's ID
+
+      while ($row = mysqli_fetch_object($result)) {
+          $userTargetID = $row->user_id;
+          $fullname = $row->fullname;
+          $username = $row->username;
+          $password = $row->password; // Note: It's not recommended to fetch passwords in this way for security reasons
+          $type_id = $row->type_id;
+          $user_status = $row->user_status;
+      }
+      ?>
+
       <div class="row">
         <div class="col-lg-12">
 
@@ -98,7 +100,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Password<font color="red">*</font></label>
                   <input type="password" minlength="8" class="form-control" id="password" name="password" 
-                  value = "<?php echo $password;?>" required>
+                  value ="" >
                   <input type="checkbox" onclick="myFunction()">Show Password
                   <div class="invalid-tooltip">
                     The Password must be minimum of 8 characters.

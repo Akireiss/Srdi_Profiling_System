@@ -81,30 +81,34 @@ if (!isset($_SESSION['user_id'])) {
                             
                             <div class="col-md-12 position-relative">
     <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="producerDropdown" >
+    <select name="producer_id" class="form-select" id="producerDropdown">
         <option selected>Select Producer Name</option>
         <?php
-            $resultType = $db->getProducersActive();
-            while ($row = mysqli_fetch_array($resultType)) {
-                $cocoon_id = $row['cocoon_id'];
-                $name = $row['name'];
-                $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
-                echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
-            }
+        $resultType = $db->getProducersActive();
+        while ($row = mysqli_fetch_array($resultType)) {
+            $cocoon_id = $row['cocoon_id'];
+            $name = $row['name'];
+            $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
+            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
+        }
         ?>
     </select>
 </div>
 
 <div class="col-md-12 position-relative">
     <label class="form-label">Project Site Location<font color="red">*</font></label>
+
     <select name="site_id" class="form-select" id="siteDropdown" required>
         <option selected>Select Project Site Location</option>
-        <!-- Options will be dynamically added here through AJAX -->
     </select>
+
     <div class="invalid-tooltip">
         The Project Site Location field is required.
     </div>
 </div>
+
+
+
 
 
                 <!-- Species -->
@@ -164,6 +168,29 @@ if (!isset($_SESSION['user_id'])) {
     </main><!-- END MAIN -->
 
     <?php include '../includes/footer.php' ?>
+  <script src="../public/assets/js/jquery.min.js"></script>
+
+<script src=""></script>
+<script>
+    $(document).ready(function () {
+        $('#producerDropdown').change(function () {
+            var producerId = $(this).val();
+
+            $.ajax({
+                url: 'AjaxLocation.php',
+                type: 'POST',
+                data: { producerId: producerId },
+                success: function (response) {
+                    $('#siteDropdown').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
     <script>
     document.getElementById('producerDropdown').addEventListener('change', function() {
     var producerId = this.value;
@@ -178,7 +205,7 @@ if (!isset($_SESSION['user_id'])) {
             document.getElementById('siteDropdown').innerHTML = xhr.responseText;
         }
     };
-    xhr.send('producer_id=' + producerId);
+    xhr.send(' =' + producerId);
 });
 </script>
 
