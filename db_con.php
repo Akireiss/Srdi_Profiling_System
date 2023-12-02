@@ -853,7 +853,21 @@ class db
             return $result = 1;
         }
     }
-
+public function updateUsers($user_id, $fullname, $username, $password, $type_id, $user_status)
+    {
+        $sql = "UPDATE users
+				SET fullname = '$fullname',
+					username='$username',
+					password='$password',
+					type_id='$type_id',
+				   	user_status	='$user_status'
+				WHERE user_id	= '$user_id'";
+        // echo $sql;
+        // echo die();
+        $result = mysqli_query($this->$con, $sql);
+            return $result = 1;
+        }
+    
     public function updateRegion($user_id, $region_id, $regDesc, $psgcCode, $regCode)
     {
         $sql = "UPDATE region
@@ -1943,6 +1957,8 @@ class db
                     WHERE username = '$username'
                     AND password = '$password'
                     AND user_status = 'Active'";
+                    // echo $checkLogin;
+                    // echo die();
     $resultCheckLogin = mysqli_query($this->$con, $checkLogin);
     $num_rows = mysqli_num_rows($resultCheckLogin);
 

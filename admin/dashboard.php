@@ -286,6 +286,21 @@ $barCount = $db->barChart();
     </select>
 </div>
 
+<!-- <div class="col-md-3">
+    <label for="categoryYear" class="form-label">Year Filter</label>
+    <select name="year" class="form-select mb-3" id="categoryYear" >
+    <!-- <select id="categoryYear" class="form-select mb-3"> -->
+    <!-- <option  selected>Select Year</option>
+                <!-- <?php
+                      $resultType=$db->getYearActive();
+                      while($row=mysqli_fetch_array($resultType)){
+                        echo '<option value="'.$row['year_id'].'">' . $row['year_name'] . '</option>';
+                      }
+                     
+                      ?> -->
+    </select> 
+</div> 
+
 
             <!-- ?php
                     // Fetch categories from the database

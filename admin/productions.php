@@ -54,40 +54,38 @@
                       </thead>
                       <tbody>
         
-                      <?php
-$result = $db->getAllProduction();
-while ($row = mysqli_fetch_array($result)) {
-    echo '<tr>';
-    echo '<td>'. $row['name'] . '</td>';
-    echo '<td>'  . $row['location']. '</td>';
-    echo '<td>' . $row['total_production']. '</td>';
-    echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
-    echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
-    echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
-    echo '<td>' . $row['production_date'] . '</td>';
-    echo '<td>';
-    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
-    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
-    echo '</td>';
-    echo '</tr>';
+            <?php
+                $result = $db->getAllProduction();
+                while ($row = mysqli_fetch_array($result)) {
+                    echo '<tr>';
+                    echo '<td>'. $row['name'] . '</td>';
+                    echo '<td>'  . $row['location']. '</td>';
+                    echo '<td>' . $row['total_production']. '</td>';
+                    echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
+                    echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
+                    echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
+                    echo '<td>' . $row['production_date'] . '</td>';
+                    echo '<td>';
+                    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
+                    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
+                    echo '</td>';
+                    echo '</tr>';
 
-      $totalPIncome += $row['p_income'];
-      // Net Income
-      $totalNIncome += $row['n_income'];
+                      $totalPIncome += $row['p_income'];
+                      // Net Income
+                      $totalNIncome += $row['n_income'];
+            }
+            ?>
 
-  
-}
-?>
-
-</tbody>
-          
-    </table>
-    <div class="mx-2 fw-bold">
-    <?php 
-    echo '<td class="text-uppercase">Total Production Income: </td>';
-    echo '<td colspan="2">PHP ' . number_format($totalPIncome, 2, '.', ',') . '</td>';
-    ?>  
-</div>
+                </tbody>
+                          
+                    </table>
+                    <div class="mx-2 fw-bold">
+                    <?php 
+                    echo '<td class="text-uppercase">Total Production Income: </td>';
+                    echo '<td colspan="2">PHP ' . number_format($totalPIncome, 2, '.', ',') . '</td>';
+                    ?>  
+                </div>
 
 
 <!-- Net Income -->
@@ -98,21 +96,13 @@ while ($row = mysqli_fetch_array($result)) {
                 echo '<td colspan="2">PHP ' . number_format($totalNIncome, 2, '.', ',') . '</td>';
                 ?>  
             </div>
-
-
-                  </div>
-                </div>
               </div>
-            </div>
-
-
-            <!-- Another Table -->
-            
-         
-     
-             
-</section>
-</main>
+              </div>
+              </div>
+              </div>
+        
+      </section>
+      </main>
           <script>
           $(document).ready(function () {
           $('#datatable').DataTable({
@@ -122,19 +112,20 @@ while ($row = mysqli_fetch_array($result)) {
         });
 
 
-          </script>
-<?php include '../includes/footer.php' ?>
-</body>
+      </script>
+                  
+          <?php include '../includes/footer.php' ?>
+          </body>
 
-</html>
-<style>
-    .bigger-icon {
-        font-size: 24px; /* Adjust the font size as needed */
-        margin-left: 2px;
-        margin-right: 2px;
-    }
-    
-    .red {
-        color: red; /* Set the text color to red */
-    }
-</style>
+          </html>
+          <style>
+              .bigger-icon {
+                  font-size: 24px; /* Adjust the font size as needed */
+                  margin-left: 2px;
+                  margin-right: 2px;
+              }
+              
+              .red {
+                  color: red; /* Set the text color to red */
+              }
+          </style>

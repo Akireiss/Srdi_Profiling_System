@@ -192,21 +192,24 @@ if (!isset($_SESSION['user_id'])) {
 </script>
 
     <script>
-    document.getElementById('producerDropdown').addEventListener('change', function() {
-    var producerId = this.value;
+    $(document).ready(function () {
+    $('#producerDropdown').change(function () {
+        var producerId = $(this).val();
 
-    // Make AJAX request
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'AjaxLocation.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Update the "Project Site Location" dropdown with the response
-            document.getElementById('siteDropdown').innerHTML = xhr.responseText;
-        }
-    };
-    xhr.send(' =' + producerId);
+        $.ajax({
+            url: 'AjaxLocation.php',
+            type: 'POST',
+            data: { producerId: producerId },
+            success: function (response) {
+                $('#siteDropdown').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
 });
+
 </script>
 
 </body>
