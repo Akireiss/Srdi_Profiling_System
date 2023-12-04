@@ -1506,13 +1506,13 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
         $source_income,
         $years_in_farming,
         $available_workers,
-        $selectedFarmToolsJSON,
+        $farm_tool,
         $intent,
         $signature,
         $id_pic,
         $bypic,
-        $date_validation
-    ) {
+        $date_validation) 
+        {
         $check = "SELECT * FROM cocoon
 						WHERE name = '$name'";
         $resultCheck = mysqli_query($this->$con, $check);
@@ -1520,11 +1520,76 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
         if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
+
+            $intentFileName = $_FILES['intent']['name'];
+            $intentTmpName = $_FILES['intent']['tmp_name'];
+            $intentFileSize = $_FILES['intent']['size'];
+            $intentFileError = $_FILES['intent']['error'];
+            
+            if ($intentFileError === UPLOAD_ERR_OK) {
+                $uploadDirectory = "../uploads/";
+                
+                $intentUniqueName = uniqid('intent_', true) . '_' . $intentFileName;
+            
+                $intentDestination = $uploadDirectory . $intentUniqueName;
+                move_uploaded_file($intentTmpName, $intentDestination);
+            } else {
+                die("File upload failed with error code PDF: $intentFileError");
+            }
+
+
+            $signatureFileName = $_FILES['signature']['name'];
+            $signatureTmpName = $_FILES['signature']['tmp_name'];
+            $signatureFileSize = $_FILES['signature']['size'];
+            $signatureFileError = $_FILES['signature']['error'];
+            
+            // Check for file errors for signature file
+            if ($signatureFileError === UPLOAD_ERR_OK) {
+                $uploadDirectory = "../uploads/";
+                $signatureUniqueName = uniqid('signature_', true) . '_' . $signatureFileName;
+                $signatureDestination = $uploadDirectory . $signatureUniqueName;
+                move_uploaded_file($signatureTmpName, $signatureDestination);
+            } else {
+                die("Signature file upload failed with error code Image: $signatureFileError");
+            }
+
+            //ID PIC
+            
+            $idPicFileName = $_FILES['id_pic']['name'];
+            $idPicTmpName = $_FILES['id_pic']['tmp_name'];
+            $signatureFileSize = $_FILES['id_pic']['size'];
+            $idPicFileError = $_FILES['id_pic']['error'];
+            
+            // Check for file errors for signature file
+            if ($idPicFileError === UPLOAD_ERR_OK) {
+                $uploadDirectory = "../uploads/";
+                $idPiceUniqueName = uniqid('signature_', true) . '_' . $idPicFileName;
+                $idPicDestination = $uploadDirectory . $idPiceUniqueName;
+                move_uploaded_file($idPicTmpName, $idPicDestination);
+            } else {
+                die("ID Pic file upload failed with error code Image: $idPicFileError");
+            }
+
+            //ByPic
+            $byPicFileName = $_FILES['bypic']['name'];
+            $byPicTmpName = $_FILES['bypic']['tmp_name'];
+            $signatureFileSize = $_FILES['bypic']['size'];
+            $byPicFileError = $_FILES['bypic']['error'];
+
+            if ($byPicFileError === UPLOAD_ERR_OK) {
+                $uploadDirectory = "../uploads/";
+                $byPiceUniqueName = uniqid('signature_', true) . '_' . $byPicFileName;
+                $byPicDestination = $uploadDirectory . $byPiceUniqueName;
+                move_uploaded_file($byPicTmpName, $byPicDestination);
+            } else {
+                die("ID Pic file upload failed with error code Image: $byPicFileError");
+            }
+
             $sql = "INSERT INTO cocoon (name, birthdate, 
              age, type, sex, region, province, municipality, barangay,
               address, education, religion, civil_status, name_spouse, farm_participate,
-               cannot_participate, male, female, source_income, years_in_farming, 
-               available_workers, farm_tool, intent, signature, id_pic, bypic, date_validation)
+               cannot_participate, male, female, years_in_farming, 
+               available_workers, intent, signature, id_pic, bypic, date_validation)
 						VALUES ('$name',					
                                 '$birthdate',
                                 '$age',
@@ -1543,58 +1608,54 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
                                 '$cannot_participate',
                                 '$male',
                                 '$female',
-                                '$source_income',
+                                -- '$source_income',
                                 '$years_in_farming',
                                 '$available_workers',
-                                '$selectedFarmToolsJSON',
-                                '$intent',
-                                '$signature',
-                                '$id_pic',
-                                '$bypic',
+                                -- '$selectedFarmToolsJSON',
+                                '$intentDestination',
+                                '$signatureDestination',
+                                '$idPicDestination',
+                                '$byPicDestination',
                                 '$date_validation')";
+                                
             $resultsql = mysqli_query($this->$con, $sql);
             if ($resultsql) {
-            $sources = $source_income;
-
-                foreach ($sources as $income) {
-                    $sql = "INSERT INTO cocoon_source (cocoon_id)
-                            VALUES ('$income')";
+                // Get the last inserted ID
+                $cocoon_id = mysqli_insert_id($this->$con);
+            
+                $source_income = isset($_POST['source_income']) ? $_POST['source_income'] : [];
+                foreach ($source_income as $income) {
+                    $income_sql = "INSERT INTO cocoon_source (cocoon_id, source_id) 
+                                   VALUES ('$cocoon_id', '$income')";
+                    $income_result = mysqli_query($this->$con, $income_sql);
+            
+                    // Check if the insertion was successful
+                    if (!$income_result) {
+                        // Handle the error as needed
+                        die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                    }
                 }
-                $sql = mysqli_query($this->$con, $sql);
 
-            }
-            if ($resultsql) {
-                // Log the action in the audit_logs table
-                $action = "Add Cocoon Producer: ";
-                $data = json_encode([
-                    'name' => $name,
-                    'birthdate' => $birthdate,
-                    'age' => $age,
-                    'type' => $type,
-                    'sex' => $sex,
-                    'region' => $region,
-                    'province' => $province,
-                    'municipality' => $municipality,
-                    'barangay' => $barangay,
-                    'address' => $address,
-                    'education' => $education,
-                    'religion' => $religion,
-                    'civil_status' => $civil_status,
-                    'name_spouse' => $name_spouse,
-                    'farm_participate' => $farm_participate,
-                    'cannot_participate' => $cannot_participate,
-                    'male' => $male,
-                    'female' => $female,
-                    'source_income' => $source_income,
-                    'years_in_farming' => $years_in_farming,
-                    'available_workers' => $available_workers,
-                    'selectedFarmToolsJSON' => $selectedFarmToolsJSON
-                ]);
+                $farm_tool = isset($_POST['farm_tool']) ? $_POST['farm_tool'] : [];
+                foreach ($farm_tool as $tool) {
+                    $tool_sql = "INSERT INTO cocoon_farm_tool (cocoon_id, farm_tool_id) 
+                                   VALUES ('$cocoon_id', '$tool')";
+                    $tool_result = mysqli_query($this->$con, $tool_sql);
+            
+                    if (!$income_result) {
+                        // Handle the error as needed
+                        die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                    }
+                }
 
-                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
-                return $resultsql = 1;
+            
+                // Return a success message or handle as needed
+                return 1;
+            } else {
+                // Handle the error as needed
+                die("Error inserting data into cocoon: " . mysqli_error($this->$con));
             }
+ 
         }
     }
 
@@ -2028,6 +2089,34 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
     {
         mysqli_close($this->$con);
     }
+public function getSelectedSources($cocoonID) {
+  $query = "SELECT source_id FROM cocoon_source
+   WHERE cocoon_id = '$cocoonID'";
+  $result = mysqli_query($this->$con, $query);
+  
+  $selectedSources = array();
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+      $selectedSources[] = $row['source_id'];
+  }
+
+  return $selectedSources;
+}
+
+// Inside your database class
+
+public function getSelectedFarmTools($cocoonID) {
+    $query = "SELECT farm_tool_id FROM cocoon_farm_tool WHERE cocoon_id = '$cocoonID'";
+    $result = mysqli_query($this->$con, $query);
+    
+    $selectedFarmTools = array();
+    
+    while ($row = mysqli_fetch_assoc($result)) {
+        $selectedFarmTools[] = $row['farm_tool_id'];
+    }
+
+    return $selectedFarmTools;
+}
 
 
 }

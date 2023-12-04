@@ -40,10 +40,12 @@ if (!isset($_SESSION['user_id'])) {
 
       //  $source_incomes = isset($_POST['source_incomes']) ? $_POST['source_incomes'] : [];
 
-      //  $source_income = json_encode($source_incomes);
-      $source_income = isset($_POST['source_income']) ? $_POST['source_income'] : [];
+   
+      $source_income = $_POST ['source_income'];
+      $farm_tool = $_POST ['farm_tool'];
 
-       $selectedFarmTools = isset($_POST['farm_tools']) ? $_POST['farm_tools'] : [];
+
+      //  $selectedFarmTools = isset($_POST['farm_tools']) ? $_POST['farm_tool'] : [];
        // Convert the array into JSON
        $selectedFarmToolsJSON = json_encode($selectedFarmTools);
        //end
@@ -52,7 +54,7 @@ if (!isset($_SESSION['user_id'])) {
          $barangay, $address, $education, $religion, $civil_status, 
          $name_spouse, $farm_participate, $cannot_participate, $male,
           $female, $source_income, $years_in_farming, $available_workers,
-          $selectedFarmToolsJSON, $intent, $signature, $id_pic, $bypic, $date_validation);
+          $farm_tool, $intent, $signature, $id_pic, $bypic, $date_validation);
         if ($result != 0) {
             $message = "Cocoon Producer Successfully Added!";
         } else {
@@ -93,7 +95,7 @@ if (isset($message)) {
   <div class="mt-3 container">
   <div class="col-lg-12">
     <div class="card md:w-full">
-    <form action="#" method="post" enctype="multipart/foFrm-data">
+    <form action="#" method="post" enctype="multipart/form-data">
 
       <div class="card-body w-100">
   
@@ -337,8 +339,10 @@ if (isset($message)) {
         $resultType = $db->getSource_IncomeActive();
         while ($row = mysqli_fetch_array($resultType)) {
             echo '<div class="form-check form-check-inline col-md-3">';
-            echo '<input class="form-check-input" name="source_incomes[]" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_id'] . '">';
-            echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
+            echo '<input class="form-check-input"
+             name="source_income[]" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_id'] . '">';
+            echo '<label class="form-check-label"
+             for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
             echo '</div>';
         }
         ?>
@@ -374,7 +378,7 @@ The Number of available workers field is required
     $resultType = $db->getFarmToolsActive();
     while ($row = mysqli_fetch_array($resultType)) {
         echo '<div class="form-check form-check-inline col-md-3">';
-        echo '<input class="form-check-input" name="farm_tools[]" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '">';
+        echo '<input class="form-check-input" name="farm_tool[]" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '">';
         echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
         echo '</div>';
     }
