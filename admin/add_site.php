@@ -87,7 +87,8 @@ if (isset($message)) {
 
              <!-- Custom Styled Validation with Tooltips -->
              <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
-
+             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                            
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name = "location" required autofocus="autofocus">

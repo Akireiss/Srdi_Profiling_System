@@ -465,16 +465,19 @@ class db
     // }
     public function getAllProduction()
     {
-        $sql = "SELECT * FROM production
-                LEFT JOIN cocoon
+        $sql = "SELECT production.*, cocoon.name AS producer_name, site.location
+                FROM production
+                LEFT JOIN cocoon 
                 ON production.producer_id = cocoon.cocoon_id
-                LEFT JOIN site
-                ON cocoon.cocoon_id = site.producer_id
+                LEFT JOIN site 
+                ON production.site_id = site.site_id
                 ORDER BY cocoon.name ASC";
         $result = mysqli_query($this->$con, $sql);
         return $result;
     }
-
+    
+   
+    
 
     public function getProduction($siteID)
     {
@@ -946,7 +949,7 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
     }
     
     public function updateProduction($user_id, $production_id, $production_date,
-     $total_production, $p_income, $p_cost, $n_income, $producer_id)
+     $total_production, $p_income, $p_cost, $n_income, $producer_id, $site_id)
     {
     $sql = "UPDATE production
                     SET production_date = '$production_date',
@@ -954,7 +957,8 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
                         p_income = '$p_income',
                         p_cost = '$p_cost',
                         n_income = '$n_income',
-                        producer_id = '$producer_id' 
+                        producer_id = '$producer_id',
+                        site_id = '$site_id'
                     WHERE production_id = '$production_id'";
 
     $result = mysqli_query($this->$con, $sql);
@@ -967,6 +971,7 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
             'total_production' => $total_production,
             'p_income' => $p_income,
             'p_cost' => $p_cost,
+            'site_id' => $site_id,
             'n_income' => $n_income
         ]);
 
@@ -1742,7 +1747,7 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
 
         }
     }
-    public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income)
+    public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id)
     {
         $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
@@ -1752,13 +1757,14 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
         if ($num_rows > 0) {
             return $resultsql = 0;
         } else {
-            $sql = "INSERT INTO production (producer_id, production_date, total_production, p_income, p_cost, n_income)
+            $sql = "INSERT INTO production (producer_id, production_date, total_production, p_income, p_cost, n_income, site_id)
 						VALUES ('$producer_id',     
                                 '$production_date',					
 								'$total_production',
                                 '$p_income',
                                 '$p_cost',
-                                '$n_income')";
+                                '$n_income',
+                                '$site_id')";
 
             $resultsql = mysqli_query($this->$con, $sql);
             if ($resultsql) {
@@ -1771,7 +1777,8 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
                     'total_production' => $total_production,
                     'p_income' => $p_income,
                     'p_cost' => $p_cost,
-                    'n_income' => $n_income
+                    'n_income' => $n_income,
+                    'site_id' => $site_id
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";

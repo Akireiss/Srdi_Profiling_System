@@ -2,17 +2,20 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $fullname = $_POST['fullname']; 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $type_id = $_POST['user_type_id'];
     $status   = $_POST['status'];
    $user_id = $_SESSION['user_id'];
-    $resultUser = $db->addUser($fullname, $username, $password, $type_id, $status, $user_id);
+    $resultUser = $db->addUser($user_id, $fullname, $username, $password, $type_id, $status);
     if ($resultUser != 0) {
       $message = "User Successfully Added!";
     } else {
@@ -26,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+  <?php include '../includes/sidebar.php' ?>
 
 
   <main id="main" class="main">
@@ -59,7 +62,8 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
-
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+              
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Fullname<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="fullname" required autofocus="autofocus">
@@ -123,7 +127,7 @@ if (!isset($_SESSION['user_id'])) {
 
                 
                 <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-                  <button type="submit" class="btn btn-warning" name="submit">Save User</button>
+                  <button type="submit" class="btn btn-warning" name="submit">Save</button>
                   <button type="reset" class="btn btn-primary">Clear</button>
                   <a href="system_user.php" class="btn btn-danger">Cancel</a>
                 </div>

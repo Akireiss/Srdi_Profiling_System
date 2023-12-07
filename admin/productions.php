@@ -54,28 +54,29 @@
                       </thead>
                       <tbody>
         
-            <?php
-                $result = $db->getAllProduction();
-                while ($row = mysqli_fetch_array($result)) {
-                    echo '<tr>';
-                    echo '<td>'. $row['name'] . '</td>';
-                    echo '<td>'  . $row['location']. '</td>';
-                    echo '<td>' . $row['total_production']. '</td>';
-                    echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
-                    echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
-                    echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
-                    echo '<td>' . $row['production_date'] . '</td>';
-                    echo '<td>';
-                    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
-                    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
-                    echo '</td>';
-                    echo '</tr>';
+                      <?php
+$result = $db->getAllProduction();
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    echo '<td>'. $row['producer_name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
+    echo '<td>'  . $row['location']. '</td>'; // Assuming 'location' is from 'site' table
+    echo '<td>' . $row['total_production']. '</td>';
+    echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
+    echo '<td>' . 'PHP ' . number_format($row['p_cost'], 2, '.', ',') . '</td>';
+    echo '<td>' . 'PHP ' . number_format($row['n_income'], 2, '.', ',') . '</td>';
+    echo '<td>' . $row['production_date'] . '</td>';
+    echo '<td>';
+    echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
+    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
+    echo '</td>';
+    echo '</tr>';
 
-                      $totalPIncome += $row['p_income'];
-                      // Net Income
-                      $totalNIncome += $row['n_income'];
-            }
-            ?>
+    $totalPIncome += $row['p_income'];
+    // Net Income
+    $totalNIncome += $row['n_income'];
+}
+?>
+
 
                 </tbody>
                           

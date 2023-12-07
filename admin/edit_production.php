@@ -15,6 +15,7 @@ if (!isset($_SESSION['user_id'])) {
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
         $producer_id = $_POST['producer_id'];
+        $site_id = $_POST['site_id'];
         
 
         // Calculate net income
@@ -24,7 +25,7 @@ if (!isset($_SESSION['user_id'])) {
 
         // Add the production record to the database
         $result = $db->updateProduction($user_id, $production_id, $production_date, 
-        $total_production, $p_income, $p_cost, $n_income, $producer_id);
+        $total_production, $p_income, $p_cost, $n_income, $producer_id, $site_id);
 
         if ($result != 0) {
             $message = "Production Successfully Updated!";
@@ -67,6 +68,7 @@ if (!isset($_SESSION['user_id'])) {
             while ($row = mysqli_fetch_object($result)) {
                 $productionID = $row->production_id;
                 $producerID = $row->producer_id;
+                $siteID = $row->site_id;
                 $producerName = $row->name;
                 $location = $row->location;
                 $production_date = $row->production_date;
@@ -87,24 +89,7 @@ if (!isset($_SESSION['user_id'])) {
                             <!-- Custom Styled Validation with Tooltips -->
                             <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                <!-- <div class="col-md-12 position-relative">
-                  <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                 <select name="site_id" class="form-select" id="validationCustom04" required>
-                    <option selected>Select Project Site Location</option>
-                    <?php
-                    $resultType = $db->getSiteLocationActive();
-                    while ($row = mysqli_fetch_array($resultType)) {
-                        $site_id = $row['site_id'];
-                        $location = $row['location'];
-                        $selected = ($site_id == $site) ? 'selected' : '';
-                        echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
-                    }
-                    ?>
-    </select>
-                  <div class="invalid-tooltip">
-                    The Project Site Location field is required.
-                  </div>
-                </div> -->
+                              
                 <div class="col-md-12 position-relative">
                       <label class="form-label">Producer Name<font color="red">*</font></label>
                        <select name="producer_id" class="form-select" id="validationCustom04">

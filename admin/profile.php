@@ -13,7 +13,11 @@ if (!isset($_SESSION['user_id'])) {
     $userTargetID = $_POST['userTargetID']; 
     $fullname = $_POST['fullname']; 
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    if (!empty($_POST['new_password'])) {
+      $password = md5($_POST['new_password']);
+    } else {
+      $password = $_POST['password'];
+    }
     $type_id = $_POST['user_type_id'];
     $user_status   = $_POST['user_status'];
     $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID);
@@ -98,12 +102,12 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
                 
                 <div class="col-md-6 position-relative">
-                  <label class="form-label">Password<font color="red">*</font></label>
-                  <input type="password" minlength="8" class="form-control" id="password" name="password" 
-                  value ="" >
-                  <input type="checkbox" onclick="myFunction()">Show Password
+                  <label class="form-label">Password<font color = "red"> (Leave the password field empty if you don't want to change)</font></label>
+                  <input type="hidden" class="form-control" name = "password" value = "<?php echo $password ?>" required>
+                  <input type="password" minlength="8" class="form-control" id="password" name = "new_password">
+                  <input type="checkbox" onclick="myFunction()">Show Password 
                   <div class="invalid-tooltip">
-                    The Password must be minimum of 8 characters.
+                    The Password field is required.
                   </div>
                 </div>
 
