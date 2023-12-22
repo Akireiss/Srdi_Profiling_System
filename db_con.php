@@ -1,4 +1,4 @@
-<?php
+ <?php
 error_reporting(0);
 session_start();
 class db
@@ -431,6 +431,7 @@ class db
         return $result;
     }
 
+    
 
     public function getSiteID($site_id)
     {
@@ -503,6 +504,8 @@ class db
         $sql = "SELECT * FROM production
                 LEFT JOIN cocoon
                 ON production.producer_id = cocoon.cocoon_id 
+                LEFT JOIN site
+                ON production.site_id = site.site_id
 				 WHERE production_id='$production_id'";
         $result = mysqli_query($this->$con, $sql);
         return $result;
@@ -654,7 +657,9 @@ class db
 				SET topography_name = '$topography_name',
 					topography_status	='$topography_status'
 				WHERE topography_id	= '$topography_id'";
+            ;   
         $result = mysqli_query($this->$con, $sql);
+        
         if ($result) {
             // Log the action in the audit_logs table
             $userID = $user_id;

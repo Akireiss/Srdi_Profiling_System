@@ -55,7 +55,7 @@ if(!isset($_SESSION['user_id'])) {
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Topography Information</h5>
-                                <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                 
                                     <div class="col-md-6 position-relative">

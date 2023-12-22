@@ -109,12 +109,12 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-md-12 position-relative">
                     <label class="form-label">Project Site Location<font color="red">*</font></label>
                     <select name="site_id" class="form-select" id="siteDropdown" required>
-                    <option value="<?php echo $site_id;?>" selected disabled><?php echo $location;?></option>
+                    <option value="<?php echo $siteID;?>" selected disabled><?php echo $location;?></option>
                     </select>
-            <div class="invalid-tooltip">
-                The Project Site Location field is required.
-            </div>
-        </div>
+                    <div class="invalid-tooltip">
+                        The Project Site Location field is required.
+                    </div>
+                </div>
 
 
 
@@ -194,22 +194,48 @@ if (!isset($_SESSION['user_id'])) {
     </main><!-- END MAIN -->
 
     <?php include '../includes/footer.php' ?>
-    <script>
-    document.getElementById('producerDropdown').addEventListener('change', function() {
-    var producerId = this.value;
+    <script src="../public/assets/js/jquery.min.js"></script>
 
-    // Make AJAX request
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'AjaxLocation.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Update the "Project Site Location" dropdown with the response
-            document.getElementById('siteDropdown').innerHTML = xhr.responseText;
-        }
-    };
-    xhr.send(' =' + producerId);
+<script src=""></script>
+<script>
+    $(document).ready(function () {
+        $('#producerDropdown').change(function () {
+            var producerId = $(this).val();
+
+            $.ajax({
+                url: 'AjaxLocation.php',
+                type: 'POST',
+                data: { producerId: producerId },
+                success: function (response) {
+                    $('#siteDropdown').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
+    <script>
+    $(document).ready(function () {
+    $('#producerDropdown').change(function () {
+        var producerId = $(this).val();
+
+        $.ajax({
+            url: 'AjaxLocation.php',
+            type: 'POST',
+            data: { producerId: producerId },
+            success: function (response) {
+                $('#siteDropdown').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
 });
+
 </script>
 </body>
 
