@@ -2,9 +2,23 @@
 session_start();
 include '../db_con.php';
 $db = new db();
+
+// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-  header("Location: ../auth/login.php");
+    header("Location: ../auth/login.php");
+    exit(); // Stop further execution
 }
+
+if ($_SESSION['type_id'] == 2) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
 $cocoonCount = $db->countCocoon();
 $cocoonCountInactive = $db->countCocoonInactive();
 $siteCount = $db->countSite();
@@ -277,14 +291,17 @@ $barCount = $db->barChart();
           <div class="col-md-3">
     <label for="categoryYear" class="form-label">Year Filter</label>
     <select id="categoryYear" class="form-select mb-3">
-        <option value="2023">2023</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-        <option value="2026">2026</option>
-        <option value="2027">2027</option>
-        <option value="2028">2028</option>
+    <?php
+                      $resultType=$db->getYear();
+                      while($row=mysqli_fetch_array($resultType)){
+                        echo '<option value="'.$row['year_name'].'">' . $row['year_name'] . '</option>';
+                      }
+                     
+                      ?>
     </select>
 </div>
+
+
 
 <!-- <div class="col-md-3">
     <label for="categoryYear" class="form-label">Year Filter</label>

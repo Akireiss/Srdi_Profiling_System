@@ -358,19 +358,20 @@ if (isset($message)) {
 
 
             <div class="col-md-3">
-    <div class="col-md-12">
-        <label for="validationCustom04" class="form-label fw-bold">Funding Agency</label>
-    </div>
-    <?php
-    $resultType = $db->getAgencyActive();
-    while ($row = mysqli_fetch_array($resultType)) {
-        echo '<div class="form-check form-check-inline col-md-12">'; // Adjust the width here (e.g., col-md-6)
-        echo '<input name="agencys[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agemcy_id'] . '">';
-        echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
-        echo '</div>';
-    }
-    ?>
-</div>
+              <div class="col-md-12">
+                  <label for="validationCustom04" class="form-label fw-bold">Funding Agency</label>
+              </div>
+              <?php
+              $resultType = $db->getAgencyActive();
+              while ($row = mysqli_fetch_array($resultType)) {
+                  echo '<div class="form-check col-md-12"">'; // Adjust the width here (e.g., col-md-6)
+                  echo '<input name="agencys[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
+                  echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
+                  echo '</div>';
+              }
+              ?>
+          </div>
+
 
 
                 
