@@ -291,15 +291,22 @@ $barCount = $db->barChart();
           <div class="col-md-3">
     <label for="categoryYear" class="form-label">Year Filter</label>
     <select id="categoryYear" class="form-select mb-3">
-    <?php
-                      $resultType=$db->getYear();
-                      while($row=mysqli_fetch_array($resultType)){
-                        echo '<option value="'.$row['year_name'].'">' . $row['year_name'] . '</option>';
-                      }
-                     
-                      ?>
+        <?php
+        $resultType = $db->getYear();
+
+        // Get the current year
+        $currentYear = date("Y");
+
+        while ($row = mysqli_fetch_array($resultType)) {
+            // Set the 'selected' attribute for the current year
+            $selected = ($row['year_name'] == $currentYear) ? 'selected' : '';
+
+            echo '<option value="' . $row['year_name'] . '" ' . $selected . '>' . $row['year_name'] . '</option>';
+        }
+        ?>
     </select>
 </div>
+
 
 
 
