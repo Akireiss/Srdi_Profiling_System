@@ -1597,7 +1597,7 @@ public function updateUsers($user_id, $fullname, $username, $password, $type_id,
 
             $sql = "INSERT INTO cocoon (name, birthdate, 
              age, type, sex, region, province, municipality, barangay,
-              address, education, religion, civil_status, name_spouse, farm_participate,
+             address, education, religion, civil_status, name_spouse, farm_participate,
                cannot_participate, male, female, years_in_farming, 
                available_workers, intent, signature, id_pic, bypic, date_validation)
 						VALUES ('$name',					

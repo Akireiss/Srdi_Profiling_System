@@ -15,225 +15,235 @@ if (!isset($_SESSION['user_id'])) {
   <?php include '../includes/sidebar.php' ?>
 
   <main id="main" class="main">
-    <?php
-    $result = $db->getProducerID($_GET['cocoon_id']);
-    while ($row = mysqli_fetch_object($result)) {
-      $cocoonID             = $row->cocoon_id;
-      $date_validation      = $row->date_validation;
-      $name                 = $row->name;
-      $status                = $row->status;
-      $age                  = $row->age;
-      $birthdate            = $row->birthdate;
-      $type                 = $row->type;
-      $sex                  = $row->sex;
-      $region               = $row->region;
-      $regName              = $row->regDesc;
-      $province             = $row->province;
-      $provName             = $row->provDesc;
-      $municipality         = $row->municipality;
-      $citymunName          = $row->citymunDesc;
-      $barangay             = $row->barangay;
-      $barangayName         = $row->brgyDesc;
-      $address              = $row->address;
-      $education            = $row->education;
-      $religion             = $row->religion;
-      $civil_status         = $row->civil_status;
-      $name_spouse          = $row->name_spouse;
-      $farm_participate     = $row->farm_participate;
-      $cannot_participate   = $row->cannot_participate;
-      $male                 = $row->male;
-      $female               = $row->female;
-      $source_income        = $row->source_income;
-      $years_in_farming     = $row->years_in_farming;
-      $available_workers    = $row->available_workers;
-      $farm_tool            = $row->farm_tool;
-      $intent               = $row->intent;
-      $signature            = $row->signature;
-      $id_pic               = $row->id_pic;
-      $intent               = $row->intent;
-      $signature            = $row->signature;
-      $bypic                = $row->bypic;
-    }
-    ?>
+  <?php
+             $result=$db->getProducerID($_GET['cocoon_id']);
+            while($row=mysqli_fetch_object($result)){
+                $cocoonID             = $row->cocoon_id;
+                $date_validation      = $row->date_validation ;
+                $name                 = $row->name;
+                $status               = $row->status;
+                $age                  = $row->age;
+                $birthdate            = $row->birthdate;
+                $type                 = $row->type;
+                $sex                  = $row->sex;
+                $region 	            = $row->region;
+                $regName              = $row->regDesc;
+                $province             = $row->province;
+                $provName             = $row->provDesc;
+                $municipality         = $row->municipality;
+                $citymunName          = $row->citymunDesc;
+                $barangay             = $row->barangay;
+                $barangayName         = $row->brgyDesc;
+                $address              = $row->address;
+                $education            = $row->education;
+                $religion             = $row->religion;
+                $civil_status         = $row->civil_status;
+                $name_spouse          = $row->name_spouse;
+                $farm_participate     = $row->farm_participate;
+                $cannot_participate   = $row->cannot_participate;
+                $male                 = $row->male;
+                $female               = $row->female;
+                $source_income        = $row->source_income;//decode this
+                $years_in_farming     = $row->years_in_farming;
+                $available_workers    = $row->available_workers;
+                $farm_tool            = $row->farm_tool;
+                $intent               = $row->intent;
+                $signature            = $row->signature;
+                $id_pic               = $row->id_pic;
+                $intent               = $row->intent;
+                $signature            = $row->signature;
+                $bypic                = $row->bypic;
+            }
+        ?>
 
-    <?php
-    if (isset($message)) {
-      if ($result != 0) {
-        echo '<div class="alert alert-warning bg-warning border-0 alert-dismissible fade show" role="alert">';
-        echo '<i class="fa-sharp fa-solid fa-circle-check"></i>';
-      } else {
-        echo '<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">';
-        echo '<i class="fa-regular fa-circle-xmark"></i>';
-      }
-      echo $message;
-      echo '</div>';
-    }
-    ?>
-    <div class="pagetitle">
-      <h1>Edit Producer | <?php echo $name ?></h1>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
+          <?php
+              if (isset($message)) {
+                  if ($result != 0) {
+                      echo '<div class="alert alert-warning bg-warning border-0 alert-dismissible fade show" role="alert">';
+                      echo '<i class="fa-sharp fa-solid fa-circle-check"></i>';
+                  } else {
+                      echo '<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">';
+                      echo '<i class="fa-regular fa-circle-xmark"></i>';
+                  }
+                  echo $message;
+                  echo '</div>';
+              }
+              ?>
+           <div class="pagetitle">
+      <h1>Edit Producer | <?php echo $name?></h1>
+          </div>
+            
+      <section class="section dashboard mt-8">
+        <div class="mt-3 container">
         <div class="col-lg-12">
+          <div class="card md:w-full">
+          <form action="#" method="post" enctype="multipart/form-data">
+      
+          <div class="card-body w-100">
+  
+        <h5 class="card-title">A. Personal Information</h5>
 
-          <div class="card">
-            <div class="card-body">
+        <div class="col-md-2">
+            <label for="validationCustom02" class="form-label">Date of Validation<font color = "red">*</font></label>
+            <input type="date" class="form-control" id="validationTooltip01" name="date_validation"
+                                         value = "<?php echo $date_validation;?>" >
+            <div class="valid-feedback">
+            The Date Validation field is required!
+            </div>
+          </div> 
 
-              <!-- <h5 class="card-title">Personal Information</h5> -->
-              <!-- Bordered Tabs -->
-              <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true">Personal Information</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Site</button>
-                </li>
-              </ul>
-              <div class="tab-content pt-2" id="borderedTabContent">
-                <div class="tab-pane fade show active" id="bordered-home" role="tabpanel" aria-labelledby="home-tab">
-                  <!-- Custom Styled Validation with Tooltips -->
-                  <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
-                    <!-- Date Validation -->
-                    <div class="col-md-4">
-                      <label for="validationCustom02" class="form-label">Date of Validation<font color="red">*</font></label>
-                      <input type="date" class="form-control" id="validationTooltip01" name="date_validation" value="<?php echo $date_validation; ?>" disabled>
-                      <div class="valid-feedback">
-                        Looks good!
-                      </div>
-                    </div>
+        <div class="row mt-3 needs-validation md:w-full" novalidate>
+          <div class="col-md-6">
+          <label for="validationCustom01" class="form-label">Name<font color = "red">*</font></label>
+                       
+                       <input type="hidden" class="form-control" id="validationTooltip01" name="cocoon_id"
+                                        value = "<?php echo $cocoonID;?>" >
+                                        <input type="text" class="form-control" id="validationTooltip01" name="name" disabled
+                                       value = "<?php echo $name;?>" >
+            <div class="valid-feedback">
+            The Name field is required!
+            </div>
+          </div>
+          
+          <div class="col-md-6 position-relative">
+            <label class="form-label">Status<font color="red">*</font></label>
+              <div class="col-sm-12">
+                <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" disabled>
+                  <?php
+                    if($status == 'Active'){
+                      echo '<option value="Active" selected>' . $status . '</option>';
+                      echo '<option value="Inactive">Inactive</option>';
+                    }else{
+                       echo '<option value="Active">Active</option>';
+                        echo '<option value="Inactive" selected>' . $status . '</option>';
+                    }
+                    ?>
+                </select>
+                    <div class="invalid-tooltip">
+                      The Status field is required.
+                     </div>
+                 </div>
+                </div>
+        </div>
+          
+        <div class="row mt-3  needs-validation md:w-full" novalidate>
+              <div class="col-md-3">
+              <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
+                      <input type="text" class="form-control" id="age" name="age" disabled   
+                                    value = "<?php echo $age;?>" >
+          <div class="valid-feedback">
+          The Age field is required!
+          </div>
+      </div>
 
-                    <!-- Producer Name -->
-                    <div class="row g-3  needs-validation md:w-full" novalidate>
-                      <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label">Name<font color="red">*</font></label>
+      <div class="col-md-3">
+          <label for="validationCustom02" class="form-label">Birthdate<font color = "red">*</font></label>
+                  <input type="date" class="form-control" id="validationTooltip01" name="birthdate" disabled 
+                       value = "<?php echo $birthdate;?>" >
+          <div class="valid-feedback">
+          The Birthdate field is required!
+          </div>
+      </div>
 
-                        <input type="hidden" class="form-control" id="validationTooltip01" name="cocoon_id" value="<?php echo $cocoonID; ?>">
-                        <input type="text" class="form-control" id="validationTooltip01" name="name" value="<?php echo $name; ?>" disabled>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                      </div>
-
-                      <div class="col-md-6 position-relative">
-                        <label class="form-label">Status<font color="red">*</font></label>
-                        <div class="col-sm-12">
-                          <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" disabled>
+          <div class="col-md-3 ">
+          <label class="form-label">Type of Producer<font color="red">*</font></label>
+                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" disabled 
+                  
+                      <option value="" >Select Type</option>
+                      <option value="Seed Cocoon" <?php if ($type === "Seed Cocoon") echo "selected"; ?>>Seed Cocoon</option>
+                      <option value="Commercial" <?php if ($type === "Commercial") echo "selected"; ?>>Commercial</option>
+                  </select>
+              <div class="invalid-tooltip">
+                The Type of Producer field is required.
+               </div>
+          </div>
+               
+          
+          <div class="col-md-3">
+                  <label class="form-label">Sex<font color="red">*</font></label>
+                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" disabled >
+                      <option value="" disabled>Select Sex</option>
+                      <option value="Male" <?php if ($type === "Male") echo "selected"; ?>>Male</option>
+                      <option value="Female" <?php if ($type === "Female") echo "selected"; ?>>Female</option>
+                  </select>
+              </div>
+          </div>
+          
+          <div class="row mt-4 needs-validation md:w-full" novalidate>
+          <div class="col-md-3 position-relative">
+                  <label class="form-label">Region<font color = "red">*</font></label>
+                  <div class="col-sm-12">
+                  <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>">
+                          <select class="form-select" aria-label="Default select example" name = "region" id="region" disabled
+                          value = "<?php echo $regCode;?>">
+                            <option value="<?php echo $regCode;?>" selected disabled="disabled"><?php echo $regName;?></option>
                             <?php
-                            if ($status == 'Active') {
-                              echo '<option value="Active" selected>' . $status . '</option>';
-                              echo '<option value="Inactive">Inactive</option>';
-                            } else {
-                              echo '<option value="Active">Active</option>';
-                              echo '<option value="Inactive" selected>' . $status . '</option>';
+                            $resultType=$db->getRegion();
+                            while($row=mysqli_fetch_array($resultType)){
+                              echo '<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>';
                             }
-                            ?>
+                            ?>    
                           </select>
-                          <div class="invalid-tooltip">
-                            The Status field is required.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  </div>
+                  <div class="invalid-feedback">
+                  The Region field is required
+                  </div>
+                </div>
 
+                <div class="col-md-3 position-relative">
+                  <label class="form-label">Province<font color = "red">*</font></label>
+                  <div class="col-sm-12">
+                  <select class="form-select" aria-label="Default select example" name = "province" id="province" disabled 
+                  value = "<?php echo $provCode;?>" >
+                              <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>  
+                  </select>
+                  </div>
+                  <div class="invalid-feedback">
+                  The Province field is required
+                  </div>
+                </div>
 
-                    <!-- Beekeeper Gender -->
-                    <div class="row g-3  needs-validation md:w-full" novalidate>
-                      <div class="col-md-3">
-                        <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
-                        <input type="text" class="form-control" id="validationTooltip01" name="age" value="<?php echo $age; ?>" disabled>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                      </div>
+                <div class="col-md-3 position-relative">
+                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
+                  <div class="col-sm-12">
+                  <select class="form-select" aria-label="Default select example" name = "municipality" id="city" disabled
+                  value = "<?php echo $citymunCode;?>" >
+                                 <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
+                  </select>
+                  </div>
+                  <div class="invalid-feedback">
+                  The City/Municiality field is required
+                  </div>
+                </div>
 
-                      <div class="col-md-3">
-                        <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
-                        <input type="date" class="form-control" id="validationTooltip01" name="birthdate" value="<?php echo $birthdate; ?>" disabled>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                      </div>
+                <div class="col-md-3 position-relative">
+                  <label class="form-label">Barangay<font color = "red">*</font></label>
+                  <div class="col-sm-12">
+                  <select class="form-select" aria-label="Default select example" name = "barangay" disabled
+                                  id="barangay" value = "<?php echo $brgyCode;?>">
+                                  <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="invalid-feedback">
+                The Barangay field is required
+                </div> 
+          </div>
+         
+          <div class="row mt-3  needs-validation md:w-full" novalidate>
+          <div class="col-md-4">
+            <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
+            
+            <input type="text" name="address" class="form-control" id="validationCustom03" disabled>
+            <div class="invalid-feedback">
+            The House no. field is required
+            </div>
+          </div>
 
-                      <div class="col-md-3">
-                        <label class="form-label">Type of Producer<font color="red">*</font></label>
-                        <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" disabled <option value="">Select Type</option>
-                          <option value="Seed Cocoon" <?php if ($type === "Seed Cocoon") echo "selected"; ?>>Seed Cocoon</option>
-                          <option value="Commercial" <?php if ($type === "Commercial") echo "selected"; ?>>Commercial</option>
-                        </select>
-                      </div>
-
-
-
-                      <div class="col-md-3">
-                        <label class="form-label">Sex<font color="red">*</font></label>
-                        <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" disabled>
-                          <option value="" disabled>Select Sex</option>
-                          <option value="Male" <?php if ($type === "Male") echo "selected"; ?>>Male</option>
-                          <option value="Female" <?php if ($type === "Female") echo "selected"; ?>>Female</option>
-                        </select>
-                      </div>
-
-                      <div class="col-md-3 position-relative">
-                        <label class="form-label">Region<font color="red">*</font></label>
-                        <div class="col-sm-12">
-                          <input type="hidden" class="form-control" id="validationTooltip03" name="region" value="<?php echo $regCode; ?>" disabled>
-                          <select class="form-select" aria-label="Default select example" name="region" id="region" value="<?php echo $regCode; ?>" disabled>
-                            <option value="<?php echo $regCode; ?>" selected disabled><?php echo $regName; ?></option>
-                            <?php
-                            $resultType = $db->getRegion($regCode);
-                            while ($row = mysqli_fetch_array($resultType)) {
-                              echo '<option value="' . $row['regCode'] . '">' . $row['regDesc'] . '</option>';
-                            }
-                            ?>
-                          </select>
-                          <div class="invalid-tooltip">
-                            The Region field is required.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3 position-relative">
-                        <label class="form-label">Province<font color="red">*</font></label>
-                        <div class="col-sm-12">
-                          <select class="form-select" aria-label="Default select example" name="province" id="province" value="<?php echo $provCode; ?>" disabled>
-                            <option value="<?php echo $provCode; ?>" selected disabled><?php echo $provName; ?></option>
-
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3 position-relative">
-                        <label class="form-label">City/Municipality<font color="red">*</font></label>
-                        <div class="col-sm-12">
-                          <select class="form-select" aria-label="Default select example" name="municipality" id="municipality" value="<?php echo $citymunCode; ?>" disabled>
-                            <option value="<?php echo $citymunCode; ?>" selected disabled><?php echo $citymunName; ?></option>
-
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3 position-relative">
-                        <label class="form-label">Barangay<font color="red">*</font></label>
-                        <div class="col-sm-12">
-                          <select class="form-select" aria-label="Default select example" name="barangay" id="barangay" value="<?php echo $brgyCode; ?>" disabled>
-                            <option value="<?php echo $brgyCode; ?>" selected disabled><?php echo $barangayName; ?></option>
-
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <label for="validationCustom03" class="form-label">Permanent Address<font color="red">*</font></label>
-                        <input type="text" class="form-control" id="validationTooltip01" name="address" value="<?php echo $address; ?>" disabled>
-                        <div class="invalid-feedback">
-                          Please provide a valid city.
-                        </div>
-                      </div>
-
-                      <div class="row g-3  needs-validation md:w-full" novalidate>
-                        <div class="col-md-6">
-                          <label for="validationCustom04" class="form-label">Educational Attainment<font color="red">*</font></label>
-                          <select name="education" class="form-select" id="validationCustom04" disabled>
+        
+          <div class="col-md-4">
+            <label for="validationCustom04" class="form-label">Educational Attainment<font color = "red">*</font></label>
+            <select name="education" class="form-select" id="validationCustom04" disabled>
                             <option selected>Select Educational Attainment</option>
                             <?php
                             $resultType = $db->getEducationActive();
@@ -243,14 +253,16 @@ if (!isset($_SESSION['user_id'])) {
                               $selected = ($topography_id == $educationy) ? 'selected' : '';
                               echo '<option value="' . $education_id . '" ' . $selected . '>' . $education_name . '</option>';
                             }
-
                             ?>
-                          </select>
-                        </div>
-
-                        <div class="col-md-6">
-                          <label for="validationCustom05" class="form-label">Religion<font color="red">*</font></label>
-                          <select class="form-select" id="validationCustom04" name="religion" disabled>
+            </select>
+            <div class="invalid-feedback">
+                The Educational Attainment field is required
+                </div> 
+            </div>
+            
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label">Religion<font color = "red">*</font></label>
+            <select class="form-select" id="validationCustom04" name="religion" disabled>
                             <option selected>Select Religion</option>
                             <?php
                             $resultType = $db->getReligionActive();
@@ -262,67 +274,85 @@ if (!isset($_SESSION['user_id'])) {
                             }
                             ?>
                           </select>
-                          <div class="invalid-feedback">
-                            Please provide a valid zip.
-                          </div>
-                        </div>
+              <div class="invalid-feedback">
+                The Religion field is required
+                </div> 
+          </div>
+          
+          
+          <div class="col-md-6 mt-3">
+            <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
+            <select class="form-select" id="validationCustom04" name="civil" disabled >
+                              <option selected>Select Civil Status</option>
+                                <?php
+                                    $resultType = $db->getCivilActive();
+                                    $civil_id = $row['civil_id'];
+                                    $civil_name = $row['civil_name'];
+                                    $selected = ($civil_id == $civil) ? 'selected' : '';
+                                    echo '<option value="' . $civil_id . '" ' . $selected . '>' . $civil_name . '</option>';
+                                    
+                                  ?>
+             </select>
+            <div class="invalid-feedback">
+            The Civil Status field is required
+            </div> 
+          </div>
+   
 
+<div class="col-md-6 mt-3">
+  <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
+  <input type="text" class="form-control" name="name_spouse" id="spouse" disabled>
+  <div class="invalid-feedback">
+  The Name of spouse field is required
+  </div> 
+</div>      
+       
+    <div class="col-md-6 mt-3">
+        <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="validationCustom04" class="form-label">Number of family can participate in farm work<font color="red">*</font></label>
+    </div>
 
-                        <div class="col-md-6">
-                          <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="civil_status" value="<?php echo $civil_status; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a civil status.
-                          </div>
-                        </div>
+    <div class="col-md-3 mt-3">
+        <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="farm_participate" disabled
+                                    value = "<?php echo $farm_participate;?>" >
+      <div class="invalid-feedback">
+        The Number of Can participate in farm work field is required
+      </div> 
+    </div>
+    <div class="col-md-3 mt-3">
+        <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="cannot_participate" disabled
+                                              value = "<?php echo $cannot_participate;?>" >
+        <div class="invalid-feedback">
+        The Number of Cannot participate in farm work field is required
+      </div>   
+    </div>
+    <div class="col-md-3 mt-3">
+        <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="male" disabled
+                                              value = "<?php echo $male;?>" >
+        <div class="invalid-feedback">
+        The Number of male can participate in farm work field is required
+      </div>
+    </div>
+    <div class="col-md-3 mt-3">
+        <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="female" disabled
+                                              value = "<?php echo $female;?>" >
+        <div class="invalid-feedback">
+        The Number of female can participate in farm work field is required
+      </div>
+    </div>
 
-                        <div class="col-md-6">
-                          <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="name_spouse" value="<?php echo $name_spouse; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a name of spouse.
-                          </div>
-                        </div>
-
-
-                        <div class="col-md-12">
-                          <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
-                        </div>
-                        <div class="col-md-3 mt-1">
-                          <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="farm_participate" value="<?php echo $farm_participate; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a name of spouse.
-                          </div>
-                        </div>
-
-                        <div class="col-md-3 mt-1">
-                          <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="cannot_participate" value="<?php echo $cannot_participate; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a name of spouse.
-                          </div>
-                        </div>
-                        <div class="col-md-3 mt-1">
-                          <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="male" value="<?php echo $male; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a name of spouse.
-                          </div>
-                        </div>
-                        <div class="col-md-3 mt-1">
-                          <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="female" value="<?php echo $female; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a name of spouse.
-                          </div>
-                        </div>
-
-                        <!--Source of Income-->
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group mt-3">
-                              <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
+<!--Source of Income-->
+<!-- First Checkbox -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group mt-3">
+        <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
                             </div>
                           </div>
                           <div class="form-row mt-1">
@@ -340,32 +370,35 @@ if (!isset($_SESSION['user_id'])) {
                               echo '</div>';
                             }
                             ?>
-                          </div>
-                        </div>
+            </div>
+            <div class="invalid-feedback">
+                The Source of Income field is required
+            </div>
+        </div>
 
 
+        <div class="col-md-6 mt-3 ">
+          <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
+          <input type="text" class="form-control" id="validationTooltip01" name="years_in_farming" disabled
+                                                      value = "<?php echo $years_in_farming;?>" >
+          <div class="invalid-feedback">
+                The Number of years in farming field is required
+            </div>
+        </div>
 
+        <div class="col-md-6 mt-3 ">
+        <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
+        <input type="text" class="form-control" id="validationTooltip01" name="available_workers" disabled
+                                              value = "<?php echo $available_workers;?>" >
+        <div class="invalid-feedback">
+        The Number of available workers field is required
+        </div>
+        </div>
 
-
-                        <div class="col-md-6 ">
-                          <label for="validationCustom04" class="form-label">Number of years in farming<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="years_in_farming" value="<?php echo $years_in_farming; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a number of years in farming.
-                          </div>
-                        </div>
-                        <div class="col-md-6 ">
-                          <label for="validationCustom04" class="form-label">Number of available workers<font color="red">*</font></label>
-                          <input type="text" class="form-control" id="validationTooltip01" name="available_workers" value="<?php echo $available_workers; ?>" disabled>
-                          <div class="invalid-feedback">
-                            Please provide a Number of available workers.
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-group mt-3">
-                              <label for="validationCustom04" name="farm_tool">Available Farm Tools and Implements<font color="red">*</font></label>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group mt-3">
+          <label for="validationCustom04" name="farm_tool">Available Farm Tools and Implements<font color="red">*</font></label>
                             </div>
                             <div class="form-row mt-1">
                               <?php
@@ -381,14 +414,13 @@ if (!isset($_SESSION['user_id'])) {
                                 echo '</div>';
                               }
                               ?>
-                              <!--  -->
-                            </div>
+                </div>
 
-                          </div>
-                        </div>
-
-
-                      </div>
+            </div>
+            <div class="invalid-feedback">
+            The Available farm tools field is required
+            </div>
+          </div>
 
 
                       <div class="my-4"></div>
