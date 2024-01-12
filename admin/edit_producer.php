@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
         $date_validation = $_POST['date_validation'];
         $name = $_POST['name'];
-      //  $status = $_POST['status'];
+       $status = $_POST['status'];
         //Birthdate
         $birthdate = $_POST['birthdate'];
         //
@@ -92,7 +92,7 @@ if (!isset($_SESSION['user_id'])) {
                 $citymunName          = $row->citymunDesc;
                 $barangay             = $row->barangay;
                 $barangayName         = $row->brgyDesc;
-                $street              = $row->street;
+                $address              = $row->address;
                 $education            = $row->education;
                 $religion             = $row->religion;
                 $civil_status         = $row->civil_status;
@@ -165,23 +165,24 @@ if (!isset($_SESSION['user_id'])) {
           
           <div class="col-md-6 position-relative">
             <label class="form-label">Status<font color="red">*</font></label>
-              <div class="col-sm-12">
+            <div class="col-sm-12">
                 <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
-                  <?php
-                    if($status == 'Active'){
-                      echo '<option value="Active" selected>' . $status . '</option>';
-                      echo '<option value="Inactive">Inactive</option>';
-                    }else{
-                       echo '<option value="Active">Active</option>';
-                        echo '<option value="Inactive" selected>' . $status . '</option>';
-                    }
+                    <?php
+                        if (!empty($status)) {
+                            echo '<option value="Active" ' . ($status == 'Active' ? 'selected' : '') . '>Active</option>';
+                            echo '<option value="Inactive" ' . ($status == 'Inactive' ? 'selected' : '') . '>Inactive</option>';
+                        } else {
+                            echo '<option value="Active">Active</option>';
+                            echo '<option value="Inactive">Inactive</option>';
+                        }
                     ?>
                 </select>
-                    <div class="invalid-tooltip">
-                      The Status field is required.
-                     </div>
-                 </div>
+                <div class="invalid-tooltip">
+                    The Status field is required.
                 </div>
+            </div>
+        </div>
+
         </div>
           
         <div class="row mt-3  needs-validation md:w-full" novalidate>
@@ -287,13 +288,13 @@ if (!isset($_SESSION['user_id'])) {
          
           <div class="row mt-3  needs-validation md:w-full" novalidate>
           <div class="col-md-4">
-          <label for="validationCustom04" class="form-label">House No./Street<font color="red">*</font></label>
-          <input type="text" class="form-control" id="validationTooltip01" name="street" 
-                                    value = "<?php echo $street;?>" >
-            <div class="invalid-feedback">
-            The House no. field is required
-            </div>
+              <label for="validationCustom04" class="form-label">House No./Street<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="address" value="<?php echo htmlspecialchars($address); ?>">
+              <div class="invalid-feedback">
+                  The House no. field is required.
+              </div>
           </div>
+
 
         
           <div class="col-md-4">
@@ -305,7 +306,7 @@ if (!isset($_SESSION['user_id'])) {
                             while ($row = mysqli_fetch_array($resultType)) {
                               $education_id = $row['education_id'];
                               $education_name = $row['education_name'];
-                              $selected = ($topography_id == $educationy) ? 'selected' : '';
+                              $selected = ($civil_id == $education) ? 'selected' : '';
                               echo '<option value="' . $education_id . '" ' . $selected . '>' . $education_name . '</option>';
                             }
                             ?>
@@ -337,21 +338,23 @@ if (!isset($_SESSION['user_id'])) {
           
           <div class="col-md-6 mt-3">
             <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
-            <select class="form-select" id="validationCustom04" name="civil" >
-                              <option selected>Select Civil Status</option>
-                                <?php
-                                    $resultType = $db->getCivilActive();
-                                    $civil_id = $row['civil_id'];
-                                    $civil_name = $row['civil_name'];
-                                    $selected = ($civil_id == $civil) ? 'selected' : '';
-                                    echo '<option value="' . $civil_id . '" ' . $selected . '>' . $civil_name . '</option>';
-                                    
-                                  ?>
-             </select>
+            <select name="civil" class="form-select" id="validationCustom04" >
+                <option selected>Select Civil Status</option>
+                <?php
+                    $resultType = $db->getCivilActive();
+                    while ($row = mysqli_fetch_array($resultType)) {
+                      $civil_id = $row['civil_id'];
+                      $civil_name = $row['civil_name'];
+                      $selected = ($civil_id == $civil) ? 'selected' : '';
+                      echo '<option value="' . $civil_id . '" ' . $selected . '>' . $civil_name . '</option>';
+                    }
+                ?>
+            </select>
             <div class="invalid-feedback">
-            The Civil Status field is required
+                The Civil Status field is required.
             </div> 
-          </div>
+        </div>
+
    
 
 <div class="col-md-6 mt-3">
