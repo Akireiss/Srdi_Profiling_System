@@ -1,5 +1,6 @@
  <?php
     error_reporting(0);
+    ini_set('display_errors', 1);
     session_start();
     class db
     {
@@ -2112,4 +2113,102 @@
 
             return $selectedFarmTools;
         }
+        public function updateCocoonProducer(
+            $name, $status, $birthdate, $age, $type, $sex, $address, 
+            $barangay, $education, $religion, $civil_status,
+            $name_spouse, $farm_participate, $cannot_participate, $male,
+            $female, $years_in_farming, $available_workers,
+            $intent, $signature, $id_pic, $bypic, $date_validation,
+            $region, $province, $municipality,
+            $cocoon_id
+        ) {
+ 
+            $sql = "UPDATE cocoon
+                    SET name = '$name',
+                        status = '$status',
+                        birthdate = '$birthdate',
+                        type = '$type',
+                        sex = '$sex',
+                        address = '$address',
+                        education = '$education',
+                        religion = '$religion',
+                        civil_status = '$civil_status',
+                        name_spouse = '$name_spouse',
+                        farm_participate = '$farm_participate',
+                        cannot_participate = '$cannot_participate',
+                        male = '$male',
+                        female = '$female',
+                        years_in_farming = '$years_in_farming',
+                        available_workers = '$available_workers',
+                        age = '$age',
+                        intent = '$intent',
+                        signature = '$signature',
+                        id_pic = '$id_pic',
+                        bypic = '$bypic', 
+                        date_validation = '$date_validation',
+                        region = '$region',
+                        province = '$province',
+                        municipality = '$municipality',
+                        barangay = '$barangay'
+                    WHERE cocoon_id = '$cocoon_id'";
+        
+            $result = mysqli_query($this->$con, $sql);
+    
+        
+            return $result; // return the result for success
+        }
+        
+        
+    // public function updateCocoonProducer(
+    //     $name, $status, $birthdate, $age, $type, $sex, 
+    //     $region, $province, $municipality, $barangay, $address, 
+    //     $education, $religion, $civil_status, $name_spouse, $farm_participate, 
+    //     $cannot_participate, $male, $female, $years_in_farming, $available_workers, 
+    //     $intent, $signature, $id_pic, $bypic, $date_validation, $cocoon_id
+    // ) {
+    //     $stmt = $this->con->prepare("UPDATE cocoon SET
+    //         name = ?,
+    //         status = ?, 
+    //         birthdate = ?,
+    //         age = ?,
+    //         type = ?,
+    //         sex = ?,
+    //         region = ?,
+    //         province = ?,
+    //         municipality = ?,
+    //         barangay = ?,
+    //         address = ?,
+    //         education = ?,
+    //         religion = ?,
+    //         civil_status = ?,
+    //         name_spouse = ?,
+    //         farm_participate = ?,
+    //         cannot_participate = ?,
+    //         male = ?,
+    //         female = ?,
+    //         years_in_farming = ?,
+    //         available_workers = ?,
+    //         date_validation = ?,
+         
+    //         WHERE cocoon_id = ?");
+    
+    //     // Assuming 'status' is an integer, adjust the 'i' type accordingly
+    //     $stmt->bind_param("ssssssiisssiiisiisi",
+    //         $name, $status, $birthdate, $age, $type, $sex, 
+    //         $region, $province, $municipality, $barangay, $address, 
+    //         $education, $religion, $civil_status, $name_spouse, 
+    //         $farm_participate, $cannot_participate, $male, $female, 
+    //         $years_in_farming, $available_workers, $date_validation, 
+    //         $intent, $signature, $id_pic, $bypic, $cocoon_id);
+    
+    //         $result = mysqli_query($this->$con, $sql);
+
+    //     $stmt->close();
+    
+    //     return $result;
+    // }
+    
+
+
+    
     }
