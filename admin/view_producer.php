@@ -370,7 +370,7 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="form-row mt-1">
                               <?php
                               $resultType = $db->getFarmToolsActive();
-                              $selectedFarmTools = $db->getSelectedFarmTools($cocoonID); // Replace $cocoonID with the actual cocoon ID
+                              $selectedFarmTools = $db->getSelectedFarmTools($cocoonID); 
 
                               while ($row = mysqli_fetch_array($resultType)) {
                                 $checked = in_array($row['tool_id'], $selectedFarmTools) ? 'checked' : '';
