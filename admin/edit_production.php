@@ -24,8 +24,15 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $total;
 
         // Add the production record to the database
-        $result = $db->updateProduction($user_id, $production_id, $production_date, 
-        $total_production, $p_income, $p_cost, $n_income, $producer_id, $site_id);
+        $result = $db->updateProduction($user_id,
+        $production_id,
+        $production_date,
+        $total_production,
+        $p_income,
+        $p_cost,
+        $n_income,
+        $producer_id,
+        $site_id);
 
         if ($result != 0) {
             $message = "Production Successfully Updated!";
@@ -57,6 +64,11 @@ if (!isset($_SESSION['user_id'])) {
             echo '</div>';
         }
         ?>
+<?php
+if (isset($message)) {
+    echo '<div class="alert alert-info">' . $message . '</div>';
+}
+?>
 
         <div class="pagetitle">
             <h1>Edit Production</h1>
@@ -87,7 +99,8 @@ if (!isset($_SESSION['user_id'])) {
                             <h5 class="card-title"></h5>
 
                             <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
+                            <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                               
                 <div class="col-md-12 position-relative">

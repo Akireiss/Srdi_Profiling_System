@@ -85,7 +85,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="col-md-2">
             <label for="validationCustom02" class="form-label">Date of Validation<font color = "red">*</font></label>
-            <input type="date" class="form-control" id="validationTooltip01" name="date_validation"
+            <input type="date" disabled class="form-control" id="validationTooltip01" name="date_validation"
                                          value = "<?php echo $date_validation;?>" >
             <div class="valid-feedback">
             The Date Validation field is required!
@@ -364,7 +364,7 @@ if (!isset($_SESSION['user_id'])) {
                               $checked = in_array($row['source_id'], $selectedSources) ? 'checked' : '';
 
                               echo '<div class="form-check form-check-inline col-md-4">';
-                              echo '<input class="form-check-input" name="form_income" type="checkbox" id="source_income'
+                              echo '<input disabled class="form-check-input" name="form_income" type="checkbox" id="source_income'
                                 . $row['source_id'] . '" value="' . $row['source_id'] . '" ' . $checked . '>';
                               echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label> ';
                               echo '</div>';
@@ -409,7 +409,7 @@ if (!isset($_SESSION['user_id'])) {
                                 $checked = in_array($row['tool_id'], $selectedFarmTools) ? 'checked' : '';
 
                                 echo '<div class="form-check form-check-inline col-md-4">';
-                                echo '<input class="form-check-input" name="farm_tools[]" type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '" ' . $checked . '>';
+                                echo '<input disabled class="form-check-input" name="farm_tools[]" type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '" ' . $checked . '>';
                                 echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
                                 echo '</div>';
                               }

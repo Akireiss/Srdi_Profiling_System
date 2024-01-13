@@ -299,28 +299,28 @@ if (isset($message)) {
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
-        <input type="text" class="form-control" name="farm_participate" id="farm_participate">
+        <input type="number" class="form-control" name="farm_participate" id="farm_participate">
       <div class="invalid-feedback">
         The Number of Can participate in farm work field is required
       </div> 
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
-        <input type="text" class="form-control" name="cannot_participate" id="cannot_participate">
+        <input type="number" class="form-control" name="cannot_participate" id="cannot_participate">
         <div class="invalid-feedback">
         The Number of Cannot participate in farm work field is required
       </div>   
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
-        <input type="text" class="form-control" name="male" id="male" >
+        <input type="number" class="form-control" name="male" id="male" >
         <div class="invalid-feedback">
         The Number of male can participate in farm work field is required
       </div>
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
-        <input type="text" class="form-control" name="female" id="female" >
+        <input type="number" class="form-control" name="female" id="female" >
         <div class="invalid-feedback">
         The Number of female can participate in farm work field is required
       </div>

@@ -931,7 +931,6 @@
             $resultsql = mysqli_query($this->$con, $sql);
             return $resultsql = 1;
         }
-
         public function updateProduction(
             $user_id,
             $production_id,
@@ -943,6 +942,8 @@
             $producer_id,
             $site_id
         ) {
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
             $sql = "UPDATE production
                     SET production_date = '$production_date',
                         total_production = '$total_production',
@@ -952,27 +953,38 @@
                         producer_id = '$producer_id',
                         site_id = '$site_id'
                     WHERE production_id = '$production_id'";
-
-            $result = mysqli_query($this->$con, $sql);
-            if ($sql) {
-                // Log the action in the audit_logs table
-                $action = "Update production: ";
-                $data = json_encode([
-                    'producer_id' => $producer_id,
-                    'production_date' => $production_date,
-                    'total_production' => $total_production,
-                    'p_income' => $p_income,
-                    'p_cost' => $p_cost,
-                    'site_id' => $site_id,
-                    'n_income' => $n_income
-                ]);
-
-                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
-                return $resultsql = 1;
+        
+            $result = mysqli_query($this->con, $sql);
+        
+            if (!$result) {
+                // Handle SQL error
+                echo "Error updating production: " . mysqli_error($this->con);
+                return false;
             }
+        
+            // Log the action in the audit_logs table
+            $action = "Update production: ";
+            $data = json_encode([
+                'producer_id' => $producer_id,
+                'production_date' => $production_date,
+                'total_production' => $total_production,
+                'p_income' => $p_income,
+                'p_cost' => $p_cost,
+                'site_id' => $site_id,
+                'n_income' => $n_income
+            ]);
+        
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id','$action', '$data')";
+            $auditResult = mysqli_query($this->con, $auditSql);
+        
+            if (!$auditResult) {
+                // Handle audit log error
+                echo "Error inserting into audit_logs: " . mysqli_error($this->con);
+            }
+        
+            return true;
         }
-
+        
         public function updateAgency($user_id, $agency_id, $agency_name, $status)
         {
             $sql = "UPDATE agency
