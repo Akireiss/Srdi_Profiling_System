@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "../db_con.php";
-$db = new db();
+include "../Main.php";
+$db = new main();
 $user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     if (isset($_POST['submit'])) {
         $user_id = $_POST['user_id'];
-        $production_id = $_POST['production_id'];
+        $productionId = $_POST['productionId'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
@@ -24,15 +24,16 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $total;
 
         // Add the production record to the database
-        $result = $db->updateProduction($user_id,
-        $production_id,
+        $result = $db->updateProduction(
         $production_date,
         $total_production,
         $p_income,
         $p_cost,
         $n_income,
         $producer_id,
-        $site_id);
+        $site_id,
+        $productionId
+        );
 
         if ($result != 0) {
             $message = "Production Successfully Updated!";
@@ -64,11 +65,6 @@ if (!isset($_SESSION['user_id'])) {
             echo '</div>';
         }
         ?>
-<?php
-if (isset($message)) {
-    echo '<div class="alert alert-info">' . $message . '</div>';
-}
-?>
 
         <div class="pagetitle">
             <h1>Edit Production</h1>
@@ -78,9 +74,9 @@ if (isset($message)) {
             <?php
             $result = $db->getProductionID($_GET['production_id']);
             while ($row = mysqli_fetch_object($result)) {
-                $productionID = $row->production_id;
-                $producerID = $row->producer_id;
-                $siteID = $row->site_id;
+                $productionId = $row->production_id;
+                $producerId = $row->producer_id;
+                $siteID = $row->site_id;//here
                 $producerName = $row->name;
                 $location = $row->location;
                 $production_date = $row->production_date;
@@ -96,30 +92,32 @@ if (isset($message)) {
                     <div class="card">
                         <div class="card-body">
 
-                            <h5 class="card-title"></h5>
+                            <h5 class="card-title"><?php echo $producerId?></h5>
 
                             <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                            <form class="row g-3 needs-validation" novalidate 
+                            action="" enctype="multipart/form-data" method="POST">
 
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                               
-                <div class="col-md-12 position-relative">
-                      <label class="form-label">Producer Name<font color="red">*</font></label>
-                       <select name="producer_id" class="form-select" id="validationCustom04">
-                             <option>Select Producer Name</option>
-                                <?php
-                                    $resultType = $db->getProducersActive();
-                                    while ($row = mysqli_fetch_array($resultType)) {
-                                    $cocoon_id = $row['cocoon_id'];
-                                    $name = $row['name'];
-                                    $selected = ($cocoon_id == $producerID) ? 'selected' : '';
-                                    echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
-                                        }
-                                        ?>
-                        </select>
-                </div>
+                            <input type="hidden" name="productionId" value="<?php echo $productionId ?>">
 
-                <div class="col-md-12 position-relative">
+                            <div class="col-md-12 position-relative">
+    <label class="form-label">Producer Name<font color="red">*</font></label>
+    <select name="producer_id" class="form-select" id="producerDropdown">
+        <option selected>Select Producer Name</option>
+        <?php
+        $resultType = $db->getProducersActive();
+        while ($row = mysqli_fetch_array($resultType)) {
+            $cocoon_id = $row['cocoon_id'];
+            $name = $row['name'];
+            $selected = ($cocoon_id == $producerId) ? 'selected' : '';
+            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
+        }
+        ?>
+    </select>
+</div>
+<div class="col-md-12 position-relative">
                     <label class="form-label">Project Site Location<font color="red">*</font></label>
                     <select name="site_id" class="form-select" id="siteDropdown" required>
                     <option value="<?php echo $siteID;?>" selected disabled><?php echo $location;?></option>
@@ -128,7 +126,6 @@ if (isset($message)) {
                         The Project Site Location field is required.
                     </div>
                 </div>
-
 
 
 
@@ -209,38 +206,24 @@ if (isset($message)) {
     <?php include '../includes/footer.php' ?>
     <script src="../public/assets/js/jquery.min.js"></script>
 
-<script src=""></script>
-<script>
-    $(document).ready(function () {
-        $('#producerDropdown').change(function () {
-            var producerId = $(this).val();
-
-            $.ajax({
-                url: 'AjaxLocation.php',
-                type: 'POST',
-                data: { producerId: producerId },
-                success: function (response) {
-                    $('#siteDropdown').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-    });
-</script>
-
     <script>
-    $(document).ready(function () {
+ $(document).ready(function () {
     $('#producerDropdown').change(function () {
         var producerId = $(this).val();
 
         $.ajax({
-            url: 'AjaxLocation.php',
+            url: 'displayAjax.php',
             type: 'POST',
             data: { producerId: producerId },
             success: function (response) {
-                $('#siteDropdown').html(response);
+                // Check if the dropdown already has a selected value
+                if ($('#siteDropdown').val()) {
+                    // Do not overwrite the initial value
+                    $('#siteDropdown').append(response);
+                } else {
+                    // Set the initial value and append the rest
+                    $('#siteDropdown').html(response);
+                }
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -248,6 +231,7 @@ if (isset($message)) {
         });
     });
 });
+
 
 </script>
 </body>

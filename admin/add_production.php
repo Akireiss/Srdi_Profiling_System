@@ -1,14 +1,13 @@
 <?php
 session_start();
-include "../db_con.php";
-$db = new db();
+include "../Main.php";
+$db = new main();
 $user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 } else {
     if (isset($_POST['submit'])) {
-        $user_id = $_POST['user_id'];
         $producer_id = $_POST['producer_id'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
@@ -18,18 +17,16 @@ if (!isset($_SESSION['user_id'])) {
         
      
 
-        $total = $p_income - $p_cost;
+        $p_income = $p_income - $p_cost;
         $n_income = $total;
-
-      
-        $p_income_formatted = number_format($p_income, 2);
-        $p_cost_formatted = number_format($p_cost, 2);
 
         $n_income = $p_income - $p_cost;
 
 
 
-        $result = $db->addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id);
+        $result = $db->addProduction($producer_id, $production_date, 
+        $total_production, $p_income, 
+        $p_cost, $n_income, $site_id);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -65,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
        
     <div class="pagetitle">
       <h1>Add Production</h1>
-          </div><!-- End Page Title -->
+          </div>
 
     <section class="section">
       <div class="row">
@@ -77,7 +74,7 @@ if (!isset($_SESSION['user_id'])) {
               <h5 class="card-title"></h5>
 
                             <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
+                            <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                             
                             <div class="col-md-12 position-relative">
@@ -126,7 +123,7 @@ if (!isset($_SESSION['user_id'])) {
 
                                 <div class="col-md-3 position-relative">
                                     <label class="form-label">Total Production (in kg)<font color="red">*</font></label>
-                                    <input type="text" class="form-control" id="validationTooltip03" name="total_production" >
+                                    <input type="number" class="form-control" id="validationTooltip03" name="total_production" >
 
                                 <div class="invalid-tooltip">
                                     The Total Production  field is required.
