@@ -134,10 +134,10 @@ if (isset($_POST['submit'])) {
                       <button class="btn btn-warning w-100" type="submit" name="submit">Login</button>
                     </div>
                     
-                    <div class="row mt-2">
+                    <!-- <div class="row mt-2">
                       <div class="col-12 text-left">
                         <a href="verification.php" id="forgot-password-link">Forgot Password?</a>
-                      </div>
+                      </div> -->
                 </form>
 
               </div>
