@@ -117,7 +117,7 @@ if (!isset($_SESSION['user_id'])) {
         ?>
     </select>
 </div>
-<div class="col-md-12 position-relative">
+<!-- <div class="col-md-12 position-relative">
                     <label class="form-label">Project Site Location<font color="red">*</font></label>
                     <select name="site_id" class="form-select" id="siteDropdown" required>
                     <option value="<?php echo $siteID;?>" selected disabled><?php echo $location;?></option>
@@ -125,7 +125,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="invalid-tooltip">
                         The Project Site Location field is required.
                     </div>
-                </div>
+                </div> -->
 
 
 
