@@ -24,6 +24,8 @@ if (!isset($_SESSION['user_id'])) {
             $result = $db->getSiteID($_GET['site_id']);
             while ($row = mysqli_fetch_object($result)) {
                 $siteID           = $row->site_id;
+                $land              = $row->land;
+
                 $location         = $row->location;
                 $producer_name     = $row->name;
                 $producerName     = $row->name;
@@ -37,7 +39,6 @@ if (!isset($_SESSION['user_id'])) {
                 $barangay             = $row->barangay;
                 $barangayName         = $row->brgyDesc;
                 $address          = $row->address;
-                $land              = $row->land;
                 $tenancy          = $row->tenancy;
                 $area             = $row->area;
                 $crops             = $row->crops;

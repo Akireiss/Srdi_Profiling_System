@@ -144,7 +144,7 @@
 
         public function getTenancy()
         {
-            $sql = "SELECT * FROM tenancy";
+            $sql = "SELECT * FROM tenancy";  
             $result = mysqli_query($this->$con, $sql);
             return $result;
         }
@@ -227,7 +227,7 @@
             $sql = "SELECT * FROM irrigation";
             $result = mysqli_query($this->$con, $sql);
             return $result;
-        }
+        }   
         public function getIrrigationActive()
         {
             $sql = "SELECT * FROM irrigation
