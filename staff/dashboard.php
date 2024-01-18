@@ -5,6 +5,20 @@ $db = new db();
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 }
+
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+
+
+
+
 $cocoonCount = $db->countCocoon();
 $cocoonCountInactive = $db->countCocoonInactive();
 $siteCount = $db->countSite();

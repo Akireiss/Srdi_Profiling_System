@@ -4,7 +4,16 @@ include "../db_con.php";
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-}  
+} 
+if ($_SESSION['type_id'] == 2) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+} 
 $result=$db->getUserTypeID($_GET['user_type_id']);
 while($row=mysqli_fetch_object($result)){
     $user_typeID     	= $row->user_type_id;

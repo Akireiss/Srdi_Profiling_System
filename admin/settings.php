@@ -5,6 +5,15 @@ $db = new db();
 if(!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 }
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
 
 ?>
 <?php include '../includes/header.php' ?>

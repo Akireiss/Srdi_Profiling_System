@@ -788,7 +788,7 @@
                 return $result = 1;
             }
         }
-        public function updateUserType($user_id, $user_type_id, $user_type_name, $user_type_status)
+        public function updateUserType($user_type_id, $user_type_name, $user_type_status)
         {
             $sql = "UPDATE user_type
 				SET user_type_name = '$user_type_name',

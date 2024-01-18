@@ -8,7 +8,16 @@ $users_id = $_SESSION['user_id'];
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
   exit(); // Ensure to stop further execution after redirection
-} else {
+} 
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}else {
   if (isset($_POST['submit'])) {
     $user_id = $_POST['user_id']; 
     $userTargetID = $_POST['userTargetID']; 

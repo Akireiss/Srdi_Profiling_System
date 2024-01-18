@@ -3,7 +3,16 @@ session_start();
 include '../db_con.php';
 $db = new db;
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../auth/login.php");
+  header("Location: ../auth/login.php");
+}
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
 } else {
     if (isset($_POST['submit'])) {
         $user_id = $_SESSION['user_id'];
@@ -123,7 +132,7 @@ if (isset($message)) {
         <div class="row mt-3  needs-validation md:w-full" novalidate>
         <div class="col-md-3">
     <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
-    <input type="text" class="form-control" id="age" name="age" value="">
+    <input type="number" class="form-control" id="age" name="age" value="">
     <div class="valid-feedback">
     The Age field is required!
     </div>
@@ -355,14 +364,14 @@ if (isset($message)) {
 
 <div class="col-md-6 mt-3 ">
   <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
-  <input type="text" class="form-control" name="years_in_farming" id="validationCustom05">
+  <input type="number" class="form-control" name="years_in_farming" id="validationCustom05">
   <div class="invalid-feedback">
         The Number of years in farming field is required
     </div>
 </div>
 <div class="col-md-6 mt-3 ">
 <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
-<input type="text" class="form-control" name="available_workers" id="validationCustom05" >
+<input type="number" class="form-control" name="available_workers" id="validationCustom05" >
 <div class="invalid-feedback">
 The Number of available workers field is required
 </div>

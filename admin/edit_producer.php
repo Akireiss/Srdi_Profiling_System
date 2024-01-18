@@ -7,6 +7,15 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
     exit(); // Add exit after redirect to prevent further execution
 } 
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
 
     if (isset($_POST['submit'])) {
       $name = $_POST['name'];
@@ -184,7 +193,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="row mt-3  needs-validation md:w-full" novalidate>
               <div class="col-md-3">
               <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
-                      <input type="text" class="form-control" id="age" name="age"    
+                      <input type="number" class="form-control" id="age" name="age"    
                                     value = "<?php echo $age;?>" >
           <div class="valid-feedback">
           The Age field is required!
@@ -288,8 +297,8 @@ if (!isset($_SESSION['user_id'])) {
           <div class="row mt-3  needs-validation md:w-full" novalidate>
           <div class="col-md-4">
             <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
-            
-            <input type="text" name="address" class="form-control" id="validationCustom03" >
+            <input type="text" name="address" class="form-control" id="validationCustom04" 
+            value = "<?php echo $address;?>" >
             <div class="invalid-feedback">
             The House no. field is required
             </div>
@@ -301,14 +310,15 @@ if (!isset($_SESSION['user_id'])) {
             <select name="education" class="form-select" id="validationCustom04" >
                             <option selected>Select Educational Attainment</option>
                             <?php
-                            $resultType = $db->getEducationActive();
-                            while ($row = mysqli_fetch_array($resultType)) {
-                              $education_id = $row['education_id'];
-                              $education_name = $row['education_name'];
-                              $selected = ($topography_id == $educationy) ? 'selected' : '';
-                              echo '<option value="' . $education_id . '" ' . $selected . '>' . $education_name . '</option>';
-                            }
-                            ?>
+                        $resultType = $db->getEducationActive();
+                        while ($row = mysqli_fetch_array($resultType)) {
+                            $education_id = $row['education_id'];
+                            $education_name = $row['education_name'];
+                            // Check if the current option's value matches the stored value, and set 'selected' if it does
+                            $selected = ($education_id == $education) ? 'selected' : '';
+                            echo '<option value="' . $education_id . '" ' . $selected . '>' . $education_name . '</option>';
+                        }
+                        ?>
             </select>
             <div class="invalid-feedback">
                 The Educational Attainment field is required
@@ -320,14 +330,15 @@ if (!isset($_SESSION['user_id'])) {
             <select class="form-select" id="validationCustom04" name="religion" >
                             <option selected>Select Religion</option>
                             <?php
-                            $resultType = $db->getReligionActive();
-                            while ($row = mysqli_fetch_array($resultType)) {
-                              $religion_id = $row['religion_id'];
-                              $religion_name = $row['religion_name'];
-                              $selected = ($religion_id == $religion) ? 'selected' : '';
-                              echo '<option value="' . $religion_id . '" ' . $selected . '>' . $religion_name . '</option>';
-                            }
-                            ?>
+                        $resultType = $db->getReligionActive();
+                        while ($row = mysqli_fetch_array($resultType)) {
+                            $religion_id = $row['religion_id'];
+                            $religion_name = $row['religion_name'];
+                            // Check if the current option's value matches the stored value, and set 'selected' if it does
+                            $selected = ($religion_id == $religion) ? 'selected' : '';
+                            echo '<option value="' . $religion_id . '" ' . $selected . '>' . $religion_name . '</option>';
+                        }
+                        ?>
                           </select>
               <div class="invalid-feedback">
                 The Religion field is required
@@ -339,14 +350,16 @@ if (!isset($_SESSION['user_id'])) {
             <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
             <select class="form-select" id="validationCustom04" name="civil"  >
                               <option selected>Select Civil Status</option>
-                                <?php
-                                    $resultType = $db->getCivilActive();
-                                    $civil_id = $row['civil_id'];
-                                    $civil_name = $row['civil_name'];
-                                    $selected = ($civil_id == $civil) ? 'selected' : '';
-                                    echo '<option value="' . $civil_id . '" ' . $selected . '>' . $civil_name . '</option>';
-                                    
-                                  ?>
+                              <?php
+                        $resultType = $db->getCivilActive();
+                        while ($row = mysqli_fetch_array($resultType)) {
+                            $civil_id = $row['civil_id'];
+                            $civil_name = $row['civil_name'];
+                            // Check if the current option's value matches the stored value, and set 'selected' if it does
+                            $selected = ($civil_id == $civil) ? 'selected' : '';
+                            echo '<option value="' . $civil_id . '" ' . $selected . '>' . $civil_name . '</option>';
+                        }
+                        ?>
              </select>
             <div class="invalid-feedback">
             The Civil Status field is required
@@ -354,13 +367,14 @@ if (!isset($_SESSION['user_id'])) {
           </div>
    
 
-<div class="col-md-6 mt-3">
-  <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
-  <input type="text" class="form-control" name="name_spouse" id="spouse" >
-  <div class="invalid-feedback">
-  The Name of spouse field is required
-  </div> 
-</div>      
+            <div class="col-md-6 mt-3">
+              <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
+              <input type="text" class="form-control" name="name_spouse" id="spouse" 
+              value = "<?php echo $name_spouse;?>" >
+              <div class="invalid-feedback">
+              The Name of spouse field is required
+              </div> 
+            </div>      
        
     <div class="col-md-6 mt-3">
         <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
@@ -371,7 +385,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
-        <input type="text" class="form-control" id="validationTooltip01" name="farm_participate" 
+        <input type="number" class="form-control" id="validationTooltip01" name="farm_participate" 
                                     value = "<?php echo $farm_participate;?>" >
       <div class="invalid-feedback">
         The Number of Can participate in farm work field is required
@@ -379,7 +393,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
-        <input type="text" class="form-control" id="validationTooltip01" name="cannot_participate" 
+        <input type="number" class="form-control" id="validationTooltip01" name="cannot_participate" 
                                               value = "<?php echo $cannot_participate;?>" >
         <div class="invalid-feedback">
         The Number of Cannot participate in farm work field is required
@@ -387,7 +401,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
-        <input type="text" class="form-control" id="validationTooltip01" name="male" 
+        <input type="number" class="form-control" id="validationTooltip01" name="male" 
                                               value = "<?php echo $male;?>" >
         <div class="invalid-feedback">
         The Number of male can participate in farm work field is required
@@ -395,7 +409,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
     <div class="col-md-3 mt-3">
         <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
-        <input type="text" class="form-control" id="validationTooltip01" name="female" 
+        <input type="number" class="form-control" id="validationTooltip01" name="female" 
                                               value = "<?php echo $female;?>" >
         <div class="invalid-feedback">
         The Number of female can participate in farm work field is required
@@ -434,7 +448,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="col-md-6 mt-3 ">
           <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
-          <input type="text" class="form-control" id="validationTooltip01" name="years_in_farming" 
+          <input type="number" class="form-control" id="validationTooltip01" name="years_in_farming" 
                                                       value = "<?php echo $years_in_farming;?>" >
           <div class="invalid-feedback">
                 The Number of years in farming field is required
@@ -443,7 +457,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="col-md-6 mt-3 ">
         <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
-        <input type="text" class="form-control" id="validationTooltip01" name="available_workers" 
+        <input type="number" class="form-control" id="validationTooltip01" name="available_workers" 
                                               value = "<?php echo $available_workers;?>" >
         <div class="invalid-feedback">
         The Number of available workers field is required

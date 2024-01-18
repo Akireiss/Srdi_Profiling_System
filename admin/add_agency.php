@@ -6,7 +6,17 @@ $user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} elseif (isset($_POST['submit'])) {
+} 
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+elseif (isset($_POST['submit'])) {
   $user_id  = $_POST['user_id'];
   $funding_agency = $_POST['funding_agency'];
   $status = $_POST['status'];
