@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(0);
 ini_set('display_errors', 1);
 session_start();
@@ -30,62 +31,64 @@ class main
         $stmt = $this->con->prepare("INSERT INTO production 
         (producer_id, production_date, total_production, p_income, p_cost, n_income, site_id) 
         VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param(
-        "ssssiii",
-        $producer_id,
-        $production_date,
-        $total_production,
-        $p_income,
-        $p_cost,
-        $n_income,
-        $site_id
-    );
-    
+        $stmt->bind_param(
+            "ssssiii",
+            $producer_id,
+            $production_date,
+            $total_production,
+            $p_income,
+            $p_cost,
+            $n_income,
+            $site_id
+        );
+
         $result = $stmt->execute();
         $stmt->close();
 
         return $result;
     }
- 
-    
+
+
     public function getProductionID($production_id)
     {
         $sql = "SELECT * FROM production
-             WHERE production_id ='$production_id'";
+            LEFT JOIN cocoon 
+            ON production.producer_id = cocoon.cocoon_id
+            LEFT JOIN site
+            ON production.site_id = site.site_id
+            WHERE production_id ='$production_id'";
         $result = mysqli_query($this->con, $sql);
         return $result;
     }
-    public function updateProduction(
-        $production_date,
-        $total_production,
-        $p_income,
-        $p_cost,
-        $n_income,
+    public function updateProduction($production_date, $total_production, $p_income, $p_cost, $n_income,
         $producer_id,
         $site_id,
-        $productionId
-    ) {
+        $productionId) {
         $stmt = $this->con->prepare("UPDATE production SET production_date = ?, 
             total_production = ?, p_income = ?, p_cost = ?, n_income = ?, producer_id = ?,
             site_id = ?  WHERE production_id = ?");
-      $stmt->bind_param("ssssiiii",  
-      $production_date,
-      $total_production,
-      $p_income,
-      $p_cost,
-      $n_income,
-      $producer_id,
-      $site_id,
-      $productionId
-  );
-  
+
+        $stmt->bind_param(
+            "ssssiiii",
+            $production_date,
+            $total_production,
+            $p_income,
+            $p_cost,
+            $n_income,
+            $producer_id,
+            $site_id,
+            $productionId
+        );
+
+
         $result = $stmt->execute();
         $stmt->close();
-    
+
         return $result ? 1 : 0;
     }
-    
-    public function getFirstProductionSite($production_id) {
+
+    public function getFirstProductionSite($production_id)
+    {
         $stmt = $this->con->prepare("SELECT site_id, location FROM production
                                     LEFT JOIN site ON production.site_id = site.site_id
                                     WHERE production_id = ? 
@@ -99,5 +102,20 @@ class main
 
         return $result;
     }
-    
+
+
+    public function getProducersSite($producerId)
+    {
+        $sql = "SELECT * FROM site
+                WHERE status = 'Active'
+                AND producer_id = '$producerId'";
+        $result = mysqli_query($this->con, $sql);
+        return $result;
+    }
+    public function updateSiteStatus($siteId)
+    {
+        $sql = "UPDATE site SET status = 'Inactive' WHERE site_id = '$siteId'";
+        mysqli_query($this->con, $sql);
+    }
+
 }

@@ -88,7 +88,7 @@
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="../auth/logout.php">
-                <i class="bi bi-gear"></i>
+                <i class="bi bi-power"></i>
                 <span>Log out</span>
               </a>
             </li>

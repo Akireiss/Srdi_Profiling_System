@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +28,8 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Project Site</h1><br>
+    <div class="row">
+    </div>
   </div><!-- End Page Title -->
 
   <section class="section dashboard">
@@ -46,6 +57,8 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['topography_name'] . '</td>'; // Display topography_name
     echo '<td>';
     echo '<a href="view_site.php?site_id=' . $row['site_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
+    // Fix the edit link
+
     echo '</td>';
     echo '</tr>';
 }

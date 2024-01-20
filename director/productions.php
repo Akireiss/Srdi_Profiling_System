@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,9 +30,6 @@
   <div class="pagetitle">
     <h1>Production</h1><br>
         <div class="row">
-          <div class="col-lg-8 mt-0">
-            
-          </div>
         </div>
       </div>
    
@@ -56,7 +62,7 @@
 $result = $db->getAllProduction();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td>'. $row['producer_name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
+    echo '<td>'. $row['name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
     echo '<td>'  . $row['location']. '</td>'; // Assuming 'location' is from 'site' table
     echo '<td>' . $row['total_production']. '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
@@ -65,7 +71,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['production_date'] . '</td>';
     echo '<td>';
     echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
-    echo '<a href="edit_production.php?production_id=' . $row['production_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
+   
     echo '</td>';
     echo '</tr>';
 

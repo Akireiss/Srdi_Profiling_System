@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+  }
+  
+  if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+  }
 ?>
 
 
@@ -174,19 +183,14 @@
     </head>
 
     <body>
-
-        <table width="100%">
-            <tbody>
-            <!-- <td><img src="admin/img/Logo.jpg"></td> -->
-                <td class="center bold">SERICULTURE RESEARCH DEVELOPMENT INSTITUTE <br />
-                    FARMER COOPERATOR'S INFORMATION <br />
-                    and SITE INSPECTON SHEET </td>
-
-
-            </tbody>
-        </table>
-
-        <br />
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        
         <table width="100%" style="margin-bottom: 5px">
             <tbody>
                 <tr>
@@ -629,17 +633,6 @@ $sourceIncome = [4, 7, 10];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         <!-- NExt -->
         <div class="page-break"></div>
 
@@ -835,11 +828,22 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-                    <td width ="30%">Project Site Location: <div class="underline"> <?php echo $location;?> </td>
+                    <!-- <td width ="30%">Project Site Location: <div class="underline"> <?php echo $location;?> </td> -->
                     <td width ="15%">Gross Income: <div class="underline"> <?php echo $p_income;?> </td>
                     <td width ="15%">Production Cost: <div class="underline"> <?php echo $p_cost;?> </td>
                     <td width ="10%">Net Income: <div class="underline"> <?php echo $n_income;?> </td>
                 </tr>
+            </tbody>
+            <tbody>
+<!--                 ?php
+$result = $db->getCocoonProducer($cocoonID);
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    // echo '<td>' . $row['location'] . '</a></td>';
+
+    echo '</tr>';
+}
+?> -->
             </tbody>
         </table>
 

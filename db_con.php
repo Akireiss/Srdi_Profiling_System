@@ -451,7 +451,8 @@
         // }
         public function getAllProduction()
         {
-            $sql = "SELECT production.*, cocoon.name AS producer_name, site.location
+            $sql = "SELECT production.*, 
+            cocoon.name AS name, site.location
                 FROM production
                 LEFT JOIN cocoon 
                 ON production.producer_id = cocoon.cocoon_id
@@ -2220,7 +2221,11 @@
     //     return $result;
     // }
     
-
-
+    public function getCocoonProducer($cocoonID) {
+        $sql = "SELECT * FROM production
+        WHERE producer_id = '$cocoonID'";
+$result = mysqli_query($this->con, $sql);
+return $result;
+    }
     
     }

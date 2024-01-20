@@ -624,17 +624,6 @@ $sourceIncome = [4, 7, 10];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         <!-- NExt -->
         <div class="page-break"></div>
 
@@ -830,11 +819,22 @@ $sourceIncome = [4, 7, 10];
         <table width="100%">
             <tbody>
                 <tr>
-                    <td width ="30%">Project Site Location: <div class="underline"> <?php echo $location;?> </td>
+                    <!-- <td width ="30%">Project Site Location: <div class="underline"> <?php echo $location;?> </td> -->
                     <td width ="15%">Gross Income: <div class="underline"> <?php echo $p_income;?> </td>
                     <td width ="15%">Production Cost: <div class="underline"> <?php echo $p_cost;?> </td>
                     <td width ="10%">Net Income: <div class="underline"> <?php echo $n_income;?> </td>
                 </tr>
+            </tbody>
+            <tbody>
+<!--                 ?php
+$result = $db->getCocoonProducer($cocoonID);
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    // echo '<td>' . $row['location'] . '</a></td>';
+
+    echo '</tr>';
+}
+?> -->
             </tbody>
         </table>
 

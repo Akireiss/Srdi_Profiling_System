@@ -1,252 +1,203 @@
 <?php
-  session_start();
-  include '../db_con.php';
-  $db = new db;
-  if(!isset($_SESSION['user_id'])){
-    header("Location: ../auth/login.php");
+session_start();
+include "../db_con.php";
+$db = new db;
+
+$users_id = $_SESSION['user_id'];
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location: ../auth/login.php");
+} 
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 2) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+else {
+  if (isset($_POST['submit'])) {
+    $user_id = $_POST['user_id']; 
+    $userTargetID = $_POST['userTargetID']; 
+    $fullname = $_POST['fullname']; 
+    $username = $_POST['username'];
+    if (!empty($_POST['new_password'])) {
+      $password = md5($_POST['new_password']);
+    } else {
+      $password = $_POST['password'];
+    }
+    $type_id = $_POST['user_type_id'];
+    $user_status   = $_POST['user_status'];
+    $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID);
+    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
   }
+}
+  
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <body>
-<?php include '../includes/header.php' ?>
-<?php include '../includes/sidebar.php' ?>
-   <!-- ======= Header ======= -->
-  
+  <?php include '../includes/header.php' ?>
+  <?php include '../includes/sidebar.director.php' ?>
+
 
   <main id="main" class="main">
-
-    <div class="pagetitle px-4">
-      <h1>Profile</h1>
-     
+    <div class="pagetitle">
+      <h1>Edit User Type</h1>
+      <?php
+      if (isset($message)) {
+        if ($resultUser != 0) {
+          echo '<div class="alert alert-warning bg-warning border-0 alert-dismissible fade show" role="alert">';
+          echo '<i class="fa-sharp fa-solid fa-circle-check"></i>';
+        } else {
+          echo '<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">';
+          echo '<i class="fa-regular fa-circle-xmark"></i>';
+        }
+        echo $message;
+        echo '</div>';
+      }
+      ?>
     </div><!-- End Page Title -->
 
-    <section class="section profile px-4">
+    <section class="section">
+          <?php
+      $result = $db->getUserDetails($_SESSION['user_id']); // Assuming $_SESSION['user_id'] contains the logged-in user's ID
+
+      while ($row = mysqli_fetch_object($result)) {
+          $userTargetID = $row->user_id;
+          $fullname = $row->fullname;
+          $username = $row->username;
+          $password = $row->password; // Note: It's not recommended to fetch passwords in this way for security reasons
+          $type_id = $row->type_id;
+          $user_status = $row->user_status;
+      }
+      ?>
+
       <div class="row">
-        <div class="col-xl-3">
-
-          <!-- <div class="card">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-              <img src="../public/img/luis.jpg" alt="Profile" class="rounded-circle ">
-              <h2>Luis Natasha</h2>
-              <!-- <h3>Web Designer</h3>
-              <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div> -->
-            </div>
-          </div> 
-
-        </div>
-
-        <div class="col-xl-9">
+        <div class="col-lg-12">
 
           <div class="card">
-            <div class="card-body pt-3">
-              <!-- Bordered Tabs -->
-              <ul class="nav nav-tabs nav-tabs-bordered">
+            <div class="card-body">
 
-                <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                </li>
+              <!-- <h5 class="card-title">Association Information</h5> -->
+              <h5 class="card-title"></h5>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                </li>
+              <!-- Custom Styled Validation with Tooltips -->
+              <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="user_id" value="<?php echo $users_id ?>">
 
-
-              </ul>
-              <div class="tab-content pt-2">
-
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <!-- <h5 class="card-title">About</h5>
-                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p> -->
-
-                  <h5 class="card-title">Profile Details</h5>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">Luis Natasha</div>
+                <div class="col-md-12 position-relative">
+                  <label class="form-label">Fullname<font color="red">*</font></label>
+                 
+                  <input type="hidden" class="form-control" id="validationTooltip01" name="userTargetID"
+                                         value = "<?php echo $userTargetID;?>" required>
+                                         <input type="text" class="form-control" id="validationTooltip01" name="fullname"
+                                        value = "<?php echo $fullname;?>" required>
+                  <div class="invalid-tooltip">
+                    The Fullname field is required.
                   </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Country</div>
-                    <div class="col-lg-9 col-md-8">Philippines</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8">Blaoan La Union</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">09553757981</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">luisnatasha@example.com</div>
-                  </div>
-
                 </div>
 
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
-                  <!-- Profile Edit Form -->
-                  <form>
-                    <!-- <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/profile-img.jpg" alt="Profile">
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div> -->
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="Luis">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
-                        <div class="col-md-8 col-lg-9">
-                          <input name="fullName" type="text" class="form-control" id="fullName" value="Natasha">
-                        </div>
-                      </div>
-
-                   
-
-                    <div class="row mb-3">
-                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="country" type="text" class="form-control" id="Country" value="Philippines">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="Blaoan La Union">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="09553757981">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="luisnatasha@example.com">
-                      </div>
-                    </div>
-
-                    <div class="d-flex justify-content-end">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End Profile Edit Form -->
-
+                <div class="col-md-6 position-relative">
+                  <label class="form-label">Username<font color="red">*</font></label>
+                  <input type="text" class="form-control" id="validationTooltip01" name="username"
+                                        value = "<?php echo $username;?>" required>
+                  <div class="invalid-tooltip">
+                    The Fullname field is required.
+                  </div>
+                </div>
+                
+                <div class="col-md-6 position-relative">
+                  <label class="form-label">Password<font color = "red"> (Leave the password field empty if you don't want to change)</font></label>
+                  <input type="hidden" class="form-control" name = "password" value = "<?php echo $password ?>" required>
+                  <input type="password" minlength="8" class="form-control" id="password" name = "new_password">
+                  <input type="checkbox" onclick="myFunction()">Show Password 
+                  <div class="invalid-tooltip">
+                    The Password field is required.
+                  </div>
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-settings">
-
-                  <!-- Settings Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
+             
+                <div class="col-md-6 position-relative">
+                <label class="form-label">User Type<font color="red">*</font></label>
+                  <div class="col-sm-12">
+                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="user_type_id" required>
+                      <?php
+                      $resultType = $db->getUserTypeActive();
+                      while ($row = mysqli_fetch_array($resultType)) {
+                        $selected = ($type_id == $row['user_type_id']) ? 'selected' : '';
+                        echo '<option value="' . $row['user_type_id'] . '" ' . $selected . '>' . $row['user_type_name'] . '</option>';
+                      }
+                      ?>
+                    </select>
+                    <div class="invalid-tooltip">
+                      The User Type field is required.
                     </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End settings Form -->
-
+                  </div>
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <!-- Change Password Form -->
-                  <form>
 
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+
+          
+
+            
+
+                <div class="col-md-6 position-relative">
+                <label class="form-label">Active<font color="red">*</font></label>
+                  <div class="col-sm-12">
+                      <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="user_status" required>
+                          <option value="" selected disabled>Select Status</option>
+                          <?php
+                          if ($user_status == 'Active') {
+                              echo '<option value="Active" selected>' . $user_status . '</option>';
+                              echo '<option value="Inactive">Inactive</option>';
+                          } else {
+                              echo '<option value="Active">Active</option>';
+                              echo '<option value="Inactive" selected>' . $user_status . '</option>';
+                          }
+                          ?>
+                      </select>
+                      <div class="invalid-tooltip">
+                          The Active field is required.
                       </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
-                    </div>
-                  </form><!-- End Change Password Form -->
-
+                  </div>
                 </div>
 
-              </div><!-- End Bordered Tabs -->
+
+               
+            <div class="col-12 d-flex align-items-end justify-content-end gap-2">
+                  <button type="submit" class="btn btn-warning" name="submit">Update</button>
+                  <button type="reset" class="btn btn-primary">Clear</button>
+                  <a href="system_user.php" class="btn btn-danger">Cancel</a>
+                </div>
+              </form><!-- End Custom Styled Validation with Tooltips -->
 
             </div>
           </div>
 
         </div>
-      </div>
+
     </section>
 
-  </main><!-- End #main -->
-  <?php include '../includes/footer.php' ?>
+  </main><!--END MAIN-->
 
+
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
+  <?php include '../includes/footer.php' ?>
 </body>
 
 </html>

@@ -27,7 +27,7 @@ if (!isset($_SESSION['user_id'])) {
         
      
 
-        $p_income = $p_income - $p_cost;
+        $total = $p_income - $p_cost;
         $n_income = $total;
 
         $n_income = $p_income - $p_cost;

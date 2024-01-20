@@ -5,6 +5,16 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,13 +23,15 @@
 
 <body>
 <?php include '../includes/header.php' ?>
-<?php include '../includes/sidebar.director.php' ?>
+<?php include '../includes/sidebar.php' ?>
 
 
 
   <main id="main" class="main">
   <div class="pagetitle">
     <h1>Cocoon Producers</h1><br>
+        <div class="row">
+        </div>
       </div>
    
 

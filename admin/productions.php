@@ -67,7 +67,7 @@ if ($_SESSION['type_id'] == 3) {
 $result = $db->getAllProduction();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td>'. $row['producer_name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
+    echo '<td>'. $row['name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
     echo '<td>'  . $row['location']. '</td>'; // Assuming 'location' is from 'site' table
     echo '<td>' . $row['total_production']. '</td>';
     echo '<td>' . 'PHP ' . number_format($row['p_income'], 2, '.', ',') . '</td>';
@@ -90,22 +90,22 @@ while ($row = mysqli_fetch_array($result)) {
                 </tbody>
                           
                     </table>
-                    <div class="mx-2 fw-bold">
+                    <!-- <div class="mx-2 fw-bold">
                     <?php 
                     echo '<td class="text-uppercase">Total Production Income: </td>';
                     echo '<td colspan="2">PHP ' . number_format($totalPIncome, 2, '.', ',') . '</td>';
                     ?>  
-                </div>
+                </div> -->
 
 
 <!-- Net Income -->
 
-            <div class="mx-2 fw-bold">
+            <!-- <div class="mx-2 fw-bold">
             <?php 
                 echo '<td class="text-uppercase">Total Net Income: </td>';
                 echo '<td colspan="2">PHP ' . number_format($totalNIncome, 2, '.', ',') . '</td>';
                 ?>  
-            </div>
+            </div> -->
               </div>
               </div>
               </div>

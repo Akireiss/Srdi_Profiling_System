@@ -52,6 +52,22 @@ if ($_SESSION['type_id'] == 3) {
     }
 }
 ?>
+
+<?php
+// backend.php
+
+if (isset($_POST['action']) && $_POST['action'] == 'removeSite') {
+    $siteId = $_POST['siteId'];
+
+    // Perform the database update
+    $db->updateSiteStatus($siteId);
+
+    // Return a response (you can customize this)
+    echo 'Site with ID ' . $siteId . ' removed successfully.';
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,40 +117,41 @@ if ($_SESSION['type_id'] == 3) {
                     <div class="card">
                         <div class="card-body">
 
-                            <h5 class="card-title"><?php echo $producerId?></h5>
+                            <!-- <h5 class="card-title"><?php echo $producerId?></h5> -->
 
                             <!-- Custom Styled Validation with Tooltips -->
                             <form class="row g-3 needs-validation" novalidate 
                             action="" enctype="multipart/form-data" method="POST">
 
+                            
+                            <input type="hidden" value="<?php echo $producerId?>"  name="producer_id">
+                                <input type="hidden" value="<?php echo $siteID?>" name="site_id">
+
+
+
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                               
                             <input type="hidden" name="productionId" value="<?php echo $productionId ?>">
 
-                            <div class="col-md-12 position-relative">
-    <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="producerDropdown">
-        <option selected>Select Producer Name</option>
-        <?php
-        $resultType = $db->getProducersActive();
-        while ($row = mysqli_fetch_array($resultType)) {
-            $cocoon_id = $row['cocoon_id'];
-            $name = $row['name'];
-            $selected = ($cocoon_id == $producerId) ? 'selected' : '';
-            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
-        }
-        ?>
-    </select>
-</div>
-<!-- <div class="col-md-12 position-relative">
-                    <label class="form-label">Project Site Location<font color="red">*</font></label>
-                    <select name="site_id" class="form-select" id="siteDropdown" required>
-                    <option value="<?php echo $siteID;?>" selected disabled><?php echo $location;?></option>
-                    </select>
-                    <div class="invalid-tooltip">
-                        The Project Site Location field is required.
-                    </div>
-                </div> -->
+                            <div class="col-md-12 pt-3 position-relative">
+                                    <label class="form-label">Producer Name<font color="red">*</font></label>
+                                    <input type="text" class="form-control" id="validationTooltip03" name="producerName"
+                                        value="<?php echo $producerName; ?>" disabled>
+
+                                    <div class="invalid-tooltip">
+                                        Please enter a valid decimal number with up to two decimal places.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 position-relative">
+                                    <label class="form-label">Project Site Location<font color="red">*</font></label>
+                                    <input type="text" class="form-control" id="validationTooltip03" name="location"
+                                        value="<?php echo $location; ?>" disabled>
+
+                                    <div class="invalid-tooltip">
+                                        Please enter a valid decimal number with up to two decimal places.
+                                    </div>
+                                </div>
 
 
 
@@ -215,6 +232,27 @@ if ($_SESSION['type_id'] == 3) {
     <?php include '../includes/footer.php' ?>
     <script src="../public/assets/js/jquery.min.js"></script>
 
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    function removeSite(siteId) {
+        $.ajax({
+            type: 'POST',
+            url: '', // Replace with your backend script URL
+            data: { action: 'removeSite', siteId: siteId },
+            success: function(response) {
+                // Handle the response as needed
+                console.log(response);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+</script>
+
+
+
     <script>
  $(document).ready(function () {
     $('#producerDropdown').change(function () {
@@ -243,6 +281,7 @@ if ($_SESSION['type_id'] == 3) {
 
 
 </script>
+
 </body>
 
 </html>

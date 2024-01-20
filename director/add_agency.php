@@ -2,10 +2,35 @@
 session_start();
 include "../db_con.php";
 $db = new db;
-if(!isset($_SESSION['user_id'])) {
+$user_id = $_SESSION['user_id'];
+
+if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } 
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+elseif (isset($_POST['submit'])) {
+  $user_id  = $_POST['user_id'];
+  $funding_agency = $_POST['funding_agency'];
+  $status = $_POST['status'];
+  $user_id = $_SESSION['user_id']; // Get the user's ID from the session
+
+  $result = $db->addAgency($user_id, $funding_agency, $status);
+  if ($result == 1) {
+    $message = "Funding Agency Successfully Added!";
+  } elseif ($result == 0) {
+    $message = "Funding Agency Already Exists!";
+  } else {
+    $message = "Error: Failed to add Funding Agency.";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,10 +42,10 @@ if(!isset($_SESSION['user_id'])) {
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Add Municipality</h1>
+      <h1>Add Agency</h1>
       <?php
       if (isset($message)) {
-        if ($result != 0) {
+        if ($result!= 0) {
           echo '<div class="alert alert-warning bg-warning border-0 alert-dismissible fade show" role="alert">';
           echo '<i class="fa-sharp fa-solid fa-circle-check"></i>';
         } else {
@@ -46,30 +71,36 @@ if(!isset($_SESSION['user_id'])) {
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
 
-              <div class="col-md-6 position-relative">
-                  <label class="form-label"> Municipality Description<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "region" required autofocus="autofocus">
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+
+                <div class="col-md-6 position-relative">
+                  <label class="form-label">Funding Agency<font color="red">*</font></label>
+                  <input type="text" class="form-control" id="validationTooltip01" name="funding_agency" required>
                   <div class="invalid-tooltip">
-                    The  Municipality field is required.
+                    The Land Type field is required.
                   </div>
                 </div>
 
                 <div class="col-md-6 position-relative">
-                  <label class="form-label"> Municipality Code<font color = "red">*</font></label>
-                  <input type="text" class="form-control" id="validationTooltip01" name = "region_code" required autofocus="autofocus">
-                  <div class="invalid-tooltip">
-                    The  Municipality Code field is required.
+                  <label class="form-label">Status<font color="red">*</font></label>
+                  <div class="col-sm-12">
+                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
+                      <option value="" selected disabled>Select Status</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </select>
+                    <div class="invalid-tooltip">
+                      The Status field is required.
+                    </div>
                   </div>
                 </div>
 
-                
+               
                 <div class="col-12 d-flex align-items-end justify-content-end gap-2">
                   <button type="submit" class="btn btn-warning" name="submit">Save</button>
                   <button type="reset" class="btn btn-primary">Clear</button>
-                  <a href="municipality.php" class="btn btn-danger">Cancel</a>
+                  <a href="agency.php" class="btn btn-danger">Cancel</a>
                 </div>
-                
-                
               </form><!-- End Custom Styled Validation with Tooltips -->
 
             </div>
@@ -81,6 +112,7 @@ if(!isset($_SESSION['user_id'])) {
 
   </main><!--END MAIN-->
 
+ 
 
   
   <?php include '../includes/footer.php' ?>
