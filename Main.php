@@ -25,11 +25,11 @@ class main
         $p_income,
         $p_cost,
         $n_income,
-        $site_id
+        $location_id
     ) {
 
         $stmt = $this->con->prepare("INSERT INTO production 
-        (producer_id, production_date, total_production, p_income, p_cost, n_income, site_id) 
+        (producer_id, production_date, total_production, p_income, p_cost, n_income, location_id) 
         VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param(
             "ssssiii",
@@ -39,7 +39,7 @@ class main
             $p_income,
             $p_cost,
             $n_income,
-            $site_id
+            $location_id
         );
 
         $result = $stmt->execute();
@@ -62,11 +62,11 @@ class main
     }
     public function updateProduction($production_date, $total_production, $p_income, $p_cost, $n_income,
         $producer_id,
-        $site_id,
+        $location_id,
         $productionId) {
         $stmt = $this->con->prepare("UPDATE production SET production_date = ?, 
             total_production = ?, p_income = ?, p_cost = ?, n_income = ?, producer_id = ?,
-            site_id = ?  WHERE production_id = ?");
+            location_id = ?  WHERE production_id = ?");
 
         $stmt->bind_param(
             "ssssiiii",
@@ -76,7 +76,7 @@ class main
             $p_cost,
             $n_income,
             $producer_id,
-            $site_id,
+            $location_id,
             $productionId
         );
 

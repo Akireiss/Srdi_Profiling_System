@@ -432,6 +432,10 @@
                 ON site.municipality = municipality.citymunCode
                 LEFT JOIN barangay
                 ON site.barangay = barangay.brgyCode
+                LEFT JOIN production
+                ON site.site_id = production.location_id
+                LEFT JOIN topography
+                ON site.topography = topography.topography_id
 				WHERE site_id='$site_id'";
             $result = mysqli_query($this->$con, $sql);
             return $result;
@@ -457,7 +461,7 @@
                 LEFT JOIN cocoon 
                 ON production.producer_id = cocoon.cocoon_id
                 LEFT JOIN site 
-                ON production.site_id = site.site_id
+                ON production.location_id = site.site_id
                 ORDER BY cocoon.name ASC";
             $result = mysqli_query($this->$con, $sql);
             return $result;
@@ -1790,45 +1794,46 @@
                                     '$date2',
                                     '$soil')";
                 $resultsql = mysqli_query($this->$con, $sql);
-                if ($resultsql) {
-                    // Get the last inserted ID
-                    $cocoon_id = mysqli_insert_id($this->$con);
+                // if ($resultsql) {
+                //     // Get the last inserted ID
+                //     $cocoon_id = mysqli_insert_id($this->$con);
 
-                    $land = isset($_POST['land']) ? $_POST['land'] : [];
-                    foreach ($land as $land) {
-                        $land_sql = "INSERT INTO site_land (cocoon_id, site_land_id) 
-                                   VALUES ('$cocoon_id', '$land')";
-                        $land_result = mysqli_query($this->$con, $land_sql);
+                //     $land = isset($_POST['land']) ? $_POST['land'] : [];
+                //     foreach ($land as $land) {
+                //         $land_sql = "INSERT INTO site_land (cocoon_id, site_land_id) 
+                //                    VALUES ('$cocoon_id', '$land')";
+                //         $land_result = mysqli_query($this->$con, $land_sql);
 
-                        // Check if the insertion was successful
-                        if (!$land_result) {
-                            // Handle the error as needed
-                            die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
-                        }
-                    }
+                //         // Check if the insertion was successful
+                //         if (!$land_result) {
+                //             // Handle the error as needed
+                //             die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                //         }
+                //     }
 
-                    $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : [];
-                    foreach ($tenancy as $tenancy) {
-                        $tool_sql = "INSERT INTO cocoon_tenancy (cocoon_id, site_tenancy_id) 
-                                   VALUES ('$cocoon_id', '$tenancy')";
-                        $tool_result = mysqli_query($this->$con, $tool_sql);
+                //     $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : [];
+                //     foreach ($tenancy as $tenancy) {
+                //         $tool_sql = "INSERT INTO cocoon_tenancy (cocoon_id, site_tenancy_id) 
+                //                    VALUES ('$cocoon_id', '$tenancy')";
+                //         $tool_result = mysqli_query($this->$con, $tool_sql);
 
-                        if (!$tenancy_result) {
-                            // Handle the error as needed
-                            die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
-                        }
-                    }
-                    return 1;
-                } else {
-                    // Handle the error as needed
-                    die("Error inserting data into cocoon: " . mysqli_error($this->$con));
-                }
+                //         if (!$tenancy_result) {
+                //             // Handle the error as needed
+                //             die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                //         }
+                //     }
+                //     return 1;
+                // } else {
+                //     // Handle the error as needed
+                //     die("Error inserting data into cocoon: " . mysqli_error($this->$con));
+                // }
+                return $resultsql = 1;
             }
         }  
     
             
         
-        public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id)
+        public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $location_id)
         {
             $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
@@ -1838,14 +1843,14 @@
             if ($num_rows > 0) {
                 return $resultsql = 0;
             } else {
-                $sql = "INSERT INTO production (producer_id, production_date, total_production, p_income, p_cost, n_income, site_id)
+                $sql = "INSERT INTO production (producer_id, production_date, total_production, p_income, p_cost, n_income, location_id)
 						VALUES ('$producer_id',     
                                 '$production_date',					
 								'$total_production',
                                 '$p_income',
                                 '$p_cost',
                                 '$n_income',
-                                '$site_id')";
+                                '$location_id')";
 
                 $resultsql = mysqli_query($this->$con, $sql);
                 if ($resultsql) {
@@ -1859,7 +1864,7 @@
                         'p_income' => $p_income,
                         'p_cost' => $p_cost,
                         'n_income' => $n_income,
-                        'site_id' => $site_id
+                        'location_id' => $location_id
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";

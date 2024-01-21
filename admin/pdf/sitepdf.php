@@ -26,6 +26,9 @@
               
             //Site Table
                 $location             = $row->location; 
+                $topography           = $row->topography;
+                $topographyName             = $row->topography_name;
+                $address              = $row->address; 
                 $distance             = $row->distance; 
                 $land_area            = $row->land_area;
                 $area                 = $row->area;
@@ -141,16 +144,18 @@
             /* .mb{
                 margin-bottom: 70px;
             } */
+        .underline {
+        text-decoration: underline;
+    }
+</style>
+
         </style>
     </head>
 
     <body>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        
+        
         <table width="100%" style="margin-top: 10px">
             <tbody>
                 <tr>
@@ -170,9 +175,41 @@
                     <td width="5%"></td>
                     <td width="80%">Farm Location/Address:<span class="underline"> <?php echo $location;?> </span></td>
                 </tr>
+                <
+            </tbody>
+            <tbody>
+            <tr>
+                    <td width="5%"></td>
+                    <td width="80%">Topography:<span class="underline"> <?php echo $topographyName;?> </span></td>
+                </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                    <td width="5%"></td>
+                    <td width="80%">House no./Street:<span class="underline"> <?php echo $address;?> </span></td>
+                </tr>
+            </tbody>
+        </table>
+        <table width="100%">
+            <tbody>
+                <tr>
+                  <td >Distance from the main/barangay road: <span class="underline"> <?php echo $distance;?> </span>meters.</td>  
+                </tr>
             </tbody>
         </table>
 
+        <table width="100%">
+            <tbody>
+                <tr>
+                  <td >Available land area for planting mulberry: <span class="underline"> <?php echo $land_area;?> </span>hectares.</td>  
+                </tr>
+            </tbody>
+        </table>
+        <table width="100%">
+                    <td class="bold" width="30%">Area(Hectares):<span class="underline"> <?php echo $area;?> </span></td>
+                    <td class="bold" width="30%">Crops Grovwn:<span class="underline"> <?php echo $crops;?> </span></td>
+                    <td class="bold" width="20%">%Share:<span class="underline"> <?php echo $share;?></td>
+        </table>
 
 
 
@@ -183,25 +220,13 @@
 
         <tr>
                     <td></td>
-                    <td class="bold" width="15%">Land Types:</td>
-                    <td class="bold" width="20%">Tenancy Status:</td>
-                    <td class="bold" width="15%">Area(Hectares):<span class="underline"> <?php echo $area;?> </span></td>
-                    <td class="bold" width="20%">Crops Grovwn:<span class="underline"> <?php echo $crops;?> </span></td>
-                    <td class="bold" width="20%">%Share:<span class="underline"> <?php echo $share;?></td>
+                    <td class="bold" width="80%">Land Types:</td>
+                    <td class="bold" width="50%">Tenancy Status:</td>
+                   
                 </tr>
-
-
                 </tr>
-          
-        <!-- Data here -->
-
-
-        
-       
-         
                 <tr>
-
-        <tr>
+        <!-- <tr>
                     <td></td>
 
                     <td  width="14%">
@@ -217,18 +242,15 @@
                     <td width="20%"></td>
 
                     <td  width="20%"></td>
-                </tr>
+                </tr> -->
 
 
                 </tr>
             </tbody>
         </table>
 
-        
-      
-  
-
-        <table width="100%">
+ 
+        <!-- <table width="100%">
             <tbody>
                 <tr>
 
@@ -253,11 +275,11 @@
 
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     
 
 
-        <table width="100%">
+        <!-- <table width="100%">
             <tbody>
                 <tr>
 
@@ -280,52 +302,20 @@
 
                 </tr>
             </tbody>
-        </table>
-    
-
-
-
-        <!-- NExt -->
-        <div class="page-break"></div>
-
-        <br>
-        <table width="100%">
-
-
-            <tbody>
-                <tr>
-                  <td>Availability of reliable irrigation:</td>
-                  <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Available</label>
-                    </td>
-                    <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Not Available</label>
-                    </td>
-                </tr>
-            </tbody>
-
-
-        </table>
-
-
+        </table> -->
         <table width="100%">
 
 
 <tbody>
     <tr>
-        <td width="10%">
-
-        </td>
-      <td  width="40%">Water Source:</td>
+      <td>Availability of reliable irrigation:</td>
       <td>
             <div class="checkbox"></div>
-            <label class="label">Irrigated</label>
+            <label class="label">Available</label>
         </td>
         <td>
             <div class="checkbox"></div>
-            <label class="label">Rainfed</label>
+            <label class="label">Not Available</label>
         </td>
     </tr>
 </tbody>
@@ -333,9 +323,6 @@
 
 </table>
 
-
-
-      
 
         <table width="100%">
             <tbody>
@@ -399,21 +386,7 @@
             </tbody>
         </table>
 
-        <table width="100%">
-            <tbody>
-                <tr>
-                  <td >Distance from the main/barangay road: <span class="underline"> <?php echo $distance;?> </span></td>  
-                </tr>
-            </tbody>
-        </table>
-
-        <table width="100%">
-            <tbody>
-                <tr>
-                  <td >Available land area for planting mulberry: <span class="underline"> <?php echo $land_area;?> </span>hectares:</td>  
-                </tr>
-            </tbody>
-        </table>
+       
 <br>
 <br>
         <table width="100%">
@@ -444,14 +417,21 @@
 <br>
 
         <table width="100%">
-            <tbody>
-                <tr>
-                  <td  width="25%">Name <div class="underline"> <?php echo $names;?> </div></td>
-                  <td width="25%">Position <div class="underline"> <?php echo $position;?> </d></td> 
-                  <td >Signature</td>  
-                  <td width="20%">Date <div class="underline"> <?php echo $date;?> </div></td>  
-                </tr>
-            </tbody>
+        <tbody>
+        <tbody>
+        <tbody>
+    <tr>
+        <td width="25%">Name <div class="underline"> <?php echo $names;?> </div></td>
+        <td width="25%">Position <div class="underline"> <?php echo $position;?> </div></td> 
+        <td>Signature <div class="underline" style="border-bottom: 1px solid black;"></div></td> <!-- Underline below Signature -->
+        <td width="20%">Date <div class="underline"> <?php echo $date;?> </div></td>  
+    </tr>
+</tbody>
+
+</tbody>
+
+</tbody>
+
         </table>
         <table width="100%">
             <tbody>
@@ -478,9 +458,13 @@
             <tbody>
                 <tr>
 
-    <br>           
+    <br>     
+    <br>       
+    <br> 
+    <br> 
+    <br> 
     <td class="bold">
-          B. Production
+          C. Production
                 </td>
     
                 </tr>
@@ -500,7 +484,7 @@
         <table width="100%">
             <tbody>
                 <tr>
-                    <!-- <td width ="30%">Project Site Location: <div class="underline"> <?php echo $location;?> </td> -->
+                    <td width ="15%">Total Production: <div class="underline"> <?php echo $total_production;?> </td>
                     <td width ="15%">Gross Income: <div class="underline"> <?php echo $p_income;?> </td>
                     <td width ="15%">Production Cost: <div class="underline"> <?php echo $p_cost;?> </td>
                     <td width ="10%">Net Income: <div class="underline"> <?php echo $n_income;?> </td>

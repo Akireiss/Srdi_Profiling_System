@@ -63,7 +63,7 @@ if(!isset($_SESSION['user_id'])) {
     $date2 = $_POST['date2'];
     
     
-    $result = $db->addSite($user_id, $location, $producer_id, $topography, $region, $province, 
+    $result = $db->addSite( $location, $producer_id, $topography, $region, $province, 
     $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
     $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2);
@@ -650,6 +650,30 @@ document.addEventListener("DOMContentLoaded", function() {
         $('#inputs-container .input-set:gt(3)').remove();
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.form-check-input').change(function () {
+            // Get the value and send it to the server (you need to adjust the AJAX URL and data accordingly)
+            var value = $(this).val();
 
+            $.ajax({
+                type: 'POST',
+                url: 'your_php_script.php', // Replace with your PHP script URL
+                data: {
+                    irrigation_status: value
+                },
+                success: function (response) {
+                    // Handle success (optional)
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Handle error (optional)
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
   </body>
   </html>

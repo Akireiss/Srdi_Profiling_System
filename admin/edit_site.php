@@ -51,7 +51,7 @@ exit();
                 $crops 	        = $row->crops;
                 $share          = $row->share;
                 $crops 	        = $row->crops;
-                $irrigation 	  = $row->irrigation;
+                $irrigation 	= $row->irrigation;
                 $water 	        = $row->water;
                 $source 	      = $row->source;
                 $soil 	        = $row->soil;

@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
-        $site_id = $_POST['site_id'];
+        $location_id = $_POST['location_id'];
         
      
 
@@ -36,7 +36,7 @@ if (!isset($_SESSION['user_id'])) {
 
         $result = $db->addProduction($producer_id, $production_date, 
         $total_production, $p_income, 
-        $p_cost, $n_income, $site_id);
+        $p_cost, $n_income, $location_id);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -106,7 +106,7 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="col-md-12 position-relative">
                                 <label class="form-label">Project Site Location<font color="red">*</font></label>
 
-                                <select name="site_id" class="form-select" id="siteDropdown" required>
+                                <select name="location_id" class="form-select" id="siteDropdown" required>
                                     <option selected>Select Project Site Location</option>
                                 </select>
 
