@@ -1669,7 +1669,7 @@
 
 
         public function addSite(
-            $user_id,
+            
             $location,
             $producer_id,
             $topography,

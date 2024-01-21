@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<a href="view_site.php?site_id=' . $row['site_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
     // Fix the edit link
     echo '<a href="edit_site.php?site_id=' . $row['site_id'] . '"><i class="bi bi-pencil-square bigger-icon"></i></a>';
-    echo '<a target="_blank" href="../sitepdf/index.php?site_id=' . $row['site_id'] . '" id=' . $row['site_id'] . '"><i class="bi bi-file-pdf-fill bigger-icon red"></i></a>';
+    echo '<a target="_blank" href="../pdf/siteindex.php?site_id=' . $row['site_id'] . '" id=' . $row['site_id'] . '"><i class="bi bi-file-pdf-fill bigger-icon red"></i></a>';
     echo '</td>';
     echo '</tr>';
 }

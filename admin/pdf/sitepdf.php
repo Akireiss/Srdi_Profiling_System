@@ -21,7 +21,7 @@
 
 
 <?php
-             $result=$db->getProducerID($_GET['cocoon_id']);
+             $result=$db->getSiteID($_GET['site_id']);
             while($row=mysqli_fetch_object($result)){
               
             //Site Table
@@ -29,9 +29,17 @@
                 $distance             = $row->distance; 
                 $land_area            = $row->land_area;
                 $area                 = $row->area;
+                $crops                 = $row->crops;
+                $share                 = $row->share;
                 $names                = $row->names;
                 $position             = $row->position;
                 $date                 = $row->date;
+                $name1                = $row->name1;
+                $position1             = $row->position1;
+                $date1                 = $row->date1;
+                $name2                = $row->name2;
+                $position2             = $row->position2;
+                $date2                 = $row->date2;
                 $birthdate            = $row->birthdate;
             //Production Table
                 $production_date      = $row->production_date;
@@ -178,20 +186,19 @@
                     <td class="bold" width="15%">Land Types:</td>
                     <td class="bold" width="20%">Tenancy Status:</td>
                     <td class="bold" width="15%">Area(Hectares):<span class="underline"> <?php echo $area;?> </span></td>
-                    <td class="bold" width="20%">Crops Grovwn:</td>
-                    <td class="bold" width="20%">%Share:</td>
+                    <td class="bold" width="20%">Crops Grovwn:<span class="underline"> <?php echo $crops;?> </span></td>
+                    <td class="bold" width="20%">%Share:<span class="underline"> <?php echo $share;?></td>
                 </tr>
 
 
                 </tr>
-            </tbody>
-        </table>
+          
         <!-- Data here -->
 
 
         
-        <table width="100%">
-            <tbody>
+       
+         
                 <tr>
 
         <tr>
