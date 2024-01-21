@@ -3,9 +3,20 @@ session_start();
 include "../db_con.php";
 $db = new db;
 $user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+else {
   if (isset($_POST['submit'])) {
     $user_id  = $_POST['user_id'];
     $source_of_irrigation = $_POST['source_of_irrigation'];
@@ -24,7 +35,7 @@ if(!isset($_SESSION['user_id'])) {
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+  <?php include '../includes/sidebar.php' ?>
 
 
   <main id="main" class="main">
@@ -58,7 +69,7 @@ if(!isset($_SESSION['user_id'])) {
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
               <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-
+              
                 <div class="col-md-6 position-relative">
                   <label class="form-label">Source of Irrigation<font color="red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name="source_of_irrigation" required>

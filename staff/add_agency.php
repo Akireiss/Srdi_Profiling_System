@@ -6,12 +6,21 @@ $user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else
-if (isset($_POST['submit'])) {
+} 
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+elseif (isset($_POST['submit'])) {
   $user_id  = $_POST['user_id'];
   $funding_agency = $_POST['funding_agency'];
   $status = $_POST['status'];
-   // Get the user's ID from the session
+  $user_id = $_SESSION['user_id']; // Get the user's ID from the session
 
   $result = $db->addAgency($user_id, $funding_agency, $status);
   if ($result == 1) {
@@ -28,7 +37,7 @@ if (isset($_POST['submit'])) {
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+  <?php include '../includes/sidebar.php' ?>
 
 
   <main id="main" class="main">
@@ -61,6 +70,7 @@ if (isset($_POST['submit'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action=# enctype="multipart/form-data" method="POST">
+
               <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
                 <div class="col-md-6 position-relative">

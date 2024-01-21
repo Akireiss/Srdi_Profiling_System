@@ -5,13 +5,22 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/staff.sidebar.php' ?>
 
 <main id="main" class="main">
 
@@ -48,7 +57,7 @@
     $result = $db->getUser();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_systemuser.php?user_id=' . $row['user_id'] . '">' . $row['fullname'] . '</a></td>';
+        echo '<td>' . $row['fullname'] . '</a></td>';
         echo '<td>' . $row['username'] . '</td>';
         echo '<td>' . $row['user_type_name'] . '</td>';
         

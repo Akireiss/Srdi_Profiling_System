@@ -4,12 +4,21 @@ include "../db_con.php";
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}else {
   if (isset($_POST['submit'])) {
     $civil_id = $_POST['civil_id'];
     $civil_name = $_POST['civil_name'];
     $status   = $_POST['status'];
-    $result = $db->updateCivil($civil_id, $civil_name, $status);
+    $result = $db->updateCivil($user_id, $civil_id, $civil_name, $status);
     $message = ($result != 0) ? "Civil Status Successfully Updated" : "Civil Status Already Exist!";
   }
 }
@@ -17,7 +26,7 @@ if(!isset($_SESSION['user_id'])) {
 
 <!DOCTYPE html>
 <?php include '../includes/header.php' ?>
-<?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/sidebar.php' ?>
 <main id="main" class="main">
 
 <?php

@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +21,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/sidebar.php' ?>
 
 <main id="main" class="main">
 
@@ -50,7 +59,7 @@
     $result = $db->getBarangay();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_user.php?id=' . $row['barangay_id'] . '">' . $row['brgyCode'] . '</a></td>';
+        echo '<td>' . $row['brgyCode'] . '</a></td>';
         echo '<td>' . $row['brgyDesc'] . '</td>';
         echo '<td>' . $row['regCode'] . '</td>';
         echo '<td>' . $row['provCode'] . '</td>';

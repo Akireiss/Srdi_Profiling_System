@@ -792,6 +792,26 @@ $sourceIncome = [4, 7, 10];
                 </tr>
             </tbody>
         </table>
+        <table width="100%">
+            <tbody>
+                <tr>
+                  <td  width="25%">Name <div class="underline"> <?php echo $name1;?> </div></td>
+                  <td width="25%">Position <div class="underline"> <?php echo $position1;?> </d></td> 
+                  <td >Signature</td>  
+                  <td width="20%">Date <div class="underline"> <?php echo $date1;?> </div></td>  
+                </tr>
+            </tbody>
+        </table>
+        <table width="100%">
+            <tbody>
+                <tr>
+                  <td  width="25%">Name <div class="underline"> <?php echo $name2;?> </div></td>
+                  <td width="25%">Position <div class="underline"> <?php echo $position2;?> </d></td> 
+                  <td width="25%">Signature <div class="underline"></td>  
+                  <td width="20%">Date <div class="underline"> <?php echo $date2;?> </div></td>  
+                </tr>
+            </tbody>
+        </table>
         
         <table width="100%">
             <tbody>

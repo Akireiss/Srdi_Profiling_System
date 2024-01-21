@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +21,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/sidebar.php' ?>
 
 <main id="main" class="main">
 
@@ -47,7 +56,7 @@
 $result = $db->getAgency();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_agency.php?agency_id=' . $row['agency_id'] . '">' . $row['agency_name'] . '</a></td>';
+    echo '<td>' . $row['agency_name'] . '</a></td>';
     echo '<td>' . $row['status'] . '</td>';
     echo '<td>';
     echo '<a href="view_religion.php?agency_id=' . $row['agency_id'] . '"><i class="ri-eye-line"></i></a>';

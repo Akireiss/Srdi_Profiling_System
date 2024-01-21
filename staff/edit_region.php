@@ -2,15 +2,27 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-}  else {
+}  
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}else {
     if (isset($_POST['submit'])) {
+      $user_id  = $_POST['user_id'];
       $region_id = $_POST['region_id'];
       $psgcCode = $_POST['psgcCode'];
       $regDesc   = $_POST['regDesc '];
       $regCode   = $_POST['regCode '];
-      $result = $db->updateRegion($region_id, $psgcCode, $regDesc, $regCode);
+      $result = $db->updateRegion($user_id, $region_id, $psgcCode, $regDesc, $regCode);
       $message = ($result != 0) ? "Region Successfully Updated" : "Region Already Exist!";
     }
   }
@@ -64,7 +76,8 @@ if(!isset($_SESSION['user_id'])) {
               <h5 class="card-title">Region Information</h5>
 
               <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
-
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+              
               <div class="col-md-6 position-relative">
               <label class="form-label">Region Description<font color="red">*</font></label>
                       <input type="hidden" class="form-control" id="validationTooltip01" name="region_id"

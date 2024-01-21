@@ -133,15 +133,21 @@ if (isset($_POST['action']) && $_POST['action'] == 'removeSite') {
                               
                             <input type="hidden" name="productionId" value="<?php echo $productionId ?>">
 
-                            <div class="col-md-12 pt-3 position-relative">
-                                    <label class="form-label">Producer Name<font color="red">*</font></label>
-                                    <input type="text" class="form-control" id="validationTooltip03" name="producerName"
-                                        value="<?php echo $producerName; ?>" disabled>
+                            <div class="col-md-12 position-relative">
+                                <label class="form-label">Producer Name<font color="red">*</font></label>
+                                <select class="form-select" id="validationTooltip01" name="producerName" required>
+                                    <?php
+                                    $resultType = $db->getProducersActive();
+                                    while ($row = mysqli_fetch_array($resultType)) {
+                                        $cocoon_id = $row['cocoon_id'];
+                                        $name = $row['name'];
+                                        $selected = ($cocoon_id == $producer_id) ? 'selected' : '';
+                                        echo '<option value="' . $producer_id . '" ' . $selected . '>' . $producerName . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 
-                                    <div class="invalid-tooltip">
-                                        Please enter a valid decimal number with up to two decimal places.
-                                    </div>
-                                </div>
 
                                 <div class="col-md-12 position-relative">
                                     <label class="form-label">Project Site Location<font color="red">*</font></label>

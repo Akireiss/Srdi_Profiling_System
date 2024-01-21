@@ -1696,119 +1696,138 @@
             $remarks,
             $names,
             $position,
-            $date
+            $date,
+            $name1,
+            $position1,
+            $date1,
+            $name2,
+            $position2,
+            $date2,
+            
+            
+
         ) {
             $check = "SELECT * FROM site
-						WHERE location = '$location'";
+                            WHERE location = '$location'";
             $resultCheck = mysqli_query($this->$con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 $sql = "INSERT INTO site (location, producer_id, topography, region, province,
-            municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
-            water, source,market, distance, land_area, agency, charge, adopters,
-            remarks, names, position, date,  soil)
-						VALUES ('$location',					
-								'$producer_id',
-                                '$topography',
-                                '$region',
-                                '$province',
-                                '$municipality',
-                                '$barangay',
-                                '$address',
-                                '$landJson',
-                                '$tenancyJson',
-                                '$area',
-                                '$crops',
-                                '$share',
-                                '$irrigation',
-                                '$water',
-                                '$source',
-                                '$market',
-                                '$distance',
-                                '$land_area',
-                                '$agency',
-                                '$charge',
-                                '$adopters', 
-                                '$remarks', 
-                                '$names', 
-                                '$position', 
-                                '$date', 
-                                '$soil')";
+                municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
+                water, source,market, distance, land_area, agency, charge, adopters,
+                remarks, names, position, date, name1, position1, date1, name2, position2, date2, soil)
+                            VALUES ('$location',					
+                                    '$producer_id',
+                                    '$topography',
+                                    '$region',
+                                    '$province',
+                                    '$municipality',
+                                    '$barangay',
+                                    '$address',
+                                    '$landJson',
+                                    '$tenancyJson',
+                                    '$area',
+                                    '$crops',
+                                    '$share',
+                                    '$irrigation',
+                                    '$water',
+                                    '$source',
+                                    '$market',
+                                    '$distance',
+                                    '$land_area',
+                                    '$agency',
+                                    '$charge',
+                                    '$adopters', 
+                                    '$remarks', 
+                                    '$names', 
+                                    '$position', 
+                                    '$date', 
+                                    '$name1', 
+                                    '$position1', 
+                                    '$date1',
+                                    '$name2', 
+                                    '$position2', 
+                                    '$date2',
+                                    '$soil')";
                 $resultsql = mysqli_query($this->$con, $sql);
                 return $resultsql = 1;
             } else {
                 $sql = "INSERT INTO site (location, producer_id, topography, region, province,
-            municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
-            water, source,market, distance, land_area, agency, charge, adopters,
-            remarks, names, position, date,  soil)
-						VALUES ('$location',					
-								'$producer_id',
-                                '$topography',
-                                '$region',
-                                '$province',
-                                '$municipality',
-                                '$barangay',
-                                '$address',
-                                '$landJson',
-                                '$tenancyJson',
-                                '$area',
-                                '$crops',
-                                '$share',
-                                '$irrigation',
-                                '$water',
-                                '$source',
-                                '$market',
-                                '$distance',
-                                '$land_area',
-                                '$agency',
-                                '$charge',
-                                '$adopters', 
-                                '$remarks', 
-                                '$names', 
-                                '$position', 
-                                '$date', 
-                                '$soil')";
+                municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
+                water, source,market, distance, land_area, agency, charge, adopters,
+                remarks, names, position, date, name1, position1, date1, name2, position2, date2,soil)
+                            VALUES ('$location',					
+                                    '$producer_id',
+                                    '$topography',
+                                    '$region',
+                                    '$province',
+                                    '$municipality',
+                                    '$barangay',
+                                    '$address',
+                                    '$landJson',
+                                    '$tenancyJson',
+                                    '$area',
+                                    '$crops',
+                                    '$share',
+                                    '$irrigation',
+                                    '$water',
+                                    '$source',
+                                    '$market',
+                                    '$distance',
+                                    '$land_area',
+                                    '$agency',
+                                    '$charge',
+                                    '$adopters', 
+                                    '$remarks', 
+                                    '$names', 
+                                    '$position', 
+                                    '$date',
+                                    '$name1', 
+                                    '$position1', 
+                                    '$date1', 
+                                    '$name2', 
+                                    '$position2', 
+                                    '$date2',
+                                    '$soil')";
                 $resultsql = mysqli_query($this->$con, $sql);
                 if ($resultsql) {
-                    // Log the action in the audit_logs table
-                    $userID = $user_id;
-                    $action = "Added project site location: ";
-                    $data = json_encode([
-                        'location' => $location,
-                        'producer_id' => $producer_id,
-                        'topography' => $topography,
-                        'region' => $region,
-                        'province' => $province,
-                        'municipality' => $municipality,
-                        'barangay' => $barangay,
-                        'address' => $address,
-                        'landJson' => $landJson,
-                        'tenancyJson' => $tenancyJson,
-                        'area' => $area,
-                        'crops' => $crops,
-                        'share' => $share,
-                        'irrigation' => $irrigation,
-                        'water' => $water,
-                        'source' => $source,
-                        'market' => $market,
-                        'distance' => $distance,
-                        'land_area' => $land_area,
-                        'agency' => $agency,
-                        'charge' => $charge,
-                        'adopters' => $adopters,
-                        'remarks' => $remarks,
-                        'names' => $names,
-                        'position' => $position,
-                        'date' => $date,
-                        'soil' => $soil
-                    ]);
+                    // Get the last inserted ID
+                    $cocoon_id = mysqli_insert_id($this->$con);
 
-                    $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
-                    return $resultsql = 1;
+                    $land = isset($_POST['land']) ? $_POST['land'] : [];
+                    foreach ($land as $land) {
+                        $land_sql = "INSERT INTO site_land (cocoon_id, site_land_id) 
+                                   VALUES ('$cocoon_id', '$land')";
+                        $land_result = mysqli_query($this->$con, $land_sql);
+
+                        // Check if the insertion was successful
+                        if (!$land_result) {
+                            // Handle the error as needed
+                            die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                        }
+                    }
+
+                    $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : [];
+                    foreach ($tenancy as $tenancy) {
+                        $tool_sql = "INSERT INTO cocoon_tenancy (cocoon_id, site_tenancy_id) 
+                                   VALUES ('$cocoon_id', '$tenancy')";
+                        $tool_result = mysqli_query($this->$con, $tool_sql);
+
+                        if (!$tenancy_result) {
+                            // Handle the error as needed
+                            die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                        }
+                    }
+                    return 1;
+                } else {
+                    // Handle the error as needed
+                    die("Error inserting data into cocoon: " . mysqli_error($this->$con));
                 }
             }
-        }
+        }  
+    
+            
+        
         public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $site_id)
         {
             $check = "SELECT * FROM production

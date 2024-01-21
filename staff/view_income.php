@@ -4,6 +4,15 @@ include "../db_con.php";
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
+}
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
 }  
 $result=$db->getSource_IncomeID($_GET['source_id']);
 while($row=mysqli_fetch_object($result)){

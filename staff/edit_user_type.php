@@ -2,14 +2,27 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $user_type_id = $_POST['user_type_id'];
     $user_type_name = $_POST['user_type_name'];
     $user_type_status   = $_POST['user_type_status'];
-    $result = $db->updateUserType($user_type_id, $user_type_name, $user_type_status);
+    $result = $db->updateUserType($user_id, $user_type_id, $user_type_name, $user_type_status);
     $message = ($result != 0) ? "User Type Successfully Updated" : "User Type Already Exist!";
   }
 }
@@ -52,6 +65,8 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="card-body">
                                 <h5 class="card-title">User Type Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">User Type<font color="red">*</font></label>
                                         

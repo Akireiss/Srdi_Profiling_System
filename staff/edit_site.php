@@ -4,7 +4,16 @@ include '../db_con.php';
 $db = new db;
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}else {
     if(isset($_POST['update'])){
         $site_id = $_POST['site_id'];
         $producer_name = $_POST['producer_name'];
@@ -21,7 +30,7 @@ if (!isset($_SESSION['user_id'])) {
 
   <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/staff.sidebar.php' ?>
   
 <main id="main" class="main">
        <!-- End Page Title -->

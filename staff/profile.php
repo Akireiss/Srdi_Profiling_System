@@ -7,8 +7,17 @@ $users_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-  exit(); // Ensure to stop further execution after redirection
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+else {
   if (isset($_POST['submit'])) {
     $user_id = $_POST['user_id']; 
     $userTargetID = $_POST['userTargetID']; 
@@ -20,12 +29,11 @@ if (!isset($_SESSION['user_id'])) {
       $password = $_POST['password'];
     }
     $type_id = $_POST['user_type_id'];
-    $user_status = $_POST['user_status'];
+    $user_status   = $_POST['user_status'];
     $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID);
-    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exists!";
+    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
   }
 }
-
   
 
 ?>
@@ -34,7 +42,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/sidebar.php' ?>
+  <?php include '../includes/staff.sidebar.php' ?>
 
 
   <main id="main" class="main">
@@ -56,17 +64,19 @@ if (!isset($_SESSION['user_id'])) {
     </div><!-- End Page Title -->
 
     <section class="section">
-    <?php
-             $result=$db->getUserID($_GET['user_id']);
-            while($row=mysqli_fetch_object($result)){
-                $userTargetID =$row->user_id;
-                $fullname =$row->fullname; 
-                $username =$row->username;
-                $password =$row->password;
-                $type_id =$row->type_id;
-                $user_status   = $row->user_status;
-            }
-        ?>
+          <?php
+      $result = $db->getUserDetails($_SESSION['user_id']); // Assuming $_SESSION['user_id'] contains the logged-in user's ID
+
+      while ($row = mysqli_fetch_object($result)) {
+          $userTargetID = $row->user_id;
+          $fullname = $row->fullname;
+          $username = $row->username;
+          $password = $row->password; // Note: It's not recommended to fetch passwords in this way for security reasons
+          $type_id = $row->type_id;
+          $user_status = $row->user_status;
+      }
+      ?>
+
       <div class="row">
         <div class="col-lg-12">
 
@@ -78,7 +88,7 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
-              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+              <input type="hidden" name="user_id" value="<?php echo $users_id ?>">
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Fullname<font color="red">*</font></label>
@@ -110,7 +120,6 @@ if (!isset($_SESSION['user_id'])) {
                     The Password field is required.
                   </div>
                 </div>
-               
 
              
                 <div class="col-md-6 position-relative">

@@ -4,12 +4,22 @@ include "../db_con.php";
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+else {
   if (isset($_POST['submit'])) {
     $year_id = $_POST['year_id'];
     $year_name = $_POST['year_name'];
     $year_status   = $_POST['year_status'];
-    $result = $db->updateYear($year_id, $year_name, $year_status);
+    $result = $db->updateYear($user_id, $year_id, $year_name, $year_status);
     $message = ($result != 0) ? "Year Successfully Updated" : "Year Already Exist!";
   }
 }

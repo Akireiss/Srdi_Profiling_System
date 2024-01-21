@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +21,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/staff.sidebar.php' ?>
 
 <main id="main" class="main">
 

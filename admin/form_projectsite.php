@@ -4,15 +4,6 @@ include "../db_con.php";
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-  if ($_SESSION['type_id'] == 2) {
-    header("Location:  ../auth/login.php");
-    exit(); 
-}
-
-if ($_SESSION['type_id'] == 3) {
-  header("Location:  ../auth/login.php");
-  exit(); 
-}
 } else {
   if (isset($_POST['submit'])) {
     $location = $_POST['location'];
@@ -24,19 +15,21 @@ if ($_SESSION['type_id'] == 3) {
     $barangay  = $_POST['barangay'];
     $address  = $_POST['address'];
 
-    $land = isset($_POST['land']) ? $_POST['land'] : []; // Initialize as an empty array
-    $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : []; // Initialize as an empty array
+    // $land = isset($_POST['land']) ? $_POST['land'] : []; // Initialize as an empty array
+    // $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : []; // Initialize as an empty array
     
-    $agencys = isset($_POST['agencys']) ? $_POST['agencys'] : [];
+    // $agencys = isset($_POST['agencys']) ? $_POST['agencys'] : [];
 
-    $soils = isset($_POST['soils']) ? $_POST['soils'] : []; 
+    // $soils = isset($_POST['soils']) ? $_POST['soils'] : []; 
 
-    $soil = json_encode($soils);
+    // $soil = json_encode($soils);
 
-    $agency = json_encode($agencys);
-    $landJson = json_encode($land);
-    $tenancyJson = json_encode($tenancy);
+    // $agency = json_encode($agencys);
+    // $landJson = json_encode($land);
+    // $tenancyJson = json_encode($tenancy);
     
+    $land = $_POST ['land'];
+    $tenancy = $_POST ['tenancy'];
 
     $area  = isset($_POST['area']) ? floatval($_POST['area']) : 0.0;
     $crops = isset($_POST['crops']) ? floatval($_POST['crops']) : 0.0;
@@ -62,11 +55,18 @@ if ($_SESSION['type_id'] == 3) {
     $names= $_POST['names'];
     $position= $_POST['position'];
     $date = $_POST['date'];
+    $name1= $_POST['name1'];
+    $position1= $_POST['position1'];
+    $date1 = $_POST['date1'];
+    $name2= $_POST['name2'];
+    $position2= $_POST['position2'];
+    $date2 = $_POST['date2'];
+    
     
     $result = $db->addSite($user_id, $location, $producer_id, $topography, $region, $province, 
-    $municipality, $barangay, $address, $landJson, $tenancyJson, $area, $crops, $share, $irrigation, 
+    $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, 
     $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
-    $names, $position, $date);
+    $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2);
     if ($result) {
       $message = "Site Successfully Added!";
     } 
@@ -154,7 +154,7 @@ if (isset($message)) {
                 </div>
 
                   
-                  <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
+                  <!-- <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
                 <div class="col-md-3 position-relative">
                   <label class="form-label">Region<font color = "red">*</font></label>
                   <div class="col-sm-12">
@@ -195,154 +195,39 @@ if (isset($message)) {
                       <option value="" selected disabled>Select Barangay</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-md-12 position-relative">
-    <label class="form-label">House no./House Street</label>
-    <input type="text" class="form-control" id="validationTooltip01"
-        name="address" xa>
-    <div class="invalid-tooltip">
-        The Address field is required.
-    </div>
-</div>
-
-
-  
-                
-                <div class="col-md-3 ">
-                <div class="col-md-12">
-                    <label for="validationCustom04" name = "land" class="form-label fw-bold">Land Types</label>
+                    <label class="form-label">House no./House Street</label>
+                    <input type="text" class="form-control" id="validationTooltip01" name="address"
+                        value="<?php echo htmlspecialchars($address); ?>">
                 </div>
-                <?php
-                $resultType = $db->getLandActive();
-                while ($row = mysqli_fetch_array($resultType)) {
-                    echo '<div class="form-check form-check-inline col-md-6 ">';
-                    echo '<input name="land[]" class="form-check-input" type="checkbox" id="' . $row['land_id'] . '" value="' . $row['land_id'] . '">';
-                    echo '<label class="form-check-label" for="' . $row['land_id'] . '">' . $row['land_name'] . '</label>';
-                    echo '</div>';
-                }
-                ?>
-            </div>
-           
+                <div class="col-md-4 mt-6">
+                  <label for="validationCustom01" class="form-label">Area (Hectares)<font color="red">*</font></label>
+                  <input type="number" class="form-control" id="validationCustom01" step="0.01" name="area">
+                  <div class="valid-feedback">
+                      Looks good!
+                  </div>
+              </div>
+
+              <div class="col-md-4">
+                  <label for="validationCustom02" class="form-label">Crops Grown<font color="red">*</font></label>
+                  <input type="number" class="form-control" id="validationCustom02" step="0.01" name="crops">
+                  <div class="valid-feedback">
+                      Looks good!
+                  </div>
+              </div>
 
 
-                            
-            <div class="col-md-3 ">
-                <div class="col-md-12">
-                    <label for="validationCustom04" class="form-label fw-bold">Tenancy</label>
-                </div>
-                <?php
-                $resultType = $db->getTenancyActive();
-                while ($row = mysqli_fetch_array($resultType)) {
-                    echo '<div class="form-check form-check-inline col-md-6 ">';
-                    echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '">';
-                    echo '<label class="form-check-label" for="' . $row['tenancy_id'] . '">' . $row['tenancy_name'] . '</label>';
-                    echo '</div>';
-                }
-                ?>
-            </div>
-
-            <div class="col-md-2 mb-3">
-    <label for="validationCustom01" class="form-label fw-bold">Area (Hectares)</label>
-    <input type="number" class="form-control" id="validationCustom01" step="0.01" name="area">
-    <div class="valid-feedback">
-        Looks good!
-    </div>
-</div>
-
-<div class="col-md-2 mb-3">
-    <label for="validationCustom02" class="form-label fw-bold">Crops Grown</label>
-    <input type="number" class="form-control" id="validationCustom02" step="0.01" name="crops">
-    <div class="valid-feedback">
-        Looks good!
-    </div>
-</div>
-
-
-                <div class="col-md-2 mb-3">
-                  <label for="validationCustom03" class="form-label fw-bold">%Share</label>
+                <div class="col-md-4">
+                  <label for="validationCustom03" class="form-label">%Share<font color="red">*</font></label>
                   <input type="number" name="share" class="form-control" id="validationCustom03" >
                   <div class="valid-feedback">
                     Looks good!
                   </div>
                 </div>
-              
 
-  
                 <div class="row">
-    <div class="col-md-2 mt-3">
-        <label for="validationCustom04" class="form-label">
-            Availability of reliable irrigation:<font color="red">*</font>
-        </label>
-        
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="available" value="Available" name="irrigation">
-            <label class="form-check-label" for="available">Available</label>
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="not_available" value="Not Available" name="irrigation">
-            <label class="form-check-label" for="not_available">Not Available</label>
-        </div>
-    </div>
-
-    <div class="col-md-2 mt-3">
-        <label for="validationCustom04" class="form-label">Water source:<font color="red">*</font></label>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="irrigated" value="Irrigated" name="water_source">
-            <label class="form-check-label" for="irrigated">Irrigated</label>
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="rainfed" value="Rainfed" name="water_source">
-            <label class="form-check-label" for="rainfed">Rainfed</label>
-        </div>
-    </div>
-
-    <div class="col-md-2 mt-3">
-        <label for="validationCustom04" name="source" class="form-label">If irrigated, source of irrigation:<font color="red">*</font></label>
-
-        <?php
-        $resultType = $db->getIrrigationActive();
-        while ($row = mysqli_fetch_array($resultType)) {
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_name'] . '"
-            name="source[]">';
-            echo '<label class="form-check-label" for="source_' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</label>';
-            echo '</div>';
-        }
-        ?>
-    </div>
-    <div class="col-md-2 mt-3">
-    <div class="col-md-6"
-    <label for="validationCustom04" name="soil" class="form-label">Soil Type:<font color="red">*</font></label>
-          <?php
-              $resultType = $db->getSoilActive();
-              while ($row = mysqli_fetch_array($resultType)) {
-                  echo '<div class="form-check col-md-3">';
-                  echo '<input name="soils[]" class="form-check-input" type="checkbox" id="' . $row['soil_id'] . '" value="' . $row['soil_id'] . '">';
-                  echo '<label class="form-check-label" for="' . $row['soil_id'] . '">' . $row['soil_name'] . '</label>';
-                  echo '</div>';
-              }
-              ?>
-    </div>
-    </div>
-    <div class="col-md-4 mt-3">
-        <label for="validationCustom04" name="market" class="form-label">Accessibility to farm to market road:<font color="red">*</font></label>
-          
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="accessible" value="Accessible" name="market">
-                <label class="form-check-label" for="accessible">Accessible</label>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="not_accessible" value="Not Accessible" name="market">
-                <label class="form-check-label" for="not_accessible">Not Accessible</label>
-            </div>
-    </div> 
-    
-    <div class="row">
             <div class="col-md-6 mt-6" style="margin-left: -25px;">    
               <div class="form-check form-check-inline">
                 <label for="nameInput" name="distance" class="mr-2">Distance from the main road<font color = "red">*</font></label>
@@ -363,12 +248,119 @@ if (isset($message)) {
               </div>
             </div>
             </div>
+  
+                
+                <div class="col-md-2 ">
+                <div class="col-md-12">
+                    <label for="validationCustom04" name = "land" class="form-label fw-bold">Land Types<font color="red">*</font></label>
+                </div>
+                <?php
+                $resultType = $db->getLandActive();
+                while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<div class="form-check form-check-inline col-md-6 ">';
+                    echo '<input name="land[]" class="form-check-input" type="checkbox" id="' . $row['land_id'] . '" value="' . $row['land_id'] . '">';
+                    echo '<label class="form-check-label" for="' . $row['land_id'] . '">' . $row['land_name'] . '</label>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+           
+             
+            <div class="col-md-2 ">
+                <div class="col-md-12">
+                    <label for="validationCustom04" class="form-label fw-bold">Tenancy<font color="red">*</font></label>
+                </div>
+                <?php
+                $resultType = $db->getTenancyActive();
+                while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<div class="form-check form-check-inline col-md-6 ">';
+                    echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '">';
+                    echo '<label class="form-check-label" for="' . $row['tenancy_id'] . '">' . $row['tenancy_name'] . '</label>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+             <div class="col-md-2 mt-3">
+                <label for="validationCustom04" class="form-label fw-bold">
+                    Availability of reliable irrigation:<font color="red">*</font>
+                </label>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="available" value="Available" name="irrigation">
+                    <label class="form-check-label" for="available">Available</label>
+                </div>
 
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="not_available" value="Not Available" name="irrigation">
+                    <label class="form-check-label" for="not_available">Not Available</label>
+                </div>
+            </div>
 
+            <div class="col-md-2 mt-3">
+              <label for="validationCustom04" class="form-label fw-bold">Water source:<font color="red">*</font></label>
 
-            <div class="col-md-3">
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="irrigated" value="Irrigated" name="water_source">
+                  <label class="form-check-label" for="irrigated">Irrigated</label>
+              </div>
+
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rainfed" value="Rainfed" name="water_source">
+                  <label class="form-check-label" for="rainfed">Rainfed</label>
+              </div>
+          </div>
+          <div class="col-md-4 mt-3">
+              <label for="validationCustom04" name="source" class="form-label fw-bold">If irrigated, source of irrigation:<font color="red">*</font></label>
+
+              <?php
+              $resultType = $db->getIrrigationActive();
+              while ($row = mysqli_fetch_array($resultType)) {
+                  echo '<div class="form-check">';
+                  echo '<input class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_name'] . '"
+                  name="source[]">';
+                  echo '<label class="form-check-label" for="source_' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</label>';
+                  echo '</div>';
+              }
+              ?>
+          </div>
+
+            
+                <div class="row">
+    
+  
+              <div class="col-md-4 mt-3">
+              <div class="col-md-6"
+              <label for="validationCustom04" name="soil" class="form-label fw-bold">
+              <b>Soil Type:</b><font color="red">*</font>
+          </label>
+
+          <?php
+              $resultType = $db->getSoilActive();
+              while ($row = mysqli_fetch_array($resultType)) {
+                  echo '<div class="form-check col-md-12">';
+                  echo '<input name="soils[]" class="form-check-input" type="checkbox" id="' . $row['soil_id'] . '" value="' . $row['soil_id'] . '">';
+                  echo '<label class="form-check-label" for="' . $row['soil_id'] . '">' . $row['soil_name'] . '</label>';
+                  echo '</div>';
+              }
+              ?>
+      </div>
+    </div>
+    <div class="col-md-4 mt-3">
+        <label for="validationCustom04" name="market" class="form-label fw-bold">Accessibility to farm to market road:<font color="red">*</font></label>
+          
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="accessible" value="Accessible" name="market">
+                <label class="form-check-label" for="accessible">Accessible</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="not_accessible" value="Not Accessible" name="market">
+                <label class="form-check-label" for="not_accessible">Not Accessible</label>
+            </div>
+    </div> 
+            <div class="col-md-3 mt-6">
               <div class="col-md-12">
-                  <label for="validationCustom04" class="form-label fw-bold">Funding Agency</label>
+                  <label for="validationCustom04" class="form-label fw-bold">Funding Agency<font color="red">*</font></label>
               </div>
               <?php
               $resultType = $db->getAgencyActive();
@@ -395,7 +387,7 @@ if (isset($message)) {
 
     <div class="col-md-6 position-relative">
         <label class="form-label">Number of site Adopters<font color="red">*</font></label>
-        <input type="text" class="form-control" id="validationTooltip01" name="adopters">
+        <input type="number" class="form-control" id="validationTooltip01" name="adopters">
         <div class="invalid-tooltip">
             The Site Adopters field is required.
         </div>
@@ -431,26 +423,72 @@ if (isset($message)) {
               <label for="validationCustom04" class="form-label">Herewith the Monitoring and Evaluation Team, declares to have visited the proposed location for mulberry plantation 
                 field and found the site reasonably suited for mulberry leaf production and silkworm rearing/cocoon production.</label>
             </div>
-         
-<div id="inputs-container">
 
-            <div class="input-set" style="display: none;">
-    <div class="row">
-        <div class="col-md-4 position-relative">
-            <div class="form-group">
-                <label class="form-label">Name<font color="red">*</font></label>
-                <input type="text" class="form-control" name="names[]">
-            </div>
-        </div>
-        <div class="col-md-4 position-relative">
-            <label class="form-label">Position<font color="red">*</font></label>
-            <input type="text" class="form-control" name="positions[]">
-        </div>
-        <div class="col-md-4">
-            <label for="validationCustom04" class="form-label">Date<font color="red">*</font></label>
-            <input type="date" class="form-control" name="dates[]">
-        </div>
-    </div>
+            
+            <div class="col-md-4 position-relative">
+              <label class="form-label">Name<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="names">
+              <div class="invalid-tooltip">
+                  The Name field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Position<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="position">
+              <div class="invalid-tooltip">
+                  The Position field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Date<font color="red">*</font></label>
+              <input type="date" class="form-control" id="validationTooltip01" name="date">
+              <div class="invalid-tooltip">
+                  The Date field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Name<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="name1">
+              <div class="invalid-tooltip">
+                  The Name field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Position<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="position1">
+              <div class="invalid-tooltip">
+                  The Position field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Date<font color="red">*</font></label>
+              <input type="date" class="form-control" id="validationTooltip01" name="date1">
+              <div class="invalid-tooltip">
+                  The Date field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Name<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="name2">
+              <div class="invalid-tooltip">
+                  The Name field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Position<font color="red">*</font></label>
+              <input type="text" class="form-control" id="validationTooltip01" name="position2">
+              <div class="invalid-tooltip">
+                  The Position field is required.
+              </div>
+          </div>
+          <div class="col-md-4 position-relative">
+              <label class="form-label">Date<font color="red">*</font></label>
+              <input type="date" class="form-control" id="validationTooltip01" name="date2">
+              <div class="invalid-tooltip">
+                  The Date field is required.
+              </div>
+          </div>
+    
 </div>
 
 </div>

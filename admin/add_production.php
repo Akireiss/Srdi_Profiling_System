@@ -88,32 +88,32 @@ if (!isset($_SESSION['user_id'])) {
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                             
                             <div class="col-md-12 position-relative">
-    <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="producerDropdown">
-        <option selected>Select Producer Name</option>
-        <?php
-        $resultType = $db->getProducersActive();
-        while ($row = mysqli_fetch_array($resultType)) {
-            $cocoon_id = $row['cocoon_id'];
-            $name = $row['name'];
-            $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
-            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
-        }
-        ?>
-    </select>
-</div>
+                                <label class="form-label">Producer Name<font color="red">*</font></label>
+                                <select name="producer_id" class="form-select" id="producerDropdown">
+                                    <option selected>Select Producer Name</option>
+                                    <?php
+                                    $resultType = $db->getProducersActive();
+                                    while ($row = mysqli_fetch_array($resultType)) {
+                                        $cocoon_id = $row['cocoon_id'];
+                                        $name = $row['name'];
+                                        $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
+                                        echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 
-<div class="col-md-12 position-relative">
-    <label class="form-label">Project Site Location<font color="red">*</font></label>
+                            <div class="col-md-12 position-relative">
+                                <label class="form-label">Project Site Location<font color="red">*</font></label>
 
-    <select name="site_id" class="form-select" id="siteDropdown" required>
-        <option selected>Select Project Site Location</option>
-    </select>
+                                <select name="site_id" class="form-select" id="siteDropdown" required>
+                                    <option selected>Select Project Site Location</option>
+                                </select>
 
-    <div class="invalid-tooltip">
-        The Project Site Location field is required.
-    </div>
-</div>
+                                <div class="invalid-tooltip">
+                                    The Project Site Location field is required.
+                                </div>
+                            </div>
 
 
 

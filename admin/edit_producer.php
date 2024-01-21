@@ -166,27 +166,27 @@ exit();
           </div>
           
           <div class="col-md-6 position-relative">
-    <label class="form-label">Status<font color="red">*</font></label>
-    <div class="col-sm-12">
-        <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
-            <?php
-                // Check if the $status variable is not empty
-                if (!empty($status)) {
-                    // Use a ternary operator for cleaner code
-                    echo '<option value="Active" ' . ($status == 'Active' ? 'selected' : '') . '>Active</option>';
-                    echo '<option value="Inactive" ' . ($status == 'Inactive' ? 'selected' : '') . '>Inactive</option>';
-                } else {
-                    // If $status is empty, provide default options
-                    echo '<option value="Active">Active</option>';
-                    echo '<option value="Inactive">Inactive</option>';
-                }
-            ?>
-        </select>
-        <div class="invalid-tooltip">
-            The Status field is required.
+            <label class="form-label">Status<font color="red">*</font></label>
+            <div class="col-sm-12">
+                <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
+                    <?php
+                        // Check if the $status variable is not empty
+                        if (!empty($status)) {
+                            // Use a ternary operator for cleaner code
+                            echo '<option value="Active" ' . ($status == 'Active' ? 'selected' : '') . '>Active</option>';
+                            echo '<option value="Inactive" ' . ($status == 'Inactive' ? 'selected' : '') . '>Inactive</option>';
+                        } else {
+                            // If $status is empty, provide default options
+                            echo '<option value="Active">Active</option>';
+                            echo '<option value="Inactive">Inactive</option>';
+                        }
+                    ?>
+                </select>
+                <div class="invalid-tooltip">
+                    The Status field is required.
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         </div>
           

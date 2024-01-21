@@ -137,10 +137,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'removeSite') {
                                     <label class="form-label">Producer Name<font color="red">*</font></label>
                                     <input type="text" class="form-control" id="validationTooltip03" name="producerName"
                                         value="<?php echo $producerName; ?>" disabled>
-
-                                    <div class="invalid-tooltip">
-                                        Please enter a valid decimal number with up to two decimal places.
-                                    </div>
                                 </div>
 
                                 <div class="col-md-12 position-relative">

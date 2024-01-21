@@ -5,6 +5,16 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +22,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/staff.sidebar.php' ?>
 
 <main id="main" class="main">
 
@@ -47,7 +57,7 @@
 $result = $db->getTopography();
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
-    echo '<td><a href="edit_topography.php?topography_id=' . $row['topography_id'] . '">' . $row['topography_name'] . '</a></td>';
+    echo '<td>' . $row['topography_name'] . '</a></td>';
     echo '<td>' . $row['topography_status'] . '</td>';
     echo '<td>';
     echo '<a href="view_topography.php?topography_id=' . $row['topography_id'] . '"><i class="ri-eye-line"></i></a>';

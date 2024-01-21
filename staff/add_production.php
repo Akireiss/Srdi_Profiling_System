@@ -1,10 +1,21 @@
 <?php
 session_start();
-include "../db_con.php";
-$db = new db();
+include "../Main.php";
+$db = new main();
+$user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
+    
+    if ($_SESSION['type_id'] == 1) {
+        header("Location:  ../auth/login.php");
+        exit(); 
+    }
+    
+    if ($_SESSION['type_id'] == 3) {
+      header("Location:  ../auth/login.php");
+      exit(); 
+    }
 } else {
     if (isset($_POST['submit'])) {
         $producer_id = $_POST['producer_id'];
@@ -12,21 +23,20 @@ if (!isset($_SESSION['user_id'])) {
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
+        $site_id = $_POST['site_id'];
         
      
 
         $total = $p_income - $p_cost;
         $n_income = $total;
 
-      
-        $p_income_formatted = number_format($p_income, 2);
-        $p_cost_formatted = number_format($p_cost, 2);
-
         $n_income = $p_income - $p_cost;
 
 
 
-        $result = $db->addProduction($producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income);
+        $result = $db->addProduction($producer_id, $production_date, 
+        $total_production, $p_income, 
+        $p_cost, $n_income, $site_id);
 
         if ($result != 0) {
             $message = "Production Successfully Added!";
@@ -42,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
     <?php include '../includes/header.php' ?>
-    <?php include '../includes/staff.sidebar.php' ?>
+    <?php include '../includes/sidebar.php' ?>
 
     <main id="main" class="main">
         <?php
@@ -62,7 +72,7 @@ if (!isset($_SESSION['user_id'])) {
        
     <div class="pagetitle">
       <h1>Add Production</h1>
-          </div><!-- End Page Title -->
+          </div>
 
     <section class="section">
       <div class="row">
@@ -74,41 +84,41 @@ if (!isset($_SESSION['user_id'])) {
               <h5 class="card-title"></h5>
 
                             <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
-
-                            <!-- <div class="col-md-12 position-relative">
-                  <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                 <select name="site_id" class="form-select" id="validationCustom04" required>
-                    <option selected>Select Project Site Location</option>
-                    <?php
-                        $resultType = $db->getSiteLocationActive();
-                        while ($row = mysqli_fetch_array($resultType)) {
-                            $site_id = $row['site_id'];
-                            $location = $row['location'];
-                            $selected = ($site_id == $site) ? 'selected' : '';
-                            echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
-            }
-            ?>
-    </select>
-                  <div class="invalid-tooltip">
-                    The Project Site Location field is required.
-                  </div>
-                </div> -->
-                <div class="col-md-12 position-relative">
+                            <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                            
+                            <div class="col-md-12 position-relative">
     <label class="form-label">Producer Name<font color="red">*</font></label>
-    <select name="producer_id" class="form-select" id="validationCustom04" >
+    <select name="producer_id" class="form-select" id="producerDropdown">
         <option selected>Select Producer Name</option>
         <?php
-            $resultType = $db->getProducersActive();
-            while ($row = mysqli_fetch_array($resultType)) {
-                $cocoon_id = $row['cocoon_id'];
-                $name = $row['name'];
-                $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
-                echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
-            }
-            ?>
+        $resultType = $db->getProducersActive();
+        while ($row = mysqli_fetch_array($resultType)) {
+            $cocoon_id = $row['cocoon_id'];
+            $name = $row['name'];
+            $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
+            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
+        }
+        ?>
     </select>
 </div>
+
+<div class="col-md-12 position-relative">
+    <label class="form-label">Project Site Location<font color="red">*</font></label>
+
+    <select name="site_id" class="form-select" id="siteDropdown" required>
+        <option selected>Select Project Site Location</option>
+    </select>
+
+    <div class="invalid-tooltip">
+        The Project Site Location field is required.
+    </div>
+</div>
+
+
+
+
+
                 <!-- Species -->
                 <div class="col-md-3 position-relative">
 
@@ -123,7 +133,7 @@ if (!isset($_SESSION['user_id'])) {
 
                                 <div class="col-md-3 position-relative">
                                     <label class="form-label">Total Production (in kg)<font color="red">*</font></label>
-                                    <input type="text" class="form-control" id="validationTooltip03" name="total_production" >
+                                    <input type="number" class="form-control" id="validationTooltip03" name="total_production" >
 
                                 <div class="invalid-tooltip">
                                     The Total Production  field is required.
@@ -166,8 +176,51 @@ if (!isset($_SESSION['user_id'])) {
     </main><!-- END MAIN -->
 
     <?php include '../includes/footer.php' ?>
-</body>
+  <script src="../public/assets/js/jquery.min.js"></script>
 
+<script src=""></script>
+<script>
+    $(document).ready(function () {
+        $('#producerDropdown').change(function () {
+            var producerId = $(this).val();
+
+            $.ajax({
+                url: 'AjaxLocation.php',
+                type: 'POST',
+                data: { producerId: producerId },
+                success: function (response) {
+                    $('#siteDropdown').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
+
+    <script>
+    $(document).ready(function () {
+    $('#producerDropdown').change(function () {
+        var producerId = $(this).val();
+
+        $.ajax({
+            url: 'AjaxLocation.php',
+            type: 'POST',
+            data: { producerId: producerId },
+            success: function (response) {
+                $('#siteDropdown').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
+</script>
+
+</body>
 </html>
 
 

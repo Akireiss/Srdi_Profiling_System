@@ -4,14 +4,33 @@
   $db = new db;
   if(!isset($_SESSION['id'])){
     header("Location: ../auth/login.php");
-  }else{
+  }
+  if ($_SESSION['type_id'] == 2) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
+else{
     if(isset($_POST['submit'])){
       $fullname = $_POST['fullname'];
       $username = $_POST['username'];
       $password = md5($_POST['password']);
       $type_id = $_POST['user_type_id']; 
       $status   = $_POST['status'];
-      $resultUser=$db->addUser($fullname, $username, $password, $type_id, $status);
+      $resultUser=$db->UpdateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID);
       if($resultUser != 0){
         $message = "User Successfully Added!";
       }else{
@@ -25,7 +44,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-<?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/sidebar.php' ?>
 
 
 <main id="main" class="main">

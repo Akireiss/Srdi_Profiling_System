@@ -5,6 +5,15 @@ $db = new db;
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } 
+if ($_SESSION['type_id'] == 2) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
 $result=$db->getAuditID($_GET['id']);
 while($row=mysqli_fetch_object($result)){
 $user_id = $row->user_id;
@@ -21,7 +30,7 @@ $date = $row->date;
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+  <?php include '../includes/sidebar.php' ?>
 
 
   <main id="main" class="main">

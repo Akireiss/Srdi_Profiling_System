@@ -2,20 +2,39 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+
+$users_id = $_SESSION['user_id'];
+
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
+  exit(); // Ensure to stop further execution after redirection
+} 
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}else {
   if (isset($_POST['submit'])) {
     $user_id = $_POST['user_id']; 
+    $userTargetID = $_POST['userTargetID']; 
     $fullname = $_POST['fullname']; 
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    if (!empty($_POST['new_password'])) {
+      $password = md5($_POST['new_password']);
+    } else {
+      $password = $_POST['password'];
+    }
     $type_id = $_POST['user_type_id'];
-    $user_status   = $_POST['user_status'];
-    $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status);
-    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exist!";
+    $user_status = $_POST['user_status'];
+    $resultUser = $db->updateUser($user_id, $fullname, $username, $password, $type_id, $user_status, $userTargetID);
+    $message = ($resultUser != 0) ? "User Successfully Updated" : "User Already Exists!";
   }
 }
+
   
 
 ?>
@@ -49,7 +68,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php
              $result=$db->getUserID($_GET['user_id']);
             while($row=mysqli_fetch_object($result)){
-                $userID =$row->user_id;
+                $userTargetID =$row->user_id;
                 $fullname =$row->fullname; 
                 $username =$row->username;
                 $password =$row->password;
@@ -68,12 +87,13 @@ if (!isset($_SESSION['user_id'])) {
 
               <!-- Custom Styled Validation with Tooltips -->
               <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data" method="POST">
+              <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Fullname<font color="red">*</font></label>
                  
-                  <input type="hidden" class="form-control" id="validationTooltip01" name="user_id"
-                                         value = "<?php echo $userID;?>" required>
+                  <input type="hidden" class="form-control" id="validationTooltip01" name="userTargetID"
+                                         value = "<?php echo $userTargetID;?>" required>
                                          <input type="text" class="form-control" id="validationTooltip01" name="fullname"
                                         value = "<?php echo $fullname;?>" required>
                   <div class="invalid-tooltip">
@@ -91,13 +111,15 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
                 
                 <div class="col-md-6 position-relative">
-                  <label class="form-label">Password<font color="red">*</font></label>
-                  <input type="password" minlength="8" class="form-control" id="password" name="password" required>
-                  <input type="checkbox" onclick="myFunction()">Show Password
+                  <label class="form-label">Password<font color = "red"> (Leave the password field empty if you don't want to change)</font></label>
+                  <input type="hidden" class="form-control" name = "password" value = "<?php echo $password ?>" required>
+                  <input type="password" minlength="8" class="form-control" id="password" name = "new_password">
+                  <input type="checkbox" onclick="myFunction()">Show Password 
                   <div class="invalid-tooltip">
-                    The Password must be minimum of 8 characters.
+                    The Password field is required.
                   </div>
                 </div>
+               
 
              
                 <div class="col-md-6 position-relative">

@@ -1,18 +1,31 @@
 <?php
 session_start();
-include "../db_con.php";
-$db = new db();
+include "../Main.php";
+$db = new main();
+$user_id = $_SESSION['user_id'];
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}else {
     if (isset($_POST['submit'])) {
-        $production_id = $_POST['production_id'];
+        $user_id = $_POST['user_id'];
+        $productionId = $_POST['productionId'];
         $production_date = $_POST['production_date'];
         $total_production = $_POST['total_production'];
         $p_income = $_POST['p_income'];
         $p_cost = $_POST['p_cost'];
         $producer_id = $_POST['producer_id'];
+        $site_id = $_POST['site_id'];
+        
 
         // Calculate net income
 
@@ -20,8 +33,16 @@ if (!isset($_SESSION['user_id'])) {
         $n_income = $total;
 
         // Add the production record to the database
-        $result = $db->updateProduction( $user_id, $production_id, $production_date, 
-        $total_production, $p_income, $p_cost, $n_income, $producer_id);
+        $result = $db->updateProduction(
+        $production_date,
+        $total_production,
+        $p_income,
+        $p_cost,
+        $n_income,
+        $producer_id,
+        $site_id,
+        $productionId
+        );
 
         if ($result != 0) {
             $message = "Production Successfully Updated!";
@@ -31,6 +52,22 @@ if (!isset($_SESSION['user_id'])) {
     }
 }
 ?>
+
+<?php
+// backend.php
+
+if (isset($_POST['action']) && $_POST['action'] == 'removeSite') {
+    $siteId = $_POST['siteId'];
+
+    // Perform the database update
+    $db->updateSiteStatus($siteId);
+
+    // Return a response (you can customize this)
+    echo 'Site with ID ' . $siteId . ' removed successfully.';
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,9 +99,11 @@ if (!isset($_SESSION['user_id'])) {
             <?php
             $result = $db->getProductionID($_GET['production_id']);
             while ($row = mysqli_fetch_object($result)) {
-                $productionID = $row->production_id;
-                $producerID = $row->producer_id;
+                $productionId = $row->production_id;
+                $producerId = $row->producer_id;
+                $siteID = $row->site_id;//here
                 $producerName = $row->name;
+                $location = $row->location;
                 $production_date = $row->production_date;
                 $total_production = $row->total_production;
                 $p_income = $row->p_income;
@@ -78,47 +117,41 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="card">
                         <div class="card-body">
 
-                            <h5 class="card-title"></h5>
+                            <!-- <h5 class="card-title"><?php echo $producerId?></h5> -->
 
                             <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action="#" enctype="multipart/form-data"
-                                method="POST">
+                            <form class="row g-3 needs-validation" novalidate 
+                            action="" enctype="multipart/form-data" method="POST">
 
-                                <!-- <div class="col-md-12 position-relative">
-                  <label class="form-label">Project Site Location<font color = "red">*</font></label>
-                 <select name="site_id" class="form-select" id="validationCustom04" required>
-                    <option selected>Select Project Site Location</option>
-                    <?php
-                    $resultType = $db->getSiteLocationActive();
-                    while ($row = mysqli_fetch_array($resultType)) {
-                        $site_id = $row['site_id'];
-                        $location = $row['location'];
-                        $selected = ($site_id == $site) ? 'selected' : '';
-                        echo '<option value="' . $site_id . '" ' . $selected . '>' . $location . '</option>';
-                    }
-                    ?>
-    </select>
-                  <div class="invalid-tooltip">
-                    The Project Site Location field is required.
-                  </div>
-                </div> -->
-                                <div class="col-md-12 position-relative">
+                            
+                            <input type="hidden" value="<?php echo $producerId?>"  name="producer_id">
+                                <input type="hidden" value="<?php echo $siteID?>" name="site_id">
+
+
+
+                            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                              
+                            <input type="hidden" name="productionId" value="<?php echo $productionId ?>">
+
+                            <div class="col-md-12 pt-3 position-relative">
                                     <label class="form-label">Producer Name<font color="red">*</font></label>
-                                    <select name="producerName" class="form-select" id="validationCustom04">
-                                        <option>Select Producer Name</option>
+                                    <input type="text" class="form-control" id="validationTooltip03" name="producerName"
+                                        value="<?php echo $producerName; ?>" disabled>
 
-                                        <?php
-                                        $resultType = $db->getProducersActive();
-                                        while ($row = mysqli_fetch_array($resultType)) {
-                                            $cocoon_id = $row['cocoon_id'];
-                                            $name = $row['name'];
-                                            $selected = ($cocoon_id == $producerID) ? 'selected' : '';
-                                            echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <div class="invalid-tooltip">
+                                        Please enter a valid decimal number with up to two decimal places.
+                                    </div>
                                 </div>
 
+                                <div class="col-md-12 position-relative">
+                                    <label class="form-label">Project Site Location<font color="red">*</font></label>
+                                    <input type="text" class="form-control" id="validationTooltip03" name="location"
+                                        value="<?php echo $location; ?>" disabled>
+
+                                    <div class="invalid-tooltip">
+                                        Please enter a valid decimal number with up to two decimal places.
+                                    </div>
+                                </div>
 
 
 
@@ -197,6 +230,58 @@ if (!isset($_SESSION['user_id'])) {
     </main><!-- END MAIN -->
 
     <?php include '../includes/footer.php' ?>
+    <script src="../public/assets/js/jquery.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    function removeSite(siteId) {
+        $.ajax({
+            type: 'POST',
+            url: '', // Replace with your backend script URL
+            data: { action: 'removeSite', siteId: siteId },
+            success: function(response) {
+                // Handle the response as needed
+                console.log(response);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+</script>
+
+
+
+    <script>
+ $(document).ready(function () {
+    $('#producerDropdown').change(function () {
+        var producerId = $(this).val();
+
+        $.ajax({
+            url: 'displayAjax.php',
+            type: 'POST',
+            data: { producerId: producerId },
+            success: function (response) {
+                // Check if the dropdown already has a selected value
+                if ($('#siteDropdown').val()) {
+                    // Do not overwrite the initial value
+                    $('#siteDropdown').append(response);
+                } else {
+                    // Set the initial value and append the rest
+                    $('#siteDropdown').html(response);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
+
+</script>
+
 </body>
 
 </html>

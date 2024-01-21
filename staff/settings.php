@@ -5,6 +5,15 @@ $db = new db();
 if(!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
 }
+if ($_SESSION['type_id'] == 1) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+header("Location:  ../auth/login.php");
+exit(); 
+}
 
 ?>
 <?php include '../includes/header.php' ?>
@@ -74,6 +83,9 @@ if(!isset($_SESSION['user_id'])) {
           <li class="list-group-item">
             <a href="farm_tools.php" class="card-link">Farm Tools</a>
           </li>
+          <li class="list-group-item">
+            <a href="year.php" class="card-link">Years</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -104,23 +116,15 @@ if(!isset($_SESSION['user_id'])) {
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        User
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="system_user.php" class="card-link">User</a>
-          </li>
-          <li class="list-group-item">
-            <a href="user_type.php" class="card-link">User Type</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+  
+
+ 
+
+
+
+
   </div>
+</div>
 
   </div>
 

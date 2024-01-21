@@ -5,6 +5,15 @@
   if(!isset($_SESSION['user_id'])){
     header("Location: ../auth/login.php");
   }
+  if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +21,7 @@
 
 <body>
   <?php include '../includes/header.php' ?>
-  <?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/staff.sidebar.php' ?>
 
 <main id="main" class="main">
 
@@ -49,7 +58,7 @@
     $result = $db->getMunicipality();
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
-        echo '<td><a href="edit_municipality.php?municiplaity_id=' . $row['municipality_id'] . '">' . $row['citymunDesc'] . '</a></td>';
+        echo '<td>' . $row['citymunDesc'] . '</a></td>';
         echo '<td>' . $row['provDesc'] . '</td>';
         echo '<td>' . $row['regDesc'] . '</td>';
         echo '<td>' . $row['citymunCode'] . '</td>';

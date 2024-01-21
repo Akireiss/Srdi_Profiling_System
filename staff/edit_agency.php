@@ -2,14 +2,26 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+$user_id = $_SESSION['user_id'];
+
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
-} else {
+} 
+if ($_SESSION['type_id'] == 1) {
+    header("Location:  ../auth/login.php");
+    exit(); 
+}
+
+if ($_SESSION['type_id'] == 3) {
+  header("Location:  ../auth/login.php");
+  exit(); 
+}else {
   if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $agency_id = $_POST['agency_id'];
     $agency_name = $_POST['agency_name'];
     $status   = $_POST['status'];
-    $result = $db->updateAgency($agency_id, $agency_name, $status);
+    $result = $db->updateAgency($user_id, $agency_id, $agency_name, $status);
     $message = ($result != 0) ? "Funding Agency Successfully Updated" : "Land Type Already Exist!";
   }
 }
@@ -17,7 +29,7 @@ if(!isset($_SESSION['user_id'])) {
 
 <!DOCTYPE html>
 <?php include '../includes/header.php' ?>
-<?php include '../includes/staff.sidebar.php' ?>
+<?php include '../includes/sidebar.php' ?>
 <main id="main" class="main">
 
 <?php
@@ -40,7 +52,7 @@ if(!isset($_SESSION['user_id'])) {
             while($row=mysqli_fetch_object($result)){
                 $agencyID     	= $row->agency_id;
                 $agency_name   	= $row->agency_name;
-                $status 	= $row->status;
+                $status 	   = $row->status;
             }
         ?>
          <div class="pagetitle">
@@ -52,6 +64,8 @@ if(!isset($_SESSION['user_id'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Funding Agency Information</h5>
                                 <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+
                                     <div class="col-md-6 position-relative">
                                         <label class="form-label">Funding Agency<font color="red">*</font></label>
                                         
