@@ -489,12 +489,11 @@ exit();
                   The Date field is required.
               </div>
           </div>
-            <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-
-                 <button type="submit" class="btn btn-warning" name="update">Update </button>
-                 <button type="reset" class="btn btn-primary">Clear</button>
-                 <a href="projectsite.php" class="btn btn-danger">Cancel</a>
-           </div>
+          <div class="col-12 d-flex align-items-end justify-content-end gap-2">
+                    <button type="submit" class="btn btn-warning" name="submit">Save</button>
+                  <button type="reset" class="btn btn-primary">Clear</button>
+                  <a href="projectsite.php" class="btn btn-danger">Cancel</a>
+                </div>  
         </form><!-- End Custom Styled Validation with Tooltips -->
         </div>
         <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">

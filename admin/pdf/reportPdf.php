@@ -30,6 +30,15 @@
                 /* border: 1px solid black; */
 
             }
+            .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-size: small;
+        }
 
             .gray {
                 background-color: lightgray
@@ -82,10 +91,64 @@
             .padding{
                 padding: 6px;
             }
+            
         </style>
     </head>
 
     <body>
+    <!doctype html>
+<html lang="en">
+<head>
+<div class="main">
+        <table width="100%">
+            <!-- ... Your existing table headers ... -->
+        </table>
+        <br>
+
+        <!-- Main function, loop through the data -->
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <!-- ... Your existing table headers ... -->
+                </tr>
+
+                <?php
+                // Initialize page number
+                $pageNumber = 1;
+
+                foreach ($reportData as $row) {
+                    // ... Your existing code to generate rows ...
+
+                    // Check if a page break is needed
+                    if ($pageNumber % 20 == 0) {
+                        echo '</table><div class="page-break"></div><table width="100%"><tbody><tr><!-- ... Your existing table headers ... --></tr>';
+                    }
+
+                    // Increment page number for the next iteration
+                    $pageNumber++;
+                }
+                ?>
+            </tbody>
+        </table>
+
+        <!-- Footer -->
+        <div class="footer">
+            Page <?php echo $pageNumber; ?>
+        </div>
+    </div>
+
+</head>
+
+<body>
+    <!-- Your existing content -->
+
+    <!-- Footer -->
+    <div class="footer">
+        Page <?php echo $pageNumber; ?>
+    </div>
+</body>
+</html>
+
 
 
 <!--     

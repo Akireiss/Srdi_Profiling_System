@@ -49,7 +49,9 @@ exit();
     $date = $_POST['date'];
 
     // Add the site to the database without checking for existing sites with the same name
-    $result = $db->addSite($user_id, $location, $producer_name, $topography, $region, $province, $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, $water, $source, $soil, $market, $distance, $land_area, $agency, $charge, $adopters, $status, $remarks, $name, $position, $date);
+    $result = $db->addSite($user_id, $location, $producer_name, $topography, $region, $province, $municipality, 
+    $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, $water, $source, $soil, $market, 
+    $distance, $land_area, $agency, $charge, $adopters, $status, $remarks, $name, $position, $date);
 
     if ($result != 0) {
       $message = "Site Successfully Added!";

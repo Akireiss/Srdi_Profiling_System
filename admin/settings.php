@@ -31,7 +31,33 @@ exit();
 <div>
     <div>
     <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
+    <div class="card">
+      <div class="card-title bg-success text-white px-4">
+        Producers
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="education.php" class="card-link">Educational Attainment</a>
+          </li>
+          <li class="list-group-item">
+            <a href="religion.php" class="card-link">Religion</a>
+          </li>
+          <li class="list-group-item">
+            <a href="source_of_income.php" class="card-link">Source of Income</a>
+          </li>
+          <li class="list-group-item">
+            <a href="farm_tools.php" class="card-link">Farm Tools</a>
+          </li>
+          <li class="list-group-item">
+            <a href="year.php" class="card-link">Years</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-3">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         Project Site
@@ -63,61 +89,7 @@ exit();
       </div>
     </div>
   </div>
-
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        Producers
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <a href="education.php" class="card-link">Educational Attainment</a>
-          </li>
-          <li class="list-group-item">
-            <a href="religion.php" class="card-link">Religion</a>
-          </li>
-          <li class="list-group-item">
-            <a href="source_of_income.php" class="card-link">Source of Income</a>
-          </li>
-          <li class="list-group-item">
-            <a href="farm_tools.php" class="card-link">Farm Tools</a>
-          </li>
-          <li class="list-group-item">
-            <a href="year.php" class="card-link">Years</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
-
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-title bg-success text-white px-4">
-        Address
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-            <a href="region.php" class="card-link">Region</a>
-          </li>
-          <li class="list-group-item">
-            <a href="province.php" class="card-link">Province</a>
-          </li>
-          <li class="list-group-item">
-            <a href="municipality.php" class="card-link">Municipality</a>
-          </li>
-          <li class="list-group-item">
-            <a href="barangay.php" class="card-link">Barangay</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         System
@@ -139,7 +111,7 @@ exit();
 
 
 
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="card">
       <div class="card-title bg-success text-white px-4">
         User
@@ -160,6 +132,35 @@ exit();
 
   </div>
 
+</div>
+  
+  
+
+  <!-- <div class="col-md-4">
+    <div class="card">
+      <div class="card-title bg-success text-white px-4">
+        Address
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <a href="region.php" class="card-link">Region</a>
+          </li>
+          <li class="list-group-item">
+            <a href="province.php" class="card-link">Province</a>
+          </li>
+          <li class="list-group-item">
+            <a href="municipality.php" class="card-link">Municipality</a>
+          </li>
+          <li class="list-group-item">
+            <a href="barangay.php" class="card-link">Barangay</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->
+
+ 
   </main>
   <?php include '../includes/footer.php' ?>
 </body>
