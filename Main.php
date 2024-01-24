@@ -55,15 +55,21 @@ class main
             LEFT JOIN cocoon 
             ON production.producer_id = cocoon.cocoon_id
             LEFT JOIN site
-            ON production.site_id = site.site_id
+            ON production.location_id = site.site_id
             WHERE production_id ='$production_id'";
         $result = mysqli_query($this->con, $sql);
         return $result;
     }
-    public function updateProduction($production_date, $total_production, $p_income, $p_cost, $n_income,
+    public function updateProduction(
+        $production_date,
+        $total_production,
+        $p_income,
+        $p_cost,
+        $n_income,
         $producer_id,
-        $location_id,
-        $productionId) {
+        $site_id,
+        $productionId
+        ) {
         $stmt = $this->con->prepare("UPDATE production SET production_date = ?, 
             total_production = ?, p_income = ?, p_cost = ?, n_income = ?, producer_id = ?,
             location_id = ?  WHERE production_id = ?");
@@ -76,7 +82,7 @@ class main
             $p_cost,
             $n_income,
             $producer_id,
-            $location_id,
+            $site_id,
             $productionId
         );
 

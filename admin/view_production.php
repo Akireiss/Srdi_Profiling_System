@@ -92,7 +92,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'removeSite') {
         ?>
 
         <div class="pagetitle">
-            <h1>Edit Production</h1>
+            <h1>Production Information</h1>
         </div><!-- End Page Title -->
 
         <section class="section">
