@@ -1,57 +1,32 @@
 <?php
 session_start();
 include "../db_con.php";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $db = new db;
 if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
+    
+
+
     $location = $_POST['location'];
     $producer_id   = $_POST['producer_id'];
     $topography  = $_POST['topography'];
-    $region  = $_POST['region'];
-    $province  = $_POST['province'];
-    $municipality  = $_POST['municipality'];
-    $barangay  = $_POST['barangay'];
     $address  = $_POST['address'];
-
-    // $land = isset($_POST['land']) ? $_POST['land'] : []; // Initialize as an empty array
-    // $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : []; // Initialize as an empty array
     
-    // $agencys = isset($_POST['agencys']) ? $_POST['agencys'] : [];
-
-    // $soils = isset($_POST['soils']) ? $_POST['soils'] : []; 
-
-    // $soil = json_encode($soils);
-
-    // $agency = json_encode($agencys);
-    // $landJson = json_encode($land);
-    // $tenancyJson = json_encode($tenancy);
-    
-    $land = $_POST ['land'];
-    $tenancy = $_POST ['tenancy'];
-
     $area  = isset($_POST['area']) ? floatval($_POST['area']) : 0.0;
     $crops = isset($_POST['crops']) ? floatval($_POST['crops']) : 0.0;
     $share = $_POST['share'];
-
     $irrigation = isset($_POST['irrigation']) ? $_POST['irrigation'] : '';
     $water = isset($_POST['water_source']) ? $_POST['water_source'] : '';
-
-    $source = $_POST['source'];
     $market = isset($_POST['market']) ? $_POST['market'] : '';
-
     $distance= $_POST['distance'];
     $land_area= $_POST['land_area'];
-
-
-
-
     $charge= $_POST['charge'];
     $adopters= $_POST['adopters'];
-
     $remarks= $_POST['remarks'];
-    
     $names= $_POST['names'];
     $position= $_POST['position'];
     $date = $_POST['date'];
@@ -61,12 +36,16 @@ if(!isset($_SESSION['user_id'])) {
     $name2= $_POST['name2'];
     $position2= $_POST['position2'];
     $date2 = $_POST['date2'];
+
     
+    $land = isset($_POST['land']) ? $_POST['land'] : [];
+    $tenancy = $_POST ['tenancy']  ? $_POST['tenancy'] : [];
+    $agency = $_POST ['agency']  ? $_POST['agency'] : [];
     
-    $result = $db->addSite( $location, $producer_id, $topography, $region, $province, 
-    $municipality, $barangay, $address, $land, $tenancy, $area, $crops, $share, $irrigation, 
-    $water, $source,$soil, $market, $distance, $land_area, $agency, $charge, $adopters, $remarks,
-    $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2);
+    $result = $db->addSite($location, $producer_id, $topography, $address, $area, $crops, $share, $irrigation, 
+    $water, $soil, $market, $distance, $land_area, $charge, $adopters, $remarks,
+    $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2,
+    $land, $tenancy, $agency);
     if ($result) {
       $message = "Site Successfully Added!";
     } 
@@ -153,54 +132,13 @@ if (isset($message)) {
                   </div>
                 </div>
 
-                  
-                  <!-- <form class="row g-3 needs-validation" novalidate action = "#" enctype="multipart/form-data" method="POST">
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">Region<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "region" id="region"  >
-                      <option value="" selected disabled>Select Region</option>
-                      <?php
-                      $regionResult=$db->getRegion();
-                      while($row=mysqli_fetch_array($regionResult)){
-                        echo ucwords('<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>');
-                      }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">Province<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "province" id="province"  >
-                      <option value="" selected disabled>Select Province</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "municipality" id="city" >
-                      <option value="" selected disabled>Select City</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">Barangay<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" >
-                      <option value="" selected disabled>Select Barangay</option>
-                    </select>
-                  </div>
-                </div> -->
+              
+            
 
                 <div class="col-md-12 position-relative">
                     <label class="form-label">House no./House Street</label>
                     <input type="text" class="form-control" id="validationTooltip01" name="address"
-                        value="<?php echo htmlspecialchars($address); ?>">
+                        />
                 </div>
                 <div class="col-md-4 mt-6">
                   <label for="validationCustom01" class="form-label">Area (Hectares)<font color="red">*</font></label>
@@ -363,14 +301,16 @@ if (isset($message)) {
                   <label for="validationCustom04" class="form-label fw-bold">Funding Agency<font color="red">*</font></label>
               </div>
               <?php
-              $resultType = $db->getAgencyActive();
-              while ($row = mysqli_fetch_array($resultType)) {
-                  echo '<div class="form-check col-md-12"">'; // Adjust the width here (e.g., col-md-6)
-                  echo '<input name="agencys[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
-                  echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
-                  echo '</div>';
-              }
-              ?>
+$resultType = $db->getAgency(); 
+while ($row = mysqli_fetch_array($resultType)) {
+  
+    echo '<div class="form-check col-md-12">'; // Removed an extra double quote
+    echo '<input name="agency[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
+    echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
+    echo '</div>';
+}
+?>
+
           </div>
 
 

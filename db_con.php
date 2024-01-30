@@ -1,17 +1,18 @@
  <?php
-    error_reporting(0);
-    ini_set('display_errors', 1);
-    session_start();
+    // error_reporting(0);
+    // ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+ini_set('display_errors', 1);
     class db
     {
         public $con;
         public function __construct()
         {
-            $this->$con = mysqli_connect('localhost', 'root', '', 'profiling_system') or die(mysqli_error());
+            $this->con = mysqli_connect('localhost', 'root', '', 'profiling_system') or die(mysqli_error());
         }
 
         // function __construct(){
-        // 	$this->$con = mysqli_connect('localhost', 'root', '', 'srdi_profile') or die(mysqli_error());
+        // 	$this->con = mysqli_connect('localhost', 'root', '', 'srdi_profile') or die(mysqli_error());
         // }
         public function getTotalProduction()
         {
@@ -27,33 +28,33 @@
             $sql = "SELECT * FROM users as a
 			   LEFT JOIN user_type as b
 		       ON a.type_id = b.user_type_id";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getUserActive()
         {
             $sql = "SELECT * FROM users
 				WHERE user_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getUserID($user_id)
         {
             $sql = "SELECT * FROM users
 				 WHERE user_id='$user_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getUserType()
         {
             $sql = "SELECT * FROM user_type";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getUserDetails($user_id)
         {
             $sql = "SELECT * FROM users WHERE user_id = '$user_id'";
-            $result = mysqli_query($this->$con, $sql); // Assuming getConnection() returns the database connection
+            $result = mysqli_query($this->con, $sql); // Assuming getConnection() returns the database connection
 
             return $result;
         }
@@ -61,48 +62,48 @@
         {
             $sql = "SELECT * FROM user_type
 				WHERE user_type_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getUserTypeID($user_type_id)
         {
             $sql = "SELECT * FROM user_type
 				 WHERE user_type_id='$user_type_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getEducation()
         {
             $sql = "SELECT * FROM education";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getEducationActive()
         {
             $sql = "SELECT * FROM education
 				WHERE education_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getEducationID($education_id)
         {
             $sql = "SELECT * FROM education
 				 WHERE education_id='$education_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
         public function getSource_Income()
         {
             $sql = "SELECT * FROM source_income";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getSource_IncomeActive()
         {
             $sql = "SELECT * FROM source_income
 				WHERE source_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -110,7 +111,7 @@
         {
             $sql = "SELECT * FROM farm_tool
 				WHERE tool_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -118,161 +119,161 @@
         {
             $sql = "SELECT * FROM source_income
 				 WHERE source_id='$source_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getReligion()
         {
             $sql = "SELECT * FROM religion";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getReligionActive()
         {
             $sql = "SELECT * FROM religion
 				WHERE religion_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getReligionID($religion_id)
         {
             $sql = "SELECT * FROM religion
 				 WHERE religion_id='$religion_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
         public function getTenancy()
         {
             $sql = "SELECT * FROM tenancy";  
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getTenancyActive()
         {
             $sql = "SELECT * FROM tenancy
 				WHERE tenancy_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getTenancyID($tenancy_id)
         {
             $sql = "SELECT * FROM tenancy
 				 WHERE tenancy_id='$tenancy_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getFarmTools()
         {
             $sql = "SELECT * FROM farm_tool";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getFarmToolsActive()
         {
             $sql = "SELECT * FROM farm_tool
 				WHERE tool_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getFarmToolsID($tool_id)
         {
             $sql = "SELECT * FROM farm_tool
 				 WHERE tool_id='$tool_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getLand()
         {
             $sql = "SELECT * FROM land";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getLandActive()
         {
             $sql = "SELECT * FROM land
 				WHERE land_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getLandID($land_id)
         {
             $sql = "SELECT * FROM land
 				 WHERE land_id='$land_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getTopography()
         {
             $sql = "SELECT * FROM topography";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getTopographyActive()
         {
             $sql = "SELECT * FROM topography
 				WHERE topography_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getTopographyID($topography_id)
         {
             $sql = "SELECT * FROM topography
 				 WHERE topography_id='$topography_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getIrrigation()
         {
             $sql = "SELECT * FROM irrigation";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }   
         public function getIrrigationActive()
         {
             $sql = "SELECT * FROM irrigation
 				WHERE irrigation_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getIrrigationID($irrigation_id)
         {
             $sql = "SELECT * FROM irrigation
 				 WHERE irrigation_id='$irrigation_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getSoil()
         {
             $sql = "SELECT * FROM soil";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getSoilActive()
         {
             $sql = "SELECT * FROM soil
 				WHERE soil_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getSoilID($soil_id)
         {
             $sql = "SELECT * FROM soil
 				 WHERE soil_id='$soil_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getRegion()
         {
             $sql = "SELECT * FROM region";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getRegionID($region_id)
         {
             $sql = "SELECT * FROM region
 				 WHERE region_id='$region_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -281,14 +282,14 @@
             $sql = "SELECT p.province_id, p.provDesc, p.provCode, r.regCode, r.regDesc
 		FROM province p
 		JOIN region r ON p.regCode = r.regCode";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getProvinceID($province_id)
         {
             $sql = "SELECT * FROM province
 				 WHERE province_id='$province_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -301,14 +302,14 @@
 		JOIN province p ON m.provCode = p.provCode
 		JOIN region r ON p.regCode = r.regCode
 		LEFT JOIN municipality m2 ON m.citymunCode = m2.municipality_id";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getMunicipalityID($municipality_id)
         {
             $sql = "SELECT * FROM municipality
 				 WHERE municipality_id='$municipality_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getBarangay()
@@ -321,7 +322,7 @@
                 JOIN region r ON p.regCode = r.regCode
                 LEFT JOIN municipality m ON b.citymunCode = m.municipality_id";
 
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
 
             return $result;
         }
@@ -338,7 +339,7 @@
                 ORDER BY cocoon.name ASC";
             // echo $sql;
             // echo die();
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -367,14 +368,14 @@
 				WHERE cocoon_id='$cocoon_id'";
             //          echo $sql;
             // echo die();
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getProducersActive()
         {
             $sql = "SELECT * FROM cocoon
 				WHERE status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getLocationsByProducer($producerId)
@@ -389,7 +390,7 @@
         {
             $sql = "SELECT * FROM site
 				WHERE status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -400,7 +401,7 @@
                 LEFT JOIN topography
                 ON site.topography = topography.topography_id
                 WHERE site.producer_id = $cocoonID";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getSites()
@@ -413,7 +414,7 @@
                 ORDER BY site.location ASC";
             //           echo $sql;
             // echo die();
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -437,7 +438,7 @@
                 LEFT JOIN topography
                 ON site.topography = topography.topography_id
 				WHERE site_id='$site_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -450,7 +451,7 @@
         //             ON site.producer_id = cocoon.cocoon_id";
         //             echo $sql;
         //             echo die();
-        //     $result = mysqli_query($this->$con, $sql);
+        //     $result = mysqli_query($this->con, $sql);
         //     return $result;
         // }
         public function getAllProduction()
@@ -463,7 +464,7 @@
                 LEFT JOIN site 
                 ON production.location_id = site.site_id
                 ORDER BY cocoon.name ASC";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -474,7 +475,7 @@
         {
             $sql = "SELECT * FROM production
         WHERE site_id = '$siteID'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -485,7 +486,7 @@
         //             LEFT JOIN site
         //             ON production.site_id = site.site_id 
         // 			 WHERE production_id='$production_id'";
-        //     $result = mysqli_query($this->$con, $sql);
+        //     $result = mysqli_query($this->con, $sql);
         //     return $result;
 
         // }
@@ -497,69 +498,69 @@
                 LEFT JOIN site
                 ON production.site_id = site.site_id
 				 WHERE production_id='$production_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getProductionByName($name)
         {
             $sql = "SELECT * FROM production
         WHERE name = '$name'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
         public function getMonitoring()
         {
             $sql = "SELECT * FROM monitoring_team";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getMonitoringID($monitoring_id)
         {
             $sql = "SELECT * FROM monitoring_team
 				 WHERE monitoring_id ='$monitoring_id '";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
         public function getAgency()
         {
             $sql = "SELECT * FROM agency";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getAgencyID($agency_id)
         {
             $sql = "SELECT * FROM agency
 				 WHERE agency_id='$agency_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getAgencyActive()
         {
             $sql = "SELECT * FROM agency
 				WHERE status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getCivil()
         {
             $sql = "SELECT * FROM civil";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getCivilID($civil_id)
         {
             $sql = "SELECT * FROM civil
 				 WHERE civil_id='$civil_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getCivilActive()
         {
             $sql = "SELECT * FROM civil
 				WHERE status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getAuditTrail()
@@ -567,13 +568,13 @@
             $sql = "SELECT * FROM audit_logs
                 LEFT JOIN users
                 ON audit_logs.user_id = users.user_id ";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getYear()
         {
             $sql = "SELECT * FROM year";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -581,14 +582,14 @@
         {
             $sql = "SELECT * FROM year
         where year_status = 'Active'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
         public function getYearID($year_id)
         {
             $sql = "SELECT * FROM year
 				 WHERE year_id='$year_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -599,7 +600,7 @@
 				SET education_name = '$education_name',
 					education_status	='$education_status'
 				WHERE education_id	= '$education_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -611,7 +612,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -621,7 +622,7 @@
 				SET religion_name = '$religion_name',
 					religion_status	='$religion_status'
 				WHERE religion_id	= '$religion_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -633,7 +634,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -643,7 +644,7 @@
 				SET topography_name = '$topography_name',
 					topography_status	='$topography_status'
 				WHERE topography_id	= '$topography_id'";;
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
 
             if ($result) {
                 // Log the action in the audit_logs table
@@ -656,7 +657,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -666,7 +667,7 @@
 				SET tool_name = '$tool_name',
 					tool_status	='$tool_status'
 				WHERE tool_id	= '$tool_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -678,7 +679,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -688,7 +689,7 @@
 				SET source_name = '$source_name',
 					source_status	='$source_status'
 				WHERE source_id	= '$source_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -700,7 +701,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $resultsql = 1;
             }
         }
@@ -710,7 +711,7 @@
 				SET land_name = '$land_name',
 					land_status	='$land_status'
 				WHERE land_id	= '$land_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -722,7 +723,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -732,7 +733,7 @@
 				SET tenancy_name = '$tenancy_name',
 					tenancy_status	='$tenancy_status'
 				WHERE tenancy_id	='$tenancy_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -744,7 +745,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -755,7 +756,7 @@
 				SET irrigation_name = '$irrigation_name',
 					irrigation_status	='$irrigation_status'
 				WHERE irrigation_id	='$irrigation_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -767,7 +768,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -777,7 +778,7 @@
 				SET soil_name = '$soil_name',
 				soil_status	='$soil_status'
 				WHERE soil_id	= '$soil_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -789,7 +790,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -799,7 +800,7 @@
 				SET user_type_name = '$user_type_name',
 				user_type_status	='$user_type_status'
 				WHERE user_type_id	= '$user_type_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -811,7 +812,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -826,7 +827,7 @@
 				WHERE user_id	= '$userTargetID'";
             // echo $sql;
             // echo die();
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $usersID = $user_id;
@@ -842,7 +843,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$usersID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -857,7 +858,7 @@
 				WHERE user_id	= '$user_id'";
             // echo $sql;
             // echo die();
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result = 1;
         }
 
@@ -883,7 +884,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -910,7 +911,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -933,7 +934,7 @@
             $sql = "UPDATE cocoon 
                 SET name                 ='$name',						
                 WHERE cocoon_id          ='$cocoon_id'";
-            $resultsql = mysqli_query($this->$con, $sql);
+            $resultsql = mysqli_query($this->con, $sql);
             return $resultsql = 1;
         }
         public function updateProduction(
@@ -997,7 +998,7 @@
                 status	    ='$status'
             WHERE agency_id	= '$agency_id'";
 
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -1010,7 +1011,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -1023,7 +1024,7 @@
 					status	='$status'
 				WHERE monitoring_id	= '$monitoring_id'";
 
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -1036,7 +1037,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -1047,7 +1048,7 @@
                 status	    ='$status'
             WHERE civil_id	= '$civil_id'";
 
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -1060,7 +1061,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -1070,7 +1071,7 @@
             SET year_name = '$year_name',
                 year_status	='$year_status'
             WHERE year_id	= '$year_id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             if ($result) {
                 // Log the action in the audit_logs table
                 $userID = $user_id;
@@ -1083,7 +1084,7 @@
                 ]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
                 return $result = 1;
             }
         }
@@ -1093,7 +1094,7 @@
         {
             $checkUser = "SELECT * FROM users
 						WHERE fullname = '$fullname'";
-            $resultCheckUser = mysqli_query($this->$con, $checkUser);
+            $resultCheckUser = mysqli_query($this->con, $checkUser);
             $num_rows = mysqli_num_rows($resultCheckUser);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1104,7 +1105,7 @@
 								'$password',
 								'$type_id',
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sqlUser);
+                $resultsql = mysqli_query($this->con, $sqlUser);
 
                 if ($resultsql) {
                     // Log the action in the audit_logs table
@@ -1119,7 +1120,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1128,7 +1129,7 @@
         {
             $checkUser = "SELECT * FROM user_type
 						WHERE user_type_name = '$user_type'";
-            $resultCheckUser = mysqli_query($this->$con, $checkUser);
+            $resultCheckUser = mysqli_query($this->con, $checkUser);
             $num_rows = mysqli_num_rows($resultCheckUser);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1136,7 +1137,7 @@
                 $sqlUser = "INSERT INTO user_type (user_type_name, user_type_status)
 						VALUES ('$user_type',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sqlUser);
+                $resultsql = mysqli_query($this->con, $sqlUser);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1147,7 +1148,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1156,7 +1157,7 @@
         {
             $check = "SELECT * FROM education
 						WHERE education_name = '$education'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1164,7 +1165,7 @@
                 $sql = "INSERT INTO education (education_name, education_status)
 						VALUES ('$education',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1175,7 +1176,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
                 return $resultsql = 1;
@@ -1185,7 +1186,7 @@
         {
             $check = "SELECT * FROM municipality
 						WHERE municipality_name = '$municipality'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1193,7 +1194,7 @@
                 $sql = "INSERT INTO municipality (municipality_name, municipality_status)
 						VALUES ('$municipality',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 return $resultsql = 1;
             }
         }
@@ -1201,7 +1202,7 @@
         {
             $check = "SELECT * FROM source_income
 						WHERE source_name = '$source_of_income'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1209,7 +1210,7 @@
                 $sql = "INSERT INTO source_income (source_name, source_status)
 						VALUES ('$source_of_income',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1220,7 +1221,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1229,7 +1230,7 @@
         {
             $check = "SELECT * FROM religion
 						WHERE religion_name = '$religion'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1237,7 +1238,7 @@
                 $sql = "INSERT INTO religion (religion_name, religion_status)
 						VALUES ('$religion',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1248,7 +1249,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1257,7 +1258,7 @@
         {
             $check = "SELECT * FROM tenancy
 						WHERE tenancy_name = '$tenancy_status'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1265,7 +1266,7 @@
                 $sql = "INSERT INTO tenancy (tenancy_name, tenancy_status)
 						VALUES ('$tenancy_status',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
 
                 if ($resultsql) {
                     // Log the action in the audit_logs table
@@ -1277,7 +1278,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
                 return $resultsql = 1;
@@ -1288,7 +1289,7 @@
         {
             $check = "SELECT * FROM farm_tool
 						WHERE tool_name = '$farm_tools'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1296,7 +1297,7 @@
                 $sql = "INSERT INTO farm_tool (tool_name, tool_status)
 						VALUES ('$farm_tools',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1307,7 +1308,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1316,7 +1317,7 @@
         {
             $check = "SELECT * FROM land
 						WHERE land_name = '$land_type'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1324,7 +1325,7 @@
                 $sql = "INSERT INTO land (land_name, land_status)
 						VALUES ('$land_type',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1335,7 +1336,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
                 return $resultsql = 1;
@@ -1345,7 +1346,7 @@
         {
             $check = "SELECT * FROM topography
 						WHERE topography_name = '$topography'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1353,7 +1354,7 @@
                 $sql = "INSERT INTO topography (topography_name, topography_status)
 						VALUES ('$topography',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
 
                 if ($resultsql) {
                     // Log the action in the audit_logs table
@@ -1365,7 +1366,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1377,7 +1378,7 @@
         {
             $check = "SELECT * FROM irrigation
 						WHERE irrigation_name = '$source_of_irrigation'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1385,7 +1386,7 @@
                 $sql = "INSERT INTO irrigation (irrigation_name, irrigation_status)
 						VALUES ('$source_of_irrigation',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1396,7 +1397,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
                 return $resultsql = 1;
@@ -1406,7 +1407,7 @@
         {
             $check = "SELECT * FROM soil
 						WHERE soil_name = '$soil_type'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1414,7 +1415,7 @@
                 $sql = "INSERT INTO soil (soil_name, soil_status)
 						VALUES ('$soil_type',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1425,7 +1426,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1434,7 +1435,7 @@
         {
             $check = "SELECT * FROM region
 						WHERE regDesc = '$regDesc' OR regCode = '$regCode'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1445,7 +1446,7 @@
 								'$regDesc',					
 								'$regCode')";
 
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1457,7 +1458,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1466,7 +1467,7 @@
         {
             $check = "SELECT * FROM province
 						WHERE provDesc = '$provDesc' OR provCode = '$provCode'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1477,7 +1478,7 @@
 								'$provDesc',					
 								'$provCode')";
 
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1489,7 +1490,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1527,7 +1528,7 @@
         ) {
             $check = "SELECT * FROM cocoon
 						WHERE name = '$name'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1630,21 +1631,21 @@
                                 '$byPicDestination',
                                 '$date_validation')";
 
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Get the last inserted ID
-                    $cocoon_id = mysqli_insert_id($this->$con);
+                    $cocoon_id = mysqli_insert_id($this->con);
 
                     $source_income = isset($_POST['source_income']) ? $_POST['source_income'] : [];
                     foreach ($source_income as $income) {
                         $income_sql = "INSERT INTO cocoon_source (cocoon_id, source_id) 
                                    VALUES ('$cocoon_id', '$income')";
-                        $income_result = mysqli_query($this->$con, $income_sql);
+                        $income_result = mysqli_query($this->con, $income_sql);
 
                         // Check if the insertion was successful
                         if (!$income_result) {
                             // Handle the error as needed
-                            die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                            die("Error inserting data into cocoon_source: " . mysqli_error($this->con));
                         }
                     }
 
@@ -1652,11 +1653,11 @@
                     foreach ($farm_tool as $tool) {
                         $tool_sql = "INSERT INTO cocoon_farm_tool (cocoon_id, farm_tool_id) 
                                    VALUES ('$cocoon_id', '$tool')";
-                        $tool_result = mysqli_query($this->$con, $tool_sql);
+                        $tool_result = mysqli_query($this->con, $tool_sql);
 
                         if (!$income_result) {
                             // Handle the error as needed
-                            die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
+                            die("Error inserting data into cocoon_source: " . mysqli_error($this->con));
                         }
                     }
 
@@ -1665,180 +1666,66 @@
                     return 1;
                 } else {
                     // Handle the error as needed
-                    die("Error inserting data into cocoon: " . mysqli_error($this->$con));
+                    die("Error inserting data into cocoon: " . mysqli_error($this->con));
                 }
             }
         }
 
-
-
         public function addSite(
-            
-            $location,
-            $producer_id,
-            $topography,
-            $region,
-            $province,
-            $municipality,
-            $barangay,
-            $address,
-            $landJson,
-            $tenancyJson,
-            $area,
-            $crops,
-            $share,
-            $irrigation,
-            $water,
-            $source,
-            $soil,
-            $market,
-            $distance,
-            $land_area,
-            $agency,
-            $charge,
-            $adopters,
-            $remarks,
-            $names,
-            $position,
-            $date,
-            $name1,
-            $position1,
-            $date1,
-            $name2,
-            $position2,
-            $date2,
-            
-            
-
+            $location, $producer_id, $topography, $address, $area, $crops, $share, $irrigation, 
+            $water, $soil, $market, $distance, $land_area, $charge, $adopters, $remarks,
+            $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2,
+            $land, $tenancy, $agency
         ) {
-            $check = "SELECT * FROM site
-                            WHERE location = '$location'";
-            $resultCheck = mysqli_query($this->$con, $check);
-            $num_rows = mysqli_num_rows($resultCheck);
-            if ($num_rows > 0) {
-                $sql = "INSERT INTO site (location, producer_id, topography, region, province,
-                municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
-                water, source,market, distance, land_area, agency, charge, adopters,
-                remarks, names, position, date, name1, position1, date1, name2, position2, date2, soil)
-                            VALUES ('$location',					
-                                    '$producer_id',
-                                    '$topography',
-                                    '$region',
-                                    '$province',
-                                    '$municipality',
-                                    '$barangay',
-                                    '$address',
-                                    '$landJson',
-                                    '$tenancyJson',
-                                    '$area',
-                                    '$crops',
-                                    '$share',
-                                    '$irrigation',
-                                    '$water',
-                                    '$source',
-                                    '$market',
-                                    '$distance',
-                                    '$land_area',
-                                    '$agency',
-                                    '$charge',
-                                    '$adopters', 
-                                    '$remarks', 
-                                    '$names', 
-                                    '$position', 
-                                    '$date', 
-                                    '$name1', 
-                                    '$position1', 
-                                    '$date1',
-                                    '$name2', 
-                                    '$position2', 
-                                    '$date2',
-                                    '$soil')";
-                $resultsql = mysqli_query($this->$con, $sql);
-                return $resultsql = 1;
-            } else {
-                $sql = "INSERT INTO site (location, producer_id, topography, region, province,
-                municipality, barangay, address, land, tenancy, area, crops, share, irrigation, 
-                water, source,market, distance, land_area, agency, charge, adopters,
-                remarks, names, position, date, name1, position1, date1, name2, position2, date2,soil)
-                            VALUES ('$location',					
-                                    '$producer_id',
-                                    '$topography',
-                                    '$region',
-                                    '$province',
-                                    '$municipality',
-                                    '$barangay',
-                                    '$address',
-                                    '$landJson',
-                                    '$tenancyJson',
-                                    '$area',
-                                    '$crops',
-                                    '$share',
-                                    '$irrigation',
-                                    '$water',
-                                    '$source',
-                                    '$market',
-                                    '$distance',
-                                    '$land_area',
-                                    '$agency',
-                                    '$charge',
-                                    '$adopters', 
-                                    '$remarks', 
-                                    '$names', 
-                                    '$position', 
-                                    '$date',
-                                    '$name1', 
-                                    '$position1', 
-                                    '$date1', 
-                                    '$name2', 
-                                    '$position2', 
-                                    '$date2',
-                                    '$soil')";
-                $resultsql = mysqli_query($this->$con, $sql);
-                // if ($resultsql) {
-                //     // Get the last inserted ID
-                //     $cocoon_id = mysqli_insert_id($this->$con);
+            $sql = "INSERT INTO site (location, producer_id, topography,
+                    address, area, crops, share, irrigation, 
+                    water,  market, distance, land_area, charge, adopters,
+                    remarks, names, position, date, name1, position1, date1, name2, position2, date2, soil)
+                    VALUES ('$location', '$producer_id', '$topography', '$address', 
+                            '$area', '$crops', '$share', '$irrigation', '$water', '$soil',
+                            '$market', '$distance', '$land_area', '$charge', '$adopters',
+                            '$remarks', '$names', '$position', '$date', '$name1', '$position1',
+                            '$date1', '$name2', '$position2', '$date2')";
+            $resultsql = mysqli_query($this->con, $sql);
+        
+            if ($resultsql) {
+                $cocoon_id = mysqli_insert_id($this->con);
+        
+                foreach ($land as $landId) {
+                    $land_sql = "INSERT INTO site_land (cocoon_id, site_land_id) VALUES ('$cocoon_id', '$landId')";
+                    $land_result = mysqli_query($this->con, $land_sql);
+        
+                    if (!$land_result) {
+                        die("Error inserting data into site_land: " . mysqli_error($this->con));
+                    }
+                }
 
-                //     $land = isset($_POST['land']) ? $_POST['land'] : [];
-                //     foreach ($land as $land) {
-                //         $land_sql = "INSERT INTO site_land (cocoon_id, site_land_id) 
-                //                    VALUES ('$cocoon_id', '$land')";
-                //         $land_result = mysqli_query($this->$con, $land_sql);
+                foreach ($tenancy as $tenancyId) {
+                    $tenancy_sql = "INSERT INTO site_tenancy (cocoon_id, site_tenancy_id) VALUES ('$cocoon_id', '$tenancyId')";
+                    $land_result = mysqli_query($this->con, $tenancy_sql);
+        
+                    if (!$land_result) {
+                        die("Error inserting data into site_land: " . mysqli_error($this->con));
+                    }
+                }
+        
 
-                //         // Check if the insertion was successful
-                //         if (!$land_result) {
-                //             // Handle the error as needed
-                //             die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
-                //         }
-                //     }
 
-                //     $tenancy = isset($_POST['tenancy']) ? $_POST['tenancy'] : [];
-                //     foreach ($tenancy as $tenancy) {
-                //         $tool_sql = "INSERT INTO cocoon_tenancy (cocoon_id, site_tenancy_id) 
-                //                    VALUES ('$cocoon_id', '$tenancy')";
-                //         $tool_result = mysqli_query($this->$con, $tool_sql);
-
-                //         if (!$tenancy_result) {
-                //             // Handle the error as needed
-                //             die("Error inserting data into cocoon_source: " . mysqli_error($this->$con));
-                //         }
-                //     }
-                //     return 1;
-                // } else {
-                //     // Handle the error as needed
-                //     die("Error inserting data into cocoon: " . mysqli_error($this->$con));
-                // }
-                return $resultsql = 1;
+                return 1;
             }
-        }  
-    
-            
+        
+            return $resultsql = 1;
+        }
+        
+   
+     
         
         public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $location_id)
         {
             $check = "SELECT * FROM production
 						WHERE production_date = '$production_date'";
 
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1852,7 +1739,7 @@
                                 '$n_income',
                                 '$location_id')";
 
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 if ($resultsql) {
                     // Log the action in the audit_logs table
                     $userID = $user_id;
@@ -1868,7 +1755,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1879,7 +1766,7 @@
         {
             $check = "SELECT * FROM monitoring_team
 						WHERE monitoring_name = '$name'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1888,7 +1775,7 @@
 						VALUES ('$name',
                                 '$position',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
 
                 if ($resultsql) {
                     // Log the action in the audit_logs table
@@ -1900,7 +1787,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1909,7 +1796,7 @@
         {
             $check = "SELECT * FROM civil
 						WHERE civil_name = '$civil_status'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1917,14 +1804,14 @@
                 $sql = "INSERT INTO civil (civil_name, status)
 						VALUES ('$civil_status',					
 								'$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 return $resultsql = 1;
             }
         }
         public function addAgency($user_id, $funding_agency, $status)
         {
             $check = "SELECT * FROM agency WHERE agency_name = '$funding_agency'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
 
             if ($num_rows > 0) {
@@ -1933,7 +1820,7 @@
                 $sql = "INSERT INTO agency (agency_name, status) 
             VALUES ('$funding_agency', 
                     '$status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
 
                 if ($resultsql) {
                     // Log the action in the audit_logs table
@@ -1945,7 +1832,7 @@
                     ]);
 
                     $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
-                    $auditResult = mysqli_query($this->$con, $auditSql);
+                    $auditResult = mysqli_query($this->con, $auditSql);
                     return $resultsql = 1;
                 }
             }
@@ -1954,7 +1841,7 @@
         {
             $check = "SELECT * FROM year
                     WHERE year_name = '$year'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $num_rows = mysqli_num_rows($resultCheck);
             if ($num_rows > 0) {
                 return $resultsql = 0;
@@ -1962,7 +1849,7 @@
                 $sql = "INSERT INTO year (year_name, year_status)
                     VALUES ('$year',					
                             '$year_status')";
-                $resultsql = mysqli_query($this->$con, $sql);
+                $resultsql = mysqli_query($this->con, $sql);
                 return $resultsql = 1;
             }
         }
@@ -1989,14 +1876,14 @@
         public function countCocoon()
         {
             $check = "SELECT COUNT(*) AS count FROM cocoon where status = 'Active'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $row = mysqli_fetch_assoc($resultCheck);
             return $row['count'];
         }
         public function countCocoonInactive()
         {
             $check = "SELECT COUNT(*) AS count FROM cocoon WHERE status = 'Inactive'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $row = mysqli_fetch_assoc($resultCheck);
             return $row['count'];
         }
@@ -2008,7 +1895,7 @@
         public function countSite()
         {
             $check = "SELECT COUNT(*) AS count FROM site";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $row = mysqli_fetch_assoc($resultCheck);
             // I-output ang resulta para sa debugging
             return $row['count'];
@@ -2016,7 +1903,7 @@
         public function countProduction()
         {
             $check = "SELECT COUNT(*) AS count FROM production";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $row = mysqli_fetch_assoc($resultCheck);
             return $row['count'];
         }
@@ -2024,7 +1911,7 @@
         {
             $check = "SELECT COUNT(*) as count FROM cocoon
         WHERE type = 'Seed Cocoon'";
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $row = mysqli_fetch_assoc($resultCheck);
             return $row['count'];
         }
@@ -2032,7 +1919,7 @@
         {
             $check = "SELECT COUNT(*) as count FROM cocoon
         WHERE type = 'Commercial'";;
-            $resultCheck = mysqli_query($this->$con, $check);
+            $resultCheck = mysqli_query($this->con, $check);
             $row = mysqli_fetch_assoc($resultCheck);
             return $row['count'];
         }
@@ -2051,7 +1938,7 @@
                     AND user_status = 'Active'";
             // echo $checkLogin;
             // echo die();
-            $resultCheckLogin = mysqli_query($this->$con, $checkLogin);
+            $resultCheckLogin = mysqli_query($this->con, $checkLogin);
             $num_rows = mysqli_num_rows($resultCheckLogin);
 
             if ($num_rows > 0) {
@@ -2063,7 +1950,7 @@
                 $data = json_encode(['user_id' => $user_id, 'username' => $username]);
 
                 $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$user_id', '$action', '$data')";
-                $auditResult = mysqli_query($this->$con, $auditSql);
+                $auditResult = mysqli_query($this->con, $auditSql);
 
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['fullname'] = $row['fullname'];
@@ -2082,7 +1969,7 @@
         // {
         //     $sql = "SELECT * FROM users
         // 			 WHERE user_id='$user_id'";
-        //     $result = mysqli_query($this->$con, $sql);
+        //     $result = mysqli_query($this->con, $sql);
         //     return $result;
 
         // }
@@ -2091,7 +1978,7 @@
         {
             $sql = "SELECT * FROM audit_logs
 				 WHERE audit_logs.id ='$id'";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             return $result;
         }
 
@@ -2100,7 +1987,7 @@
         {
             $sql = "SELECT MONTH(production_date) AS month, COUNT(production_id) AS count 
         FROM production GROUP BY month";
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
             $data = array_fill(1, 12, 0); // Initialize an array to store counts for each month
 
             if ($result->num_rows > 0) {
@@ -2118,13 +2005,13 @@
 
         public function closeCon()
         {
-            mysqli_close($this->$con);
+            mysqli_close($this->con);
         }
         public function getSelectedSources($cocoonID)
         {
             $query = "SELECT source_id FROM cocoon_source
    WHERE cocoon_id = '$cocoonID'";
-            $result = mysqli_query($this->$con, $query);
+            $result = mysqli_query($this->con, $query);
 
             $selectedSources = array();
 
@@ -2140,7 +2027,7 @@
         public function getSelectedFarmTools($cocoonID)
         {
             $query = "SELECT farm_tool_id FROM cocoon_farm_tool WHERE cocoon_id = '$cocoonID'";
-            $result = mysqli_query($this->$con, $query);
+            $result = mysqli_query($this->con, $query);
 
             $selectedFarmTools = array();
 
@@ -2189,7 +2076,7 @@
                         barangay = '$barangay'
                     WHERE cocoon_id = '$cocoon_id'";
         
-            $result = mysqli_query($this->$con, $sql);
+            $result = mysqli_query($this->con, $sql);
     
         
             return $result; // return the result for success
@@ -2238,7 +2125,7 @@
     //         $years_in_farming, $available_workers, $date_validation, 
     //         $intent, $signature, $id_pic, $bypic, $cocoon_id);
     
-    //         $result = mysqli_query($this->$con, $sql);
+    //         $result = mysqli_query($this->con, $sql);
 
     //     $stmt->close();
     

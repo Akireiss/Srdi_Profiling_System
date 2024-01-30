@@ -65,6 +65,8 @@ if ($_SESSION['type_id'] == 3) {
         
                       <?php
 $result = $db->getAllProduction();
+$totalPIncome = 0; // Initialize total production income
+$totalNIncome = 0; // Initialize total net income
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td>'. $row['name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
