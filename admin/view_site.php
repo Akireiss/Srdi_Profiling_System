@@ -33,34 +33,20 @@ if ($_SESSION['type_id'] == 3) {
             $result = $db->getSiteID($_GET['site_id']);
             while ($row = mysqli_fetch_object($result)) {
                 $siteID           = $row->site_id;
-                $land              = $row->land;
-
                 $location         = $row->location;
                 $producer_name     = $row->name;
                 $producerName     = $row->name;
                 $topography       = $row->topography;
-                $region                 = $row->region;
-                $regName              = $row->regDesc;
-                $province             = $row->province;
-                $provName             = $row->provDesc;
-                $municipality         = $row->municipality;
-                $citymunName          = $row->citymunDesc;
-                $barangay             = $row->barangay;
-                $barangayName         = $row->brgyDesc;
                 $address          = $row->address;
-                $tenancy          = $row->tenancy;
                 $area             = $row->area;
                 $crops             = $row->crops;
                 $share             = $row->share;
                 $crops             = $row->crops;
                 $irrigation       = $row->irrigation;
                 $water             = $row->water;
-                $source           = $row->source;
-                $soil             = $row->soil;
                 $market           = $row->market;
                 $distance         = $row->distance;
                 $land_area         = $row->land_area;
-                $agency            = $row->agency;
                 $charge           = $row->charge;
                 $status           = $row->status;
                 $remarks           = $row->remarks;
@@ -186,19 +172,27 @@ if ($_SESSION['type_id'] == 3) {
                                             </div>
                                         </div>
 
+                                        <div class="form-row mt-1">
+                           
+
+
                                         <div class="col-md-3 ">
                                             <div class="col-md-12">
                                                 <label for="validationCustom04" class="form-label fw-bold">Land Types</label>
                                             </div>
                                             <?php
-                                            $resultType = $db->getLandActive();
-                                            while ($row = mysqli_fetch_array($resultType)) {
-                                                echo '<div class="form-check form-check-inline col-md-6 ">';
-                                                echo '<input name="land[]" class="form-check-input" type="checkbox" id="' . $row['land_id'] . '" value="' . $row['land_id'] . '">';
-                                                echo '<label class="form-check-label" for="' . $row['land_id'] . '">' . $row['land_name'] . '</label>';
-                                                echo '</div>';
-                                            }
-                                            ?>
+$resultType = $db->getLandActive();
+$selectedLand = $db->getSelectedLandCheck($siteID);
+while ($row = mysqli_fetch_array($resultType))  {
+    $checked = in_array($row['land_id'], $selectedLand) ? 'checked' : '';
+
+    echo '<div class="form-check form-check-inline col-md-6">';
+    echo '<input name="land[]" class="form-check-input" type="checkbox" value="' . $row['land_id'] . '" checked>';
+    echo '<label class="form-check-label">' . $row['land_name'] . '</label>';
+    echo '</div>';
+}
+?>
+
                                         </div>
 
                                         <div class="col-md-3 ">
@@ -207,10 +201,13 @@ if ($_SESSION['type_id'] == 3) {
                                             </div>
                                             <?php
                                             $resultType = $db->getTenancyActive();
+                                            $selectedTenancy = $db->getSelectedLandTenancy($siteID);
                                             while ($row = mysqli_fetch_array($resultType)) {
+                                            $checked = in_array($row['tenancy_id'], $selectedTenancy) ? 'checked' : '';
+
                                                 echo '<div class="form-check form-check-inline col-md-6 ">';
-                                                echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '">';
-                                                echo '<label class="form-check-label" for="' . $row['tenancy_id'] . '">' . $row['tenancy_name'] . '</label>';
+                                                echo '<input name="tenancy[]" class="form-check-input" type="checkbox" value="' . $row['tenancy_id'] . '" checked>';
+                                                echo '<label class="form-check-label">' . $row['tenancy_name'] . '</label>';
                                                 echo '</div>';
                                             }
                                             ?>

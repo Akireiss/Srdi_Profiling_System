@@ -41,11 +41,13 @@ if(!isset($_SESSION['user_id'])) {
     $land = isset($_POST['land']) ? $_POST['land'] : [];
     $tenancy = $_POST ['tenancy']  ? $_POST['tenancy'] : [];
     $agency = $_POST ['agency']  ? $_POST['agency'] : [];
+    $soils = $_POST ['soils']  ? $_POST['soils'] : [];
+    $source = $_POST ['source']  ? $_POST['source'] : [];
     
     $result = $db->addSite($location, $producer_id, $topography, $address, $area, $crops, $share, $irrigation, 
-    $water, $soil, $market, $distance, $land_area, $charge, $adopters, $remarks,
+    $water, $market, $distance, $land_area, $charge, $adopters, $remarks,
     $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2,
-    $land, $tenancy, $agency);
+    $land, $tenancy, $agency, $soils, $source);
     if ($result) {
       $message = "Site Successfully Added!";
     } 
@@ -254,7 +256,8 @@ if (isset($message)) {
               $resultType = $db->getIrrigationActive();
               while ($row = mysqli_fetch_array($resultType)) {
                   echo '<div class="form-check">';
-                  echo '<input class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_name'] . '"
+                  echo '<input class="form-check-input source-checkbox"
+            type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_id'] . '"
                   name="source[]">';
                   echo '<label class="form-check-label" for="source_' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</label>';
                   echo '</div>';
@@ -267,8 +270,8 @@ if (isset($message)) {
     
   
               <div class="col-md-4 mt-3">
-              <div class="col-md-6"
-              <label for="validationCustom04" name="soil" class="form-label fw-bold">
+              <div class="col-md-6">
+              <label for="validationCustom04" class="form-label fw-bold"></label>
               <b>Soil Type:</b><font color="red">*</font>
           </label>
 

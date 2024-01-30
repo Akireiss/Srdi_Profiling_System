@@ -196,6 +196,38 @@ ini_set('display_errors', 1);
             $result = mysqli_query($this->con, $sql);
             return $result;
         }
+
+        public function getSelectedLandCheck($siteID)
+        {
+            $query = "SELECT site_land_id FROM site_land
+   WHERE cocoon_id = '$siteID'";
+            $result = mysqli_query($this->con, $query);
+
+            $selectedLand = array();
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $selectedLand[] = $row['site_land_id'];
+            }
+
+            return $selectedLand;
+        }
+
+        public function getSelectedLandTenancy($siteID)
+        {
+            $query = "SELECT site_tenancy_id FROM site_tenancy
+            WHERE cocoon_id = '$siteID'";
+            $result = mysqli_query($this->con, $query);
+
+            $selectedTenancy = array();
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $selectedTenancy[] = $row['site_tenancy_id'];
+            }
+
+            return $selectedTenancy;
+        }
+
+
         public function getLandID($land_id)
         {
             $sql = "SELECT * FROM land
@@ -425,14 +457,6 @@ ini_set('display_errors', 1);
             $sql = "SELECT * FROM site
                 LEFT JOIN cocoon
                 ON site.producer_id = cocoon.cocoon_id 
-                LEFT JOIN region
-                ON site.region = region.regCode
-                LEFT JOIN province
-                ON site.province = province.provCode
-                LEFT JOIN municipality
-                ON site.municipality = municipality.citymunCode
-                LEFT JOIN barangay
-                ON site.barangay = barangay.brgyCode
                 LEFT JOIN production
                 ON site.site_id = production.location_id
                 LEFT JOIN topography
@@ -1673,16 +1697,16 @@ ini_set('display_errors', 1);
 
         public function addSite(
             $location, $producer_id, $topography, $address, $area, $crops, $share, $irrigation, 
-            $water, $soil, $market, $distance, $land_area, $charge, $adopters, $remarks,
+            $water, $market, $distance, $land_area, $charge, $adopters, $remarks,
             $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2,
-            $land, $tenancy, $agency
+            $land, $tenancy, $agency, $soils, $source
         ) {
             $sql = "INSERT INTO site (location, producer_id, topography,
                     address, area, crops, share, irrigation, 
                     water,  market, distance, land_area, charge, adopters,
-                    remarks, names, position, date, name1, position1, date1, name2, position2, date2, soil)
+                    remarks, names, position, date, name1, position1, date1, name2, position2, date2)
                     VALUES ('$location', '$producer_id', '$topography', '$address', 
-                            '$area', '$crops', '$share', '$irrigation', '$water', '$soil',
+                            '$area', '$crops', '$share', '$irrigation', '$water',
                             '$market', '$distance', '$land_area', '$charge', '$adopters',
                             '$remarks', '$names', '$position', '$date', '$name1', '$position1',
                             '$date1', '$name2', '$position2', '$date2')";
@@ -1705,6 +1729,34 @@ ini_set('display_errors', 1);
                     $land_result = mysqli_query($this->con, $tenancy_sql);
         
                     if (!$land_result) {
+                        die("Error inserting data into site_land: " . mysqli_error($this->con));
+                    }
+                }
+
+                
+                foreach ($soils as $soilId) {
+                    $agency_sql = "INSERT INTO site_soil (cocoon_id, site_soil_id) VALUES ('$cocoon_id', '$soilId')";
+                    $soil_result = mysqli_query($this->con, $agency_sql);
+        
+                    if (!$soil_result) {
+                        die("Error inserting data into site_land: " . mysqli_error($this->con));
+                    }
+                }
+
+                foreach ($agency as $agencyId) {
+                    $agency_sql = "INSERT INTO site_agency (cocoon_id, 	site_agency_id) VALUES ('$cocoon_id', '$agencyId')";
+                    $agency_result = mysqli_query($this->con, $agency_sql);
+        
+                    if (!$agency_result) {
+                        die("Error inserting data into site_land: " . mysqli_error($this->con));
+                    }
+                }
+
+                foreach ($source as $sourceId) {
+                    $source_sql = "INSERT INTO site_irrigation (cocoon_id, 	site_irrigation_id) VALUES ('$cocoon_id', '$sourceId')";
+                    $source_result = mysqli_query($this->con, $source_sql);
+        
+                    if (!$source_result) {
                         die("Error inserting data into site_land: " . mysqli_error($this->con));
                     }
                 }
@@ -2139,4 +2191,20 @@ $result = mysqli_query($this->con, $sql);
 return $result;
     }
     
+    public function getSelectedLand($cocoonID)
+    {
+        $query = "SELECT site_land_id FROM site_land
+        WHERE cocoon_id = '$cocoonID'";
+        $result = mysqli_query($this->con, $query);
+
+        $selectedSources = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedSources[] = $row['cocoon_id'];
+        }
+
+        return $selectedSources;
+    }
+
+
     }

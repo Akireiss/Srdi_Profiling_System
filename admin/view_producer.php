@@ -410,19 +410,21 @@ exit();
           <label for="validationCustom04" name="farm_tool">Available Farm Tools and Implements<font color="red">*</font></label>
                             </div>
                             <div class="form-row mt-1">
-                              <?php
-                              $resultType = $db->getFarmToolsActive();
-                              $selectedFarmTools = $db->getSelectedFarmTools($cocoonID); 
+                            <?php
+$resultType = $db->getFarmToolsActive();
+$selectedFarmTools = $db->getSelectedFarmTools($cocoonID);
 
-                              while ($row = mysqli_fetch_array($resultType)) {
-                                $checked = in_array($row['tool_id'], $selectedFarmTools) ? 'checked' : '';
+while ($row = mysqli_fetch_array($resultType)) {
+    $checked = in_array($row['tool_id'], $selectedFarmTools) ? 'checked' : '';
 
-                                echo '<div class="form-check form-check-inline col-md-4">';
-                                echo '<input disabled class="form-check-input" name="farm_tools[]" type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '" ' . $checked . '>';
-                                echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
-                                echo '</div>';
-                              }
-                              ?>
+    echo '<div class="form-check form-check-inline col-md-4">';
+    echo '<input disabled class="form-check-input" name="farm_tools[]" type="checkbox" ' . $checked . '>';
+    echo '<label class="form-check-label">' . $row['tool_name'] . '</label>';
+    echo '</div>';
+}
+?>
+
+
                 </div>
 
             </div>
