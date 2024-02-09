@@ -163,12 +163,14 @@ ini_set('display_errors', 1);
             $result = mysqli_query($this->con, $sql);
             return $result;
         }
+
         public function getFarmTools()
         {
             $sql = "SELECT * FROM farm_tool";
             $result = mysqli_query($this->con, $sql);
             return $result;
         }
+
         public function getFarmToolsActive()
         {
             $sql = "SELECT * FROM farm_tool
@@ -378,26 +380,20 @@ ini_set('display_errors', 1);
 
         public function getProducerID($cocoon_id)
         {
-            $sql = "SELECT * FROM cocoon
-                LEFT JOIN region
-                ON cocoon.region = region.regCode
-                LEFT JOIN province
-                ON cocoon.province = province.provCode
-                LEFT JOIN municipality
-                ON cocoon.municipality = municipality.citymunCode
-                LEFT JOIN barangay
-                ON cocoon.barangay = barangay.brgyCode
-                LEFT JOIN site
-                ON cocoon.cocoon_id = site.producer_id
-                LEFT JOIN production 
-                ON cocoon.cocoon_id = production.producer_id
-                LEFT JOIN education
-                ON cocoon.education = education.education_id
-                LEFT JOIN religion
-                ON cocoon.religion = religion.religion_id
-                LEFT JOIN civil
-                ON cocoon.civil_status = civil.civil_id
-				WHERE cocoon_id='$cocoon_id'";
+            $sql = "SELECT *,
+            cocoon.address AS cocoonAddress
+            FROM cocoon
+            LEFT JOIN region ON cocoon.region = region.regCode
+            LEFT JOIN province ON cocoon.province = province.provCode
+            LEFT JOIN municipality ON cocoon.municipality = municipality.citymunCode
+            LEFT JOIN barangay ON cocoon.barangay = barangay.brgyCode
+            LEFT JOIN site ON cocoon.cocoon_id = site.producer_id
+            LEFT JOIN production ON cocoon.cocoon_id = production.producer_id
+            LEFT JOIN education ON cocoon.education = education.education_id
+            LEFT JOIN religion ON cocoon.religion = religion.religion_id
+            LEFT JOIN civil ON cocoon.civil_status = civil.civil_id
+            WHERE cocoon_id='$cocoon_id'";
+    
             //          echo $sql;
             // echo die();
             $result = mysqli_query($this->con, $sql);
@@ -1716,7 +1712,7 @@ ini_set('display_errors', 1);
                 $cocoon_id = mysqli_insert_id($this->con);
         
                 foreach ($land as $landId) {
-                    $land_sql = "INSERT INTO site_land (cocoon_id, site_land_id) VALUES ('$cocoon_id', '$landId')";
+                    $land_sql = "INSERT INTO site_land (cocoon_id, land_id) VALUES ('$cocoon_id', '$landId')";
                     $land_result = mysqli_query($this->con, $land_sql);
         
                     if (!$land_result) {
@@ -1725,7 +1721,7 @@ ini_set('display_errors', 1);
                 }
 
                 foreach ($tenancy as $tenancyId) {
-                    $tenancy_sql = "INSERT INTO site_tenancy (cocoon_id, site_tenancy_id) VALUES ('$cocoon_id', '$tenancyId')";
+                    $tenancy_sql = "INSERT INTO site_tenancy (cocoon_id, tenancy_id) VALUES ('$cocoon_id', '$tenancyId')";
                     $land_result = mysqli_query($this->con, $tenancy_sql);
         
                     if (!$land_result) {
@@ -1735,7 +1731,7 @@ ini_set('display_errors', 1);
 
                 
                 foreach ($soils as $soilId) {
-                    $agency_sql = "INSERT INTO site_soil (cocoon_id, site_soil_id) VALUES ('$cocoon_id', '$soilId')";
+                    $agency_sql = "INSERT INTO site_soil (cocoon_id, soil_id) VALUES ('$cocoon_id', '$soilId')";
                     $soil_result = mysqli_query($this->con, $agency_sql);
         
                     if (!$soil_result) {
@@ -1744,7 +1740,7 @@ ini_set('display_errors', 1);
                 }
 
                 foreach ($agency as $agencyId) {
-                    $agency_sql = "INSERT INTO site_agency (cocoon_id, 	site_agency_id) VALUES ('$cocoon_id', '$agencyId')";
+                    $agency_sql = "INSERT INTO site_agency (cocoon_id, 	agency_id) VALUES ('$cocoon_id', '$agencyId')";
                     $agency_result = mysqli_query($this->con, $agency_sql);
         
                     if (!$agency_result) {
@@ -1753,7 +1749,7 @@ ini_set('display_errors', 1);
                 }
 
                 foreach ($source as $sourceId) {
-                    $source_sql = "INSERT INTO site_irrigation (cocoon_id, 	site_irrigation_id) VALUES ('$cocoon_id', '$sourceId')";
+                    $source_sql = "INSERT INTO site_irrigation (cocoon_id, irrigation_id) VALUES ('$cocoon_id', '$sourceId')";
                     $source_result = mysqli_query($this->con, $source_sql);
         
                     if (!$source_result) {
@@ -2205,6 +2201,141 @@ return $result;
 
         return $selectedSources;
     }
+
+    public function updateSourceIncome($cocoon_id, $incomes)
+    {
+        $cocoon_id = (int)$cocoon_id;
+    
+        $deleteSql = "DELETE FROM cocoon_source WHERE cocoon_id = $cocoon_id";
+        $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+        if (!$deleteResult) {
+            die("Error deleting existing actions: " . mysqli_error($this->con));
+        }
+    
+        foreach ($incomes as $action) {
+            // Extract the source_id from the array and cast it to integer
+            $action_id = (int)$action['source_id'];
+            // Insert the action_id into the database
+            $insertSql = "INSERT INTO cocoon_source (cocoon_id, source_id) VALUES ($cocoon_id, $action_id)";
+            $insertResult = mysqli_query($this->con, $insertSql);
+    
+            if (!$insertResult) {
+                die("Error inserting action: " . mysqli_error($this->con));
+            }
+        }
+    
+        return true;
+    }
+    
+    public function updateCocoonFarmTools($cocoon_id, $farm_tools)
+    {
+        $cocoon_id = (int)$cocoon_id;
+    
+        $deleteSql = "DELETE FROM cocoon_farm_tool WHERE cocoon_id = $cocoon_id";
+        $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+        if (!$deleteResult) {
+            die("Error deleting existing actions: " . mysqli_error($this->con));
+        }
+    
+        foreach ($farm_tools as $action) {
+            // Extract the source_id from the array and cast it to integer
+            $action_id = (int)$action['farm_tool_id'];
+            // Insert the action_id into the database
+            $insertSql = "INSERT INTO cocoon_farm_tool (cocoon_id, farm_tool_id) VALUES ($cocoon_id, $action_id)";
+            $insertResult = mysqli_query($this->con, $insertSql);
+    
+            if (!$insertResult) {
+                die("Error inserting action: " . mysqli_error($this->con));
+            }
+        }
+    
+        return true;
+    }
+    
+
+    public function getSelectedLandTypes($siteID)
+    {
+        $query = "SELECT land_id FROM site_land WHERE cocoon_id = '$siteID'";
+        $result = mysqli_query($this->con, $query);
+
+        $selectedFarmTools = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedFarmTools[] = $row['land_id'];
+        }
+
+        return $selectedFarmTools;
+    }
+
+    
+    public function selectedTenancy($siteID)
+    {
+        $query = "SELECT tenancy_id FROM site_tenancy WHERE cocoon_id = '$siteID'";
+        $result = mysqli_query($this->con, $query);
+
+        $selectedFarmTools = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedFarmTools[] = $row['tenancy_id'];
+        }
+
+        return $selectedFarmTools;
+    }
+
+
+    public function getSelectedSoilTypes($siteID)
+    {
+        $query = "SELECT soil_id FROM site_soil WHERE cocoon_id = '$siteID'";
+        $result = mysqli_query($this->con, $query);
+
+        $selectedFarmTools = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedFarmTools[] = $row['soil_id'];
+        }
+
+        return $selectedFarmTools;
+    }
+
+    public function getSelectedAgency($siteID)
+    {
+        $query = "SELECT agency_id FROM site_agency WHERE cocoon_id = '$siteID'";
+        $result = mysqli_query($this->con, $query);
+
+        $selectedFarmTools = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedFarmTools[] = $row['agency_id'];
+        }
+
+        return $selectedFarmTools;
+    }
+
+    
+    public function getSelectedIrrigation($siteID)
+    {
+        $query = "SELECT irrigation_id FROM site_irrigation WHERE cocoon_id = '$siteID'";
+        $result = mysqli_query($this->con, $query);
+
+        $selectedFarmTools = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedFarmTools[] = $row['irrigation_id'];
+        }
+
+        return $selectedFarmTools;
+    }
+
+
+
+
+
+
+
+
+
 
 
     }

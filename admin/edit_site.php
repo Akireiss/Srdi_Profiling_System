@@ -45,20 +45,15 @@ exit();
                 $producerName 	= $row->name;
                 $topography 	  = $row->topography;
                 $address	      = $row->address;
-                $land	          = $row->land;
-                $tenancy	      = $row->tenancy;
                 $area           = $row->area;
                 $crops 	        = $row->crops;
                 $share          = $row->share;
                 $crops 	        = $row->crops;
                 $irrigation 	= $row->irrigation;
                 $water 	        = $row->water;
-                $source 	      = $row->source;
-                $soil 	        = $row->soil;
                 $market 	      = $row->market;
                 $distance       = $row->distance;
                 $land_area      = $row->land_area;
-                $agency	        = $row->agency;
                 $charge 	      = $row->charge;
                 $adopters       = $row->adopters;
                 $remarks 	      = $row->remarks;
@@ -157,60 +152,15 @@ exit();
 
 
 
-                <!-- <div class="col-md-3 position-relative">
-                        <label class="form-label">Region<font color = "red">*</font></label>
-                        <div class="col-sm-12">
-                          <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $region;?>" required>
-                          <select class="form-select" aria-label="Default select example" id="region" name="region" value = "<?php echo $regCode;?>" >
-                            <option value="<?php echo $regCode;?>" selected disabled><?php echo $regName;?></option>
-                            <?php
-                            $resultType=$db->getRegion($regCode);
-                            while($row=mysqli_fetch_array($resultType)){
-                              echo '<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>';
-                            }
-                            ?>
-                          </select>
-                          <div class="invalid-tooltip">
-                            The Region field is required.
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3 position-relative">
-                  <label class="form-label">Province<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "province" id="province" value = "<?php echo $provCode;?>">
-                            <option value="<?php echo $provCode;?>" selected disabled><?php echo $provName;?></option>
-                            
-                          </select>
-                  </div>
-                </div>
-
-                                <div class="col-md-3 position-relative">
-                                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
-                                  <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "municipality" id="city" value = "<?php echo $citymunCode;?>" >
-                            <option value="<?php echo $citymunCode;?>" selected disabled><?php echo $citymunName;?></option>
-                            
-                          </select>
-                                  </div>
-                                </div>
-
-                                <div class="col-md-3 position-relative">
-                                  <label class="form-label">Barangay<font color = "red">*</font></label>
-                                  <div class="col-sm-12">
-                                  <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" value = "<?php echo $brgyCode;?>" >
-                            <option value="<?php echo $brgyCode;?>" selected disabled><?php echo $barangayName;?></option>
-                            
-                          </select>
-                                </div>
-                          </div> -->
+           
 
                           <div class="col-md-12 position-relative">
                             <label class="form-label">House no./House Street</label>
                             <input type="text" class="form-control" id="validationTooltip01" name="address"
                             value = "<?php echo $address;?>">
                         </div>
+
+
                  <div class="col-md-4 mt-6">
                   <label for="validationCustom01" class="form-label">Area (Hectares)<font color="red">*</font></label>
                   <input type="number" class="form-control" id="validationCustom01" step="0.01" name="area" value="<?php echo $area; ?>">
@@ -260,11 +210,16 @@ exit();
                 <div class="col-md-12">
                     <label for="validationCustom04" name = "land" class="form-label fw-bold">Land Types<font color="red">*</font></label>
                 </div>
-                <?php
+              
+              <?php
                 $resultType = $db->getLandActive();
+                $selectedLandTypes = $db->getSelectedLandTypes($siteID); 
+
                 while ($row = mysqli_fetch_array($resultType)) {
+                    $checked = in_array($row['land_id'], $selectedLandTypes) ? 'checked' : '';
+
                     echo '<div class="form-check form-check-inline col-md-6 ">';
-                    echo '<input name="land[]" class="form-check-input" type="checkbox" id="' . $row['land_id'] . '" value="' . $row['land_id'] . '">';
+                    echo '<input name="lands[' . $row['land_id'] . '][land_id]"  class="form-check-input" type="checkbox" id="' . $row['land_id'] . '" value="' . $row['land_id'] . '" ' . $checked . '>';
                     echo '<label class="form-check-label" for="' . $row['land_id'] . '">' . $row['land_name'] . '</label>';
                     echo '</div>';
                 }
@@ -278,59 +233,96 @@ exit();
                 </div>
                 <?php
                 $resultType = $db->getTenancyActive();
+
+                $selectedTenancy = $db->selectedTenancy($siteID); 
+
                 while ($row = mysqli_fetch_array($resultType)) {
+                    $checked = in_array($row['tenancy_id'], $selectedTenancy) ? 'checked' : '';
+
+
                     echo '<div class="form-check form-check-inline col-md-6 ">';
-                    echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '">';
-                    echo '<label class="form-check-label" for="' . $row['tenancy_id'] . '">' . $row['tenancy_name'] . '</label>';
+                    echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '" ' . $checked . '>';
+                    echo '<label class="form-check-label">' . $row['tenancy_name'] . '</label>';
                     echo '</div>';
                 }
                 ?>
             </div>
-             <div class="col-md-2 mt-3">
-                <label for="validationCustom04" class="form-label fw-bold">
-                    Availability of reliable irrigation:<font color="red">*</font>
-                </label>
+
+
+
+            <?php
+                        $options = [
+                            'Available' => 'Available',
+                            'Not Available' => 'Not Available',
                 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="available" value="Available" name="irrigation">
-                    <label class="form-check-label" for="available">Available</label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="not_available" value="Not Available" name="irrigation">
-                    <label class="form-check-label" for="not_available">Not Available</label>
-                </div>
-            </div>
-
+                        ];
+                        ?>
             <div class="col-md-2 mt-3">
-              <label for="validationCustom04" class="form-label fw-bold">Water source:<font color="red">*</font></label>
+    <label for="validationCustom04" class="form-label fw-bold">
+        Availability of reliable irrigation:<font color="red">*</font>
+    </label>
+    <?php foreach ($options as $value => $label) : ?>
+        <div class="form-check">
+            <input type="radio" name="irrigation" value="<?= $value ?>" <?php echo ($irrigation === $value) ? 'checked' : ''; ?> />
+            <label class="inline-block"><?= $label ?></label>
+        </div>
+    <?php endforeach; ?>
+</div>
 
-              <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="irrigated" value="Irrigated" name="water_source">
-                  <label class="form-check-label" for="irrigated">Irrigated</label>
-              </div>
 
-              <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="rainfed" value="Rainfed" name="water_source">
-                  <label class="form-check-label" for="rainfed">Rainfed</label>
-              </div>
-          </div>
+
+          <?php
+                        $optionsWater = [
+                            'Irrigated' => 'Irrigated',
+                            'Rainfed' => 'Rainfed',
+                
+                        ];
+                        ?>
+
+<div class="col-md-2 mt-3">
+    <label for="validationCustom04" class="form-label fw-bold">Water source:<font color="red">*</font></label>
+    <?php foreach ($optionsWater as $valueWater => $labelWater) : ?>
+        <div class="form-check">
+            <input type="radio" id="water_source_<?= $valueWater ?>" name="water_source" value="<?= $valueWater ?>" <?php echo ($water === $valueWater) ? 'checked' : ''; ?> />
+            <label class="inline-block" for="water_source_<?= $valueWater ?>"><?= $labelWater ?></label>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+
+
+
+
+
+
+
           <div class="col-md-4 mt-3">
               <label for="validationCustom04" name="source" class="form-label fw-bold">If irrigated, source of irrigation:<font color="red">*</font></label>
 
               <?php
               $resultType = $db->getIrrigationActive();
+              $getSelectedIrrigation = $db->getSelectedIrrigation($siteID); 
+
+            
               while ($row = mysqli_fetch_array($resultType)) {
+                $checked = in_array($row['irrigation_id'], $getSelectedIrrigation) ? 'checked' : '';
+
                   echo '<div class="form-check">';
-                  echo '<input class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_name'] . '"
-                  name="source[]">';
+                  echo '<input
+                   class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_id'] . '" ' . $checked . '
+                   name="irrigation[' . $row['irrigation_id'] . '][irrigation_id]">';
                   echo '<label class="form-check-label" for="source_' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</label>';
                   echo '</div>';
               }
               ?>
+
+
+
           </div>
 
             
+
+
                 <div class="row">
     
   
@@ -342,41 +334,73 @@ exit();
 
           <?php
               $resultType = $db->getSoilActive();
+              $getSelectedSoilTypes = $db->getSelectedSoilTypes($siteID); 
+
               while ($row = mysqli_fetch_array($resultType)) {
+                $checked = in_array($row['soil_id'], $getSelectedSoilTypes) ? 'checked' : '';
+
                   echo '<div class="form-check col-md-12">';
-                  echo '<input name="soils[]" class="form-check-input" type="checkbox" id="' . $row['soil_id'] . '" value="' . $row['soil_id'] . '">';
+                  echo '<input name="soils[' . $row['soil_id'] . '][soil_id]" class="form-check-input" type="checkbox" id="' . $row['soil_id'] . '" value="' . $row['soil_id'] . '" ' . $checked . '>';
                   echo '<label class="form-check-label" for="' . $row['soil_id'] . '">' . $row['soil_name'] . '</label>';
                   echo '</div>';
               }
               ?>
+
+
+
+
       </div>
     </div>
+
+
+
+
     <div class="col-md-4 mt-3">
         <label for="validationCustom04" name="market" class="form-label fw-bold">Accessibility to farm to market road:<font color="red">*</font></label>
           
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="accessible" value="Accessible" name="market">
-                <label class="form-check-label" for="accessible">Accessible</label>
-            </div>
+        <?php
+                        $options = [
+                            'Accessible' => 'Accessible',
+                            'Not Accessible' => 'Not Accessible',
+                
+                        ];
+                        ?>
 
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="not_accessible" value="Not Accessible" name="market">
-                <label class="form-check-label" for="not_accessible">Not Accessible</label>
-            </div>
-    </div> 
+              <?php foreach ($options as $value => $label) : ?>
+                            <div class="form-check">
+                                <input type="radio"
+                                id="market"
+                                name="market" value="<?= $value ?>" <?php echo ($market === $value) ? 'checked' : ''; ?> />
+                                <label class="inline-block"><?= $label ?></label>
+                            </div>
+                        <?php endforeach; ?>
+        
+    
+    
+    
+        </div> 
             <div class="col-md-3 mt-6">
               <div class="col-md-12">
                   <label for="validationCustom04" class="form-label fw-bold">Funding Agency<font color="red">*</font></label>
               </div>
               <?php
               $resultType = $db->getAgencyActive();
+              $getSelectedAgency = $db->getSelectedAgency($siteID); 
+
+
               while ($row = mysqli_fetch_array($resultType)) {
+                $checked = in_array($row['agency_id'], $getSelectedAgency) ? 'checked' : '';
+
+
                   echo '<div class="form-check col-md-12"">'; // Adjust the width here (e.g., col-md-6)
-                  echo '<input name="agencys[]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '" value="' . $row['agency_id'] . '">';
+                  echo '<input name="agencys[' . $row['agency_id'] . '][agency_id]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '"  value="' . $row['agency_id'] . '" ' . $checked . '>';
                   echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
                   echo '</div>';
               }
               ?>
+
+
+
           </div>
 
 
@@ -566,5 +590,30 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const waterSourceRadio = document.querySelectorAll('input[name="water_source"]');
+        const irrigationSources = document.querySelectorAll('.source-checkbox');
+
+        waterSourceRadio.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                if (radio.value === 'Irrigated') {
+                    irrigationSources.forEach(function (checkbox) {
+                        checkbox.disabled = false;
+                    });
+                } else {
+                    irrigationSources.forEach(function (checkbox) {
+                        checkbox.disabled = true;
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
     </body>
 </html>

@@ -387,8 +387,8 @@ The Number of available workers field is required
     $resultType = $db->getFarmToolsActive();
     while ($row = mysqli_fetch_array($resultType)) {
         echo '<div class="form-check form-check-inline col-md-3">';
-        echo '<input class="form-check-input" name="farm_tool[]" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '">';
-        echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
+        echo '<input class="form-check-input" name="farm_tool[]" type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '">';
+        echo '<label class="form-check-label" for="' . $row['farm_tool_id'] . '">' . $row['tool_name'] . '</label>';
         echo '</div>';
     }
     ?>

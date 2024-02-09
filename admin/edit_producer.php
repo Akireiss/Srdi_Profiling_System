@@ -3,6 +3,9 @@ session_start();
 include '../db_con.php';
 $db = new db;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
     exit(); // Add exit after redirect to prevent further execution
@@ -45,8 +48,6 @@ exit();
       $signature = $_POST['signature'];
       $id_pic = $_POST['id_pic'];
       $bypic = $_POST['bypic'];
-      $source_income = $_POST['source_income'];
-      $farm_tool = $_POST['farm_tool'];
 
       
       $result = $db->updateCocoonProducer(
@@ -65,6 +66,39 @@ exit();
     }
 ?>
 
+
+<?php
+if (isset($_POST['submit'])) {
+    if (isset($_POST['cocoon_id']) && isset($_POST['incomes'])) {
+        $cocoon_id = $_POST['cocoon_id'];
+        $incomes = $_POST['incomes'];
+
+        // Update source of income
+        $success = $db->updateSourceIncome($cocoon_id, $incomes);
+
+        if ($success) {
+        } else {
+        }
+    } else {
+    }
+}
+
+
+if (isset($_POST['submit'])) {
+  if (isset($_POST['cocoon_id']) && isset($_POST['farm_tools'])) {
+      $cocoon_id = $_POST['cocoon_id'];
+      $farm_tools = $_POST['farm_tools'];
+
+      // Update source of income
+      $success = $db->updateCocoonFarmTools($cocoon_id, $farm_tools);
+
+      if ($success) {
+      } else {
+      }
+  } else {
+  }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +127,6 @@ exit();
                 $citymunName          = $row->citymunDesc;
                 $barangay             = $row->barangay;
                 $barangayName         = $row->brgyDesc;
-                $address              = $row->address;
                 $education            = $row->education;
                 $religion             = $row->religion;
                 $civil_status         = $row->civil_status;
@@ -102,16 +135,15 @@ exit();
                 $cannot_participate   = $row->cannot_participate;
                 $male                 = $row->male;
                 $female               = $row->female;
-                $source_income        = $row->source_income;//decode this
                 $years_in_farming     = $row->years_in_farming;
                 $available_workers    = $row->available_workers;
-                $farm_tool            = $row->farm_tool;
                 $intent               = $row->intent;
                 $signature            = $row->signature;
                 $id_pic               = $row->id_pic;
                 $intent               = $row->intent;
                 $signature            = $row->signature;
                 $bypic                = $row->bypic;
+                $cocoonAddress         = $row->cocoonAddress;
             }
         ?>
 
@@ -129,7 +161,7 @@ exit();
               }
               ?>
            <div class="pagetitle">
-      <h1>Edit Producer | <?php echo $name?></h1>
+      <h1>Edit Producer | <?php echo $name?>
           </div>
             
       <section class="section dashboard mt-8">
@@ -140,7 +172,9 @@ exit();
       
           <div class="card-body w-100">
   
-        <h5 class="card-title">A. Personal Information</h5>
+        <h5 class="card-title">A. Personal Information
+
+        </h5>
 
 
         <div class="col-md-2">
@@ -152,12 +186,14 @@ exit();
             </div>
           </div> 
 
+          <input type="hidden" class="form-control" id="validationTooltip01" name="cocoon_id"
+                                        value = "<?php echo $cocoonID;?>" >
+
         <div class="row mt-3 needs-validation md:w-full" novalidate>
           <div class="col-md-6">
           <label for="validationCustom01" class="form-label">Name<font color = "red">*</font></label>
                        
-                       <input type="hidden" class="form-control" id="validationTooltip01" name="cocoon_id"
-                                        value = "<?php echo $cocoonID;?>" >
+                   
                                         <input type="text" class="form-control" id="validationTooltip01" name="name" 
                                        value = "<?php echo $name;?>" >
             <div class="valid-feedback">
@@ -225,10 +261,10 @@ exit();
           
           <div class="col-md-3">
                   <label class="form-label">Sex<font color="red">*</font></label>
-                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type"  >
+                  <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="sex"  >
                       <option value="" >Select Sex</option>
-                      <option value="Male" <?php if ($type === "Male") echo "selected"; ?>>Male</option>
-                      <option value="Female" <?php if ($type === "Female") echo "selected"; ?>>Female</option>
+                      <option value="Male" <?php if ($sex === "Male") echo "selected"; ?>>Male</option>
+                      <option value="Female" <?php if ($sex === "Female") echo "selected"; ?>>Female</option>
                   </select>
               </div>
           </div>
@@ -237,16 +273,17 @@ exit();
           <div class="col-md-3 position-relative">
                   <label class="form-label">Region<font color = "red">*</font></label>
                   <div class="col-sm-12">
-                  <input type="hidden" class="form-control" id="validationTooltip03" name = "region" value = "<?php echo $regCode;?>">
-                          <select class="form-select" aria-label="Default select example" name = "region" id="region" 
+                       
+                  <select class="form-select" aria-label="Default select example" name="region" id="region" 
                           value = "<?php echo $regCode;?>">
-                            <option value="<?php echo $regCode;?>" selected =""><?php echo $regName;?></option>
+                            <option value="<?php echo $regCode;?>"  =""><?php echo $regName;?></option>
                             <?php
                             $resultType=$db->getRegion();
                             while($row=mysqli_fetch_array($resultType)){
                               echo '<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>';
                             }
                             ?>    
+                            
                           </select>
                   </div>
                   <div class="invalid-feedback">
@@ -255,11 +292,12 @@ exit();
                 </div>
 
                 <div class="col-md-3 position-relative">
-                  <label class="form-label">Province<font color = "red">*</font></label>
+                  <label class="form-label">Province
+                    <font color = "red">*</font></label>
                   <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "province" id="province"  
-                  value = "<?php echo $provCode;?>" >
-                              <option value="<?php echo $provCode;?>" selected ><?php echo $provName;?></option>  
+                  <select class="form-select" aria-label="Default select example" name="province" id="province"  
+                  value = "<?php echo $province;?>" >
+                              <option value="<?php echo $province;?>" selected ><?php echo $provName;?></option>  
                   </select>
                   </div>
                   <div class="invalid-feedback">
@@ -268,11 +306,11 @@ exit();
                 </div>
 
                 <div class="col-md-3 position-relative">
-                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
+                  <label class="form-label">City/Municipality <font color = "red">*</font></label>
                   <div class="col-sm-12">
-                  <select class="form-select" aria-label="Default select example" name = "municipality" id="city" 
-                  value = "<?php echo $citymunCode;?>" >
-                                 <option value="<?php echo $citymunCode;?>" selected ><?php echo $citymunName;?></option>
+                  <select class="form-select" aria-label="Default select example" name="municipality" id="city" 
+                  >
+                                 <option value="<?php echo $municipality;?>" selected ><?php echo $citymunName;?></option>
                   </select>
                   </div>
                   <div class="invalid-feedback">
@@ -284,8 +322,8 @@ exit();
                   <label class="form-label">Barangay<font color = "red">*</font></label>
                   <div class="col-sm-12">
                   <select class="form-select" aria-label="Default select example" name = "barangay" 
-                                  id="barangay" value = "<?php echo $brgyCode;?>">
-                                  <option value="<?php echo $brgyCode;?>" selected ><?php echo $barangayName;?></option>
+                                 >
+                                  <option value="<?php echo $barangay;?>" selected ><?php echo $barangayName;?></option>
                     </select>
                   </div>
                 </div>
@@ -296,9 +334,9 @@ exit();
          
           <div class="row mt-3  needs-validation md:w-full" novalidate>
           <div class="col-md-4">
-            <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
-            <input type="text" name="address" class="form-control" id="validationCustom04" 
-            value = "<?php echo $address;?>" >
+            <label for="validationCustom03" class="form-label">Address: House no./House Street<font color = "red">*</font></label>
+            <input type="text" name="address" class="form-control"
+            valu ="<?php echo $cocoonAddress?>" >
             <div class="invalid-feedback">
             The House no. field is required
             </div>
@@ -348,8 +386,8 @@ exit();
           
           <div class="col-md-6 mt-3">
             <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
-            <select class="form-select" id="validationCustom04" name="civil"  >
-                              <option selected>Select Civil Status</option>
+            <select class="form-select" id="validationCustom04" name="civil_status"  >
+                              <option selected value="">Select Civil Status</option>
                               <?php
                         $resultType = $db->getCivilActive();
                         while ($row = mysqli_fetch_array($resultType)) {
@@ -416,34 +454,33 @@ exit();
       </div>
     </div>
 
-<!--Source of Income-->
-<!-- First Checkbox -->
-<div class="row">
+
+      <div class="row">
     <div class="col-md-12">
         <div class="form-group mt-3">
-        <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
-                            </div>
-                          </div>
-                          <div class="form-row mt-1">
-                            <?php
-                            $resultType = $db->getSource_IncomeActive();
-                            $selectedSources = $db->getSelectedSources($cocoonID); // Replace $cocoon_id with the actual cocoon ID
-
-                            while ($row = mysqli_fetch_array($resultType)) {
-                              $checked = in_array($row['source_id'], $selectedSources) ? 'checked' : '';
-
-                              echo '<div class="form-check form-check-inline col-md-4">';
-                              echo '<input class="form-check-input" name="form_income" type="checkbox" id="source_income'
-                                . $row['source_id'] . '" value="' . $row['source_id'] . '" ' . $checked . '>';
-                              echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label> ';
-                              echo '</div>';
-                            }
-                            ?>
-            </div>
-            <div class="invalid-feedback">
-                The Source of Income field is required
-            </div>
+            <label for="validationCustom04" class="form-label">Source of Income<font color="red">*</font></label>
         </div>
+    </div>
+    <div class="form-row mt-1">
+        <?php
+        $resultType = $db->getSource_IncomeActive();
+        $selectedSources = $db->getSelectedSources($cocoonID); // Replace $cocoonID with the actual cocoon ID
+
+        while ($row = mysqli_fetch_array($resultType)) {
+            $checked = in_array($row['source_id'], $selectedSources) ? 'checked' : '';
+
+            echo '<div class="form-check form-check-inline col-md-4">';
+            echo '<input class="form-check-input" name="incomes[' . $row['source_id'] . '][source_id]" type="checkbox" id="source_income'
+                . $row['source_id'] . '" value="' . $row['source_id'] . '" ' . $checked . '>';
+            echo '<label class="form-check-label" for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
+            echo '</div>';
+        }
+        ?>
+    </div>
+    <div class="invalid-feedback">
+        The Source of Income field is required
+    </div>
+</div>
 
 
         <div class="col-md-6 mt-3 ">
@@ -475,15 +512,19 @@ exit();
                               $selectedFarmTools = $db->getSelectedFarmTools($cocoonID); 
 
                               while ($row = mysqli_fetch_array($resultType)) {
-                                $checked = in_array($row['tool_id'], $selectedFarmTools) ? 'checked' : '';
+                                $checked = in_array($row['farm_tool_id'], $selectedFarmTools) ? 'checked' : '';
 
                                 echo '<div class="form-check form-check-inline col-md-4">';
-                                echo '<input class="form-check-input" name="farm_tools[]" type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '" ' . $checked . '>';
-                                echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
+                                echo '<input class="form-check-input" name="farm_tools[' . $row['farm_tool_id'] . '][farm_tool_id]"  type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '" ' . $checked . '>';
+                                echo '<label class="form-check-label" for="' . $row['farm_tool_id'] . '">' . $row['tool_name'] . '</label>';
                                 echo '</div>';
                               }
                               ?>
                 </div>
+
+
+
+
 
             </div>
             <div class="invalid-feedback">
@@ -500,6 +541,7 @@ exit();
                       <div class="col-md-6 mb-4">
                       <div class="form-group mb-2">
         <label for="validationCustom05" class="form-label">ID Picture</label>
+        <input type="text" class="form-control" name="id_pic">
         
         <!-- <input type="text" class="form-control" id="validationTooltip01" name="id_pic"  -->
 
@@ -523,6 +565,7 @@ exit();
 <div class="col-md-6 mb-4">
     <div class="form-group">
         <label for="validationCustom04" class="form-label">Letter of Intent</label>
+        <input type="text" class="form control" name="intent">
     </div>
     <?php
     if (!empty($intent)) {
@@ -543,6 +586,7 @@ exit();
                       <div class="col-md-6">
     <div class="form-group">
         <label for="validationCustom04" class="form-label">2x2 Picture</label>
+        <input type="text" class="form-control" name="bypic">
     </div>
     <?php
     if (!empty($bypic)) {
@@ -561,6 +605,7 @@ exit();
 <div class="col-md-6">
     <div class="form-group">
         <label for="validationCustom04" class="form-label">Signature of Farmer Cooperator</label>
+        <input type="text" class="form-control" name="signature">
     </div>
     <?php
     if (!empty($signature)) {
