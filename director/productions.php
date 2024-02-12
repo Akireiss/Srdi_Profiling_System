@@ -29,8 +29,6 @@ if ($_SESSION['type_id'] == 2) {
   <main id="main" class="main">
   <div class="pagetitle">
     <h1>Production</h1><br>
-        <div class="row">
-        </div>
       </div>
    
 
@@ -60,6 +58,8 @@ if ($_SESSION['type_id'] == 2) {
         
                       <?php
 $result = $db->getAllProduction();
+$totalPIncome = 0; // Initialize total production income
+$totalNIncome = 0; // Initialize total net income
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>';
     echo '<td>'. $row['name'] . '</td>'; // Assuming 'producer_name' is the name from 'cocoon' table
@@ -71,7 +71,6 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['production_date'] . '</td>';
     echo '<td>';
     echo '<a href="view_production.php?production_id=' . $row['production_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
-   
     echo '</td>';
     echo '</tr>';
 
@@ -85,22 +84,22 @@ while ($row = mysqli_fetch_array($result)) {
                 </tbody>
                           
                     </table>
-                    <div class="mx-2 fw-bold">
+                    <!-- <div class="mx-2 fw-bold">
                     <?php 
                     echo '<td class="text-uppercase">Total Production Income: </td>';
                     echo '<td colspan="2">PHP ' . number_format($totalPIncome, 2, '.', ',') . '</td>';
                     ?>  
-                </div>
+                </div> -->
 
 
 <!-- Net Income -->
 
-            <div class="mx-2 fw-bold">
+            <!-- <div class="mx-2 fw-bold">
             <?php 
                 echo '<td class="text-uppercase">Total Net Income: </td>';
                 echo '<td colspan="2">PHP ' . number_format($totalNIncome, 2, '.', ',') . '</td>';
                 ?>  
-            </div>
+            </div> -->
               </div>
               </div>
               </div>

@@ -30,8 +30,6 @@ if ($_SESSION['type_id'] == 2) {
   <main id="main" class="main">
   <div class="pagetitle">
     <h1>Cocoon Producers</h1><br>
-        <div class="row">
-        </div>
       </div>
    
 
@@ -65,8 +63,6 @@ while ($row = mysqli_fetch_array($result)) {
     echo '<td>' . $row['status'] . '</td>';
     echo '<td>';
     echo '<a href="view_producer.php?cocoon_id=' . $row['cocoon_id'] . '"><i class="ri-eye-line bigger-icon"></i></a>';
-    // Fix the edit link
-   
     echo '<a target="_blank" href="../pdf/index.php?cocoon_id=' . $row['cocoon_id'] . '" id=' . $row['cocoon_id'] . '"><i class="bi bi-file-pdf-fill bigger-icon red"></i></a>';
     echo '</td>';
     echo '</tr>';
