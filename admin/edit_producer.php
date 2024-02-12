@@ -512,11 +512,11 @@ if (isset($_POST['submit'])) {
                               $selectedFarmTools = $db->getSelectedFarmTools($cocoonID); 
 
                               while ($row = mysqli_fetch_array($resultType)) {
-                                $checked = in_array($row['farm_tool_id'], $selectedFarmTools) ? 'checked' : '';
+                                $checked = in_array($row['tool_id'], $selectedFarmTools) ? 'checked' : '';
 
                                 echo '<div class="form-check form-check-inline col-md-4">';
-                                echo '<input class="form-check-input" name="farm_tools[' . $row['farm_tool_id'] . '][farm_tool_id]"  type="checkbox" id="' . $row['farm_tool_id'] . '" value="' . $row['farm_tool_id'] . '" ' . $checked . '>';
-                                echo '<label class="form-check-label" for="' . $row['farm_tool_id'] . '">' . $row['tool_name'] . '</label>';
+                                echo '<input class="form-check-input" name="farm_tools[' . $row['tool_id'] . '][tool_id]"  type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '" ' . $checked . '>';
+                                echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
                                 echo '</div>';
                               }
                               ?>
