@@ -249,6 +249,10 @@
                             echo '<td class="center padding">' . htmlspecialchars($row['religion_name']) . '</td>';
                             break;
 
+
+
+
+
                         case 'REP02':
                             echo '<td class="center padding">' . htmlspecialchars($row['agency']) . '</td>';
                             echo '<td class="center padding">' . htmlspecialchars($row['location']) . '</td>';
@@ -257,6 +261,12 @@
                             echo '<td class="center padding">' . htmlspecialchars($row['charge']) . '</td>';
                        
                             break;
+
+
+
+
+
+                            
 
                         case 'REP03':
                             echo '<td class="center padding">' . htmlspecialchars($row['name']) . '</td>';

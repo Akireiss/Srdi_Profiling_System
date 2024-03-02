@@ -26,6 +26,32 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+<!-- Another function -->
+
+<?php 
+function downloadPDF($filePath) {
+  if (file_exists($filePath)) {
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($filePath));
+      readfile($filePath);
+      exit;
+  } else {
+      echo "File not found.";
+  }
+}
+
+// Example usage:
+if (isset($_POST['backup'])) {
+  $pdfFilePath = '../pdf/help.pdf'; // Path to the PDF file
+  downloadPDF($pdfFilePath);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,12 +159,20 @@ if (isset($_POST['submit'])) {
                   <div class="col-12">
                       <button class="btn btn-warning w-100" type="submit" name="submit">Login</button>
                     </div>
-                    
-                    <!-- <div class="row mt-2">
-                      <div class="col-12 text-left">
-                        <a href="verification.php" id="forgot-password-link">Forgot Password?</a>
-                      </div> -->
+
+ <div class="row mt-2">
+   
                 </form>
+
+
+
+                <a href="../pdf/callinCard.pdf" name="backup" class="text-sm" target="_blank">Need Help</a>
+
+   
+      </div>
+
+
+
 
               </div>
             </div>

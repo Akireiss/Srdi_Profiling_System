@@ -51,10 +51,8 @@
                 $cannot_participate   = $row->cannot_participate;
                 $male                 = $row->male;
                 $female               = $row->female;
-                $source_income        = $row->source_income;
                 $years_in_farming     = $row->years_in_farming;
                 $available_workers    = $row->available_workers;
-                $farm_tool            = $row->farm_tool;
                 $intent               = $row->intent;
                 $signature            = $row->signature;
                 $id_pic               = $row->id_pic;
@@ -172,8 +170,13 @@
             } */
         </style>
     </head>
+ 
+
 
     <body>
+  
+
+
         <br>
         <br>
         <br>
@@ -273,45 +276,7 @@
             </tbody>
 
         </table>
-        <?php
-
-function generateCheckboxes($sourceIncome)
-{
-    $classMapping = [
-        4 => 'sale-of-agricultural-product',
-        5 => 'employment',
-        6 => 'business',
-        7 => 'contract-labor',
-        8 => 'agricultural-wage',
-        10 => 'pldt',
-        11 => 'cocoon-novelty',
-    ];
-
-    $isChecked = false;
-
-    foreach ($classMapping as $value => $class) {
-        // Check if the value exists in the sourceIncome array
-        if (in_array($value, $sourceIncome)) {
-            $isChecked = true;
-            $class = 'check ' . $class;
-        } else {
-            $class = 'checkbox ' . $class;
-        }
-
-        // Generate a single checkbox for each label
-        echo '<div class="' . $class . '"></div>';
-
-        // Break out of the loop after the first match
-        if ($isChecked) {
-            break;
-        }
-    }
-}
-
-// Sample sourceIncome array (replace with your actual data)
-$sourceIncome = [4, 7, 10];
-
-?>
+ 
 
 
 <table width="100%" style="margin-bottom: 10px">
@@ -325,57 +290,53 @@ $sourceIncome = [4, 7, 10];
     </tbody>
 </table>
 
-<table width="100%">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-            <div class="checkbox"></div>
-                <label class="label">Sale of agricultural product</label>
-            </td>
 
-            <td width="15%">
-            <div class="checkbox"></div>
 
-                <label class="label">Contract Labor</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<?php
+$result = $db->getSelectedSource($_GET['cocoon_id']);
+$selectedSources = array(); // Array to store selected sources
+while ($row = mysqli_fetch_array($result)) {
+    $selectedSources[] = $row['source_id']; // Store source_id in the array
+}
+?>
 
-<table width="100%">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-            <div class="checkbox"></div>
-                <label class="label">Employment</label>
-            </td>
+<?php
+$result = $db->getPdfSource();
+$count = 0; // Initialize a counter to track the number of labels
+while ($row = mysqli_fetch_array($result)) {
+    // If the counter is divisible by 2 (i.e., every second label), start a new table
+    if ($count % 2 == 0) {
+        echo '<table width="150%"><tbody><tr>';
+    }
+?>
+    <td width="100%">
+        <div class="<?php echo in_array($row['source_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
+            <label class="label" style="margin: 0px 15px"><?php echo $row['source_name']; ?></label>
+        </div>
+    </td>
+<?php
+    // If the counter is divisible by 2 or it's the last label, close the table row
+    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
+        echo '</tr>';
+    }
+    // If the counter is odd (i.e., second label in the row), close the table row
+    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
+        echo '</tbody></table>';
+    }
+    $count++; 
+}
+?>
 
-            <td width="15%">
-                <?php generateCheckboxes($sourceIncome); ?>
-                <label class="label">Agricultural Wage</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
-<table width="100%" style="margin-bottom: 5px">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-                <?php generateCheckboxes($sourceIncome); ?>
-                <label class="label">Business</label>
-            </td>
 
-            <td width="15%">
-            <div class="checkbox"></div>
-                <label class="label">others (specify)</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+
+
+
+
+
+
+
 
 
 
@@ -402,85 +363,51 @@ $sourceIncome = [4, 7, 10];
 </table>
 
 
-        <table width="100%">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-            <div class="check"></div>
-                
-                <label class="label">Water pump</label>
-            </td>
-
-            <td width="15%">
-            <div class="checkbox"></div>
-            
-                <label class="label">Knapsack sprayer</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 
-<table width="100%">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-            <div class="check"></div>
-                
-                <label class="label">Irrigation hose</label>
-            </td>
-
-            <td width="15%">
-            <div class="checkbox"></div>
-            
-                <label class="label">Thresher</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<table width="100%">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-            <div class="checkbox"></div>
-                
-                <label class="label">Hand Tractor</label>
-            </td>
-
-            <td width="15%">
-            <div class="checkbox"></div>
-            
-                <label class="label">Farm Tools</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 
-<table width="100%">
-    <tbody>
-        <tr>
-            <td width="5%"></td>
-            <td width="10%">
-            <div class="check"></div>
-                
-                <label class="label">Draft animal</label>
-            </td>
-
-            <td width="15%">
-            <div class="checkbox"></div>
-            
-                <label class="label">Plow</label>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 
+
+
+
+
+
+<?php
+$result = $db->getSelectedFarmTool($_GET['cocoon_id']);
+$selectedSources = array(); // Array to store selected sources
+while ($row = mysqli_fetch_array($result)) {
+    $selectedSources[] = $row['tool_id']; // Store tool_id in the array
+}
+?>
+
+<?php
+$result = $db->getPdfFarmTool();
+$count = 0; // Initialize a counter to track the number of labels
+while ($row = mysqli_fetch_array($result)) {
+    // If the counter is divisible by 2 (i.e., every second label), start a new table
+    if ($count % 2 == 0) {
+        echo '<table><tbody><tr>';
+    }
+?>
+    <td width="100%">
+        <div class="<?php echo in_array($row['tool_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
+            <label class="label" style="margin: 0px 15px"><?php echo $row['tool_name']; ?></label>
+        </div>
+    </td>
+<?php
+    // If the counter is divisible by 2 or it's the last label, close the table row
+    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
+        echo '</tr>';
+    }
+    // If the counter is odd (i.e., second label in the row), close the table row
+    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
+        echo '</tbody></table>';
+    }
+    $count++; 
+}
+?>
 
 
 

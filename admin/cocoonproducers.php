@@ -53,11 +53,6 @@ exit();
       $source_income = $_POST ['source_income'];
       $farm_tool = $_POST ['farm_tool'];
 
-
-      //  $selectedFarmTools = isset($_POST['farm_tools']) ? $_POST['farm_tool'] : [];
-       // Convert the array into JSON
-       $selectedFarmToolsJSON = json_encode($selectedFarmTools);
-       //end
         $result = $db->addProducer($user_id, $name, $birthdate,
          $age, $type, $sex, $region, $province, $municipality, 
          $barangay, $address, $education, $religion, $civil_status, 
@@ -233,7 +228,7 @@ if (isset($message)) {
           <div class="col-md-4">
             <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
             
-            <input type="text" name="address" class="form-control" id="validationCustom03" >
+            <input type="number" name="address" class="form-control" id="validationCustom03" >
             <div class="invalid-feedback">
             The House no. field is required
             </div>
@@ -406,14 +401,14 @@ The Number of available workers field is required
         <div class="row">
           <div class="col-md-6 ">
             <div class="form-group">
-              <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg">
+              <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg" required>
               <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
             </div>
           </div>
 
           <div class="col-md-6 d-flex justify-content-end">
             <div class="form-group">
-              <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf">
+              <input type="file" class="form-control w-100" name="intent" id="validationCustom05" accept=".pdf" required>
               <label for="validationCustom04" class="form-label">Letter of Intent (PDF only)</label>
             </div>
           </div>
@@ -422,14 +417,14 @@ The Number of available workers field is required
          <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg">
+              <input type="file" class="form-control w-50" name="bypic" id="validationCustom05" accept=".jpeg, .jpg" required>
               <label for="validationCustom04" class="form-label">2x2 Picture (JPEG only)</label>
             </div>
           </div>
 
           <div class="col-md-6 d-flex justify-content-end">
             <div class="form-group">
-              <input type="file" class="form-control w-100" name="signature" id="validationCustom06" accept=".jpeg, .jpg">
+              <input type="file" class="form-control w-100" name="signature" id="validationCustom06" accept=".jpeg, .jpg" required>
               <label for="validationCustom05" class="form-label">Signature of Farmer Cooperator (JPEG only)</label>
             </div>
           </div>

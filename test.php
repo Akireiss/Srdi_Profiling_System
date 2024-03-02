@@ -243,3 +243,217 @@ $yValues = json_encode($yValues);
         }
     });
 </script>
+
+
+
+<!--  -->
+<?php
+$result = $db->getSelectedSource($_GET['cocoon_id']);
+$selectedSources = array(); // Array to store selected sources
+while ($row = mysqli_fetch_array($result)) {
+    $selectedSources[] = $row['source_id']; // Store source_id in the array
+}
+?>
+
+
+<table width="100%">
+
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="<?php echo in_array('4', $selectedSources) ? 'check' : 'checkbox'; ?>">
+    <label class="label">Sale of agricultural product</label>
+</div>
+            <td width="15%">
+            <div class="checkbox"></div>
+
+                <label class="label">Contract Labor</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="checkbox"></div>
+                <label class="label">Employment</label>
+            </td>
+
+            <td width="15%">
+               
+            <div class="checkbox"></div>
+
+                <label class="label">Agricultural Wage</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%" style="margin-bottom: 5px">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+               
+            <div class="checkbox"></div>
+
+                <label class="label">Business</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+                <label class="label">others (specify)</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<table width="75%">
+    <tbody>
+        <tr style="margin-bottom: 5px">
+ 
+            <td></td>
+            <td >Number of years in farming:<span class="underline"> <?php echo $years_in_farming;?>  </span></td>
+
+        </tr>
+        <tr  style="margin-bottom: 5px">
+            <td width="10%"></td>
+            <td>Number of available workers:<span class="underline"><?php echo $available_workers;?>  </span></td>
+        </tr>
+        <tr  style="margin-bottom: 5px">
+            <td width="10%"></td>
+            <td>
+                Available farm tools and implements:
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+        <table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Water pump</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Knapsack sprayer</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Irrigation hose</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Thresher</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<!-- Available farm tools -->
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Water pump</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Knapsack sprayer</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Irrigation hose</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Thresher</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="checkbox"></div>
+                
+                <label class="label">Hand Tractor</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Farm Tools</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table width="100%">
+    <tbody>
+        <tr>
+            <td width="5%"></td>
+            <td width="10%">
+            <div class="check"></div>
+                
+                <label class="label">Draft animal</label>
+            </td>
+
+            <td width="15%">
+            <div class="checkbox"></div>
+            
+                <label class="label">Plow</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
