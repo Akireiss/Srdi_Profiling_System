@@ -23,7 +23,7 @@ CREATE TABLE `audit_logs` (
   `data` longtext DEFAULT NULL,
   `update` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=552 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=548 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO audit_logs VALUES("391","2023-11-05 20:29:08","20","Add production: ","{\"producer_id\":\"185\",\"production_date\":\"2023-11-16\",\"total_production\":\"10\",\"p_income\":\"2000\",\"p_cost\":\"100\",\"n_income\":1900}","");
 INSERT INTO audit_logs VALUES("392","2023-11-05 20:32:44","20","Update production: ","{\"producer_id\":\"185\",\"production_date\":\"2023-11-16\",\"total_production\":\"10\",\"p_income\":\"2000\",\"p_cost\":\"100\",\"n_income\":1900}","");
@@ -179,13 +179,9 @@ INSERT INTO audit_logs VALUES("541","2024-01-21 15:52:31","20","User Login","{\"
 INSERT INTO audit_logs VALUES("542","2024-01-21 20:10:15","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
 INSERT INTO audit_logs VALUES("543","2024-01-23 14:32:50","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
 INSERT INTO audit_logs VALUES("544","2024-01-24 19:52:59","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
-INSERT INTO audit_logs VALUES("545","2024-01-30 09:10:41","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
-INSERT INTO audit_logs VALUES("546","2024-01-30 09:30:14","20","Add Education: ","{\"education\":\"Et dolores ex labori\",\"status\":\"Active\"}","");
-INSERT INTO audit_logs VALUES("547","2024-01-30 09:30:26","20","Add Education: ","{\"education\":\"In qui in earum eum \",\"status\":\"Inactive\"}","");
-INSERT INTO audit_logs VALUES("548","2024-01-30 21:38:33","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
-INSERT INTO audit_logs VALUES("549","2024-02-09 13:58:36","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
-INSERT INTO audit_logs VALUES("550","2024-02-09 17:04:02","20","User Logout","","");
-INSERT INTO audit_logs VALUES("551","2024-02-09 17:04:31","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
+INSERT INTO audit_logs VALUES("545","2024-02-24 22:17:02","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
+INSERT INTO audit_logs VALUES("546","2024-02-25 20:11:40","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
+INSERT INTO audit_logs VALUES("547","2024-02-27 17:51:51","20","User Login","{\"user_id\":\"20\",\"username\":\"roler\"}","");
 
 
 
@@ -42257,7 +42253,7 @@ CREATE TABLE `cocoon` (
   `education` int(100) NOT NULL,
   `religion` int(100) NOT NULL,
   `civil_status` varchar(100) NOT NULL,
-  `name_spouse` varchar(100) NOT NULL,
+  `name_spouse` varchar(100) DEFAULT NULL,
   `farm_participate` int(5) NOT NULL,
   `cannot_participate` int(5) NOT NULL,
   `male` int(5) NOT NULL,
@@ -42275,7 +42271,7 @@ CREATE TABLE `cocoon` (
   `municipality` varchar(100) NOT NULL,
   `barangay` varchar(100) NOT NULL,
   PRIMARY KEY (`cocoon_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO cocoon VALUES("95","Lhester Jhun C. Hermosa","Active","1988-01-01","Commercial","Male","2515","10","1","Married","","2","2","2","2","1","2","36","Oler, Reyzeil Anne-Registration Form.jpg","Signature of mine.jpg","IMG_4704.JPG","IMG_4707.JPG","2023-09-27","01","0133","013303","013303008");
 INSERT INTO cocoon VALUES("96","Milagros P. Pascua","Active","1960-02-27","Commercial","Female","2515","10","1","Married","","2","2","2","2","1","2","62","","","","","2023-09-27","01","0133","013303","013303038");
@@ -42318,6 +42314,8 @@ INSERT INTO cocoon VALUES("175","Ericson G. Singson","Inactive","","","Select Se
 INSERT INTO cocoon VALUES("176","Virginia B. Jardin","Inactive","1969-08-20","","Select Sex","","0","1","2","","0","0","0","0","","0","52","","","","","2019-05-01","","","","");
 INSERT INTO cocoon VALUES("177","Joseph A. Remoblas","Inactive","","","Select Sex","","0","0","2","Elizabeth Romblas","3","1","2","3","","3","0","","","","","2022-06-22","01","0133","013315","013315012");
 INSERT INTO cocoon VALUES("218","Reychelle Oler","Active","2006-03-10","","","","23","1","1","","18","93","85","86","2000","60","18","","","","","2017-01-22","08","0826","082612","082612017");
+INSERT INTO cocoon VALUES("219","Carolyn Estrada","Active","1987-05-03","Commercial","Select Sex","Dolores anim aut ab ","16","2","2","sadsada","52","96","12","7","2018","14","37","../uploads/intent_65d9fd01447770.49655071_document.pdf","../uploads/signature_65d9fd0144c865.24883586_btlogo.jpg","../uploads/signature_65d9fd0144fcc6.84973514_btlogo.jpg","../uploads/signature_65d9fd01455191.43248748_logo.jpg","2009-12-05","07","0722","072216","072216016");
+INSERT INTO cocoon VALUES("220","Romeo Camat","Active","2000-07-08","Commercial","Male","","20","1","","","44","5","5","90","2005","81","24","","","","","2007-10-22","<br />\r\n<b>Warning</b>:  Undefined variable $regCode in <b>C:xampphtdocsdmmmsu_srdi_profilingsadmine","","","");
 
 
 
@@ -42326,8 +42324,11 @@ CREATE TABLE `cocoon_farm_tool` (
   `cocoon_id` int(11) NOT NULL,
   `farm_tool_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO cocoon_farm_tool VALUES("1","208","7");
+INSERT INTO cocoon_farm_tool VALUES("2","208","9");
+INSERT INTO cocoon_farm_tool VALUES("3","208","10");
 INSERT INTO cocoon_farm_tool VALUES("4","208","11");
 INSERT INTO cocoon_farm_tool VALUES("5","209","12");
 INSERT INTO cocoon_farm_tool VALUES("6","209","13");
@@ -42369,10 +42370,10 @@ INSERT INTO cocoon_farm_tool VALUES("41","217","13");
 INSERT INTO cocoon_farm_tool VALUES("42","218","6");
 INSERT INTO cocoon_farm_tool VALUES("43","218","9");
 INSERT INTO cocoon_farm_tool VALUES("44","218","13");
-INSERT INTO cocoon_farm_tool VALUES("65","151","6");
-INSERT INTO cocoon_farm_tool VALUES("66","151","8");
-INSERT INTO cocoon_farm_tool VALUES("67","151","10");
-INSERT INTO cocoon_farm_tool VALUES("68","151","12");
+INSERT INTO cocoon_farm_tool VALUES("45","219","10");
+INSERT INTO cocoon_farm_tool VALUES("46","219","13");
+INSERT INTO cocoon_farm_tool VALUES("50","220","0");
+INSERT INTO cocoon_farm_tool VALUES("51","220","0");
 
 
 
@@ -42409,7 +42410,9 @@ CREATE TABLE `cocoon_producer` (
   KEY `region_id` (`region_id`),
   KEY `province_id` (`province_id`),
   KEY `municipality_id` (`municipality_id`),
-  KEY `barangay_id` (`barangay_id`)
+  KEY `barangay_id` (`barangay_id`),
+  CONSTRAINT `cocoon_producer_ibfk_1` FOREIGN KEY (`religion_id`) REFERENCES `religion` (`religion_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `cocoon_producer_ibfk_2` FOREIGN KEY (`education_id`) REFERENCES `education` (`education_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -42420,8 +42423,17 @@ CREATE TABLE `cocoon_source` (
   `cocoon_id` int(11) NOT NULL,
   `source_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO cocoon_source VALUES("1","208","5");
+INSERT INTO cocoon_source VALUES("2","208","8");
+INSERT INTO cocoon_source VALUES("3","208","11");
+INSERT INTO cocoon_source VALUES("4","209","5");
+INSERT INTO cocoon_source VALUES("5","209","6");
+INSERT INTO cocoon_source VALUES("6","209","7");
+INSERT INTO cocoon_source VALUES("7","209","8");
+INSERT INTO cocoon_source VALUES("8","209","11");
+INSERT INTO cocoon_source VALUES("9","210","4");
 INSERT INTO cocoon_source VALUES("10","210","5");
 INSERT INTO cocoon_source VALUES("11","210","6");
 INSERT INTO cocoon_source VALUES("12","210","7");
@@ -42458,14 +42470,12 @@ INSERT INTO cocoon_source VALUES("42","218","4");
 INSERT INTO cocoon_source VALUES("43","218","5");
 INSERT INTO cocoon_source VALUES("44","218","6");
 INSERT INTO cocoon_source VALUES("45","218","8");
-INSERT INTO cocoon_source VALUES("52","152","5");
-INSERT INTO cocoon_source VALUES("53","152","7");
-INSERT INTO cocoon_source VALUES("54","152","11");
-INSERT INTO cocoon_source VALUES("90","151","4");
-INSERT INTO cocoon_source VALUES("91","151","5");
-INSERT INTO cocoon_source VALUES("92","151","7");
-INSERT INTO cocoon_source VALUES("93","151","8");
-INSERT INTO cocoon_source VALUES("94","151","11");
+INSERT INTO cocoon_source VALUES("46","219","5");
+INSERT INTO cocoon_source VALUES("47","219","7");
+INSERT INTO cocoon_source VALUES("48","219","8");
+INSERT INTO cocoon_source VALUES("49","219","11");
+INSERT INTO cocoon_source VALUES("52","220","7");
+INSERT INTO cocoon_source VALUES("53","220","11");
 
 
 
@@ -42494,7 +42504,7 @@ CREATE TABLE `education` (
   `education_name` varchar(100) NOT NULL,
   `education_status` varchar(100) NOT NULL,
   PRIMARY KEY (`education_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO education VALUES("1","No Schooling","Active");
 INSERT INTO education VALUES("14","College Graduate","Active");
@@ -42507,16 +42517,14 @@ INSERT INTO education VALUES("22","Master Degree","Active");
 INSERT INTO education VALUES("23","Doctorate","Active");
 INSERT INTO education VALUES("24","Post-Doctoral Studies","Active");
 INSERT INTO education VALUES("25","cdfd","Inactive");
-INSERT INTO education VALUES("26","Et dolores ex labori","Active");
-INSERT INTO education VALUES("27","In qui in earum eum ","Inactive");
 
 
 
 CREATE TABLE `farm_tool` (
-  `farm_tool_id` int(20) NOT NULL AUTO_INCREMENT,
+  `tool_id` int(20) NOT NULL AUTO_INCREMENT,
   `tool_name` varchar(100) NOT NULL,
   `tool_status` varchar(100) NOT NULL,
-  PRIMARY KEY (`farm_tool_id`)
+  PRIMARY KEY (`tool_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO farm_tool VALUES("6","Water pump","Active");
@@ -44262,13 +44270,12 @@ CREATE TABLE `production` (
   `producer_id` int(20) DEFAULT NULL,
   `location_id` int(11) NOT NULL,
   PRIMARY KEY (`production_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO production VALUES("84","2024-01-24","10","1000","500","500","149","169");
 INSERT INTO production VALUES("85","1973-06-21","10","484","97","387","122","128");
 INSERT INTO production VALUES("86","1976-07-05","5","894","24","870","154","140");
-INSERT INTO production VALUES("87","2018-01-10","7","636","53","583","153","0");
-INSERT INTO production VALUES("88","1998-09-04","60","21","69","-48","97","124");
+INSERT INTO production VALUES("87","2019-05-03","97","737","20","717","154","0");
 
 
 
@@ -44479,30 +44486,28 @@ INSERT INTO religion VALUES("4","Born Again","Inactive");
 
 
 
-CREATE TABLE `sampleee` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-
-
 CREATE TABLE `site` (
   `site_id` int(20) NOT NULL AUTO_INCREMENT,
   `location` varchar(100) NOT NULL,
   `producer_id` int(20) NOT NULL,
   `topography` varchar(100) NOT NULL,
+  `region` varchar(100) NOT NULL,
+  `province` varchar(100) NOT NULL,
+  `municipality` varchar(100) NOT NULL,
+  `barangay` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
   `area` float NOT NULL,
   `crops` float NOT NULL,
   `share` float NOT NULL,
   `irrigation` varchar(200) NOT NULL,
   `water` varchar(200) NOT NULL,
+  `source` varchar(200) DEFAULT NULL,
   `market` varchar(200) NOT NULL,
   `distance` int(100) NOT NULL,
   `land_area` int(100) NOT NULL,
   `charge` varchar(100) NOT NULL,
   `adopters` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'Active',
   `remarks` mediumtext NOT NULL,
   `names` varchar(100) NOT NULL,
   `position` varchar(100) NOT NULL,
@@ -44514,49 +44519,67 @@ CREATE TABLE `site` (
   `position2` varchar(100) NOT NULL,
   `date2` date DEFAULT NULL,
   PRIMARY KEY (`site_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO site VALUES("122","San Martin, Bacnotan","95","Select Topography","","0","0","0","","","","0","0","Regina E. Salazar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("123","San Martin, Bacnotan","96","Select Topography","","0","0","0","","","","0","0","","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("124","Narra Este, San Fernando City","97","Select Topography","","0","0","0","","","","0","0","Regina E. Salazar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("125","Guinabang, Bacnotan","98","Select Topography","","0","0","0","","","","0","0","Regina E. Salazar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("126","Mabanengbeng II, Bacnotan","99","Select Topography","","0","0","0","","","","0","0","Regina E. Salazar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("127","Bitalag, Bacnotan","100","Select Topography","","0","0","0","","","","0","0","Amelia B. Casugay","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("128","Calautit, Bacnotan","122","Select Topography","","0","0","0","","","","0","0","Amelia B. Casugay","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("129","Mabanengbeng II, Bacnotan","125","Select Topography","","0","0","0","","","","0","0","Regina E. Salazar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("130","Mabanengbeng II, Bacnotan","144","Select Topography","","0","0","0","","","","0","0","Amelia B. Casugay","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("131","Oya-oy, Bacnotan","145","Select Topography","","0","0","0","","","","0","0","Amelia B. Casugay","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("132","Bitalag, Bacnotan","146","Select Topography","","0","0","0","","","","0","0","Amelia B. Casugay","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("133","Pideg, Tubao","147","Select Topography","","0","0","0","","","","0","0","Gemma E. Arellano","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("134","Pideg, Tubao","148","Select Topography","","0","0","0","","","","0","0","Gemma E. Arellano","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("135","Linapew, Tubao","149","Select Topography","","0","0","0","","","","0","0","Gemma E. Arellano","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("136","San Juan, Aringay","150","Select Topography","","0","0","0","","","","0","0","Gemma E. Arellano","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("137","Nagsabaran Sur, Balaoan ","151","Select Topography","","0","0","0","","","","0","0","Remuado V. Pascua","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("138","Pideg, Tubao","152","Select Topography","","0","0","0","","","","0","0","Gemma E. Arellano","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("139","Oaig Daya, Candon","153","Select Topography","","0","0","0","","","","0","0","Julius Peter M. Hufalar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("140","Carcarmay, Bacnotan","154","Select Topography","","0","0","0","","","","0","0","Conchita M. Almojuela","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("141","Nagatiran, Bacnotan","155","Select Topography","","0","0","0","","","","0","0","Conchita M. Almojuela","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("142","Calautit, Bacnotan","157","Select Topography","","0","0","0","","","","0","0","Romualdo V. Pascua","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("143","Ortega, Bacnotan","158","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("144","Bacsil, Bacnotan","159","Select Topography","samplee","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("145","Caculangan, San Juan","160","Select Topography","","0","0","0","","","","0","0","TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("146","Lioac, Naguilian","161","Select Topography","","0","0","0","","","","0","0","Leonora P. Apilado","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("147","Bariquir, Naguilian","162","Select Topography","","0","0","0","","","","0","0","Mabel M. Caccam","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("148","Francia Sur, Tubao","164","Select Topography","","0","0","0","","","","0","0","Gemma E. Arellano","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("149","Cataguingtingan, Rosario","165","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("150","Fernando, Sto. Tomas","166","Select Topography","","0","0","0","","","","0","0","Julius Peter M. Hufalar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("151","Ubbog, Santiago","167","Select Topography","","0","0","0","","","","0","0","Francisco V. Gapuz, Jr.","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("152","Cili, Binalonan","168","Select Topography","","0","0","0","","","","0","0","Julius Peter M. Hufalar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("153","Candon Cooperative, Cnadon","0","Select Topography","","0","0","0","","","","0","0","Julius Peter M. Hufalar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("154","Candon Eco-tourism, Candon","175","Select Topography","","0","0","0","","","","0","0","Julius Peter M. Hufalar","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("155","San Julian, Irosin","169","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("156","Cogon, Juban","170","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("157","Taboc, Juban","171","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("158","Bagacay, Gubat","172","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("159","Bulan","173","Select Topography","","0","0","0","","","","0","0","c/o TTPS","","","","","0000-00-00","","","","","","");
-INSERT INTO site VALUES("200","Pa-o Balaoan La Union","218","4","Molestiae distinctio","75","46","88","Not Available","","Not Accessible","1","70","Eius velit et omnis ","85","Corporis veniam sin","Wyoming Conner","Asperiores et aut il","1972-06-10","Raven Yang","Eos beatae dicta im","2011-10-13","Jonas Ortiz","Ea in quis in labori","1972-07-22");
-INSERT INTO site VALUES("202","Lorem perspiciatis ","145","5","Mollit minus laborio","43","5","62","Not Available","Irrigated","Not Accessible","78","11","Consequat Velit inc","95","At enim tempore eli","Bruce Stevens","Amet rerum irure iu","2021-11-16","Carlos Espinoza","Quis voluptate conse","1978-05-07","Wang Booth","Est blanditiis eveni","2013-10-17");
-INSERT INTO site VALUES("203","Butubut Norte","125","3","Nostrud consequatur","14","12","45","Not Available","Rainfed","Not Accessible","45","98","Reprehenderit quo c","91","Sunt pariatur In do","Zephania Sargent","Qui quia ut non dolo","1972-02-07","Gwendolyn Russo","Culpa culpa Nam et ","2013-04-22","Leslie Vasquez","Distinctio Ducimus","1997-11-22");
+INSERT INTO site VALUES("122","San Martin, Bacnotan","95","Select Topography","01","0133","013303","013303038","","0","0","0","","","","","0","0","Regina E. Salazar","","Inactive","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("123","San Martin, Bacnotan","96","Select Topography","01","0133","013303","013303038","","0","0","0","","","","","0","0","","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("124","Narra Este, San Fernando City","97","Select Topography","01","0133","013314","013314036","","0","0","0","","","","","0","0","Regina E. Salazar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("125","Guinabang, Bacnotan","98","Select Topography","01","0133","013303","013303019","","0","0","0","","","","","0","0","Regina E. Salazar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("126","Mabanengbeng II, Bacnotan","99","Select Topography","01","0133","013303","013303023","","0","0","0","","","","","0","0","Regina E. Salazar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("127","Bitalag, Bacnotan","100","Select Topography","01","0133","013303","013303008","","0","0","0","","","","","0","0","Amelia B. Casugay","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("128","Calautit, Bacnotan","122","Select Topography","01","0133","013303","013303015","","0","0","0","","","","","0","0","Amelia B. Casugay","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("129","Mabanengbeng II, Bacnotan","125","Select Topography","01","0133","013303","013303023","","0","0","0","","","","","0","0","Regina E. Salazar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("130","Mabanengbeng II, Bacnotan","144","Select Topography","01","0133","013303","013303023","","0","0","0","","","","","0","0","Amelia B. Casugay","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("131","Oya-oy, Bacnotan","145","Select Topography","01","0133","013303","013303046","","0","0","0","","","","","0","0","Amelia B. Casugay","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("132","Bitalag, Bacnotan","146","Select Topography","01","0133","013303","013303008","","0","0","0","","","","","0","0","Amelia B. Casugay","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("133","Pideg, Tubao","147","Select Topography","01","0133","013320","013320016","","0","0","0","","","","","0","0","Gemma E. Arellano","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("134","Pideg, Tubao","148","Select Topography","01","0133","013320","013320016","","0","0","0","","","","","0","0","Gemma E. Arellano","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("135","Linapew, Tubao","149","Select Topography","01","0133","013320","013320012","","0","0","0","","","","","0","0","Gemma E. Arellano","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("136","San Juan, Aringay","150","Select Topography","01","0133","013302","013302018","","0","0","0","","","","","0","0","Gemma E. Arellano","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("137","Nagsabaran Sur, Balaoan ","151","Select Topography","01","0133","013305","013305019","","0","0","0","","","","","0","0","Remuado V. Pascua","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("138","Pideg, Tubao","152","Select Topography","01","0133","013320","013320016","","0","0","0","","","","","0","0","Gemma E. Arellano","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("139","Oaig Daya, Candon","153","Select Topography","01","0129","012906","012906024","","0","0","0","","","","","0","0","Julius Peter M. Hufalar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("140","Carcarmay, Bacnotan","154","Select Topography","01","0133","013303","013303016","","0","0","0","","","","","0","0","Conchita M. Almojuela","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("141","Nagatiran, Bacnotan","155","Select Topography","01","0133","013303","013303026","","0","0","0","","","","","0","0","Conchita M. Almojuela","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("142","Calautit, Bacnotan","157","Select Topography","01","0133","013303","013303015","","0","0","0","","","","","0","0","Romualdo V. Pascua","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("143","Ortega, Bacnotan","158","Select Topography","01","0133","013303","013303030","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("144","Bacsil, Bacnotan","159","Select Topography","01","0133","013303","013303004","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("145","Caculangan, San Juan","160","Select Topography","01","0133","013316","013316011","","0","0","0","","","","","0","0","TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("146","Lioac, Naguilian","161","Select Topography","01","0133","013311","013311024","","0","0","0","","","","","0","0","Leonora P. Apilado","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("147","Bariquir, Naguilian","162","Select Topography","01","0133","013311","013311011","","0","0","0","","","","","0","0","Mabel M. Caccam","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("148","Francia Sur, Tubao","164","Select Topography","01","0133","013320","013320004","","0","0","0","","","","","0","0","Gemma E. Arellano","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("149","Cataguingtingan, Rosario","165","Select Topography","01","0133","013313","013313013","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("150","Fernando, Sto. Tomas","166","Select Topography","01","0133","013317","013317011","","0","0","0","","","","","0","0","Julius Peter M. Hufalar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("151","Ubbog, Santiago","167","Select Topography","01","0129","012927","012927024","","0","0","0","","","","","0","0","Francisco V. Gapuz, Jr.","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("152","Cili, Binalonan","168","Select Topography","","","","","","0","0","0","","","","","0","0","Julius Peter M. Hufalar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("153","Candon Cooperative, Cnadon","0","Select Topography","","","","","","0","0","0","","","","","0","0","Julius Peter M. Hufalar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("154","Candon Eco-tourism, Candon","175","Select Topography","","","","","","0","0","0","","","","","0","0","Julius Peter M. Hufalar","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("155","San Julian, Irosin","169","Select Topography","","","","","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("156","Cogon, Juban","170","Select Topography","","","","","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("157","Taboc, Juban","171","Select Topography","","","","","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("158","Bagacay, Gubat","172","Select Topography","","","","","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("159","Bulan","173","Select Topography","","","","","","0","0","0","","","","","0","0","c/o TTPS","","Active","","","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("165","Harum aut in commodo","150","2","12","","","","Et aliquid sit ad r","27","46","64","Not Available","Rainfed","","Accessible","98","58","Fugit recusandae T","Dolor velit molesti","Active","Ut dolores debitis a","Array","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("166","Sunt nulla deserunt","194","2","16","","","","Voluptatum est delec","64","1","66","","","","Accessible","14","75","Quisquam ex impedit","Nostrum voluptatum f","Active","Id sed in aute esse","Array","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("167","Est voluptas mollit","95","5","06","","","","Ut ut quia ex ex","57","20","82","Not Available","","","","67","83","Consequat Libero of","Tempor dolore verita","Active","Qui eu ea tempor dol","Array","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("168","Voluptates ut volupt","125","14","02","","","","Provident libero as","1","15","41","Not Available","Rainfed","","Accessible","55","47","Eos aperiam qui et m","Voluptatem consequat","Active","Consequatur quisqua","Array","","0000-00-00","","","","","","");
+INSERT INTO site VALUES("169","Aliquid corporis inv","149","Select Topography","15","","","","Perspiciatis volupt","74","4","97","","","","","41","4","Saepe omnis reprehen","Aut voluptas sequi r","Active","Iure eaque quia odit","Felicia Brooks","Quia aliquam quo ame","2016-10-31","","","","","","");
+INSERT INTO site VALUES("170","Est at libero volupt","153","3","15","","","","Molestiae et volupta","48","55","65","Not Available","","","","59","90","Eligendi est eum do","Cupidatat velit non ","Active","Quo elit dolore sol","Germane Hewitt","Officiis esse in qui","2009-08-11","Althea Duncan","Ut minus dolores min","1974-08-18","","","");
+INSERT INTO site VALUES("171","Est at libero volupt","153","3","15","","","","Molestiae et volupta","48","55","65","Not Available","","","","59","90","Eligendi est eum do","Cupidatat velit non ","Active","Quo elit dolore sol","Germane Hewitt","Officiis esse in qui","2009-08-11","Althea Duncan","Ut minus dolores min","1974-08-18","","","");
+INSERT INTO site VALUES("172","Iusto aliquid explic","95","14","","","","","Facilis error exerci","61","36","30","Not Available","Rainfed","Array","Not Accessible","26","55","Iusto non consequat","Consequatur ea culpa","Active","Ab inventore recusan","Harriet Wilder","Eum qui minim harum ","1973-08-29","Melyssa Merritt","Optio quia ipsam as","1984-02-13","Tatum Mendoza","Quod temporibus corp","2023-11-30");
+INSERT INTO site VALUES("173","Iusto aliquid explic","95","14","","","","","Facilis error exerci","61","36","30","Not Available","Rainfed","Array","Not Accessible","26","55","Iusto non consequat","Consequatur ea culpa","Active","Ab inventore recusan","Harriet Wilder","Eum qui minim harum ","1973-08-29","Melyssa Merritt","Optio quia ipsam as","1984-02-13","Tatum Mendoza","Quod temporibus corp","2023-11-30");
+INSERT INTO site VALUES("174","Pagleddegan","154","5","","","","","Purok 7","46","63","29","Not Available","","","Not Accessible","11","74","Laboriosam nostrud ","2","Active","Culpa numquam reici","Iola Pruitt","In sunt nobis exerci","2010-04-03","Melissa Dickerson","Expedita aut repudia","2019-08-18","Hermione Baird","A voluptates rem qui","2014-03-11");
+INSERT INTO site VALUES("175","Corrupti et proiden","95","4","","","","","Et exercitation cons","55","44","69","","Rainfed","","Not Accessible","6","49","Animi ipsum facilis","27","Active","Natus hic duis ut se","Amos Bird","Quisquam in tempora ","2008-02-04","Ashton Church","Voluptatem tenetur ","1986-11-01","Rahim Le","Officiis quae dolor ","1995-12-19");
+INSERT INTO site VALUES("176","Corrupti et proiden","95","4","","","","","Et exercitation cons","55","44","69","","Rainfed","","Not Accessible","6","49","Animi ipsum facilis","27","Active","Natus hic duis ut se","Amos Bird","Quisquam in tempora ","2008-02-04","Ashton Church","Voluptatem tenetur ","1986-11-01","Rahim Le","Officiis quae dolor ","1995-12-19");
+INSERT INTO site VALUES("189","Vel eiusmod libero n","96","14","","","","","Reprehenderit inven","27","53","34","","Rainfed","","Accessible","33","68","Et itaque qui mollit","41","Active","Ea adipisicing rerum","Fleur Landry","Labore voluptas aper","2003-08-12","Baxter Moody","Ratione dolor ut eos","1997-09-08","Georgia Farley","Deserunt ipsum quod ","1989-09-19");
+INSERT INTO site VALUES("190","Dolore non porro cil","145","7","","","","","Qui ut non dolor aut","4","42","53","Not Available","Rainfed","","Accessible","97","17","Consequat Irure del","20","Active","Id omnis elit at q","Ria Wall","Rerum nemo illo itaq","2000-06-02","Nevada Mcleod","Non expedita labore ","1996-10-03","Kevyn Spencer","Et voluptatum qui ve","2015-06-09");
+INSERT INTO site VALUES("191","Ratione ut laborum a","218","2","","","","","Molestiae ab esse di","84","93","64","Not Available","","","Not Accessible","44","99","Ducimus aliquam pro","76","Active","Laudantium esse qu","Jael Watson","Earum at deserunt ci","1992-10-02","Joel Atkins","Nulla aliquid volupt","2003-05-25","Vivian Chambers","Repudiandae aut ea i","1977-11-13");
+INSERT INTO site VALUES("192","Aut numquam dolores ","144","2","","","","","Dicta ea excepturi e","100","65","94","Not Available","Rainfed","","","35","73","Totam expedita adipi","86","Active","Sed iste ex ut reici","Sydney Robertson","Nostrud quia volupta","2005-01-11","Wayne Cruz","Consequat Qui enim ","1989-08-27","Belle Dotson","Molestias dolore dis","1979-07-20");
+INSERT INTO site VALUES("193","Aut numquam dolores ","144","2","","","","","Dicta ea excepturi e","100","65","94","Not Available","Rainfed","","","35","73","Totam expedita adipi","86","Active","Sed iste ex ut reici","Sydney Robertson","Nostrud quia volupta","2005-01-11","Wayne Cruz","Consequat Qui enim ","1989-08-27","Belle Dotson","Molestias dolore dis","1979-07-20");
+INSERT INTO site VALUES("194","Aut numquam dolores ","144","2","","","","","Dicta ea excepturi e","100","65","94","Not Available","Rainfed","","","35","73","Totam expedita adipi","86","Active","Sed iste ex ut reici","Sydney Robertson","Nostrud quia volupta","2005-01-11","Wayne Cruz","Consequat Qui enim ","1989-08-27","Belle Dotson","Molestias dolore dis","1979-07-20");
+INSERT INTO site VALUES("195","Kie","144","2","","","","","Dicta ea excepturi e","100","65","94","Not Available","Rainfed","","","35","73","Totam expedita adipi","86","Active","Sed iste ex ut reici","Sydney Robertson","Nostrud quia volupta","2005-01-11","Wayne Cruz","Consequat Qui enim ","1989-08-27","Belle Dotson","Molestias dolore dis","1979-07-20");
+INSERT INTO site VALUES("196","La Union","122","14","","","","","Atque excepteur nobi","30","62","78","Available","Irrigated","","Accessible","88","76","Optio itaque enim c","4","Active","Voluptatem exercitat","Cain Bruce","Enim id pariatur N","2014-03-17","Quon Robles","Quos culpa voluptas ","1992-12-11","Brent Ware","Nostrum minim vel te","1989-05-19");
+INSERT INTO site VALUES("197","Recusandae Cum offi","220","7","","","","","Alias illo labore fu","75","46","39","Available","Irrigated","","Accessible","12","84","Quod sit cum Nam si","48","Active","Et et ut qui volupta","Brenden Nolan","Doloribus cillum in ","1994-03-15","Odysseus Morris","Irure tempor volupta","2014-01-11","Mercedes Oneill","Rerum aut quisquam u","2000-06-07");
 
 
 
@@ -44565,23 +44588,14 @@ CREATE TABLE `site_agency` (
   `cocoon_id` int(100) NOT NULL,
   `agency_id` int(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO site_agency VALUES("1","198","1");
-INSERT INTO site_agency VALUES("2","198","5");
-INSERT INTO site_agency VALUES("3","199","2");
-INSERT INTO site_agency VALUES("4","199","5");
-INSERT INTO site_agency VALUES("5","200","3");
-INSERT INTO site_agency VALUES("6","200","4");
-INSERT INTO site_agency VALUES("7","201","1");
-INSERT INTO site_agency VALUES("8","201","2");
-INSERT INTO site_agency VALUES("9","201","4");
-INSERT INTO site_agency VALUES("10","201","5");
-INSERT INTO site_agency VALUES("11","202","1");
-INSERT INTO site_agency VALUES("12","202","4");
-INSERT INTO site_agency VALUES("13","202","5");
-INSERT INTO site_agency VALUES("14","203","3");
-INSERT INTO site_agency VALUES("15","203","4");
+INSERT INTO site_agency VALUES("1","195","2");
+INSERT INTO site_agency VALUES("2","196","1");
+INSERT INTO site_agency VALUES("3","196","5");
+INSERT INTO site_agency VALUES("4","197","1");
+INSERT INTO site_agency VALUES("5","197","2");
+INSERT INTO site_agency VALUES("6","197","5");
 
 
 
@@ -44592,8 +44606,9 @@ CREATE TABLE `site_irrigation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO site_irrigation VALUES("1","203","5");
-INSERT INTO site_irrigation VALUES("2","203","7");
+INSERT INTO site_irrigation VALUES("1","196","5");
+INSERT INTO site_irrigation VALUES("2","196","7");
+INSERT INTO site_irrigation VALUES("3","197","5");
 
 
 
@@ -44602,18 +44617,20 @@ CREATE TABLE `site_land` (
   `cocoon_id` int(100) NOT NULL,
   `land_id` int(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO site_land VALUES("10","198","3");
-INSERT INTO site_land VALUES("11","198","4");
-INSERT INTO site_land VALUES("12","198","5");
-INSERT INTO site_land VALUES("13","199","4");
-INSERT INTO site_land VALUES("14","200","3");
-INSERT INTO site_land VALUES("15","200","5");
-INSERT INTO site_land VALUES("16","202","3");
-INSERT INTO site_land VALUES("17","202","4");
-INSERT INTO site_land VALUES("18","203","3");
-INSERT INTO site_land VALUES("19","203","4");
+INSERT INTO site_land VALUES("1","184","3");
+INSERT INTO site_land VALUES("2","184","4");
+INSERT INTO site_land VALUES("3","184","5");
+INSERT INTO site_land VALUES("4","186","4");
+INSERT INTO site_land VALUES("5","186","5");
+INSERT INTO site_land VALUES("6","193","3");
+INSERT INTO site_land VALUES("7","194","3");
+INSERT INTO site_land VALUES("8","195","3");
+INSERT INTO site_land VALUES("9","196","3");
+INSERT INTO site_land VALUES("10","196","4");
+INSERT INTO site_land VALUES("11","196","5");
+INSERT INTO site_land VALUES("12","197","5");
 
 
 
@@ -44622,18 +44639,15 @@ CREATE TABLE `site_soil` (
   `cocoon_id` int(100) NOT NULL,
   `soil_id` int(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO site_soil VALUES("1","198","4");
-INSERT INTO site_soil VALUES("2","198","6");
-INSERT INTO site_soil VALUES("3","198","9");
-INSERT INTO site_soil VALUES("4","199","6");
-INSERT INTO site_soil VALUES("5","201","5");
-INSERT INTO site_soil VALUES("6","202","4");
-INSERT INTO site_soil VALUES("7","202","5");
-INSERT INTO site_soil VALUES("8","202","9");
-INSERT INTO site_soil VALUES("9","203","5");
-INSERT INTO site_soil VALUES("10","203","9");
+INSERT INTO site_soil VALUES("1","195","5");
+INSERT INTO site_soil VALUES("2","195","6");
+INSERT INTO site_soil VALUES("3","195","9");
+INSERT INTO site_soil VALUES("4","196","4");
+INSERT INTO site_soil VALUES("5","196","5");
+INSERT INTO site_soil VALUES("6","196","9");
+INSERT INTO site_soil VALUES("7","197","5");
 
 
 
@@ -44642,30 +44656,21 @@ CREATE TABLE `site_tenancy` (
   `cocoon_id` int(100) NOT NULL,
   `tenancy_id` int(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO site_tenancy VALUES("1","168","4");
-INSERT INTO site_tenancy VALUES("2","168","6");
-INSERT INTO site_tenancy VALUES("3","198","4");
-INSERT INTO site_tenancy VALUES("4","168","5");
-INSERT INTO site_tenancy VALUES("5","199","4");
-INSERT INTO site_tenancy VALUES("6","200","4");
-INSERT INTO site_tenancy VALUES("7","200","5");
-INSERT INTO site_tenancy VALUES("8","201","4");
-INSERT INTO site_tenancy VALUES("9","201","5");
-INSERT INTO site_tenancy VALUES("10","201","6");
-INSERT INTO site_tenancy VALUES("11","202","4");
-INSERT INTO site_tenancy VALUES("12","202","5");
-INSERT INTO site_tenancy VALUES("13","202","6");
-INSERT INTO site_tenancy VALUES("14","203","4");
-INSERT INTO site_tenancy VALUES("15","203","5");
+INSERT INTO site_tenancy VALUES("1","194","6");
+INSERT INTO site_tenancy VALUES("2","195","6");
+INSERT INTO site_tenancy VALUES("3","196","5");
+INSERT INTO site_tenancy VALUES("4","196","6");
+INSERT INTO site_tenancy VALUES("5","197","5");
+INSERT INTO site_tenancy VALUES("6","197","6");
 
 
 
 CREATE TABLE `site_water` (
   `id` int(100) NOT NULL AUTO_INCREMENT,
   `cocoon_id` int(100) NOT NULL,
-  `site_water_id` int(100) NOT NULL,
+  `water_id` int(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

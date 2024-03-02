@@ -2,113 +2,6 @@
 session_start();
 include "../db_con.php";
 $db = new db;
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-
-$db = new db;
-if(!isset($_SESSION['user_id'])){
-    header("Location: ../auth/login.php");
-  }
-if ($_SESSION['type_id'] == 2) {
-    header("Location:  ../auth/login.php");
-    exit(); 
-}
-
-if ($_SESSION['type_id'] == 3) {
-  header("Location:  ../auth/login.php");
-  exit(); 
-}
-
-
-$con = $db->con;
-
-if(isset($_POST['backup'])){
-    $tables = array();
-    $sql = "SHOW TABLES";
-    $result = mysqli_query($con, $sql);
-    while ($row = mysqli_fetch_row($result)) {
-        $tables[] = $row[0];
-    }
-    $sqlScript = "";
-    foreach ($tables as $table) {
-        $query = "SHOW CREATE TABLE $table";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_fetch_row($result);
-        $sqlScript .= "\n\n" . $row[1] . ";\n\n";
-        $query = "SELECT * FROM $table";
-        $result = mysqli_query($con, $query);
-        $columnCount = mysqli_num_fields($result);
-        for ($i = 0; $i < $columnCount; $i ++) {
-            while ($row = mysqli_fetch_row($result)) {
-                $sqlScript .= "INSERT INTO $table VALUES(";
-                for ($j = 0; $j < $columnCount; $j ++) {
-                    $row[$j] = $row[$j];           
-                    if (isset($row[$j])) {
-                        $sqlScript .= '"' . mysqli_real_escape_string($con,$row[$j]) . '"';
-                    } else {
-                        $sqlScript .= '""';
-                    }
-                    if ($j < ($columnCount - 1)) {
-                        $sqlScript .= ',';
-                    }
-                }
-                $sqlScript .= ");\n";
-            }
-        }   
-        $sqlScript .= "\n"; 
-    }
-    if(!empty($sqlScript))
-    {
-        $backup_file_name =  __DIR__.'/_backup_.sql';
-        $fileHandler = fopen($backup_file_name, 'w+');
-        $number_of_lines = fwrite($fileHandler, $sqlScript);
-        fclose($fileHandler);
-        $message = "Backup Created Successfully";
-    }
-}
-if(isset($_POST['restore'])){
-    $sql = '';
-    $error = '';
-    if (file_exists(__DIR__.'/_backup_.sql')) {
-        // Deleting starts here
-        $query_disable_checks = 'SET foreign_key_checks = 0';
-        mysqli_query($con, $query_disable_checks);
-        $show_query = 'Show tables';
-        $query_result = mysqli_query($con, $show_query);
-        $row = mysqli_fetch_array($query_result);
-        while ($row) {
-            $query = 'DROP TABLE IF EXISTS ' . $row[0];
-            $query_result = mysqli_query($con, $query);
-            $show_query = 'Show tables';
-            $query_result = mysqli_query($con, $show_query);
-            $row = mysqli_fetch_array($query_result);
-        }
-        $query_enable_checks = 'SET foreign_key_checks = 1';
-        mysqli_query($con, $query_enable_checks);
-        // Deleting ends here
-        $lines = file(__DIR__.'/_backup_.sql');
-        foreach ($lines as $line) {
-            if (substr($line, 0, 2) == '--' || $line == '') {
-                continue;
-            }
-            $sql .= $line;
-            if (substr(trim($line), - 1, 1) == ';') {
-                $result = mysqli_query($con, $sql);
-                if (! $result) {
-                    $error .= mysqli_error($con) . "\n";
-                }
-                $sql = '';
-            }
-        }
-        if ($error) {
-            $message1 = $error;
-        } else {
-            $message1 = "Database restored successfully";
-        }
-    }else{
-        $messageRed = "No backup file found from the backup.";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -119,127 +12,50 @@ if(isset($_POST['restore'])){
     <?php include '../includes/sidebar.php' ?>
 
     <main id="main" class="main">
+        <div class="pagetitle">
+            <?php
+            if (isset($message)) {
+                if ($result != 0) {
+                    echo '<div class="alert alert-warning bg-warning border-0 alert-dismissible fade show" role="alert">';
+                    echo '<i class="fa-sharp fa-solid fa-circle-check"></i>';
+                } else {
+                    echo '<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">';
+                    echo '<i class="fa-regular fa-circle-xmark"></i>';
+                }
+                echo $message;
+                echo '</div>';
+            }
+            ?>
+        </div><!-- End Page Title -->
 
-<div class="pagetitle">
-    <h1>Back Up</h1>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-            <li class="breadcrumb-item">Back Up</li>
-        </ol>
-    </nav>
-</div>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
 
-<div class="row">
+                    <div class="card">
+                        <div class="card-body">
+<form action="download_backup.php" method="POST">
+                            <!-- <h5 class="card-title">Association Information</h5> -->
+                            <h5 class="card-title">Backup Database</h5>
 
-<div class="col-md-6">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Back Up Database</h5>
-            
-    <?php  if(@$message): ?>
-            <div class="alert alert-success" id="alert1">
+                            <!-- Trigger the download link -->
+                            <div class="d-flex align-items-center justify-content-center">
+                          <button type="submit"
+                           class="btn btn-success">Back Up Data</button>
 
-                <?php echo $message;?>
-</div>
-    <?php  endif; ?>
-            <form
-            method="POST" class="blogdesire-form">
+                           </form>
+                            </div>
 
-            <p>
-                Creating regular backups of your database is crucial for data integrity and system recovery.
-                In case of unexpected events or data loss, having a recent backup ensures that you can
-                restore your system to a known, stable state. Please follow the steps below to perform a
-                system backup:
-            </p>
-            <p>
+                        </div>
+                    </div>
 
-                <li>Click the "Perform System Backup" button below.</li>
-                <li>Wait for the backup process to complete.</li>
-                <li>A notification will be show once complete.</li>
-                </p>
+                </div>
 
+        </section>
 
-<div class="d-flex justify-content-end mx-2 ">
-
-    <button name="backup" class="btn btn-success btn-md mx-2">
-        Backup
-    </button>
- 
-</div>
-
-
-</form>
-
-        </div>
-    </div>
-</div>
-
-
-<div class="col-md-6">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Restore Database</h5>
-            
-    <?php  if(@$message1): ?>
-            <div class="alert alert-success" id="alert4">
-
-                <?php echo $message1;?>
-</div>
-    <?php  endif; ?>
-    <?php  if(@$messageRed): ?>
-            <div class="alert alert-warning" id="alert4">
-
-                <?php echo $messageRed;?>
-</div>
-    <?php  endif; ?>
-                <form
-                method="POST" class="blogdesire-form">
-
-                <p>
-Restoring your database is essential for system recovery and maintaining data integrity.
- In the event of unexpected issues or data loss, a recent backup allows you to restore your system to a known,
-  stable state. Follow the steps below to perform a database restore:
-</p>
-
-                <ul>
-    <li>Restore the database to a previous state.</li>
-    <li>Undo any changes made after the backup date.</li>
-    <li>Data added or modified after the backup will be lost.</li>
-</ul>
-            
-                
-
-
-<div class="d-flex justify-content-end mx-2 ">
-
-
-        <button name="restore" class="btn btn-success btn-md">
-            Restore
-        </button>
-</div>
-
-    
-    </form>
-
-        </div>
-    </div>
-</div>
-</div>
-
-
-</main>
+    </main><!--END MAIN-->
 
     <?php include '../includes/footer.php' ?>
 </body>
 
 </html>
-
-<script>
-    // Add this script to automatically remove the alert after 4 seconds
-    $(document).ready(function () {
-        setTimeout(function () {
-            $("#alert4").alert('close');
-        }, 4000);
-    });
-</script>
