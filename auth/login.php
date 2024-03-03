@@ -166,7 +166,7 @@ if (isset($_POST['backup'])) {
 
 
 
-                <a href="../pdf/callinCard.pdf" name="backup" class="text-sm" target="_blank">Need Help</a>
+                <a href="../pdf/user manual.pdf" name="backup" class="text-sm" target="_blank">Need Help</a>
 
    
       </div>
