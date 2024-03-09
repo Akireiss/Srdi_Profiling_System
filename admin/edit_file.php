@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 session_start();
 
 class db
@@ -15,28 +14,7 @@ class db
     {
         $fileId = mysqli_real_escape_string($this->con, $fileId);
 
-        // Determine the column name based on the file type
-        switch ($fileType) {
-            case 'image':
-                $columnName = 'id_pic';
-                break;
-
-            case 'pdf':
-                $columnName = 'intent';
-                break;
-
-            case 'signature':
-                $columnName = 'signature';
-                break;
-
-            case 'bypic':
-                $columnName = 'bypic';
-                break;
-
-            default:
-                echo json_encode(['status' => 'error', 'message' => 'Invalid file type']);
-                return;
-        }
+        $columnName = $fileType; // Use the provided column name directly
 
         $filePath = "../uploads/" . $fileId . "." . strtolower($fileType);
 
@@ -44,7 +22,7 @@ class db
             unlink($filePath);
         }
 
-        $query = "UPDATE cocoon SET $columnName = NULL WHERE cocoon_id = '$fileId'";
+        $query = "UPDATE cocoon SET $columnName = NULL WHERE $columnName = '$fileId'"; // Update based on column name
         $result = mysqli_query($this->con, $query);
 
         return $result;

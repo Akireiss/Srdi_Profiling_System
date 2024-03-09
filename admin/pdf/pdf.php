@@ -1,10 +1,10 @@
 <?php
-  session_start();
-  include '../db_con.php';
-  $db = new db;
-  if(!isset($_SESSION['user_id'])){
+session_start();
+include '../db_con.php';
+$db = new db();
+if(!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-  }
+}
 ?>
 
 
@@ -21,64 +21,63 @@
 
 
 <?php
-             $result=$db->getProducerID($_GET['cocoon_id']);
-            while($row=mysqli_fetch_object($result)){
-                $cocoonID             = $row->cocoon_id;
-                $date_validation      = $row->date_validation ;
-                $name                 = $row->name;
-                $status                = $row->status;
-                $age                  = $row->age;
-                $birthdate            = $row->birthdate;
-                $type                 = $row->type;
-                $sex                  = $row->sex;
-                $region 	          = $row->region;
-                $regName              =$row->regDesc;
-                $province             = $row->province;
-                $provName             = $row->provDesc;
-                $municipality         = $row->municipality;
-                $citymunName          = $row->citymunDesc;
-                $barangay             = $row->barangay;
-                $barangayName         = $row->brgyDesc;
-                $address              = $row->address;
-                $education            = $row->education;
-                $educationName        = $row->education_name;
-                $religion             = $row->religion;
-                $religionName         = $row->religion_name;
-                $civil_status         = $row->civil_status;
-                $civilName            = $row->civil_name;
-                $name_spouse          = $row->name_spouse;
-                $farm_participate     = $row->farm_participate;
-                $cannot_participate   = $row->cannot_participate;
-                $male                 = $row->male;
-                $female               = $row->female;
-                $years_in_farming     = $row->years_in_farming;
-                $available_workers    = $row->available_workers;
-                $intent               = $row->intent;
-                $signature            = $row->signature;
-                $id_pic               = $row->id_pic;
-                $intent               = $row->intent;
-                $signature            = $row->signature;
-                $bypic                = $row->bypic;
-            //Site Table
-                $location             = $row->location; 
-                $distance             = $row->distance; 
-                $land_area            = $row->land_area;
-                $area                 = $row->area;
-                $names                = $row->names;
-                $position             = $row->position;
-                $date                 = $row->date;
-                $birthdate            = $row->birthdate;
-            //Production Table
-                $production_date      = $row->production_date;
-                $total_production     = $row->total_production;
-                $p_income    = $row->p_income;
-                $p_cost     = $row->p_cost;
-                $n_income     = $row->n_income;
-            
+             $result = $db->getProducerID($_GET['cocoon_id']);
+while($row = mysqli_fetch_object($result)) {
+    $cocoonID             = $row->cocoon_id;
+    $date_validation      = $row->date_validation ;
+    $name                 = $row->name;
+    $status                = $row->status;
+    $age                  = $row->age;
+    $birthdate            = $row->birthdate;
+    $type                 = $row->type;
+    $sex                  = $row->sex;
+    $region 	          = $row->region;
+    $regName              = $row->regDesc;
+    $province             = $row->province;
+    $provName             = $row->provDesc;
+    $municipality         = $row->municipality;
+    $citymunName          = $row->citymunDesc;
+    $barangay             = $row->barangay;
+    $barangayName         = $row->brgyDesc;
+    $address              = $row->address;
+    $education            = $row->education;
+    $educationName        = $row->education_name;
+    $religion             = $row->religion;
+    $religionName         = $row->religion_name;
+    $civil_status         = $row->civil_status;
+    $civilName            = $row->civil_name;
+    $name_spouse          = $row->name_spouse;
+    $farm_participate     = $row->farm_participate;
+    $cannot_participate   = $row->cannot_participate;
+    $male                 = $row->male;
+    $female               = $row->female;
+    $years_in_farming     = $row->years_in_farming;
+    $available_workers    = $row->available_workers;
 
-    
-            }
-        ?>
+    $signature            = $row->signature;
+    $id_pic               = $row->id_pic;
+    $bypic                = $row->bypic;
+
+    //Site Table
+    $location             = $row->location;
+    $distance             = $row->distance;
+    $land_area            = $row->land_area;
+    $area                 = $row->area;
+    $names                = $row->names;
+    $position             = $row->position;
+    $date                 = $row->date;
+    $birthdate            = $row->birthdate;
+    //Production Table
+    $production_date      = $row->production_date;
+    $total_production     = $row->total_production;
+    $p_income    = $row->p_income;
+    $p_cost     = $row->p_cost;
+    $n_income     = $row->n_income;
+
+
+
+}
+?>
 
 
     <!doctype html>
@@ -164,6 +163,9 @@
             }
             .line{
                 border-bottom: 1px solid black;
+            }
+            .image{
+                width: 100px;
             }
             /* .mb{
                 margin-bottom: 70px;
@@ -303,42 +305,28 @@ while ($row = mysqli_fetch_array($result)) {
 <?php
 $result = $db->getPdfSource();
 $count = 0; // Initialize a counter to track the number of labels
+
+// Start the table
+echo '<table width="100%"><tbody><tr>';
+
 while ($row = mysqli_fetch_array($result)) {
-    // If the counter is divisible by 2 (i.e., every second label), start a new table
-    if ($count % 2 == 0) {
-        echo '<table width="150%"><tbody><tr>';
+    // If the counter is divisible by 2 (i.e., every second label), close the current row and start a new one
+    if ($count % 2 == 0 && $count != 0) {
+        echo '</tr><tr>';
     }
-?>
-    <td width="100%">
+    ?>
+    <td width="100%" style="vertical-align: top;">
         <div class="<?php echo in_array($row['source_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
-            <label class="label" style="margin: 0px 15px"><?php echo $row['source_name']; ?></label>
+            <label class="label" style="margin: 2px 45px"><?php echo $row['source_name']; ?></label>
         </div>
     </td>
 <?php
-    // If the counter is divisible by 2 or it's the last label, close the table row
-    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
-        echo '</tr>';
-    }
-    // If the counter is odd (i.e., second label in the row), close the table row
-    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
-        echo '</tbody></table>';
-    }
-    $count++; 
+        $count++;
 }
+
+// Close the last row and table
+echo '</tr></tbody></table>';
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <table width="75%">
@@ -363,17 +351,6 @@ while ($row = mysqli_fetch_array($result)) {
 </table>
 
 
-
-
-
-
-
-
-
-
-
-
-
 <?php
 $result = $db->getSelectedFarmTool($_GET['cocoon_id']);
 $selectedSources = array(); // Array to store selected sources
@@ -390,29 +367,32 @@ while ($row = mysqli_fetch_array($result)) {
     if ($count % 2 == 0) {
         echo '<table><tbody><tr>';
     }
-?>
+    ?>
     <td width="100%">
-        <div class="<?php echo in_array($row['tool_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
-            <label class="label" style="margin: 0px 15px"><?php echo $row['tool_name']; ?></label>
+        <div class="<?php echo in_array($row['tool_id'], $selectedSources) ? 'check' : 'checkbox'; ?>" style="margin: 10px 50px">
+            <label class="label" ><?php echo $row['tool_name']; ?></label>
         </div>
     </td>
 <?php
-    // If the counter is divisible by 2 or it's the last label, close the table row
-    if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
-        echo '</tr>';
-    }
+        // If the counter is divisible by 2 or it's the last label, close the table row
+        if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
+            echo '</tr>';
+        }
     // If the counter is odd (i.e., second label in the row), close the table row
     if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
         echo '</tbody></table>';
     }
-    $count++; 
+    $count++;
 }
 ?>
 
+<div class="page-break"></div>
 
 
+ <!-- <img src="data:image/png;base64,?php echo base64_encode(file_get_contents($signature)); ?>" alt="Image" class="image"/> -->
 
+ <!-- <img src="data:image/png;base64,?php echo base64_encode(file_get_contents($id_pic)); ?>" alt="Image" class="image"/> -->
 
-    </body>
+<body>
 
     </html>

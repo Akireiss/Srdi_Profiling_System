@@ -167,27 +167,28 @@ if (isset($message)) {
                   </div>
                 </div>
 
-                <div class="row">
-            <div class="col-md-6 mt-6" style="margin-left: -25px;">    
-              <div class="form-check form-check-inline">
-                <label for="nameInput" name="distance" class="mr-2">Distance from the main road<font color = "red">*</font></label>
-                <div class="d-inline-flex">
-                  <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="distance" >
-                  <span class="form-text-inline mt-2" style="margin-left: 2px;">meters</span>
-                </div>
-              </div>
+                <div class="row mt-4">
+    <div class="col-md-5 mt-6" style="margin-left: -25px;">    
+        <div class="form-check form-check-inline">
+            <label for="distanceInput" class="mr-2">Distance from road<font color="red">*</font></label>
+            <div class="d-inline-flex">
+                <input type="number" class="form-control mr-1 w-50 mx-1 my-1" id="distanceInput" name="distance">
+                <span class="form-text-inline mt-2" style="margin-left: 2px;">meters</span>
             </div>
+        </div>
+    </div>
 
-            <div class="col-md-6 mt-6" style="margin-left: -25px;">    
-              <div class="form-check form- check-inline">
-                <label for="nameInput" name="land_area" class="mr-2">Available land area for planting mulberry<font color = "red">*</font></label>
-                <div class="d-inline-flex align-items-center">
-                  <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="land_area"> 
-                  <span class="form-text-inline mt-2 my-3" style="vertical-align: middle;">hectares</span>
-                </div>
-              </div>
-            </div>
-            </div>
+    <div class="col-md-6 mt-6" style="margin-left: 20px;">    
+    <div class="form-check form-check-inline">
+        <label for="areaInput" class="mr-2">Available land area for planting mulberry<font color="red">*</font></label>
+        <div class="d-inline-flex align-items-center">
+            <input type="number" class="form-control mr-0 w-25 mx-0 my-0" id="areaInput" name="land_area"> 
+            <span class="form-text-inline mt-1 my-1" style="display: inline-block; margin-left: 0px;">hectares</span>
+        </div>
+    </div>
+</div>
+</div>
+
   
                 
                 <div class="col-md-2 ">

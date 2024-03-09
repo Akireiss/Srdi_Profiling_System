@@ -370,7 +370,7 @@ class db
                 ON cocoon.province = province.provCode
                 LEFT JOIN municipality
                 ON cocoon.municipality = municipality.citymunCode
-                ORDER BY cocoon.name ASC";
+                ORDER BY cocoon.created_at DESC";
         // echo $sql;
         // echo die();
         $result = mysqli_query($this->con, $sql);
@@ -438,7 +438,8 @@ class db
                 ON site.topography = topography.topography_id
                 LEFT JOIN cocoon
                 ON site.producer_id =cocoon.cocoon_id
-                ORDER BY site.location ASC";
+                ORDER BY site.location DESC";
+                //ASC DEFAULT
         //           echo $sql;
         // echo die();
         $result = mysqli_query($this->con, $sql);
@@ -451,11 +452,7 @@ class db
     {
         $sql = "SELECT * FROM site
                 LEFT JOIN cocoon
-                ON site.producer_id = cocoon.cocoon_id 
-                LEFT JOIN production
-                ON site.site_id = production.location_id
-                LEFT JOIN topography
-                ON site.topography = topography.topography_id
+                ON cocoon.cocoon_id = site.producer_id
 				WHERE site_id='$site_id'";
         $result = mysqli_query($this->con, $sql);
         return $result;
@@ -2142,6 +2139,94 @@ class db
         $municipality,
         $cocoon_id,
     ) {
+        
+        if (!empty($_FILES['intent']['tmp_name'])) {
+        $intentFileName = $_FILES['intent']['name'];
+        $intentTmpName = $_FILES['intent']['tmp_name'];
+        $intentFileSize = $_FILES['intent']['size'];
+        $intentFileError = $_FILES['intent']['error'];
+
+        if ($intentFileError === UPLOAD_ERR_OK) {
+            $uploadDirectory = "../uploads/";
+
+            $intentUniqueName = uniqid('intent_', true) . '_' . $intentFileName;
+
+            $intentDestination = $uploadDirectory . $intentUniqueName;
+            move_uploaded_file($intentTmpName, $intentDestination);
+        } else {
+            die("File upload failed with error code PDF: $intentFileError");
+        }
+     } else {
+        // File is not uploaded, keep existing path
+        $intentDestination = $intent;
+     }
+
+
+     if (!empty($_FILES['signature']['tmp_name'])) {
+        $signatureFileName = $_FILES['signature']['name'];
+        $signatureTmpName = $_FILES['signature']['tmp_name'];
+        $signatureFileSize = $_FILES['signature']['size'];
+        $signatureFileError = $_FILES['signature']['error'];
+    
+        // Check for file errors for signature file
+        if ($signatureFileError === UPLOAD_ERR_OK) {
+            $uploadDirectory = "../uploads/";
+            $signatureUniqueName = uniqid('signature_', true) . '_' . $signatureFileName;
+            $signatureDestination = $uploadDirectory . $signatureUniqueName;
+            move_uploaded_file($signatureTmpName, $signatureDestination);
+        } else {
+            die("Signature file upload failed with error code Image: $signatureFileError");
+        }
+    } else {
+        // File is not uploaded, keep existing path
+        $signatureDestination = $signature;
+    }
+    
+
+        //ID PIC
+
+        if (!empty($_FILES['id_pic']['tmp_name'])) {
+            $idPicFileName = $_FILES['id_pic']['name'];
+            $idPicTmpName = $_FILES['id_pic']['tmp_name'];
+            $idPicFileSize = $_FILES['id_pic']['size'];
+            $idPicFileError = $_FILES['id_pic']['error'];
+        
+            // Check for file errors for ID Pic file
+            if ($idPicFileError === UPLOAD_ERR_OK) {
+                $uploadDirectory = "../uploads/";
+                $idPicUniqueName = uniqid('idpic_', true) . '_' . $idPicFileName;
+                $idPicDestination = $uploadDirectory . $idPicUniqueName;
+                move_uploaded_file($idPicTmpName, $idPicDestination);
+            } else {
+                die("ID Pic file upload failed with error code Image: $idPicFileError");
+            }
+        } else {
+            // File is not uploaded, keep existing path
+            $idPicDestination = $id_pic;
+        }
+        
+
+        //ByPic
+        if (!empty($_FILES['bypic']['tmp_name'])) {
+            $byPicFileName = $_FILES['bypic']['name'];
+            $byPicTmpName = $_FILES['bypic']['tmp_name'];
+            $byPicFileSize = $_FILES['bypic']['size'];
+            $byPicFileError = $_FILES['bypic']['error'];
+        
+            // Check for file errors for ByPic file
+            if ($byPicFileError === UPLOAD_ERR_OK) {
+                $uploadDirectory = "../uploads/";
+                $byPicUniqueName = uniqid('bypic_', true) . '_' . $byPicFileName;
+                $byPicDestination = $uploadDirectory . $byPicUniqueName;
+                move_uploaded_file($byPicTmpName, $byPicDestination);
+            } else {
+                die("ByPic file upload failed with error code Image: $byPicFileError");
+            }
+        } else {
+            // File is not uploaded, keep existing path
+            $byPicDestination = $bypic;
+        }
+        
 
         $sql = "UPDATE cocoon
                     SET name = '$name',
@@ -2161,10 +2246,10 @@ class db
                         years_in_farming = '$years_in_farming',
                         available_workers = '$available_workers',
                         age = '$age',
-                        intent = '$intent',
-                        signature = '$signature',
-                        id_pic = '$id_pic',
-                        bypic = '$bypic', 
+                        intent = '$intentDestination',
+                        signature = '$signatureDestination',
+                        id_pic = '$idPicDestination',
+                        bypic = '$byPicDestination', 
                         date_validation = '$date_validation',
                         region = '$region',
                         province = '$province',
@@ -2365,4 +2450,109 @@ class db
         return $result;
 
     }
-}
+
+        public function editSite(
+            $site_id,
+            $location,
+            $producer_id,
+            $topography,
+            $address,
+            $area,
+            $crops,
+            $share,
+            $irrigation,
+            $water,
+            $source,
+            $market,
+            $distance,
+            $land_area,
+            $charge,
+            $adopters,
+            $status,
+            $remarks,
+            $names,
+            $position,
+            $date,
+            $name1,
+            $position1,
+            $date1,
+            $name2,
+            $position2,
+            $date2
+        ) {
+            // Escape variables to prevent SQL injection
+            $site_id = mysqli_real_escape_string($this->con, $site_id);
+            $location = mysqli_real_escape_string($this->con, $location);
+            $producer_id = mysqli_real_escape_string($this->con, $producer_id);
+            // Escape other variables as needed...
+        
+            // Construct the SQL query
+            $sql = "UPDATE site SET 
+                        location = '$location',
+                        producer_id = '$producer_id',
+                        topography = '$topography',
+                        address = '$address',
+                        area = '$area',
+                        crops = '$crops',
+                        share = '$share',
+                        irrigation = '$irrigation',
+                        water = '$water',
+                        source = '$source',
+                        market = '$market',
+                        distance = '$distance',
+                        land_area = '$land_area',
+                        charge = '$charge',
+                        adopters = '$adopters',
+                        status = '$status',
+                        remarks = '$remarks',
+                        names = '$names',
+                        position = '$position',
+                        date = '$date',
+                        name1 = '$name1',
+                        position1 = '$position1',
+                        date1 = '$date1',
+                        name2 = '$name2',
+                        position2 = '$position2',
+                        date2 = '$date2'
+                    WHERE site_id = '$site_id'";
+        
+            // Execute the query
+            $result = mysqli_query($this->con, $sql);
+        
+            // Check if the query was successful
+            if ($result) {
+                return true;
+            } else {
+                // If there's an error, return false and log or handle the error as needed
+                return false;
+            }
+        }
+        
+
+        public function updateSiteLands($site_id, $lands)
+        {
+            $site_id = (int)$site_id;
+    
+            $deleteSql = "DELETE FROM site_land WHERE cocoon_id = $site_id";
+            $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+            if (!$deleteResult) {
+                die("Error deleting existing actions: " . mysqli_error($this->con));
+            }
+    
+            foreach ($lands as $action) {
+                // Extract the source_id from the array and cast it to integer
+                $action_id = (int)$action['land_id'];
+                // Insert the action_id into the database
+                $insertSql = "INSERT INTO site_land (cocoon_id, land_id) VALUES ($site_id, $action_id)";
+                $insertResult = mysqli_query($this->con, $insertSql);
+    
+                if (!$insertResult) {
+                    die("Error inserting action: " . mysqli_error($this->con));
+                }
+            }
+    
+            return true;
+        }
+  
+}   
