@@ -20,7 +20,7 @@ if ($_SESSION['type_id'] == 3) {
     exit();
 }
 //checkboxes update
-//tenancy
+//land types
 if (isset($_POST['submit'])) {
     if (isset($_POST['site_id']) && isset($_POST['lands'])) {
         $site_id = $_POST['site_id'];
@@ -35,15 +35,29 @@ if (isset($_POST['submit'])) {
     } else {
     }
 }
-
-
+//Tenancy
 if (isset($_POST['submit'])) {
     if (isset($_POST['site_id']) && isset($_POST['tenancy'])) {
         $site_id = $_POST['site_id'];
         $tenancy = $_POST['tenancy'];
 
         // Update source of income
-        $success = $db->updateSiteLands($site_id, $tenancy);
+        $success = $db->updateSiteTenancy($site_id, $tenancy);
+
+        if ($success) {
+        } else {
+        }
+    } else {
+    }
+}
+//soil
+if (isset($_POST['submit'])) {
+    if (isset($_POST['site_id']) && isset($_POST['soils'])) {
+        $site_id = $_POST['site_id'];
+        $soils = $_POST['soils'];
+
+        // Update source of income
+        $success = $db->updateSiteLandType($site_id, $soil);
 
         if ($success) {
         } else {
@@ -332,13 +346,13 @@ if (isset($_POST['submit'])) {
                                             $resultType = $db->getTenancyActive();
 
                                             $selectedTenancy = $db->selectedTenancy($siteID);
-
+                                            // MULTIPEL CHECK HERE
                                             while ($row = mysqli_fetch_array($resultType)) {
                                                 $checked = in_array($row['tenancy_id'], $selectedTenancy) ? 'checked' : '';
 
 
                                                 echo '<div class="form-check form-check-inline col-md-6 ">';
-                                                echo '<input name="tenancy[]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '" ' . $checked . '>';
+                                                echo '<input name="tenancy[' . $row['tenancy_id'] . '][tenancy_id]" class="form-check-input" type="checkbox" id="' . $row['tenancy_id'] . '" value="' . $row['tenancy_id'] . '" ' . $checked . '>';
                                                 echo '<label class="form-check-label">' . $row['tenancy_name'] . '</label>';
                                                 echo '</div>';
                                             }

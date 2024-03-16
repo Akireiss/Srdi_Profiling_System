@@ -2554,5 +2554,55 @@ class db
     
             return true;
         }
+        public function updateSiteTenancy($site_id, $tenancy)
+        {
+            $site_id = (int)$site_id;
+    
+            $deleteSql = "DELETE FROM site_tenancy WHERE cocoon_id = $site_id";
+            $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+            if (!$deleteResult) {
+                die("Error deleting existing actions: " . mysqli_error($this->con));
+            }
+    
+            foreach ($tenancy as $action) {
+                // Extract the source_id from the array and cast it to integer
+                $action_id = (int)$action['tenancy_id'];
+                // Insert the action_id into the database
+                $insertSql = "INSERT INTO site_tenancy (cocoon_id, tenancy_id) VALUES ($site_id, $action_id)";
+                $insertResult = mysqli_query($this->con, $insertSql);
+    
+                if (!$insertResult) {
+                    die("Error inserting action: " . mysqli_error($this->con));
+                }
+            }
+    
+            return true;
+        }
+        public function updateSiteLandType($site_id, $soils)
+        {
+            $site_id = (int)$site_id;
+    
+            $deleteSql = "DELETE FROM site_soil WHERE cocoon_id = $site_id";
+            $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+            if (!$deleteResult) {
+                die("Error deleting existing actions: " . mysqli_error($this->con));
+            }
+    
+            foreach ($soils as $action) {
+                // Extract the source_id from the array and cast it to integer
+                $action_id = (int)$action['soil_id'];
+                // Insert the action_id into the database
+                $insertSql = "INSERT INTO site_soil (cocoon_id, soil_id) VALUES ($site_id, $action_id)";
+                $insertResult = mysqli_query($this->con, $insertSql);
+    
+                if (!$insertResult) {
+                    die("Error inserting action: " . mysqli_error($this->con));
+                }
+            }
+    
+            return true;
+        }
   
 }   
