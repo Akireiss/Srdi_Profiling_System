@@ -125,285 +125,253 @@ if (isset($message)) {
         </div>
           
         <div class="row mt-3  needs-validation md:w-full" novalidate>
-        <div class="col-md-3">
-    <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
-    <input type="number" class="form-control" id="age" name="age" value="">
-    <div class="valid-feedback">
-    The Age field is required!
-    </div>
-</div>
-<div class="col-md-3">
-    <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
-    <input type="date" class="form-control" id="birthdateInput" name="birthdate">
-    <div class="valid-feedback">
-    The Birthdate field is required!
-    </div>
-</div>
+          <div class="col-md-3">
+            <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
+            <input type="number" class="form-control" id="age" name="age" value="">
+            <div class="valid-feedback">
+            The Age field is required!
+          </div>
+      </div>
+      <div class="col-md-3">
+            <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
+            <input type="date" class="form-control" id="birthdateInput" name="birthdate" required>
+            <div class="valid-feedback">
+            The Birthdate field is required!
+          </div>
+      </div>
 
-          <div class="col-md-3 ">
-                  <label class="form-label">Type of Producer<font color="red">*</font></label>
-                 
-                    <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" >
-                      <option value="" selected disabled>Select Status</option>
-                      <option value="Seed Cocoon">Seed Cocoon</option>
-                      <option value="Commercial">Commercial</option>
-                    </select>
-                    
-                    <div class="invalid-tooltip">
-                      The Type of Producer field is required.
-                    </div>
-                  </div>
-               
-          
-          <div class="col-md-3 ">
+      <div class="col-md-3 ">
+           <label class="form-label">Type of Producer<font color="red">*</font></label>
+               <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="type" required>
+                 <option value="" selected disabled>Select Status</option>
+                 <option value="Seed Cocoon">Seed Cocoon</option>
+                 <option value="Commercial">Commercial</option>
+               </select> 
+         <div class="invalid-tooltip">
+            The Type of Producer field is required.
+          </div>
+       </div>
+ 
+       <div class="col-md-3 ">
             <label for="validationCustom04" class="form-label">Gender<font color = "red">*</font></label>
-            <select class="form-select" name="sex"  aria-label="Default select example" >
+            <select class="form-select" name="sex"  aria-label="Default select example" required>
               <option selected>Select Sex</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
-          </div>
-          <div class="invalid-feedback">
+       </div>
+       <div class="invalid-feedback">
           The Gender field is required
-          </div>
-          </div>
+       </div>
+       </div>
           
-          <div class="row mt-4 needs-validation md:w-full" novalidate>
+      <div class="row mt-4 needs-validation md:w-full" novalidate>
           <div class="col-md-3 position-relative">
-                  <label class="form-label">Region<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "region" id="region" >
-                      <option value="" selected disabled>Select Region</option>
-                      <?php
-                      $regionResult=$db->getRegion();
-                      while($row=mysqli_fetch_array($regionResult)){
-                        echo ucwords('<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>');
-                      }
-                      ?>
-                    </select>
-                  </div>
-                  <div class="invalid-feedback">
-                  The Region field is required
-                  </div>
-                </div>
+            <label class="form-label">Region<font color = "red">*</font></label>
+          <div class="col-sm-12">
+            <select class="form-select" aria-label="Default select example" name = "region" id="region" required>
+              <option value="" selected disabled>Select Region</option>
+                  <?php
+                    $regionResult=$db->getRegion();
+                    while($row=mysqli_fetch_array($regionResult)){
+                     echo ucwords('<option value="'.$row['regCode'].'">' . $row['regDesc'] . '</option>');
+                     }
+                   ?>
+            </select>
+          </div>
+             <div class="invalid-feedback">
+                The Region field is required
+             </div>
+             </div>
 
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">Province<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "province" id="province" >
-                      <option value="" selected disabled>Select Province</option>
-                    </select>
-                  </div>
-                  <div class="invalid-feedback">
-                  The Province field is required
-                  </div>
-                </div>
+          <div class="col-md-3 position-relative">
+              <label class="form-label">Province<font color = "red">*</font></label>
+            <div class="col-sm-12">
+               <select class="form-select" aria-label="Default select example" name = "province" id="province" required>
+                  <option value="" selected disabled>Select Province</option>
+                </select>
+             </div>
+             <div class="invalid-feedback">
+                The Province field is required
+               </div>
+           </div>
 
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">City/Municipality<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "municipality" id="city" >
-                      <option value="" selected disabled>Select City</option>
-                    </select>
-                  </div>
-                  <div class="invalid-feedback">
-                  The City/Municiality field is required
-                  </div>
-                </div>
+          <div class="col-md-3 position-relative">
+             <label class="form-label">City/Municipality<font color = "red">*</font></label>
+           <div class="col-sm-12">
+              <select class="form-select" aria-label="Default select example" name = "municipality" id="city" required>
+                <option value="" selected disabled>Select City</option>
+               </select>
+           </div>
+            <div class="invalid-feedback">
+              The City/Municiality field is required
+            </div>
+         </div>
 
-                <div class="col-md-3 position-relative">
-                  <label class="form-label">Barangay<font color = "red">*</font></label>
-                  <div class="col-sm-12">
-                    <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" >
-                      <option value="" selected disabled>Select Barangay</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="invalid-feedback">
-                The Barangay field is required
-                </div> 
+         <div class="col-md-3 position-relative">
+            <label class="form-label">Barangay<font color = "red">*</font></label>
+        <div class="col-sm-12">
+             <select class="form-select" aria-label="Default select example" name = "barangay" id="barangay" required>
+                <option value="" selected disabled>Select Barangay</option>
+             </select>
+         </div>
+         </div>
+         <div class="invalid-feedback">
+            The Barangay field is required
+         </div> 
           </div>
          
           <div class="row mt-3  needs-validation md:w-full" novalidate>
-          <div class="col-md-4">
-            <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
-            
-            <input type="number" name="address" class="form-control" id="validationCustom03" >
-            <div class="invalid-feedback">
+            <div class="col-md-4">
+              <label for="validationCustom03" class="form-label">House no./House Street<font color = "red">*</font></label>
+                 <input type="number" name="address" class="form-control" id="validationCustom03" >
+          <div class="invalid-feedback">
             The House no. field is required
-            </div>
+          </div>
           </div>
 
-        
           <div class="col-md-4">
-            <label for="validationCustom04" class="form-label">Educational Attainment<font color = "red">*</font></label>
-            <select name="education" class="form-select" id="validationCustom04" >
-                <option  selected>Select Educational Attainment</option>
-                <?php
+             <label for="validationCustom04" class="form-label">Educational Attainment<font color = "red">*</font></label>
+                <select name="education" class="form-select" id="validationCustom04" required>
+                  <option  selected>Select Educational Attainment</option>
+                    <?php
                       $resultType=$db->getEducationActive();
                       while($row=mysqli_fetch_array($resultType)){
                         echo '<option value="'.$row['education_id'].'">' . $row['education_name'] . '</option>';
                       }
-                     
-                      ?>
-              </select>
-            
+                    ?>
+               </select>
             <div class="invalid-feedback">
                 The Educational Attainment field is required
-                </div> 
+            </div> 
             </div>
             
           <div class="col-md-4">
-            <label for="validationCustom05" class="form-label">Religion<font color = "red">*</font></label>
-            <select class="form-select" id="validationCustom04" name="religion" >
-            <option  selected>Select Religion</option>
-                <?php
+              <label for="validationCustom05" class="form-label">Religion<font color = "red">*</font></label>
+                <select class="form-select" id="validationCustom04" name="religion" required>
+                  <option  selected>Select Religion</option>
+                    <?php
                       $resultType=$db->getReligionActive();
                       while($row=mysqli_fetch_array($resultType)){
                         echo '<option value="'.$row['religion_id'].'">' . $row['religion_name'] . '</option>';
                       }
-                      ?>
-              </select>
-              <div class="invalid-feedback">
-                The Religion field is required
-                </div> 
+                    ?>
+                </select>
+          <div class="invalid-feedback">
+              The Religion field is required
+          </div> 
           </div>
           
-          
           <div class="col-md-6 mt-3">
-  <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
-  <select class="form-select" id="civil_status" name="civil_status" >
-    <option selected>Select Civil Status</option>
-    <?php
-    $resultType = $db->getCivilActive();
-    while ($row = mysqli_fetch_array($resultType)) {
-      echo '<option value="' . $row['civil_id'] . '" data-civil-status="' . $row['civil_name'] . '">' . $row['civil_name'] . '</option>';
-    }
-    ?>
-  </select>
-  <div class="invalid-feedback">
-  The Civil Status field is required
-  </div> 
-</div>
-   
-
-<div class="col-md-6 mt-3">
-  <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
-  <input type="text" class="form-control" name="name_spouse" id="spouse" disabled>
-  <div class="invalid-feedback">
-  The Name of spouse field is required
-  </div> 
-</div>      
+            <label for="validationCustom05" class="form-label">Civil Status<font color="red">*</font></label>
+             <select class="form-select" id="civil_status" name="civil_status" required>
+              <option selected>Select Civil Status</option>
+               <?php
+                  $resultType = $db->getCivilActive();
+                  while ($row = mysqli_fetch_array($resultType)) {
+                    echo '<option value="' . $row['civil_id'] . '" data-civil-status="' . $row['civil_name'] . '">' . $row['civil_name'] . '</option>';
+                  }
+               ?>
+            </select>
+            <div class="invalid-feedback">
+            The Civil Status field is required
+            </div> 
+          </div>
+            
+          <div class="col-md-6 mt-3">
+            <label for="validationCustom04" class="form-label">If married, name of spouse<font color="red">*</font></label>
+            <input type="text" class="form-control" name="name_spouse" id="spouse" disabled>
+            <div class="invalid-feedback">
+            The Name of spouse field is required
+            </div> 
+          </div>      
        
-    <div class="col-md-6 mt-3">
-        <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
-    </div>
-    <div class="col-md-6 mt-3">
-        <label for="validationCustom04" class="form-label">Number of family can participate in farm work<font color="red">*</font></label>
-    </div>
-    <div class="col-md-3 mt-3">
-        <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
-        <input type="number" class="form-control" name="farm_participate" id="farm_participate">
-      <div class="invalid-feedback">
-        The Number of Can participate in farm work field is required
-      </div> 
-    </div>
-    <div class="col-md-3 mt-3">
-        <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
-        <input type="number" class="form-control" name="cannot_participate" id="cannot_participate">
-        <div class="invalid-feedback">
-        The Number of Cannot participate in farm work field is required
-      </div>   
-    </div>
-    <div class="col-md-3 mt-3">
-        <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
-        <input type="number" class="form-control" name="male" id="male" >
-        <div class="invalid-feedback">
-        The Number of male can participate in farm work field is required
-      </div>
-    </div>
-    <div class="col-md-3 mt-3">
-        <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
-        <input type="number" class="form-control" name="female" id="female" >
-        <div class="invalid-feedback">
-        The Number of female can participate in farm work field is required
-      </div>
-    </div>
+          <div class="col-md-6 mt-3">
+              <label for="validationCustom04" class="form-label">Number of family members (except you)<font color="red">*</font></label>
+          </div> 
 
-<!--Source of Income-->
-<!-- First Checkbox -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group mt-3">
-            <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
-        </div>
-    </div>
-    <div class="form-row mt-1">
-        <?php
-        $resultType = $db->getSource_IncomeActive();
-        while ($row = mysqli_fetch_array($resultType)) {
-            echo '<div class="form-check form-check-inline col-md-3">';
-            echo '<input class="form-check-input"
-             name="source_income[]" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_id'] . '">';
-            echo '<label class="form-check-label"
-             for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
-            echo '</div>';
-        }
-        ?>
-    </div>
-    <div class="invalid-feedback">
-        The Source of Income field is required
-    </div>
-</div>
+          <div class="col-md-6 mt-3">
+              <label for="validationCustom04" class="form-label">Number of family can participate in farm work<font color="red">*</font></label>
+          </div>
+
+          <div class="col-md-3 mt-3">
+              <label for="validationCustom04" class="form-label">Can participate in farm work<font color="red">*</font></label>
+              <input type="number" class="form-control" name="farm_participate" id="farm_participate">  
+          </div>
+
+          <div class="col-md-3 mt-3">
+              <label for="validationCustom04" class="form-label">Cannot do farm work<font color="red">*</font></label>
+              <input type="number" class="form-control" name="cannot_participate" id="cannot_participate">  
+          </div>
+
+          <div class="col-md-3 mt-3">
+              <label for="validationCustom04" class="form-label">Male<font color="red">*</font></label>
+              <input type="number" class="form-control" name="male" id="male" >
+          </div>
+
+          <div class="col-md-3 mt-3">
+              <label for="validationCustom04" class="form-label">Female<font color="red">*</font></label>
+              <input type="number" class="form-control" name="female" id="female" >
+          </div>
 
 
-<div class="col-md-6 mt-3 ">
-  <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
-  <input type="number" class="form-control" name="years_in_farming" id="validationCustom05">
-  <div class="invalid-feedback">
-        The Number of years in farming field is required
-    </div>
-</div>
-<div class="col-md-6 mt-3 ">
-<label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
-<input type="number" class="form-control" name="available_workers" id="validationCustom05" >
-<div class="invalid-feedback">
-The Number of available workers field is required
-</div>
-</div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="form-group mt-3">
+                      <label for="validationCustom04" name="source_income" class="form-label">Source of Income<font color="red">*</font></label>
+                  </div>
+              </div>
+              <div class="form-row mt-1">
+                  <?php
+                  $resultType = $db->getSource_IncomeActive();
+                  while ($row = mysqli_fetch_array($resultType)) {
+                      echo '<div class="form-check form-check-inline col-md-3">';
+                      echo '<input class="form-check-input"
+                      name="source_income[]" type="checkbox" id="source_income' . $row['source_id'] . '" value="' . $row['source_id'] . '">';
+                      echo '<label class="form-check-label"
+                      for="source_income' . $row['source_id'] . '">' . $row['source_name'] . '</label>';
+                      echo '</div>';
+                  }
+                  ?>
+              </div>
+          </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="form-group mt-3">
-      <label for="validationCustom04" name="farm_tool">Available Farm Tools and Implements<font color="red">*</font></label>    
-    </div>
-    <div class="form-row mt-1">
-    <?php
-    $resultType = $db->getFarmToolsActive();
-    while ($row = mysqli_fetch_array($resultType)) {
-        echo '<div class="form-check form-check-inline col-md-3">';
-        echo '<input class="form-check-input" name="farm_tool[]" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '">';
-        echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
-        echo '</div>';
-    }
-    ?>
-</div>
+          <div class="col-md-6 mt-3 ">
+            <label for="validationCustom04" class="form-label">Number of years in farming<font color = "red">*</font></label>
+            <input type="number" class="form-control" name="years_in_farming" id="validationCustom05">    
+          </div>
+                    
+          <div class="col-md-6 mt-3 ">
+            <label for="validationCustom04" class="form-label">Number of available workers<font color = "red">*</font></label>
+            <input type="number" class="form-control" name="available_workers" id="validationCustom05" >
+          </div>
 
-  </div>
-  <div class="invalid-feedback">
-  The Available farm tools field is required
-  </div>
-</div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group mt-3">
+                <label for="validationCustom04" name="farm_tool">Available Farm Tools and Implements<font color="red">*</font></label>    
+              </div>
+              <div class="form-row mt-1">
+              <?php
+              $resultType = $db->getFarmToolsActive();
+              while ($row = mysqli_fetch_array($resultType)) {
+                  echo '<div class="form-check form-check-inline col-md-3">';
+                  echo '<input class="form-check-input" name="farm_tool[]" type="checkbox" id="' . $row['tool_id'] . '" value="' . $row['tool_id'] . '">';
+                  echo '<label class="form-check-label" for="' . $row['tool_id'] . '">' . $row['tool_name'] . '</label>';
+                  echo '</div>';
+              }
+              ?>
+          </div>    
+          </div>
 
 <!-- Add some spacing here -->
         <div class="my-4"></div>
-
-        <div class="row">
-          <div class="col-md-6 ">
-            <div class="form-group">
-              <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg" required>
-              <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
-            </div>
+          <div class="row">
+            <div class="col-md-6 ">
+              <div class="form-group">
+                <input type="file" class="form-control w-50" name="id_pic" id="validationCustom05" accept=".jpeg, .jpg" required>
+                <label for="validationCustom04" class="form-label">ID Picture (JPEG only)</label>
+              </div>
           </div>
 
           <div class="col-md-6 d-flex justify-content-end">
@@ -435,19 +403,18 @@ The Number of available workers field is required
            <button type="reset" class="btn btn-primary">Clear</button>
            <a href ="ct.php" class="btn btn-danger">Cancel</a>
         </div>
-    </div>
-  </div>
-  </form>
+        </div>
+       </div>
+     </form>
+   </div>
 </div>
-
-</div>
-</div>
-     
-</div>
-</div>
-</div>
-</div>
-</div> 
+      </div>
+          
+      </div>
+      </div>
+      </div>
+      </div>
+      </div> 
  
 </section>
     </main> <!--END MAIN-->

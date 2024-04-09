@@ -1,10 +1,15 @@
 <?php
-  session_start();
-  include '../db_con.php';
-  $db = new db;
-  if(!isset($_SESSION['user_id'])){
+session_start();
+include '../db_con.php';
+$db = new db();
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+if(!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-  }
+}
 ?>
 
 
@@ -21,41 +26,54 @@
 
 
 <?php
-             $result=$db->getSiteID($_GET['site_id']);
-            while($row=mysqli_fetch_object($result)){
-              
-            //Site Table
-                $location             = $row->location; 
-                $topography           = $row->topography;
-                $topographyName       = $row->topography_name;
-                $address              = $row->address; 
-                $distance             = $row->distance; 
-                $land_area            = $row->land_area;
-                $area                 = $row->area;
-                $crops                 = $row->crops;
-                $share                 = $row->share;
-                $names                = $row->names;
-                $position             = $row->position;
-                $date                 = $row->date;
-                $name1                = $row->name1;
-                $position1             = $row->position1;
-                $date1                 = $row->date1;
-                $name2                = $row->name2;
-                $position2             = $row->position2;
-                $date2                 = $row->date2;
-                $birthdate            = $row->birthdate;
-            //Production Table
-                $production_date      = $row->production_date;
-                $total_production     = $row->total_production;
-                $p_income    = $row->p_income;
-                $p_cost     = $row->p_cost;
-                $n_income     = $row->n_income;
-                $irrigation  = $row->irrigation;
-                $market  = $row->market;
+             $result = $db->getSiteID($_GET['site_id']);
+while($row = mysqli_fetch_object($result)) {
 
-    
-            }
-        ?>
+    //Site Table
+    $location             = $row->location;
+    $topography           = $row->topography;
+    $topographyName       = $row->topography_name;
+    $address              = $row->address;
+    $distance             = $row->distance;
+    $land_area            = $row->land_area;
+    $area                 = $row->area;
+    $crops                 = $row->crops;
+    $share                 = $row->share;
+    $water                 = $row->water;
+
+    $names                = $row->names;
+    $position             = $row->position;
+    $date                 = $row->date;
+
+
+
+    $name1                = $row->name1;
+    $position1             = $row->position1;
+    $date1                 = $row->date1;
+
+    $name2                = $row->name2;
+    $position2             = $row->position2;
+    $date2                 = $row->date2;
+
+
+    $birthdate            = $row->birthdate;
+
+    //Production Table
+    $production_date      = $row->production_date;
+    $total_production     = $row->total_production;
+
+
+    // Cocoon 
+    $p_income    = $row->p_income;
+    $p_cost     = $row->p_cost;
+    $n_income     = $row->n_income;
+    $irrigation  = $row->irrigation;
+    $market  = $row->market;
+    $cocoonId = $row->cocoon_id;
+
+
+}
+?>
 
 
     <!doctype html>
@@ -68,7 +86,7 @@
 
         <style type="text/css">
             * {
-                font-family: Verdana, Arial, sans-serif;
+                font-family:'Times New Roman', Times, serif;
             }
 
             .page-break {
@@ -213,148 +231,245 @@
         </table>
 
 
-
-
-        <table width="100%">
+        <table width="100%" style="margin: 15px 0px">
             <tbody>
                 <tr>
-
-        <tr>
-                    <td></td>
-                    <td class="bold" width="80%">Land Types:</td>
-                    
-                    <td class="bold" width="50%">Tenancy Status:</td>
-                   
-                </tr>
-                </tr>
-                <tr>
-     
-
-                </tr>
-            </tbody>
-        </table>
-
- 
-        <!-- <table width="100%">
-            <tbody>
-                <tr>
-
-        <tr>
-                    <td></td>
-
-                    <td width="14%">
-                        <div class="checkbox"></div>
-                    <label for="Uplands">Low</label>
-                </td>
-
-                    <td  width="20%"><div class="checkbox"></div>
-                    <label for="Uplands">Leased</label></td>
-
-                    <td  width="20%"><span class="underline"></span></td>
-
-                    <td  width="20%"></td>
-
-                    <td  width="20%"></td>
-                </tr>
-
-
-                </tr>
-            </tbody>
-        </table> -->
-    
-
-
-        <!-- <table width="100%">
-            <tbody>
-                <tr>
-
-        <tr>
-                    <td width=""></td>
-
-                    <td width="14%""><div class="checkbox"></div>
-                    <label for="Uplands">Hilly</label></td>
-
-                    <td" width="20%"><div class="checkbox"></div>
-                    <label for="Uplands">Tenancy</label></td>
-
-                    <td" width="20%"><span class="underline">  </span></td>
-
-                    <td" width="20%"></td>
-
-                    <td" width="20%"></td>
-                </tr>
-
-
-                </tr>
-            </tbody>
-        </table> -->
-        <table width="100%">
-
-
-
-        <tbody>
-    <tr>
-        <td>Availability of reliable irrigation:</td>
-        <td>
-            <div class="<?php echo ($irrigation == 'Available') ? 'check' : 'checkbox'; ?>"></div>
-            <label class="label">Available</label>
-        </td>
-        <td>
-            <div class="<?php echo ($irrigation == 'Not Available') ? 'check' : 'checkbox'; ?>"></div>
-            <label class="label">Not Available</label>
-        </td>
-    </tr>
-</tbody>
-
-
-</table>
-
-
-        <table width="100%">
-            <tbody>
-                <tr>
-                <td ">
-                  <td>If irrigated, source of irrigation:</td>
-                  <td  >
-                        <div class="checkbox"></div>
-                        <label class="label">River</label>
-                    </td>
-
-
-                    <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Deep well</label>
-                    </td>
-
-                    <td class="mb">
-                        <div class="checkbox"></div>
-                        <label class="label">NIA</label>
-                    </td>
-
-
-                </tr>
-            </tbody>
-        </table>
-
-        <table width="100%">
-            <tbody>
-                <tr>
-                  <td >Soil Type:</td>
-                  <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Sandy</label>
-                    </td>
-                    <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Silty</label>
-                    </td>
-                    <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Loam</label>
+                    <td class="bold">
+                        Land Types
                     </td>
                 </tr>
             </tbody>
         </table>
+        
+        <?php
+            $result = $db->getSelectedLandPdf($_GET['site_id']);
+            $selectedSources = array(); // Array to store selected sources
+            while ($row = mysqli_fetch_array($result)) {
+                $selectedSources[] = $row['land_id']; // Store source_id in the array
+            }
+            ?>
+            <?php
+            $result = $db->getLands();
+            $count = 0;
+            echo '<table width="80%"><tbody><tr>';
+            while ($row = mysqli_fetch_array($result)) {
+                if ($count % 2 == 0 && $count != 0) {
+                    echo '</tr><tr>';
+                }
+        ?>
+
+<td width="100%" style="vertical-align: top;">
+    <div style="display: inline-block;">
+        <div class="<?php echo in_array($row['land_id'], $selectedSources) ? 'check' : 'checkbox'; ?>" style="display: inline-block;">
+            <input type="checkbox" name="source_<?php echo $row['land_id']; ?>" <?php echo in_array($row['land_id'], $selectedSources) ? 'checked' : ''; ?>>
+        </div>
+        <?php if (!empty($row['land_name'])): ?>
+            <label for="source_<?php echo $row['land_id']; ?>" style="display: inline-block;"><?php echo $row['land_name']; ?></label>
+        <?php endif; ?>
+    </div>
+</td>
+
+
+
+<?php
+    $count++;
+}
+
+// Close the last row and table
+echo '</tr></tbody></table>';
+?>
+
+
+
+
+<table width="100%" style="margin: 15px 0px">
+            <tbody>
+                <tr>
+                    <td class="bold">
+                        Tenency Status
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <?php
+            $result = $db->getSelectedTenancy($_GET['site_id']);
+            $selectedSources = array(); // Array to store selected sources
+            while ($row = mysqli_fetch_array($result)) {
+                $selectedSources[] = $row['tenancy_id']; // Store source_id in the array
+            }
+            ?>
+            <?php
+            $result = $db->getTenancyPdf();
+            $count = 0;
+            echo '<table width="80%"><tbody><tr>';
+            while ($row = mysqli_fetch_array($result)) {
+                if ($count % 2 == 0 && $count != 0) {
+                    echo '</tr><tr>';
+                }
+        ?>
+
+<td width="100%" style="vertical-align: top;">
+    <div style="display: inline-block;">
+        <div class="<?php echo in_array($row['tenancy_id'], $selectedSources) ? 'check' : 'checkbox'; ?>" style="display: inline-block;">
+            <input type="checkbox" name="source_<?php echo $row['tenancy_id']; ?>" <?php echo in_array($row['tenancy_id'], $selectedSources) ? 'checked' : ''; ?>>
+        </div>
+        <?php if (!empty($row['tenancy_name'])): ?>
+            <label for="source_<?php echo $row['tenancy_id']; ?>" style="display: inline-block;"><?php echo $row['tenancy_name']; ?></label>
+        <?php endif; ?>
+    </div>
+</td>
+
+
+
+<?php
+    $count++;
+}
+
+// Close the last row and table
+echo '</tr></tbody></table>';
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td>Availability of reliable irrigation:</td>
+                    <td>
+                        <div class="<?php echo ($irrigation == 'Available') ? 'check' : 'checkbox'; ?>"></div>
+                        <label class="label">Available</label>
+                    </td>
+                    <td>
+                        <div class="<?php echo ($irrigation == 'Not Available') ? 'check' : 'checkbox'; ?>"></div>
+                        <label class="label">Not Available</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td>Water Source:</td>
+                    <td>
+                        <div class="<?php echo ($water == 'Irrigated') ? 'check' : 'checkbox'; ?>"></div>
+                        <label class="label">Irrigated</label>
+                    </td>
+                    <td>
+                        <div class="<?php echo ($water == 'Rainfed') ? 'check' : 'checkbox'; ?>"></div>
+                        <label class="label">Rainfed</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+<!-- Test hererere -->
+
+
+
+
+<table width="100%" style="margin: 15px 0px">
+
+            <tbody>
+                <tr>
+                    <td class="bold">
+                        Soil Type
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        <?php
+            $result = $db->getSelectedSiteSoil($_GET['site_id']);
+            $selectedSources = array(); // Array to store selected sources
+            while ($row = mysqli_fetch_array($result)) {
+                $selectedSources[] = $row['soil_id']; // Store source_id in the array
+            }
+            ?>
+            <?php
+            $result = $db->getSoils();
+            $count = 0;
+            echo '<table width="80%"><tbody><tr>';
+            while ($row = mysqli_fetch_array($result)) {
+                if ($count % 2 == 0 && $count != 0) {
+                    echo '</tr><tr>';
+                }
+        ?>
+
+<td width="100%" style="vertical-align: top;">
+    <div style="display: inline-block;">
+        <div class="<?php echo in_array($row['soil_id'], $selectedSources) ? 'check' : 'checkbox'; ?>" style="display: inline-block;">
+            <input type="checkbox" name="source_<?php echo $row['soil_id']; ?>" <?php echo in_array($row['soil_id'], $selectedSources) ? 'checked' : ''; ?>>
+        </div>
+        <?php if (!empty($row['soil_name'])): ?>
+            <label for="source_<?php echo $row['soil_id']; ?>" style="display: inline-block;"><?php echo $row['soil_name']; ?></label>
+        <?php endif; ?>
+    </div>
+</td>
+
+
+
+
+
+
+
+    <?php
+    $count++;
+}
+
+// Close the last row and table
+echo '</tr></tbody></table>';
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <table width="100%">
     <tbody>
@@ -402,44 +517,48 @@
             </tbody>
         </table>
 <br>
+<table width="100%">
+    <tbody>
+        <tr>
+        <td width="25%">Name <div style="border-bottom: 1px solid black; width: 80%;"><?php echo !empty($names) ? $names : "____________________"; ?></div></td>
 
-        <table width="100%">
-        <tbody>
-        <tbody>
-        <tbody>
+
+<td width="25%">Position <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($positions) ? $positions : "___________"; ?></div></td>
+
+    <td>Signature <div class="underline">___________</div></td>  
+    <td width="20%">Date <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($date) ? $date : "___________"; ?></div></td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
     <tr>
-        <td width="25%">Name <div class="underline"> <?php echo $names;?> </div></td>
-        <td width="25%">Position <div class="underline"> <?php echo $position;?> </div></td> 
-        <td>Signature <div class="underline" style="border-bottom: 1px solid black;"></div></td> <!-- Underline below Signature -->
-        <td width="20%">Date <div class="underline"> <?php echo $date;?> </div></td>  
-    </tr>
-</tbody>
+        <td width="25%">Name <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($name1) ? $name1 : "___________"; ?></div></td>
 
-</tbody>
+        <td width="25%">Position <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($position1) ? $position1 : "___________"; ?></div></td>
 
-</tbody>
+            <td>Signature <div class="underline">___________</div></td>  
+            <td width="20%">Date <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($date1) ? $date1 : "___________"; ?></div></td>
 
-        </table>
-        <table width="100%">
-            <tbody>
-                <tr>
-                  <td  width="25%">Name <div class="underline"> <?php echo $name1;?> </div></td>
-                  <td width="25%">Position <div class="underline"> <?php echo $position1;?> </d></td> 
-                  <td >Signature</td>  
-                  <td width="20%">Date <div class="underline"> <?php echo $date1;?> </div></td>  
-                </tr>
-            </tbody>
-        </table>
-        <table width="100%">
-            <tbody>
-                <tr>
-                  <td  width="25%">Name <div class="underline"> <?php echo $name2;?> </div></td>
-                  <td width="25%">Position <div class="underline"> <?php echo $position2;?> </d></td> 
-                  <td width="25%">Signature <div class="underline"></td>  
-                  <td width="20%">Date <div class="underline"> <?php echo $date2;?> </div></td>  
-                </tr>
-            </tbody>
-        </table>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <tbody>
+        <tr>
+        <td width="25%">Name <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($name2) ? $name2 : "___________"; ?></div></td>
+
+        <td width="25%">Position <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($position2) ? $position2 : "___________"; ?></div></td>
+
+            <td>Signature <div class="underline">___________</div></td>  
+            <td width="20%">Date <div  style="border-bottom: 1px solid black; width: 80%;" class="underline"><?php echo !empty($date2) ? $date2 : "___________"; ?></div></td>
+
+        </tr>
+    </tbody>
+</table>
+
         
         <table width="100%">
             <tbody>
@@ -458,35 +577,38 @@
             </tbody>
         </table>
 
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <td >Production Date:<span class="underline"> <?php echo $production_date;?></td>
-                </tr>
-            </tbody>
-        </table>    
 
+
+
+        <!-- Loop the production here -->
 
 
         <table width="100%">
             <tbody>
                 <tr>
-                    <td width ="15%">Total Production: <div class="underline"> <?php echo $total_production;?> </td>
-                    <td width ="15%">Gross Income: <div class="underline"> <?php echo $p_income;?> </td>
-                    <td width ="15%">Production Cost: <div class="underline"> <?php echo $p_cost;?> </td>
-                    <td width ="10%">Net Income: <div class="underline"> <?php echo $n_income;?> </td>
+                    <td width ="15%">Production Date: </td>
+                    <td width ="15%">Total Production: </td>
+                    <td width ="15%">Gross Income:   </td>
+                    <td width ="15%">Production Cost: </td>
+                    <td width ="10%">Net Income: </td>
                 </tr>
             </tbody>
             <tbody>
-<!--                 ?php
-$result = $db->getCocoonProducer($cocoonID);
-while ($row = mysqli_fetch_array($result)) {
-    echo '<tr>';
-    // echo '<td>' . $row['location'] . '</a></td>';
 
-    echo '</tr>';
-}
-?> -->
+                <?php
+            $result = $db->getCocoonProducer($cocoonId);
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<tr>';
+                echo '<td>' . date('F d, Y', strtotime($row['production_date'])) . '</td>';
+
+                echo '<td>' . $row['total_production'] . '</a></td>';
+                echo '<td>' . number_format($row['p_income'], 2) . '</td>';
+                echo '<td>' . number_format($row['p_cost'], 2) . '</td>';
+                echo '<td>' . number_format($row['n_income'], 2) . '</td>';
+                
+                echo '</tr>';
+            }
+?> 
             </tbody>
         </table>
 

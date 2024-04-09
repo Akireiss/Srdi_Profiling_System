@@ -207,22 +207,19 @@ if (!isset ($_SESSION['user_id'])) {
         </table>
 
         <table>
-            <tbody>
-                <tr>
-                    <td width="15%">Name: <span class="underline">
-                            <?php echo $name ?>
-                        </span></td>
-                    <td width="15%">Birthdate: <span class="underline">
-                            <?php echo $birthdate ?>
-                        </span></td>
-                    <td width="15%">Age:<span class="underline">
-                            <?php echo $age ?>
-                        </span></td>
-                    <td width="15%">Sex: <span class="underline">
-                            <?php echo $sex ?>
-                        </span></td>
-                </tr>
-        </table>
+    <tbody>
+        <tr>
+            <td width="20%">Name: <span class="underline"><?php echo $name ?></span></td>
+            <td width="9%"></td><!-- Add space -->
+            <td width="15%">Birthdate: <span class="underline"><?php echo $birthdate ?></span></td>
+            <td width="5%"></td><!-- Add space -->
+            <td width="15%">Age:<span class="underline"><?php echo $age ?></span></td>
+            <td width="10%"></td><!-- Add space -->
+            <td width="15%">Sex: <span class="underline"><?php echo $sex ?></span></td>
+        </tr>
+    </tbody>
+</table>
+
 
         <table>
             <tr>
@@ -324,39 +321,41 @@ if (!isset ($_SESSION['user_id'])) {
                 </tr>
             </tbody>
         </table>
-
-
-
         <?php
-        $result = $db->getSelectedSource($_GET['cocoon_id']);
-        $selectedSources = array(); // Array to store selected sources
-        while ($row = mysqli_fetch_array($result)) {
-            $selectedSources[] = $row['source_id']; // Store source_id in the array
-        }
-        ?>
-        <?php
-        $result = $db->getPdfSource();
-        $count = 0;
-        echo '<table width="80%"><tbody><tr>';
-        while ($row = mysqli_fetch_array($result)) {
-            if ($count % 2 == 0 && $count != 0) {
-                echo '</tr><tr>';
+            $result = $db->getSelectedSource($_GET['cocoon_id']);
+            $selectedSources = array(); // Array to store selected sources
+            while ($row = mysqli_fetch_array($result)) {
+                $selectedSources[] = $row['source_id']; // Store source_id in the array
             }
             ?>
-            <td width="100%" style="vertical-align: right;">
-                <div class="<?php echo in_array($row['source_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
-                    <span style="margin: 2px 45px">
-                        <?php echo $row['source_name']; ?>
-                    </span>
-                </div>
-            </td>
             <?php
-            $count++;
-        }
-
-        // Close the last row and table
-        echo '</tr></tbody></table>';
+            $result = $db->getPdfSource();
+            $count = 0;
+            echo '<table width="80%"><tbody><tr>';
+            while ($row = mysqli_fetch_array($result)) {
+                if ($count % 2 == 0 && $count != 0) {
+                    echo '</tr><tr>';
+                }
         ?>
+    <td width="50%" style="vertical-align: top;">
+        <div style="display: flex; align-items: center;">
+            <div class="<?php echo in_array($row['source_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
+                <input type="check" name="source_<?php echo $row['source_id']; ?>" <?php echo in_array($row['source_id'], $selectedSources) ? 'checked' : ''; ?>>
+               
+            </div>
+            <?php if (!empty($row['source_name'])): ?>
+                <label for="source_<?php echo $row['source_id']; ?>"><?php echo $row['source_name']; ?></label>
+            <?php endif; ?>
+        </div>
+    </td>
+    <?php
+    $count++;
+}
+
+// Close the last row and table
+echo '</tr></tbody></table>';
+?>
+
 
 
         <table width="75%">
@@ -386,41 +385,41 @@ if (!isset ($_SESSION['user_id'])) {
 
 
         <?php
-        $result = $db->getSelectedFarmTool($_GET['cocoon_id']);
-        $selectedSources = array(); // Array to store selected sources
-        while ($row = mysqli_fetch_array($result)) {
-            $selectedSources[] = $row['tool_id']; // Store tool_id in the array
-        }
-        ?>
+$result = $db->getSelectedFarmTool($_GET['cocoon_id']);
+$selectedSources = array(); // Array to store selected sources
+while ($row = mysqli_fetch_array($result)) {
+    $selectedSources[] = $row['tool_id']; // Store source_id in the array
+}
+?>
+<?php
+$result = $db->getPdfFarmTool();
+$count = 0;
+echo '<table width="80%"><tbody><tr>';
+while ($row = mysqli_fetch_array($result)) {
+    if ($count % 2 == 0 && $count != 0) {
+        echo '</tr><tr>';
+    }
+    ?>
+    <td width="50%" style="vertical-align: top;">
+        <div style="display: flex; align-items: center;">
+            <div class="<?php echo in_array($row['tool_id'], $selectedSources) ? 'check' : 'checkbox'; ?>">
+                <input type="check" name="source_<?php echo $row['tool_id']; ?>" <?php echo in_array($row['tool_id'], $selectedSources) ? 'checked' : ''; ?>>
+               
+            </div>
+            <?php if (!empty($row['tool_name'])): ?>
+                <label for="source_<?php echo $row['tool_id']; ?>"><?php echo $row['tool_name']; ?></label>
+            <?php endif; ?>
+        </div>
+    </td>
+    <?php
+    $count++;
+}
 
-        <?php
-        $result = $db->getPdfFarmTool();
-        $count = 0; 
-        echo '<table width="100%"><tbody><tr>';
-        while ($row = mysqli_fetch_array($result)) {
-            
-            if ($count % 2 == 0) {
-                echo '<table><tbody><tr>';
-            }
-            ?>
-            <td width="100%" style="vertical-align: top;">
-                <div class="<?php echo in_array($row['tool_id'], $selectedSources) ? 'check' : 'checkbox'; ?>"
-                <span style="margin: 2px 45px">
-                        <?php echo $row['tool_name']; ?>
-                </div>
-            </td>
-            <?php
-            // If the counter is divisible by 2 or it's the last label, close the table row
-            if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
-                echo '</tr>';
-            }
-            // If the counter is odd (i.e., second label in the row), close the table row
-            if ($count % 2 != 0 || mysqli_num_rows($result) - 1 == $count) {
-                echo '</tbody></table>';
-            }
-            $count++;
-        }
-        ?>
+// Close the last row and table
+echo '</tr></tbody></table>';
+?>
+
+
 
         <div class="page-break"></div>
 
@@ -433,3 +432,6 @@ if (!isset ($_SESSION['user_id'])) {
         <body>
 
     </html>
+
+
+    <!--  -->

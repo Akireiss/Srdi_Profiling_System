@@ -192,74 +192,54 @@ if (isset($_POST['submit'])) {
                         <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                             <div class="card-body w-100">
 
-                                <h5 class="card-title">A. Personal Information
+                                <h5 class="card-title">A. Personal Information </h5>
 
 
-                                </h5>
+          <div class="col-md-2">
+              <label for="validationCustom02" class="form-label">Date of Validation<font color="red">*</font></label>
+                  <input type="date" class="form-control" id="validationTooltip01" name="date_validation" value="<?php echo $date_validation; ?>">
+           <div class="valid-feedback">
+                The Date Validation field is required!
+             </div>
+           </div>
+                <input type="hidden" class="form-control" id="val idationTooltip01" name="cocoon_id" value="<?php echo $cocoonID; ?>">
+            <div class="row mt-3 needs-validation md:w-full" novalidate>
+               <div class="col-md-6">
+                  <label for="validationCustom01" class="form-label">Name<font color="red">*</font></label>
+                   <input type="text" class="form-control" id="validationTooltip01" name="name" value="<?php echo $name; ?>">
+             <div class="valid-feedback">
+                 The Name field is required!
+              </div>
+             </div>
 
+             <div class="col-md-6 position-relative">
+                <label class="form-label">Status<font color="red">*</font></label>
+              <div class="col-sm-12">
+                <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" >
+                   <?php
+                     if (!empty($status)) {
+                       echo '<option value="Active" ' . ($status == 'Active' ? 'selected' : '') . '>Active</option>';
+                        echo '<option value="Inactive" ' . ($status == 'Inactive' ? 'selected' : '') . '>Inactive</option>';
+                      } else {
+                         echo '<option value="Active">Active</option>';
+                        echo '<option value="Inactive">Inactive</option>';
+                      }
+                   ?>
+             </select>
+            </div>
+           </div>
+        </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationCustom02" class="form-label">Date of Validation<font color="red">*</font></label>
-                                    <input type="date" class="form-control" id="validationTooltip01" name="date_validation" value="<?php echo $date_validation; ?>">
-                                    <div class="valid-feedback">
-                                        The Date Validation field is required!
-                                    </div>
-                                </div>
+   <div class="row mt-3  needs-validation md:w-full" novalidate>
+     <div class="col-md-3">
+       <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
+          <input type="number" class="form-control" id="age" name="age" value="<?php echo $age; ?>">
+     </div>
 
-                                <input type="hidden" class="form-control" id="val idationTooltip01" name="cocoon_id" value="<?php echo $cocoonID; ?>">
-
-                                <div class="row mt-3 needs-validation md:w-full" novalidate>
-                                    <div class="col-md-6">
-                                        <label for="validationCustom01" class="form-label">Name<font color="red">*</font></label>
-
-
-                                        <input type="text" class="form-control" id="validationTooltip01" name="name" value="<?php echo $name; ?>">
-                                        <div class="valid-feedback">
-                                            The Name field is required!
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 position-relative">
-                                        <label class="form-label">Status<font color="red">*</font></label>
-                                        <div class="col-sm-12">
-                                            <select class="form-select" aria-label="Default select example" id="validationTooltip03" name="status" required>
-                                                <?php
-                                                // Check if the $status variable is not empty
-                                                if (!empty($status)) {
-                                                    // Use a ternary operator for cleaner code
-                                                    echo '<option value="Active" ' . ($status == 'Active' ? 'selected' : '') . '>Active</option>';
-                                                    echo '<option value="Inactive" ' . ($status == 'Inactive' ? 'selected' : '') . '>Inactive</option>';
-                                                } else {
-                                                    // If $status is empty, provide default options
-                                                    echo '<option value="Active">Active</option>';
-                                                    echo '<option value="Inactive">Inactive</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                            <div class="invalid-tooltip">
-                                                The Status field is required.
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row mt-3  needs-validation md:w-full" novalidate>
-                                    <div class="col-md-3">
-                                        <label for="validationCustom02" class="form-label">Age<font color="red">*</font></label>
-                                        <input type="number" class="form-control" id="age" name="age" value="<?php echo $age; ?>">
-                                        <div class="valid-feedback">
-                                            The Age field is required!
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
-                                        <input type="date" class="form-control" id="validationTooltip01" name="birthdate" value="<?php echo $birthdate; ?>">
-                                        <div class="valid-feedback">
-                                            The Birthdate field is required!
-                                        </div>
-                                    </div>
+     <div class="col-md-3">
+       <label for="validationCustom02" class="form-label">Birthdate<font color="red">*</font></label>
+        <input type="date" class="form-control" id="validationTooltip01" name="birthdate" value="<?php echo $birthdate; ?>">
+      </div>
 
                                     <div class="col-md-3 ">
                                         <label class="form-label">Type of Producer<font color="red">*</font></label>

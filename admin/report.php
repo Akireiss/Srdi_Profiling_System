@@ -78,8 +78,10 @@ if (isset($_GET['submit'])) {
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body ">
-              <form class="row mt-3 needs-validation md:w-full" novalidate action="../pdf/report.php" method="GET" id="reportForm" target="_blank">
-                <div class="col-md-6 position-relative">
+
+
+              <form class="row mt-3 needs-validation md:w-full" novalidate action="../excel/excel.php" method="GET" id="reportForm" target="_blank">
+                <div class="col-md-12 position-relative">
                   <label class="form-label">Choose Report<font color="red">*</font></label>
                   <select class="form-select" aria-label="Default select example" name="report_type" id="report" required>
                     <option value="" selected>Select Report</option>
@@ -90,7 +92,7 @@ if (isset($_GET['submit'])) {
                 </div>
 
                 <div class="row mt-3 needs-validation md:w-full" novalidate>
-          <div class="col-md-3 position-relative">
+          <div class="col-md-4 position-relative">
                   <label class="form-label">Region<font color = "red">*</font></label>
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" name="region" id="region" >
@@ -105,7 +107,7 @@ if (isset($_GET['submit'])) {
                   </div>
                 </div>
 
-                <div class="col-md-3 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">Province<font color = "red">*</font></label>
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" name="province" id="province" >
@@ -114,7 +116,7 @@ if (isset($_GET['submit'])) {
                   </div>
                 </div>
 
-                <div class="col-md-3 position-relative">
+                <div class="col-md-4 position-relative">
                   <label class="form-label">City/Municipality<font color = "red">*</font></label>
                   <div class="col-sm-12">
                     <select class="form-select" aria-label="Default select example" name ="municipality" id="city" >
@@ -155,7 +157,7 @@ if (isset($_GET['submit'])) {
                 
                
                 <div class="row mt-3 needs-validation md:w-full" novalidate>
-                <div class="col-md-3 position-relative">
+                <div class="col-md-6 position-relative">
                   <label class="form-label">Date from</label>
                   <div class="col-sm-12">
                     <input type="date" class="form-control" aria-label="Default select example" name="date_from" id="date_from" required>
@@ -165,7 +167,7 @@ if (isset($_GET['submit'])) {
                 
                 
                 
-                <div class="col-md-3 position-relative">
+                <div class="col-md-6 position-relative">
                   <label class="form-label">Date to</label>
                   <div class="col-sm-12">
                     <input type="date" class="form-control" aria-label="Default select example" name="date_to" id="date_to" required>
@@ -179,6 +181,8 @@ if (isset($_GET['submit'])) {
                   <button type="reset" class="btn btn-primary">Cancel</button>
                 </div>
               </form>
+
+
               </div>
 
             </div>

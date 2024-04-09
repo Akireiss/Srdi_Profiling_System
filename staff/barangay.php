@@ -1,18 +1,18 @@
 <?php
-  session_start();
-  include '../db_con.php';
-  $db = new db;
-  if(!isset($_SESSION['user_id'])){
+session_start();
+include '../db_con.php';
+$db = new db();
+if(!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
-  }
-  if ($_SESSION['type_id'] == 1) {
+}
+if ($_SESSION['type_id'] == 1) {
     header("Location:  ../auth/login.php");
-    exit(); 
+    exit();
 }
 
 if ($_SESSION['type_id'] == 3) {
-  header("Location:  ../auth/login.php");
-  exit(); 
+    header("Location:  ../auth/login.php");
+    exit();
 }
 ?>
 
@@ -57,20 +57,20 @@ if ($_SESSION['type_id'] == 3) {
             <tbody>
     <?php
     $result = $db->getBarangay();
-    while ($row = mysqli_fetch_array($result)) {
-        echo '<tr>';
-        echo '<td>' . $row['brgyCode'] . '</a></td>';
-        echo '<td>' . $row['brgyDesc'] . '</td>';
-        echo '<td>' . $row['regCode'] . '</td>';
-        echo '<td>' . $row['provCode'] . '</td>';
-        echo '<td>' . $row['citymunCode'] . '</td>';
-        echo '<td>';
-        echo '<a href="view_user.php?id=' . $row['barangay_id'] . '"><i class="ri-eye-line"></i></a>';
-        echo '<a href="edit_user.php?id=' . $row['barangay_id'] . '"><i class="bi bi-pencil-square"></i></a>';
-        echo '</td>';
-        echo '</tr>';
-    }
-    ?>
+while ($row = mysqli_fetch_array($result)) {
+    echo '<tr>';
+    echo '<td>' . $row['brgyCode'] . '</a></td>';
+    echo '<td>' . $row['brgyDesc'] . '</td>';
+    echo '<td>' . $row['regCode'] . '</td>';
+    echo '<td>' . $row['provCode'] . '</td>';
+    echo '<td>' . $row['citymunCode'] . '</td>';
+    echo '<td>';
+    echo '<a href="view_user.php?id=' . $row['barangay_id'] . '"><i class="ri-eye-line"></i></a>';
+    echo '<a href="edit_user.php?id=' . $row['barangay_id'] . '"><i class="bi bi-pencil-square"></i></a>';
+    echo '</td>';
+    echo '</tr>';
+}
+?>
 </tbody>
         </table>
     </div>

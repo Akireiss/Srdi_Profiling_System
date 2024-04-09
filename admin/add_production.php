@@ -77,16 +77,14 @@ if (!isset($_SESSION['user_id'])) {
             <div class="card-body">
               
               <h5 class="card-title"></h5>
+                <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
+                  <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
-                            <!-- Custom Styled Validation with Tooltips -->
-                            <form class="row g-3 needs-validation" novalidate action="" enctype="multipart/form-data" method="POST">
-                            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                            
-                            <div class="col-md-12 position-relative">
-                                <label class="form-label">Producer Name<font color="red">*</font></label>
-                                <select name="producer_id" class="form-select" id="producerDropdown">
-                                    <option selected>Select Producer Name</option>
-                                    <?php
+                    <div class="col-md-12 position-relative">
+                      <label class="form-label">Producer Name<font color="red">*</font></label>
+                          <select name="producer_id" class="form-select" id="producerDropdown" required>
+                             <option selected>Select Producer Name</option>
+                                <?php
                                     $resultType = $db->getProducersActive();
                                     while ($row = mysqli_fetch_array($resultType)) {
                                         $cocoon_id = $row['cocoon_id'];
@@ -94,73 +92,60 @@ if (!isset($_SESSION['user_id'])) {
                                         $selected = ($cocoon_id == $cocoon) ? 'selected' : '';
                                         echo '<option value="' . $cocoon_id . '" ' . $selected . '>' . $name . '</option>';
                                     }
-                                    ?>
-                                </select>
-                            </div>
+                                 ?>
+                          </select>
+                          <div class="invalid-tooltip">
+                              The Producer Name field is required.
+                          </div>
+                      </div>
 
-                            <div class="col-md-12 position-relative">
-                                <label class="form-label">Project Site Location<font color="red">*</font></label>
+                      <div class="col-md-12 position-relative">
+                         <label class="form-label">Project Site Location<font color="red">*</font></label>
+                            <select name="location_id" class="form-select" id="siteDropdown" required>
+                                <option selected>Select Project Site Location</option>
+                            </select>
+                        <div class="invalid-tooltip">
+                            The Project Site Location field is required.
+                         </div>
+                     </div>
 
-                                <select name="location_id" class="form-select" id="siteDropdown" required>
-                                    <option selected>Select Project Site Location</option>
-                                </select>
+                    <div class="col-md-3 position-relative">
+                        <label class="form-label">Production Date<font color="red">*</font></label>
+                           <input type="date" class="form-control" id="validationTooltip03" name="production_date" required>
+                          <div class="invalid-tooltip">
+                              The Production Date field is required.
+                           </div>
+                    </div>
 
-                                <div class="invalid-tooltip">
-                                    The Project Site Location field is required.
-                                </div>
-                            </div>
+                     <div class="col-md-3 position-relative">
+                         <label class="form-label">Total Production (in kg)<font color="red">*</font></label>
+                            <input type="number" class="form-control" id="validationTooltip03" name="total_production" required>
+                       <div class="invalid-tooltip">
+                          The Total Production  field is required.
+                       </div>
+                     </div>
 
+                     <div class="col-md-3 position-relative">
+                        <label class="form-label">Gross Income<font color="red">*</font></label>
+                          <input type="number" class="form-control" id="validationTooltip03" name="p_income" required>
+                       <div class="invalid-tooltip">
+                          The Gross Income field is required.
+                       </div>
+                    </div>
 
+                    <div class="col-md-3 position-relative">
+                       <label class="form-label">Production Cost<font color="red">*</font></label>
+                           <input type="number" class="form-control" id="validationTooltip03" name="p_cost" >
+                        <div class="invalid-tooltip">
+                           The Production Cost field is required.
+                         </div>
+                     </div>
 
-
-
-                <!-- Species -->
-                <div class="col-md-3 position-relative">
-
-                                    <label class="form-label">Production Date<font color="red">*</font></label>
-                                    <input type="date" class="form-control" id="validationTooltip03" name="production_date" required>
-                                    <div class="invalid-tooltip">
-                                        The Production Date field is required.
-                                    </div>
-                                </div>
-
-                                
-
-                                <div class="col-md-3 position-relative">
-                                    <label class="form-label">Total Production (in kg)<font color="red">*</font></label>
-                                    <input type="number" class="form-control" id="validationTooltip03" name="total_production" >
-
-                                <div class="invalid-tooltip">
-                                    The Total Production  field is required.
-                                </div>
-                                </div>
-
-                                <div class="col-md-3 position-relative">
-                                    <label class="form-label">Gross Income<font color="red">*</font></label>
-                                    <input type="number" class="form-control" id="validationTooltip03" name="p_income" >
-                                    <div class="invalid-tooltip">
-                                    The Production Income field is required.
-                                </div>
-                   
-                                </div>
-
-                                <div class="col-md-3 position-relative">
-                                    <label class="form-label">Production Cost<font color="red">*</font></label>
-                                    <input type="number" class="form-control" id="validationTooltip03" name="p_cost" >
-                                    <div class="invalid-tooltip">
-                                        The Production Cost field is required.
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-12 d-flex align-items-end justify-content-end gap-2">
-                                    <button type="submit" class="btn btn-warning" name="submit">Save</button>
-                                    <button type="reset" class="btn btn-primary">Clear</button>
-                                    <a href ="productions.php" class="btn btn-danger">Cancel</a>
-
-                                
-                            </form><!-- End Custom Styled Validation with Tooltips -->
+                    <div class="col-12 d-flex align-items-end justify-content-end gap-2">
+                       <button type="submit" class="btn btn-warning" name="submit">Save</button>
+                        <button type="reset" class="btn btn-primary">Clear</button>
+                         <a href ="productions.php" class="btn btn-danger">Cancel</a>
+                     </form><!-- End Custom Styled Validation with Tooltips -->
 
                         </div>
                     </div>

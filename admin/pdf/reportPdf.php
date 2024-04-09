@@ -97,59 +97,13 @@ $db = new db();
             }
             
         </style>
-    </head>
 
-    <body>
-    <!doctype html>
-<html lang="en">
-<head>
-<div class="main">
 
-        <br>
-
-        <!-- Main function, loop through the data -->
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <!-- ... Your existing table headers ... -->
-                </tr>
-
-                <?php
-                // Initialize page number
-                $pageNumber = 1;
-
-foreach ($reportData as $row) {
-    // ... Your existing code to generate rows ...
-
-    // Check if a page break is needed
-    if ($pageNumber % 20 == 0) {
-        echo '</table><div class="page-break"></div><table width="100%"><tbody><tr><!-- ... Your existing table headers ... --></tr>';
-    }
-
-    // Increment page number for the next iteration
-    $pageNumber++;
-}
-?>
-            </tbody>
-        </table>
-
-        <!-- Footer -->
-        <div class="footer">
-            Page <?php echo $pageNumber; ?>
-        </div>
-    </div>
 
 </head>
 
 <body>
-    <!-- Your existing content -->
 
-    <!-- Footer -->
-    <div class="footer">
-        Page <?php echo $pageNumber; ?>
-    </div>
-</body>
-</html>
 
 
     <table width="100%">
@@ -264,7 +218,8 @@ switch ($reportType) {
                     echo '<td class="center padding">' . htmlspecialchars($row['site_id'] ?? "No Data") . '</td>';
                     echo '<td class="center padding">' . htmlspecialchars($row['location'] ?? "No Data") . '</td>';
                     echo '<td class="center padding">' . htmlspecialchars($row['name'] ?? "No Data") . '</td>';
-                    echo '<td class="center padding">' . htmlspecialchars($row['date_validation'] ?? "No Data") . '</td>';
+                    echo '<td class="center padding">' . (!empty($row['date_validation']) ? date('F j, Y', strtotime($row['date_validation'])) : "No Data") . '</td>';
+
                     echo '<td class="center padding">' . htmlspecialchars($row['charge'] ?? "No Data") . '</td>';
                     
                     break;
@@ -275,7 +230,8 @@ switch ($reportType) {
             case 'REP03':
                 echo '<td class="center padding">' . htmlspecialchars($row['name'] ?? "No Data") . '</td>';
                 echo '<td class="center padding">' . htmlspecialchars($row['location'] ?? "No Data") . '</td>';
-                echo '<td class="center padding">' . htmlspecialchars($row['production_date'] ?? "No Data") . '</td>';
+                echo '<td class="center padding">' . (!empty($row['production_date']) ? date('F j, Y', strtotime($row['production_date'])) : "No Data") . '</td>';
+
                 echo '<td class="center padding">' . htmlspecialchars($row['total_production'] ?? "No Data") . '</td>';
                 break;
 

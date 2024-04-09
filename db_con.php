@@ -449,18 +449,21 @@ class db
 
 
     public function getSiteID($site_id)
-    {
-        $sql = "SELECT * FROM site
-                LEFT JOIN cocoon
-                ON cocoon.cocoon_id = site.producer_id
-                LEFT JOIN topography
-                ON topography.topography_id = site.topography
-                LEFT JOIN production
-                ON production.production_id = production.producer_id
-				WHERE site_id='$site_id'";
-        $result = mysqli_query($this->con, $sql);
-        return $result;
-    }
+{
+    $sql = "SELECT * FROM site
+            LEFT JOIN cocoon
+            ON cocoon.cocoon_id = site.producer_id
+            LEFT JOIN topography
+            ON topography.topography_id = site.topography
+            -- PRODUCTION
+            LEFT JOIN production
+            ON production.producer_id = cocoon.cocoon_id
+    
+            WHERE site_id='$site_id'";
+    $result = mysqli_query($this->con, $sql);
+    return $result;
+}
+
 
     // public function getAllProduction()
     // {
@@ -487,9 +490,6 @@ class db
         $result = mysqli_query($this->con, $sql);
         return $result;
     }
-
-
-
 
     public function getProduction($siteID)
     {
@@ -2173,9 +2173,29 @@ class db
         return $selectedFarmTools;
     }
 
+    public function getSelectedLandType($cocoonID)
+    {
+        $query = "SELECT land_id FROM site_land WHERE cocoon_id = '$cocoonID'";
+        $result = mysqli_query($this->con, $query);
 
+        $selectedLandType = array();
 
+        while ($row = mysqli_fetch_assoc($result)) {
+            $selectedLandType[] = $row['land_id'];
+        }
 
+        return $selectedLandType;
+    
+    }
+    public function getPdfLandType()
+    {
+        $sql = "SELECT * FROM
+        land";
+        $result = mysqli_query($this->con, $sql);
+        return $result;
+
+    }
+   
     public function updateCocoonProducer(
         $user_id,
         $name,
@@ -2760,4 +2780,63 @@ class db
             return $result;
         }
   
+
+        public function getSelectedSiteSoil($siteId) 
+        {
+         $sql = "SELECT * FROM site_soil
+         WHERE cocoon_id = $siteId";
+        $result = mysqli_query($this->con, $sql);
+        return $result;
+        }
+
+
+        public function getSoils()
+        {
+            $sql = "SELECT * FROM
+            soil";
+            $result = mysqli_query($this->con, $sql);
+            return $result;
+    
+        }
+
+
+
+        public function getSelectedLandPdf($siteId) 
+        {
+         $sql = "SELECT * FROM site_land
+         WHERE cocoon_id = $siteId";
+        $result = mysqli_query($this->con, $sql);
+        return $result;
+        }
+
+
+        public function getLands()
+        {
+            $sql = "SELECT * FROM
+            land";
+            $result = mysqli_query($this->con, $sql);
+            return $result;
+    
+        }
+
+
+        // Tenamcy
+
+        public function getSelectedTenancy($siteId) 
+        {
+         $sql = "SELECT * FROM site_tenancy
+         WHERE cocoon_id = $siteId";
+        $result = mysqli_query($this->con, $sql);
+        return $result;
+        }
+
+
+        public function getTenancyPdf()
+        {
+            $sql = "SELECT * FROM
+            tenancy";
+            $result = mysqli_query($this->con, $sql);
+            return $result;
+    
+        }
 }   
