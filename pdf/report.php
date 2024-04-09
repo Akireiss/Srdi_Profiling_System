@@ -10,10 +10,10 @@ $options->set('isHtml5ParserEnabled', true);
 $options->set('isPhpEnabled', true);
 $dompdf = new Dompdf($options);
 if (isset($_GET['submit'])) {
-    $reportType = $_GET['report_type'];
-    $region = $_GET['region'];
-    $province = $_GET['province'];
-    $municipality = $_GET['municipality'];
+    $reportType = $_GET['report_type'] ;
+    $region = $_GET['region'] ?? [];
+    $province = $_GET['province'] ?? [];
+    $municipality = $_GET['municipality'] ?? [];
     // $year = $_GET['year'];
     $date_from = $_GET['date_from'];
     $date_to = $_GET['date_to'];
@@ -92,39 +92,37 @@ if (isset($_GET['submit'])) {
 
 
 
-        case 'REP02':
-
-            $whereConditions = [];
-
-            if (!empty($region)) {
-                $whereConditions[] = "site.region = '$region'";
-            }
-
-            if (!empty($province)) {
-                $whereConditions[] = "site.province = '$province'";
-            }
-
-            if (!empty($city)) {
-                $whereConditions[] = "site.municipality = '$city'";
-            }
-
-            $query = "SELECT * FROM site
-            LEFT JOIN cocoon ON cocoon.cocoon_id = site.producer_id
-            ";
-
-            if (!empty($whereConditions)) {
-                $query .= " WHERE " . implode(" AND ", $whereConditions);
-            }
-
-            $result = $conn->query($query);
-
-            while ($row = $result->fetch_assoc()) {
-                $reportData[] = $row;
-            }
-            break;
-
-
-
+            case 'REP02':
+                $whereConditions = [];
+            
+                if (!empty($region)) {
+                    $whereConditions[] = "site.region = '$region'";
+                }
+            
+                if (!empty($province)) {
+                    $whereConditions[] = "site.province = '$province'";
+                }
+            
+                // Only add condition for city if it's not empty
+                if (!empty($city)) {
+                    $whereConditions[] = "site.municipality = '$city'";
+                }
+            
+                $query = "SELECT * FROM site
+                          LEFT JOIN cocoon ON cocoon.cocoon_id = site.producer_id";
+            
+                // Only add WHERE clause if there are conditions
+                if (!empty($whereConditions)) {
+                    $query .= " WHERE " . implode(" AND ", $whereConditions);
+                }
+            
+                $result = $conn->query($query);
+            
+                while ($row = $result->fetch_assoc()) {
+                    $reportData[] = $row;
+                }
+                break;
+            
 
 
         case 'REP03':

@@ -3,7 +3,7 @@ session_start();
 include '../db_con.php';
 $db = new db();
 
-error_reporting(E_ALL);
+error_reporting(0);
 ini_set('display_errors', 1);
 
 if (!isset($_SESSION['user_id'])) {
@@ -21,6 +21,7 @@ if ($_SESSION['type_id'] == 3) {
 }
 
 if (isset($_POST['submit'])) {
+    $user_id  = $_POST['user_id'];
     $name = $_POST['name'];
     $cocoon_id = $_POST['cocoon_id'];
     $date_validation = $_POST['date_validation'];
@@ -52,6 +53,7 @@ if (isset($_POST['submit'])) {
 
 
     $result = $db->updateCocoonProducer(
+        $user_id,
         $name,
         $status,
         $birthdate,
@@ -187,7 +189,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-lg-12">
                     <div class="card md:w-full">
                         <form action="" method="post" enctype="multipart/form-data">
-
+                        <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                             <div class="card-body w-100">
 
                                 <h5 class="card-title">A. Personal Information

@@ -1,7 +1,7 @@
  <?php
     // error_reporting(0);
     // ini_set('display_errors', 1);
-    error_reporting(E_ALL);
+    error_reporting(0);
 ini_set('display_errors', 1);
 class db
 {
@@ -453,6 +453,10 @@ class db
         $sql = "SELECT * FROM site
                 LEFT JOIN cocoon
                 ON cocoon.cocoon_id = site.producer_id
+                LEFT JOIN topography
+                ON topography.topography_id = site.topography
+                LEFT JOIN production
+                ON production.production_id = production.producer_id
 				WHERE site_id='$site_id'";
         $result = mysqli_query($this->con, $sql);
         return $result;
@@ -946,14 +950,14 @@ class db
 
         return $result = 1;
     }
-    public function updateProducer($cocoon_id, $name)
-    {
-        $sql = "UPDATE cocoon 
-                SET name                 ='$name',						
-                WHERE cocoon_id          ='$cocoon_id'";
-        $resultsql = mysqli_query($this->con, $sql);
-        return $resultsql = 1;
-    }
+    // public function updateProducer($cocoon_id, $name)
+    // {
+    //     $sql = "UPDATE cocoon 
+    //             SET name                 ='$name',						
+    //             WHERE cocoon_id          ='$cocoon_id'";
+    //     $resultsql = mysqli_query($this->con, $sql);
+    //     return $resultsql = 1;
+    // }
     public function updateProduction(
         $user_id,
         $production_id,
@@ -1675,18 +1679,46 @@ class db
                         die("Error inserting data into cocoon_source: " . mysqli_error($this->con));
                     }
                 }
-
-
-                // Return a success message or handle as needed
+                if ($resultsql) {
+                    // Log the action in the audit_logs table
+                    $userID = $user_id;
+                    $action = "Add Producer: ";
+                    $data = json_encode([
+                        'name' => $name,
+                        'age' => $age,
+                        'birthdate' => $birthdate,
+                        'type' => $type,
+                        'sex' => $sex,
+                        'region' => $region,
+                        'province' => $province,
+                        'municipality' => $municipality,
+                        'barangay' => $barangay,
+                        'address' => $address,
+                        'education' => $education,
+                        'religion' => $religion,
+                        'civil_status' => $civil_status,
+                        'name_spouse' => $name_spouse,
+                        'farm_participate' => $farm_participate,
+                        'cannot_participate' => $cannot_participate,
+                        'male' => $male,
+                        'female' => $female,
+                        'years_in_farming' => $years_in_farming,
+                        'available_workers' => $available_workers
+                    ]);
+    
+                    $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+                    $auditResult = mysqli_query($this->con, $auditSql);
                 return 1;
             } else {
                 // Handle the error as needed
                 die("Error inserting data into cocoon: " . mysqli_error($this->con));
             }
         }
+        }
     }
 
     public function addSite(
+        $user_id,
         $location,
         $producer_id,
         $topography,
@@ -1776,16 +1808,50 @@ class db
                     die("Error inserting data into site_land: " . mysqli_error($this->con));
                 }
             }
+            if ($resultsql) {
+                // Log the action in the audit_logs table
+                $userID = $user_id;
+                $action = "Add Site Location: ";
+                $data = json_encode([
+                    'location' => $location,
+                    'producer_id' => $producer_id,
+                    'topography' => $topography,
+                    'address' => $address,
+                    '$area' => $$area,
+                    'crops' => $crops,
+                    'share' => $share,
+                    'irrigation' => $irrigation,
+                    'water' => $water,
+                    'market' => $market,
+                    'distance' => $distance,
+                    'land_area' => $land_area,
+                    'charge' => $charge,
+                    'adopters' => $adopters,
+                    'remarks' => $remarks,
+                    'names' => $names,
+                    'position' => $position,
+                    'date' => $date,
+                    'name1' => $name1,
+                    'position1' => $position1,
+                    'date1' => $date1,
+                    'name2' => $name2,
+                    'position2' => $position2,
+                    'date2' => $date2,
+                    'land' => $land,
+                    'tenancy' => $tenancy,
+                    'agency' => $agency,
+                    'soils' => $soils,
+                    'source' => $source,
+                ]);
 
-
-
+                $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+                $auditResult = mysqli_query($this->con, $auditSql);
             return 1;
         }
 
         return $resultsql = 1;
     }
-
-
+}
 
 
     public function addProduction($user_id, $producer_id, $production_date, $total_production, $p_income, $p_cost, $n_income, $location_id)
@@ -2111,6 +2177,7 @@ class db
 
 
     public function updateCocoonProducer(
+        $user_id,
         $name,
         $status,
         $birthdate,
@@ -2258,10 +2325,39 @@ class db
                     WHERE cocoon_id = '$cocoon_id'";
 
         $result = mysqli_query($this->con, $sql);
+        if ($result) {
+            // Log the action in the audit_logs table
+            $userID = $user_id;
+            $action = "Update Producer: ";
+            $data = json_encode([
+                'name' => $name,
+                'age' => $age,
+                'birthdate' => $birthdate,
+                'type' => $type,
+                'sex' => $sex,
+                'region' => $region,
+                'province' => $province,
+                'municipality' => $municipality,
+                'barangay' => $barangay,
+                'address' => $address,
+                'education' => $education,
+                'religion' => $religion,
+                'civil_status' => $civil_status,
+                'name_spouse' => $name_spouse,
+                'farm_participate' => $farm_participate,
+                'cannot_participate' => $cannot_participate,
+                'male' => $male,
+                'female' => $female,
+                'years_in_farming' => $years_in_farming,
+                'available_workers' => $available_workers
+            ]);
 
+            $auditSql = "INSERT INTO audit_logs (user_id, action, data) VALUES ('$userID','$action', '$data')";
+            $auditResult = mysqli_query($this->con, $auditSql);
 
         return $result;
     }
+}
 
 
 
@@ -2603,6 +2699,65 @@ class db
             }
     
             return true;
+        }
+        public function updateSiteWaterSource($site_id, $soils)
+        {
+            $site_id = (int)$site_id;
+    
+            $deleteSql = "DELETE FROM site_water WHERE cocoon_id = $site_id";
+            $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+            if (!$deleteResult) {
+                die("Error deleting existing actions: " . mysqli_error($this->con));
+            }
+    
+            foreach ($soils as $action) {
+                // Extract the source_id from the array and cast it to integer
+                $action_id = (int)$action['water_id'];
+                // Insert the action_id into the database
+                $insertSql = "INSERT INTO site_water (cocoon_id, water_id) VALUES ($site_id, $action_id)";
+                $insertResult = mysqli_query($this->con, $insertSql);
+    
+                if (!$insertResult) {
+                    die("Error inserting action: " . mysqli_error($this->con));
+                }
+            }
+    
+            return true;
+        }
+        public function updateSiteAgency($site_id, $agencys)
+        {
+            $site_id = (int)$site_id;
+    
+            $deleteSql = "DELETE FROM site_agency WHERE cocoon_id = $site_id";
+            $deleteResult = mysqli_query($this->con, $deleteSql);
+    
+            if (!$deleteResult) {
+                die("Error deleting existing actions: " . mysqli_error($this->con));
+            }
+    
+            foreach ($agencys as $action) {
+                // Extract the source_id from the array and cast it to integer
+                $action_id = (int)$action['agency_id'];
+                // Insert the action_id into the database
+                $insertSql = "INSERT INTO site_agency (cocoon_id, agency_id) VALUES ($site_id, $action_id)";
+                $insertResult = mysqli_query($this->con, $insertSql);
+    
+                if (!$insertResult) {
+                    die("Error inserting action: " . mysqli_error($this->con));
+                }
+            }
+    
+            return true;
+        }
+        
+
+        public function getSiteAgency($site_id)
+        {
+            $sql = "SELECT * FROM site_agency
+            WHERE cocoon_id = '$site_id'";
+            $result = mysqli_query($this->con, $sql);
+            return $result;
         }
   
 }   

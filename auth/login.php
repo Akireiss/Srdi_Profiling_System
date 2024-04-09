@@ -2,6 +2,10 @@
 session_start();
 include "../db_con.php";
 $db = new db;
+if (isset($_SESSION['user_id'])) {
+  header("Location: ../admin/dashboard.php");
+  exit();
+}
 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];

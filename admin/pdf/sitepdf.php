@@ -27,7 +27,7 @@
             //Site Table
                 $location             = $row->location; 
                 $topography           = $row->topography;
-                $topographyName             = $row->topography_name;
+                $topographyName       = $row->topography_name;
                 $address              = $row->address; 
                 $distance             = $row->distance; 
                 $land_area            = $row->land_area;
@@ -50,7 +50,8 @@
                 $p_income    = $row->p_income;
                 $p_cost     = $row->p_cost;
                 $n_income     = $row->n_income;
-            
+                $irrigation  = $row->irrigation;
+                $market  = $row->market;
 
     
             }
@@ -221,29 +222,13 @@
         <tr>
                     <td></td>
                     <td class="bold" width="80%">Land Types:</td>
+                    
                     <td class="bold" width="50%">Tenancy Status:</td>
                    
                 </tr>
                 </tr>
                 <tr>
-        <!-- <tr>
-                    <td></td>
-
-                    <td  width="14%">
-                        <div class="checkbox"></div>
-                    <label for="Uplands">Uplands</label>
-                </td>
-
-                    <td width="20%"><div class="checkbox"></div>
-                    <label for="Uplands">Owned</label></td>
-
-                    <td  width="20%"><span class="underline"></span></td>
-
-                    <td width="20%"></td>
-
-                    <td  width="20%"></td>
-                </tr> -->
-
+     
 
                 </tr>
             </tbody>
@@ -306,15 +291,16 @@
         <table width="100%">
 
 
-<tbody>
+
+        <tbody>
     <tr>
-      <td>Availability of reliable irrigation:</td>
-      <td>
-            <div class="checkbox"></div>
+        <td>Availability of reliable irrigation:</td>
+        <td>
+            <div class="<?php echo ($irrigation == 'Available') ? 'check' : 'checkbox'; ?>"></div>
             <label class="label">Available</label>
         </td>
         <td>
-            <div class="checkbox"></div>
+            <div class="<?php echo ($irrigation == 'Not Available') ? 'check' : 'checkbox'; ?>"></div>
             <label class="label">Not Available</label>
         </td>
     </tr>
@@ -370,21 +356,22 @@
             </tbody>
         </table>
 
-        <table width="100%">
-            <tbody>
-                <tr>
-                  <td >Accessibility to farm to market road:</td>
-                  <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Accessible</label>
-                    </td>
-                    <td>
-                        <div class="checkbox"></div>
-                        <label class="label">Not Accessible</label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<table width="100%">
+    <tbody>
+        <tr>
+            <td>Accessibility to farm to market road:</td>
+            <td>
+                <div class="<?php echo ($market == 'Accessible') ? 'check' : 'checkbox'; ?>"></div>
+                <label class="label">Accessible</label>
+            </td>
+            <td>
+                <div class="<?php echo ($market == 'Not Accessible') ? 'check' : 'checkbox'; ?>"></div>
+                <label class="label">Not Accessible</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 
        
 <br>

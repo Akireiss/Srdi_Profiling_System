@@ -20,6 +20,9 @@ $dompdf->loadHtml($html);
 
 $dompdf->setPaper('A4', 'portrait');
 
+
+
+
 $dompdf->render();
 
 $dompdf->stream('document.pdf', ['Attachment' => false]);

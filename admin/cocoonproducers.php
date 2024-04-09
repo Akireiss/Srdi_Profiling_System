@@ -100,7 +100,7 @@ if (isset($message)) {
   <div class="col-lg-12">
     <div class="card md:w-full">
     <form action="#" method="post" enctype="multipart/form-data">
-
+    <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
       <div class="card-body w-100">
   
         <h5 class="card-title">A. Personal Information</h5>

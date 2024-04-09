@@ -8,9 +8,7 @@ if(!isset($_SESSION['user_id'])) {
   header("Location: ../auth/login.php");
 } else {
   if (isset($_POST['submit'])) {
-    
-
-
+    $user_id = $_SESSION['user_id'];
     $location = $_POST['location'];
     $producer_id   = $_POST['producer_id'];
     $topography  = $_POST['topography'];
@@ -44,7 +42,7 @@ if(!isset($_SESSION['user_id'])) {
     $soils = $_POST ['soils']  ? $_POST['soils'] : [];
     $source = $_POST ['source']  ? $_POST['source'] : [];
     
-    $result = $db->addSite($location, $producer_id, $topography, $address, $area, $crops, $share, $irrigation, 
+    $result = $db->addSite($user_id, $location, $producer_id, $topography, $address, $area, $crops, $share, $irrigation, 
     $water, $market, $distance, $land_area, $charge, $adopters, $remarks,
     $names, $position, $date,  $name1, $position1, $date1, $name2, $position2, $date2,
     $land, $tenancy, $agency, $soils, $source);
@@ -90,7 +88,7 @@ if (isset($message)) {
 
              <!-- Custom Styled Validation with Tooltips -->
              <form class="row g-3 needs-validation" enctype="multipart/form-data" method="POST">
-
+             <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                 <div class="col-md-12 position-relative">
                   <label class="form-label">Project Site Location<font color = "red">*</font></label>
                   <input type="text" class="form-control" id="validationTooltip01" name = "location"  autofocus="autofocus" required>

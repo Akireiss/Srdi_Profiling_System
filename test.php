@@ -457,3 +457,14 @@ while ($row = mysqli_fetch_array($result)) {
     </tbody>
 </table>
 
+
+<!-- test report -->
+//  $result = $db->getSiteAgency($row['site_id']);
+                                
+                                // Iterating over the results fetched from the site_agency query
+                                // while ($siteAgencyRow = mysqli_fetch_array($result)) {
+                                //     echo '<td>' . htmlspecialchars($siteAgencyRow['agency_id']) . '</td>';
+                                //     echo '<td>' . htmlspecialchars($siteAgencyRow['cocoossn_id']) . '</td>';
+                                // }
+                            
+

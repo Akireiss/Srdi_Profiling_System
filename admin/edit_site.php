@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
         $soils = $_POST['soils'];
 
         // Update source of income
-        $success = $db->updateSiteLandType($site_id, $soil);
+        $success = $db->updateSiteLandType($site_id, $soils);
 
         if ($success) {
         } else {
@@ -65,6 +65,22 @@ if (isset($_POST['submit'])) {
     } else {
     }
 }
+//fundingagency
+if (isset($_POST['submit'])) {
+    if (isset($_POST['site_id']) && isset($_POST['agencys'])) {
+        $site_id = $_POST['site_id'];
+        $agencys = $_POST['agencys'];
+
+        // Update source of income
+        $success = $db->updateSiteAgency($site_id, $agencys);
+
+        if ($success) {
+        } else {
+        }
+    } else {
+    }
+}
+
 
 
     if (isset($_POST['submit'])) {
@@ -294,29 +310,7 @@ if (isset($_POST['submit'])) {
                                                 Looks good!
                                             </div>
                                         </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-md-6 mt-6" style="margin-left: -25px;">
-                                                <div class="form-check form-check-inline">
-                                                    <label for="nameInput" name="distance" class="mr-2">Distance from the main road<font color="red">*</font></label>
-                                                    <div class="d-inline-flex">
-                                                        <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="distance" value="<?php echo $distance; ?>">
-                                                        <span class="form-text-inline mt-2" style="margin-left: 2px;">meters</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 mt-6" style="margin-left: -25px;">
-                                                <div class="form-check form-check-inline">
-                                                    <label for="nameInput" name="land_area" class="mr-2">Available land area for planting mulberry<font color="red">*</font></label>
-                                                    <div class="d-inline-flex align-items-center">
-                                                        <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="land_area" value="<?php echo $land_area; ?>">
-                                                        <span class="form-text-inline mt-2 my-3" style="vertical-align: middle;">hectares</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                        
                                         <div class="col-md-2 ">
                                             <div class="col-md-12">
                                                 <label for="validationCustom04" name="land" class="form-label fw-bold">Land Types<font color="red">*</font></label>
@@ -358,9 +352,6 @@ if (isset($_POST['submit'])) {
                                             }
                                             ?>
                                         </div>
-
-
-
                                         <?php
                                         $options = [
                                             'Available' => 'Available',
@@ -368,7 +359,7 @@ if (isset($_POST['submit'])) {
 
                                         ];
                                         ?>
-                                        <div class="col-md-2 mt-3">
+                                        <div class="col-md-3 mt-3">
                                             <label for="validationCustom04" class="form-label fw-bold">
                                                 Availability of reliable irrigation:<font color="red">*</font>
                                             </label>
@@ -390,59 +381,40 @@ if (isset($_POST['submit'])) {
                                         ];
                                         ?>
 
-                                        <div class="col-md-2 mt-3">
+                                        <div class="col-md-3 mt-3">
                                             <label for="validationCustom04" class="form-label fw-bold">Water source:<font color="red">*</font></label>
                                             <?php foreach ($optionsWater as $valueWater => $labelWater) : ?>
                                                 <div class="form-check">
-                                                    <input type="radio" id="water_source_<?= $valueWater ?>" name="water_source" value="<?= $valueWater ?>" <?php echo ($water === $valueWater) ? 'checked' : ''; ?> />
+                                                    <input type="radio" id="water_source_<?= $valueWater ?>" name="water" value="<?= $valueWater ?>" <?php echo ($water === $valueWater) ? 'checked' : ''; ?> />
                                                     <label class="inline-block" for="water_source_<?= $valueWater ?>"><?= $labelWater ?></label>
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
 
 
-
-
-
-
-
-
-                                        <div class="col-md-4 mt-3">
+                                        <div class="col-md-3 mt-3">
                                             <label for="validationCustom04" class="form-label fw-bold">If irrigated, source of irrigation:<font color="red">*</font></label>
 
                                             <?php
                                             $resultType = $db->getIrrigationActive();
                                             $getSelectedIrrigation = $db->getSelectedIrrigation($siteID);
-
-
                                             while ($row = mysqli_fetch_array($resultType)) {
                                                 $checked = in_array($row['irrigation_id'], $getSelectedIrrigation) ? 'checked' : '';
-
                                                 echo '<div class="form-check">';
                                                 echo '<input name="source"
-                   class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_id'] . '" ' . $checked . '
-                   name="irrigation[' . $row['irrigation_id'] . '][irrigation_id]">';
+                                                class="form-check-input source-checkbox" type="checkbox" disabled id="source_' . $row['irrigation_id'] . '" value="' . $row['irrigation_id'] . '" ' . $checked . '
+                                                name="irrigation[' . $row['irrigation_id'] . '][irrigation_id]">';
                                                 echo '<label class="form-check-label" for="source_' . $row['irrigation_id'] . '">' . $row['irrigation_name'] . '</label>';
                                                 echo '</div>';
                                             }
                                             ?>
-
-
-
                                         </div>
 
-
-
-
-                                        <div class="row">
-
-
-                                            <div class="col-md-4 mt-3">
+                                            <div class="col-md-2 mt-3">
                                                 <div class="col-md-6" <label for="validationCustom04" name="soil" class="form-label fw-bold">
                                                     <b>Soil Type:</b>
                                                     <font color="red">*</font>
                                                     </label>
-
                                                     <?php
                                                     $resultType = $db->getSoilActive();
                                                     $getSelectedSoilTypes = $db->getSelectedSoilTypes($siteID);
@@ -456,19 +428,11 @@ if (isset($_POST['submit'])) {
                                                         echo '</div>';
                                                     }
                                                     ?>
-
-
-
-
                                                 </div>
                                             </div>
 
-
-
-
                                             <div class="col-md-4 mt-3">
                                                 <label for="validationCustom04" name="market" class="form-label fw-bold">Accessibility to farm to market road:<font color="red">*</font></label>
-
                                                 <?php
                                                 $options = [
                                                     'Accessible' => 'Accessible',
@@ -495,24 +459,37 @@ if (isset($_POST['submit'])) {
                                                 <?php
                                                 $resultType = $db->getAgencyActive();
                                                 $getSelectedAgency = $db->getSelectedAgency($siteID);
-
-
                                                 while ($row = mysqli_fetch_array($resultType)) {
                                                     $checked = in_array($row['agency_id'], $getSelectedAgency) ? 'checked' : '';
-
-
                                                     echo '<div class="form-check col-md-12"">'; // Adjust the width here (e.g., col-md-6)
                                                     echo '<input name="agencys[' . $row['agency_id'] . '][agency_id]" class="form-check-input" type="checkbox" id="' . $row['agency_id'] . '"  value="' . $row['agency_id'] . '" ' . $checked . '>';
                                                     echo '<label class="form-check-label" for="' . $row['agency_id'] . '">' . $row['agency_name'] . '</label>';
                                                     echo '</div>';
                                                 }
                                                 ?>
-
-
-
                                             </div>
 
+                                            <div class="row mt-4">
+                                            <div class="col-md-6 mt-6" style="margin-left: -25px;">
+                                                <div class="form-check form-check-inline">
+                                                    <label for="nameInput" name="distance" class="mr-2">Distance from the main road<font color="red">*</font></label>
+                                                    <div class="d-inline-flex">
+                                                        <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="distance" value="<?php echo $distance; ?>">
+                                                        <span class="form-text-inline mt-2" style="margin-left: 2px;">meters</span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="col-md-4 mt-6" style="margin-left: -25px;">
+                                                <div class="form-check form-check-inline">
+                                                    <label for="nameInput" name="land_area" class="mr-1">Available land area for planting mulberry<font color="red">*</font></label>
+                                                    <div class="d-inline-flex align-items-center">
+                                                        <input type="number" class="form-control mr-2 w-75 mx-1 my-1" id="nameInput" name="land_area" value="<?php echo $land_area; ?>">
+                                                        <span class="form-text-inline mt-2 my-0" style="vertical-align: middle;">hectares</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                             <div class="row mt-4">
                                                 <div class="col-md-6 position-relative">

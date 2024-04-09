@@ -25,14 +25,9 @@ if (!isset($_SESSION['user_id'])) {
         $p_cost = $_POST['p_cost'];
         $location_id = $_POST['location_id'];
         
-     
-
         $total = $p_income - $p_cost;
         $n_income = $total;
-
         $n_income = $p_income - $p_cost;
-
-
 
         $result = $db->addProduction($producer_id, $production_date, 
         $total_production, $p_income, 
